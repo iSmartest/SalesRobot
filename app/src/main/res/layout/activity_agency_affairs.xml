@@ -25,21 +25,33 @@
         android:drawableRight="@drawable/checkbox_bg"
         android:textSize="18sp"/>
 
-    <TextView
-        android:padding="30px"
-        android:id="@+id/company_TV"
-        android:visibility="gone"
+    <LinearLayout
+        android:id="@+id/ll_company_wait_dealt"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="14sp"
-        android:layout_marginLeft="15dp"
-        android:layout_marginRight="15dp"
-        android:layout_marginTop="6dp"
-        android:layout_marginBottom="6dp"
-        android:background="@drawable/shape_edit_text"
-        android:minLines="5"
-        android:textColor="@color/vipTextColor"
-        android:text="这是公司待办"/>
+        android:orientation="vertical"
+        android:visibility="gone"
+        android:background="@color/background"
+        android:paddingRight="15dp"
+        android:paddingLeft="15dp"
+        android:layout_marginBottom="8dp">
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/background"/>
+        <TextView
+            android:padding="30px"
+            android:id="@+id/company_TV"
+            android:visibility="visible"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="14sp"
+            android:background="@drawable/shape_seeting_text"
+            android:minLines="5"
+            android:textColor="@color/vipTextColor"
+            android:text="这是公司待办"/>
+    </LinearLayout>
+
 
     <include layout="@layout/v_horizontal_line"/>
 
@@ -58,21 +70,32 @@
         android:paddingRight="15dp"
         android:drawableRight="@drawable/checkbox_bg"
         android:textSize="18sp"/>
-    <TextView
-        android:padding="30px"
-        android:id="@+id/CustomerTV"
+    <LinearLayout
+        android:id="@+id/ll_customer_wait_dealt"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="14sp"
-        android:layout_marginLeft="15dp"
-        android:layout_marginRight="15dp"
-        android:layout_marginTop="6dp"
-        android:layout_marginBottom="6dp"
+        android:orientation="vertical"
         android:visibility="gone"
-        android:background="@drawable/shape_edit_text"
-        android:minLines="5"
-        android:textColor="@color/vipTextColor"
-        android:text="这是客户待办"/>
+        android:background="@color/background"
+        android:paddingRight="15dp"
+        android:paddingLeft="15dp"
+        android:layout_marginBottom="8dp">
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/background"/>
+        <TextView
+            android:padding="15dp"
+            android:id="@+id/CustomerTV"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="14sp"
+            android:background="@drawable/shape_seeting_text"
+            android:minLines="5"
+            android:textColor="@color/vipTextColor"
+            android:text="这是客户待办"/>
+    </LinearLayout>
+
 
     <CheckBox
         android:layout_width="match_parent"
@@ -90,21 +113,33 @@
         android:paddingRight="15dp"
         android:drawableRight="@drawable/checkbox_bg"
         android:textSize="18sp"/>
-    <TextView
-        android:padding="30px"
-        android:id="@+id/personalTV"
-        android:visibility="gone"
+
+    <LinearLayout
+        android:id="@+id/ll_personal_wait_dealt"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="14sp"
-        android:layout_marginLeft="15dp"
-        android:layout_marginRight="15dp"
-        android:layout_marginTop="6dp"
-        android:layout_marginBottom="6dp"
-        android:background="@drawable/shape_edit_text"
-        android:minLines="5"
-        android:textColor="@color/vipTextColor"
-        android:text="这是个人待办"/>
+        android:orientation="vertical"
+        android:visibility="gone"
+        android:background="@color/background"
+        android:paddingRight="15dp"
+        android:paddingLeft="15dp"
+        android:layout_marginBottom="8dp">
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/background"/>
+        <TextView
+            android:padding="30px"
+            android:id="@+id/personalTV"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="14sp"
+            android:background="@drawable/shape_seeting_text"
+            android:minLines="5"
+            android:textColor="@color/vipTextColor"
+            android:text="这是个人待办"/>
+    </LinearLayout>
+
 
 
 </LinearLayout>

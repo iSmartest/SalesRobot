@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.empowerment.salesrobot.R;
@@ -24,16 +25,16 @@ public class AgencyAffairsActivity extends BaseActivity {
     TextView title;
     @BindView(R.id.company)
     CheckBox company;
-    @BindView(R.id.company_TV)
-    TextView companyTV;
+    @BindView(R.id.ll_company_wait_dealt)
+    LinearLayout companyTV;
     @BindView(R.id.Customer)
     CheckBox Customer;
-    @BindView(R.id.CustomerTV)
-    TextView CustomerTV;
+    @BindView(R.id.ll_customer_wait_dealt)
+    LinearLayout CustomerTV;
     @BindView(R.id.personal)
     CheckBox personal;
-    @BindView(R.id.personalTV)
-    TextView personalTV;
+    @BindView(R.id.ll_personal_wait_dealt)
+    LinearLayout personalTV;
 
     //Model：定义的数据
 
@@ -78,7 +79,7 @@ public class AgencyAffairsActivity extends BaseActivity {
     }
 
     //判断当前状态 显示隐藏控件
-    private void isCheckBox(boolean b, TextView tv) {
+    private void isCheckBox(boolean b, LinearLayout tv) {
         if (b) {
             tv.setVisibility(View.VISIBLE);
         } else {

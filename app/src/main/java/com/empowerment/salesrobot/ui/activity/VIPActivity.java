@@ -98,7 +98,8 @@ public class VIPActivity extends BaseActivity {
 
     @Override
     protected void loadData() {
-        vipMap.put(SALE_ID, SPUtil.getString(context,"SALE_ID"));
+//        vipMap.put(SALE_ID, SPUtil.getString(context,"SALE_ID"));
+        vipMap.put(SALE_ID, "1");
         vipMap.put(PAGE, PAGE_SIZI + "");
         switch (title.getText().toString()) {
             case "VIP客户":
@@ -272,6 +273,5 @@ public class VIPActivity extends BaseActivity {
                 }
             }
         });
-
     }
 }
