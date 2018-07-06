@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/app_main_default"
+    tools:context=".ui.activity.VIPActivity">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:background="@drawable/bg_icon_vip"
+        android:layout_height="184dp">
+
+        <include layout="@layout/activity_base"/>
+
+        <ImageView
+            android:id="@+id/vip_icon"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true"
+            android:src="@drawable/icon_name"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="张先生"
+            android:id="@+id/vip_Name"
+            android:layout_below="@id/vip_icon"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="36dp"
+            android:gravity="bottom"
+            android:layout_alignParentBottom="true"
+            android:textSize="16sp"
+            android:textColor="@color/white"/>
+
+    </RelativeLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:scrollbars="none">
+
+        <include layout="@layout/include_vip"/>
+
+    </ScrollView>
+
+</LinearLayout>

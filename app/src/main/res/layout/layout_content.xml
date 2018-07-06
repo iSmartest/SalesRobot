@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:id="@+id/root"
+    android:gravity="center_vertical"
+    android:orientation="vertical"
+    android:background="@color/app_main_background">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="90dp"
+        android:background="@color/app_main_default"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp"
+        android:paddingTop="10dp">
+        <TextView
+            android:id="@+id/tv_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="15sp"
+            android:maxLines="3"
+            android:ellipsize="end"
+            android:lineSpacingExtra="2dp"
+            android:textColor="@color/black"
+            android:gravity="left"
+            android:text="你好" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_gravity="right"
+            android:id="@+id/tv_time"
+            android:layout_height="wrap_content"
+            android:text="2018.12.12"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:textSize="12sp"
+            android:layout_marginBottom="4dp"
+            android:textColor="#4A90E2"/>
+    </RelativeLayout>
+
+    <include layout="@layout/v_horizontal_line"/>
+
+</LinearLayout>

@@ -1,0 +1,1 @@
+include ':app', ':mypicker',':xrecyclerview',':recyclerviewanimators',':videoplayer'

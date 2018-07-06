@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:layout_height="match_parent">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <ImageView
+            android:id="@+id/infrom_item_img"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_margin="12dp"
+            android:src="@drawable/icon_name"/>
+
+            <TextView
+                android:layout_marginTop="22px"
+                android:layout_width="wrap_content"
+                android:id="@+id/infrom_item_Name"
+                android:layout_height="wrap_content"
+                android:text="張xxx"
+                android:layout_toRightOf="@id/infrom_item_img"
+                android:textSize="18sp"
+                android:textColor="@color/text_color_main"/>
+            <TextView
+                android:id="@+id/infrom_item_Time"
+                android:layout_toRightOf="@id/infrom_item_img"
+                android:layout_below="@id/infrom_item_Name"
+                android:layout_width="wrap_content"
+                android:layout_marginTop="3dp"
+                android:layout_height="wrap_content"
+                android:text="2018.12.12"
+                android:textSize="24px"
+                android:textColor="@color/text_color_subtitle"/>
+            <TextView
+                android:id="@+id/infrom_item_Context"
+                android:layout_toRightOf="@id/infrom_item_Time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/infrom_item_Name"
+                android:layout_marginLeft="6dp"
+                android:layout_marginTop="3dp"
+                android:text="張張張張張張張張張張張張張張"
+                android:textSize="24px"
+                android:textColor="@color/text_color_subtitle"/>
+
+    </RelativeLayout>
+
+</LinearLayout>

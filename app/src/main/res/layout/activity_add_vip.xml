@@ -1,0 +1,290 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:layout_height="match_parent"
+    tools:context=".ui.activity.AddVIPActivity">
+    <include layout="@layout/activity_base"/>
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:orientation="vertical"
+            android:layout_height="match_parent">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:orientation="horizontal"
+                android:layout_height="50dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical"
+                    android:text="姓名："
+                    android:textColor="@color/vipTextColor"
+                    android:textSize="16sp"
+                    android:padding="15dp"/>
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:textSize="16sp"
+                    android:hint="请输入姓名"
+                    android:textColorHint="@color/hint_text"
+                    android:id="@+id/addName"
+                    android:background="@null"
+                    android:textColor="@color/vipTextColor"
+                    android:gravity="center_vertical"/>
+            </LinearLayout>
+
+            <include layout="@layout/v_horizontal_line"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:orientation="horizontal"
+                android:layout_height="50dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical"
+                    android:text="年龄："
+                    android:textColor="@color/vipTextColor"
+                    android:textSize="16sp"
+                    android:padding="15dp"/>
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:textSize="16sp"
+                    android:id="@+id/addAge"
+                    android:hint="请输入年龄"
+                    android:textColorHint="@color/hint_text"
+                    android:background="@null"
+                    android:textColor="@color/vipTextColor"
+                    android:gravity="center_vertical"/>
+            </LinearLayout>
+
+            <include layout="@layout/v_horizontal_line"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:orientation="horizontal"
+                android:layout_height="50dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical"
+                    android:text="性别："
+                    android:textColor="@color/vipTextColor"
+                    android:textSize="16sp"
+                    android:padding="15dp"/>
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:textSize="16sp"
+                    android:hint="请输入性别"
+                    android:textColorHint="@color/hint_text"
+                    android:id="@+id/addSex"
+                    android:background="@null"
+                    android:textColor="@color/vipTextColor"
+                    android:gravity="center_vertical"/>
+            </LinearLayout>
+
+            <include layout="@layout/v_horizontal_line"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:orientation="horizontal"
+                android:layout_height="50dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical"
+                    android:text="电话："
+                    android:textColor="@color/vipTextColor"
+                    android:textSize="16sp"
+                    android:padding="15dp"/>
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:textSize="16sp"
+                    android:hint="请输入联系电话"
+                    android:textColorHint="@color/hint_text"
+                    android:id="@+id/addPhone"
+                    android:background="@null"
+                    android:textColor="@color/vipTextColor"
+                    android:gravity="center_vertical"/>
+            </LinearLayout>
+
+            <include layout="@layout/v_horizontal_line"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:orientation="horizontal"
+                android:layout_height="50dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical"
+                    android:text="工作："
+                    android:textColor="@color/vipTextColor"
+                    android:textSize="16sp"
+                    android:padding="15dp"/>
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:textSize="16sp"
+                    android:hint="请输入工作职位"
+                    android:textColorHint="@color/hint_text"
+                    android:id="@+id/addWork"
+                    android:background="@null"
+                    android:textColor="@color/vipTextColor"
+                    android:gravity="center_vertical"/>
+            </LinearLayout>
+
+            <include layout="@layout/v_horizontal_line"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:orientation="horizontal"
+                android:layout_height="50dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical"
+                    android:text="行业："
+                    android:textColor="@color/vipTextColor"
+                    android:textSize="16sp"
+                    android:padding="15dp"/>
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:textSize="16sp"
+                    android:hint="请输入工作行业"
+                    android:textColorHint="@color/hint_text"
+                    android:id="@+id/addIndustry"
+                    android:background="@null"
+                    android:textColor="@color/vipTextColor"
+                    android:gravity="center_vertical"/>
+            </LinearLayout>
+
+            <include layout="@layout/v_horizontal_line"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:orientation="horizontal"
+                android:layout_height="50dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical"
+                    android:text="收入："
+                    android:textColor="@color/vipTextColor"
+                    android:textSize="16sp"
+                    android:padding="15dp"/>
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:textSize="16sp"
+                    android:hint="请输入年收入"
+                    android:textColorHint="@color/hint_text"
+                    android:id="@+id/addIncome"
+                    android:background="@null"
+                    android:textColor="@color/vipTextColor"
+                    android:gravity="center_vertical"/>
+            </LinearLayout>
+
+            <include layout="@layout/v_horizontal_line"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:orientation="horizontal"
+                android:layout_height="50dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical"
+                    android:text="地址："
+                    android:textColor="@color/vipTextColor"
+                    android:textSize="16sp"
+                    android:padding="15dp"/>
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:textSize="16sp"
+                    android:hint="请输入联系地址"
+                    android:textColorHint="@color/hint_text"
+                    android:background="@null"
+                    android:id="@+id/addRess"
+                    android:textColor="@color/vipTextColor"
+                    android:gravity="center_vertical"/>
+            </LinearLayout>
+
+            <include layout="@layout/v_horizontal_line"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:orientation="horizontal"
+                android:layout_height="50dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical"
+                    android:text="身份证："
+                    android:textColor="@color/vipTextColor"
+                    android:textSize="16sp"
+                    android:padding="15dp"/>
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:textSize="16sp"
+                    android:hint="请输入身份证"
+                    android:textColorHint="@color/hint_text"
+                    android:id="@+id/addId"
+                    android:background="@null"
+                    android:textColor="@color/vipTextColor"
+                    android:gravity="center_vertical"/>
+            </LinearLayout>
+
+            <include layout="@layout/v_horizontal_line"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:orientation="horizontal"
+                android:layout_height="50dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical"
+                    android:text="购车意向："
+                    android:textColor="@color/vipTextColor"
+                    android:textSize="16sp"
+                    android:padding="15dp"/>
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:textSize="16sp"
+                    android:hint="请输入意向车型"
+                    android:textColorHint="@color/hint_text"
+                    android:id="@+id/addIntention"
+                    android:background="@null"
+                    android:textColor="@color/vipTextColor"
+                    android:gravity="center_vertical"/>
+            </LinearLayout>
+
+        </LinearLayout>
+    </ScrollView>
+
+
+
+
+</LinearLayout>

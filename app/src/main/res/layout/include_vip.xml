@@ -1,0 +1,254 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/app_main_default"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginTop="8dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="资料"
+            android:textColor="@color/homeTextColor"
+            android:textSize="18sp" />
+
+        <ImageView
+            android:id="@+id/vip_Write"
+            android:layout_width="20dp"
+            android:layout_height="18dp"
+            android:src="@drawable/write" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="40dp"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_weight="1">
+
+            <TextView
+                android:id="@+id/vipNames"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="姓名：涨涨涨"
+                android:textColor="@color/homeTextColor"
+                android:textSize="14sp" />
+
+            <TextView
+                android:id="@+id/vipSex"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/vipNames"
+                android:layout_marginTop="8dp"
+                android:text="性别：男"
+                android:textColor="@color/homeTextColor"
+                android:textSize="14sp" />
+
+            <TextView
+                android:id="@+id/vipAge"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/vipSex"
+                android:layout_marginTop="8dp"
+                android:text="年龄：36"
+                android:textColor="@color/homeTextColor"
+                android:textSize="14sp" />
+
+
+        </LinearLayout>
+
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@color/app_main_default"
+            android:gravity="center|left">
+
+            <TextView
+                android:id="@+id/vipPhone"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="电话：15830777777"
+                android:textColor="@color/homeTextColor"
+                android:textSize="14sp" />
+
+            <TextView
+                android:id="@+id/vipWork"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/vipPhone"
+                android:layout_marginTop="8dp"
+                android:text="工作：CEO"
+                android:textColor="@color/homeTextColor"
+                android:textSize="14sp" />
+
+            <TextView
+                android:id="@+id/vipAddsees"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/vipWork"
+                android:layout_marginTop="8dp"
+                android:text="地址：北京朝阳"
+                android:textColor="@color/homeTextColor"
+                android:textSize="14sp" />
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/vipId"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
+        android:layout_marginLeft="40dp"
+        android:layout_marginTop="8dp"
+        android:text="身份证：1825151551551515151"
+        android:textColor="@color/homeTextColor"
+        android:textSize="14sp" />
+
+    <include layout="@layout/v_horizontal_line" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="15dp"
+        android:paddingTop="10dp"
+        android:text="销售追踪"
+        android:textColor="@color/homeTextColor"
+        android:textSize="18sp" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="40dp"
+        android:layout_marginTop="8dp">
+
+        <TextView
+            android:id="@+id/tv_car_maintenance"
+            android:layout_width="92dp"
+            android:layout_height="30dp"
+            android:background="@drawable/shape_car_service"
+            android:gravity="center"
+            android:text="汽车保养"
+            android:textColor="@color/homeTextColor"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/tv_car_service"
+            android:layout_width="92dp"
+            android:layout_height="30dp"
+            android:layout_below="@+id/tv_car_maintenance"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/shape_car_service"
+            android:gravity="center"
+            android:text="汽车服务"
+            android:textColor="@color/homeTextColor"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/tv_car_recommendation"
+            android:layout_width="92dp"
+            android:layout_height="30dp"
+            android:layout_below="@+id/tv_car_maintenance"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="8dp"
+            android:layout_toRightOf="@+id/tv_car_service"
+            android:background="@drawable/shape_car_service"
+            android:gravity="center"
+            android:text="汽车推荐"
+            android:textColor="@color/homeTextColor"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/tv_birthday_reminding"
+            android:layout_width="92dp"
+            android:layout_height="30dp"
+            android:layout_below="@+id/tv_car_service"
+            android:layout_marginBottom="20dp"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/shape_car_service"
+            android:gravity="center"
+            android:text="生日提醒"
+            android:textColor="@color/homeTextColor"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/tv_car_purchase"
+            android:layout_width="92dp"
+            android:layout_height="30dp"
+            android:layout_below="@+id/tv_car_service"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="8dp"
+            android:layout_toRightOf="@+id/tv_birthday_reminding"
+            android:background="@drawable/shape_car_service"
+            android:gravity="center"
+            android:text="购车情况"
+            android:textColor="@color/homeTextColor"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/tv_car_insurance"
+            android:layout_width="92dp"
+            android:layout_height="30dp"
+            android:layout_below="@+id/tv_car_service"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="8dp"
+            android:layout_toRightOf="@+id/tv_car_purchase"
+            android:background="@drawable/shape_car_service"
+            android:gravity="center"
+            android:text="汽车保险"
+            android:textColor="@color/homeTextColor"
+            android:textSize="14sp" />
+
+    </RelativeLayout>
+
+    <include layout="@layout/v_horizontal_line" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginTop="8dp">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="VIP客户"
+            android:textColor="@color/homeTextColor"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/vip_Add"
+            android:layout_width="12dp"
+            android:layout_height="28dp"
+            android:text="+"
+            android:textColor="#ff9b9b9b"
+            android:textSize="20sp" />
+    </LinearLayout>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/mCopyRecyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"></android.support.v7.widget.RecyclerView>
+
+</LinearLayout>

@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background"
+    android:orientation="vertical"
+    tools:context=".ui.activity.ProductSalesActivity">
+
+    <include layout="@layout/activity_base" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@color/white"
+        android:gravity="center|left"
+        android:paddingLeft="15dp"
+        android:text="新品买点"
+        android:textColor="@color/vipTextColor"
+        android:textSize="18sp" />
+
+    <include layout="@layout/v_horizontal_line" />
+
+    <GridView
+        android:id="@+id/grid_brand"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:horizontalSpacing="1dp"
+        android:numColumns="3">
+    </GridView>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@color/white"
+        android:gravity="center|left"
+        android:paddingLeft="15dp"
+        android:text="销售训练"
+        android:textColor="@color/vipTextColor"
+        android:textSize="18sp" />
+
+    <include layout="@layout/v_horizontal_line" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="113dp"
+        android:background="@color/white"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:id="@+id/mWord_Layout"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="63dp"
+                android:layout_height="63dp"
+                android:layout_marginTop="19dp"
+                android:src="@drawable/word_img_icon" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="6dp"
+                android:layout_marginTop="5dp"
+                android:text="训练文档"
+                android:textColor="@color/vipTextColor"
+                android:textSize="14sp" />
+        </LinearLayout>
+
+        <include layout="@layout/v_vertical_line" />
+
+        <LinearLayout
+            android:id="@+id/mVido_Layout"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center_horizontal"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="104dp"
+                android:layout_height="63dp"
+                android:layout_marginTop="19dp"
+                android:src="@drawable/sale_icon_img" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="6dp"
+                android:layout_marginTop="5dp"
+                android:text="训练视频"
+                android:textColor="@color/vipTextColor"
+                android:textSize="14sp" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <include layout="@layout/v_horizontal_line" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@color/white"
+        android:gravity="center_vertical"
+        android:paddingLeft="15dp"
+        android:text="竟品比较"
+        android:textColor="@color/vipTextColor"
+        android:textSize="18sp" />
+
+    <include layout="@layout/v_horizontal_line" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:gravity="center"
+        android:paddingTop="15dp"
+        android:paddingBottom="15dp">
+
+        <ImageView
+            android:id="@+id/mAudi"
+            android:layout_width="300dp"
+            android:layout_height="129dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/audi_icon_icon" />
+    </LinearLayout>
+
+</LinearLayout>

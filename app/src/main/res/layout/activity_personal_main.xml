@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/app_main_background"
+    android:orientation="vertical"
+    tools:context=".ui.activity.PersonalMainActivity">
+
+    <include layout="@layout/activity_base" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/app_main_default"
+        android:paddingBottom="22dp"
+        android:paddingLeft="15dp"
+        android:paddingTop="18dp">
+
+        <com.empowerment.salesrobot.view.RoundedImageView
+            android:id="@+id/my_iconImgview"
+            android:layout_width="56dp"
+            android:layout_height="56dp"
+            android:src="@drawable/my_head_portrait"/>
+
+        <TextView
+            android:id="@+id/my_icon_Name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="17dp"
+            android:layout_toRightOf="@id/my_iconImgview"
+            android:text="销售"
+            android:textColor="@color/black"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/myPhones"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/my_icon_Name"
+            android:layout_marginLeft="17dp"
+            android:layout_marginTop="4dp"
+            android:layout_toRightOf="@id/my_iconImgview"
+            android:text="账号：188888888"
+            android:textColor="@color/black"
+            android:textSize="14sp" />
+    </RelativeLayout>
+
+    <include layout="@layout/v_horizontal_line" />
+
+    <TextView
+        android:id="@+id/personalText"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@color/white"
+        android:gravity="center_vertical"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp"
+        android:text="资料设置"
+        android:textColor="@color/black"
+        android:textSize="18sp" />
+
+    <LinearLayout
+        android:id="@+id/linear_my_setting_clear_cache"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginTop="20dp"
+        android:background="@color/app_main_default"
+        android:gravity="center"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_weight="1"
+            android:text="清除缓存"
+            android:textColor="@color/black"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/text_my_setting_clear_cache_size"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/hint_text"
+            android:textSize="18sp" />
+
+    </LinearLayout>
+
+    <include layout="@layout/v_horizontal_line" />
+
+    <TextView
+        android:id="@+id/tv_common_problem"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@color/app_main_default"
+        android:gravity="center_vertical"
+        android:paddingLeft="15dp"
+        android:text="常见问题"
+        android:textColor="@color/black"
+        android:textSize="18sp" />
+
+    <include layout="@layout/v_horizontal_line" />
+
+    <TextView
+        android:id="@+id/tv_my_setting_update"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginTop="20dp"
+        android:background="@color/app_main_default"
+        android:gravity="center_vertical"
+        android:paddingLeft="15dp"
+        android:text="版本更新"
+        android:textColor="@color/black"
+        android:textSize="18sp" />
+
+    <TextView
+        android:id="@+id/sign_Out"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginTop="100dp"
+        android:background="@color/app_main_default"
+        android:gravity="center"
+        android:text="退出登录"
+        android:textColor="@color/black"
+        android:textSize="18sp" />
+</LinearLayout>

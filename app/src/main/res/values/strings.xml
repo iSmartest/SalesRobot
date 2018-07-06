@@ -1,0 +1,28 @@
+<resources>
+    <string name="app_name">SalesRobot</string>
+
+    <string name="error_input_phone">请输入正确的手机号码</string>
+    <string name="error_input_pwd_fail_info_tips">请输入6-20位英文字母或数字</string>
+    <string name="error_input_verification">请输入验证码</string>
+    <string name="error_input_verification_fail_info">验证码错误:验证码由6位数字组成</string>
+    <string name="loading_icon">加载中图</string>
+    <string name="loading">加载中</string>
+    <string name="sure_to_do_sth">您确定要%s吗？</string>
+    <string name="log_out">确定退出登录吗?</string>
+    <string name="stop_tips">是否紧急停止?</string>
+    <string name="app_home">首页</string>
+    <string name="app_train">训练</string>
+    <string name="app_stop">停止</string>
+    <string name="app_mine">我的</string>
+    <string name="_settings">设置</string>
+    <string name="take_photo">拍摄</string>
+    <string name="local_album">本地相册</string>
+    <string name="make_cancel">取消</string>
+    <string name="make_sure">确定</string>
+    <string name="want_good_praise">我要好评</string>
+    <string name="version_update">版本更新</string>
+    <string name="version_introduction">版本介绍</string>
+    <string name="version_format">SalesRobot:%s</string>
+    <string name="tip_rate_err">您手机上没有可以评价的应用市场哦,\n下次再好评吧</string>
+    <string name="company_copyright">北京赋睿智能科技有限公司&#160;&#160;&#160;&#160;版权所有\nCopyright©2018&#8211;%d FuRui.All Rights Reserved</string>
+</resources>

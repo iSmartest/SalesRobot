@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/app_main_default"
+    android:gravity="center"
+    android:orientation="vertical">
+    <TextView
+        android:id="@+id/d_error_tv"
+        style="@style/DefaultTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:layout_marginTop="16dp"
+        android:gravity="center"
+        android:lineSpacingExtra="2dp"
+        android:padding="10dp"
+        android:text="@string/tip_rate_err" />
+
+    <include layout="@layout/v_horizontal_line" />
+
+    <Button
+        android:id="@+id/d_error_btn"
+        style="@style/DefaultTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@null"
+        android:padding="16dp"
+        android:text="@string/make_sure"
+        android:textColor="@color/text_color_main" />
+</LinearLayout>

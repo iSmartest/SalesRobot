@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/app_main_default">
+    <include layout="@layout/activity_base"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_margin="15dp"
+        android:background="@color/app_main_default">
+        <EditText
+            android:id="@+id/edit_content"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:minLines="5"
+            android:background="@drawable/shape_chat_voice"
+            android:maxLines="8"
+            android:hint="输入心得.."
+            android:gravity="left|top"
+            android:textSize="15sp"
+            android:textColor="@color/black"
+            android:padding="5dp"
+            android:textColorHint="@color/hint_text"/>
+        <TextView
+            android:id="@+id/tv_edit_time"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="#4A90E2"
+            android:text="ads"
+            android:textSize="12sp"
+            android:layout_marginTop="4dp"
+            android:gravity="center|right"/>
+    </LinearLayout>
+
+</LinearLayout>

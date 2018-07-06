@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/main_item_Time"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:gravity="center_vertical"
+        android:paddingLeft="15dp"
+        android:text="维修时间：2018.12.12"
+        android:textColor="@color/vipTextColor"
+        android:textSize="14sp" />
+
+    <include layout="@layout/v_horizontal_line"/>
+
+    <TextView
+        android:id="@+id/main_item_Project"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:gravity="center_vertical"
+        android:paddingLeft="15dp"
+        android:text="维修项目：保险杠"
+        android:textColor="@color/vipTextColor"
+        android:textSize="14sp" />
+
+    <include layout="@layout/v_horizontal_line"/>
+
+    <TextView
+        android:id="@+id/main_item_pir"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:gravity="center_vertical"
+        android:paddingLeft="15dp"
+        android:text="维修价格：29999￥"
+        android:textColor="@color/vipTextColor"
+        android:textSize="14sp" />
+
+    <include layout="@layout/v_horizontal_line"/>
+</LinearLayout>

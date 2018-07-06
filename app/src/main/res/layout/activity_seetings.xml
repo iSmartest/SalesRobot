@@ -1,0 +1,237 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:background="@color/background"
+    android:layout_height="match_parent"
+    tools:context=".ui.activity.SeetingsActivity">
+
+    <include layout="@layout/activity_base"/>
+
+<ScrollView
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:gravity="center_vertical"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:button="@null"
+            android:id="@+id/problem_Setting"
+            android:textColor="@color/black"
+            android:text="我的资料库"
+            android:background="@color/white"
+            android:paddingRight="15dp"
+            android:paddingLeft="15dp"
+            android:drawableRight="@drawable/checkbox_bg"
+            android:textSize="18sp"/>
+
+        <include layout="@layout/v_horizontal_line"/>
+
+        <CheckBox
+            android:layout_width="match_parent"
+            android:layout_height="98px"
+            android:button="@null"
+            android:id="@+id/language_Setting"
+            android:background="@color/white"
+            android:paddingRight="15dp"
+            android:textColor="@color/black"
+            android:text="语种设置"
+            android:paddingLeft="15dp"
+            android:drawableRight="@drawable/checkbox_bg"
+            android:textSize="18sp"/>
+
+        <include layout="@layout/v_horizontal_line"/>
+        <LinearLayout
+            android:id="@+id/seetingsLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:visibility="gone"
+            android:background="@color/background"
+            android:paddingRight="15dp"
+            android:paddingLeft="15dp"
+            android:layout_marginBottom="8dp">
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/background"/>
+            <RadioGroup
+                android:orientation="horizontal"
+                android:background="@drawable/shape_seeting_text"
+                android:layout_width="match_parent"
+                android:layout_height="100dp">
+
+                <RadioButton
+                    android:id="@+id/standard"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:button="@null"
+                    android:gravity="center"
+                    android:checked="true"
+                    android:textColor="@color/seetings_radio_textcolor"
+                    android:text="标中"
+                    android:textSize="14sp"/>
+                <RadioButton
+                    android:id="@+id/english"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:button="@null"
+                    android:gravity="center"
+                    android:checked="false"
+                    android:textColor="@color/seetings_radio_textcolor"
+                    android:text="英语"
+                    android:textSize="14sp"/>
+                <RadioButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:button="@null"
+                    android:gravity="center"
+                    android:id="@+id/dialect"
+                    android:checked="false"
+                    android:textColor="@color/seetings_radio_textcolor"
+                    android:text="方言"
+                    android:textSize="14sp"/>
+            </RadioGroup>
+        </LinearLayout>
+
+        <include layout="@layout/v_horizontal_line"/>
+
+        <CheckBox
+            android:id="@+id/demo_Setting"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:button="@null"
+            android:textColor="@color/black"
+            android:text="演示设置"
+            android:background="@color/white"
+            android:paddingRight="15dp"
+            android:paddingLeft="15dp"
+            android:drawableRight="@drawable/checkbox_bg"
+            android:textSize="18sp"/>
+    <include layout="@layout/v_horizontal_line"/>
+
+    <LinearLayout
+        android:id="@+id/seetings_Layouts"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:visibility="gone"
+        android:background="@color/background"
+        android:paddingRight="15dp"
+        android:paddingLeft="15dp"
+        android:layout_marginBottom="8dp">
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/background"/>
+        <RadioGroup
+            android:layout_width="match_parent"
+            android:layout_height="74dp"
+            android:orientation="horizontal"
+            android:visibility="visible"
+            android:background="@color/white">
+
+            <RadioButton
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:button="@null"
+                android:checked="false"
+                android:id="@+id/personal_Style"
+                android:textColor="@color/seetings_radio_textcolor"
+                android:text="个人风格"
+                android:textSize="14sp"
+                android:gravity="center"/>
+
+            <RadioButton
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:button="@null"
+                android:id="@+id/standard_Style"
+                android:textColor="@color/seetings_radio_textcolor"
+                android:checked="false"
+                android:text="标准风格"
+                android:gravity="center"/>
+        </RadioGroup>
+    </LinearLayout>
+
+        <include layout="@layout/v_horizontal_line"/>
+
+        <CheckBox
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:button="@null"
+            android:textColor="@color/black"
+            android:text="文字设置"
+            android:id="@+id/text_Setting"
+            android:background="@color/white"
+            android:paddingRight="15dp"
+            android:paddingLeft="15dp"
+            android:drawableRight="@drawable/checkbox_bg"
+            android:textSize="18sp"/>
+
+        <include layout="@layout/v_horizontal_line"/>
+
+        <RadioGroup
+            android:layout_width="match_parent"
+            android:orientation="vertical"
+            android:id="@+id/mSeetings_Layouts"
+            android:visibility="gone"
+            android:background="@color/white"
+            android:layout_height="wrap_content">
+
+            <RadioButton
+                android:layout_width="match_parent"
+                android:button="@null"
+                android:checked="false"
+                android:id="@+id/englishi"
+                android:paddingTop="10px"
+                android:textColor="@color/seetings_radio_textcolor"
+                android:paddingBottom="10px"
+                android:paddingLeft="90px"
+                android:layout_height="wrap_content"
+                android:text="English"/>
+            <View
+                android:layout_width="match_parent"
+                android:layout_marginLeft="30px"
+                android:layout_marginRight="30px"
+                android:layout_height="1px"
+                android:background="@color/divider_gray"/>
+            <RadioButton
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:button="@null"
+                android:id="@+id/chinese"
+                android:textColor="@color/seetings_radio_textcolor"
+                android:checked="true"
+                android:paddingTop="10px"
+                android:paddingBottom="10px"
+                android:paddingLeft="90px"
+                android:text="中文"/>
+        </RadioGroup>
+
+        <TextView
+            android:id="@+id/mVeesion_Update"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginTop="15dp"
+            android:text="版本更新"
+            android:paddingLeft="15dp"
+            android:background="@color/white"
+            android:gravity="center_vertical"
+            android:textSize="18sp"
+            android:textColor="@color/black"/>
+    </LinearLayout>
+</ScrollView>
+</LinearLayout>

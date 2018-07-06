@@ -1,0 +1,45 @@
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion 27
+    defaultConfig {
+        applicationId "com.empowerment.salesrobot"
+        minSdkVersion 16
+        targetSdkVersion 27
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+dependencies {
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    implementation 'com.android.support:design:27.1.1'
+    implementation 'com.android.support:appcompat-v7:27.1.1'
+    implementation 'com.android.support.constraint:constraint-layout:1.1.2'
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'com.android.support.test:runner:1.0.2'
+    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+    implementation 'com.squareup.okhttp3:okhttp:3.8.0'
+    implementation 'com.nostra13.universalimageloader:universal-image-loader:1.9.5'
+    implementation 'com.google.code.gson:gson:2.8.1'
+    implementation 'com.youth.banner:banner:1.4.8'
+    implementation 'com.github.bumptech.glide:glide:3.7.0'
+    implementation 'com.lzy.widget:imagepicker:0.5.5'
+    annotationProcessor 'com.jakewharton:butterknife-compiler:8.7.0'
+    implementation 'com.jakewharton:butterknife:8.7.0'
+    implementation 'com.jakewharton:butterknife-compiler:8.7.0'
+    implementation 'in.srain.cube:ptr-load-more:1.0.6'
+    //时间选择器
+    implementation project(':mypicker')
+    implementation project(':xrecyclerview')
+    implementation project(':recyclerviewanimators')
+    //视频播放
+    implementation project(':videoplayer')
+}
