@@ -2,10 +2,12 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     package="com.empowerment.salesrobot">
+    <!-- Required -->
     <permission
         android:name="com.empowerment.salesrobot.permission.JPUSH_MESSAGE"
         android:protectionLevel="signature" />
     <uses-permission android:name="com.empowerment.salesrobot.permission.JPUSH_MESSAGE" />
+    <uses-permission android:name="android.permission.RECEIVE_USER_PRESENT" />
     <!--麦克风权限-->
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
@@ -142,6 +144,11 @@
             android:screenOrientation="portrait"/>
         <!--现场记录-->
         <activity android:name=".ui.activity.FieldRecordActivity"
+            android:windowSoftInputMode="adjustPan|stateHidden"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait"/>
+        <!--现场记录详情-->
+        <activity android:name=".ui.activity.FieldRecordInfoActivity"
             android:windowSoftInputMode="adjustPan|stateHidden"
             android:configChanges="orientation"
             android:screenOrientation="portrait"/>

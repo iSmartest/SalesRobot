@@ -23,8 +23,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:background="@color/colorPrimary"
-        android:orientation="horizontal"
-        android:paddingTop="6dp">
+        android:orientation="horizontal">
 
         <RadioButton
             android:id="@+id/iv_main_home"
@@ -34,6 +33,7 @@
             android:layout_weight="1"
             android:button="@null"
             android:checked="true"
+            android:textSize="14sp"
             android:drawableTop="@drawable/app_main_home_selector"
             android:gravity="center"
             android:text="首页" />
@@ -47,18 +47,20 @@
             android:button="@null"
             android:drawableTop="@drawable/app_main_train_selector"
             android:gravity="center"
+            android:textSize="14sp"
             android:text="训练" />
 
         <RadioButton
-            android:id="@+id/iv_main_stop"
-            style="@style/main_stop_bottom_tab_style"
+            android:id="@+id/iv_main_reception"
+            style="@style/main_bottom_tab_style"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:button="@null"
+            android:textSize="14sp"
             android:drawableTop="@drawable/app_main_stop_selector"
             android:gravity="center"
-            android:text="停止" />
+            android:text="接待" />
 
         <RadioButton
             android:id="@+id/iv_main_mine"
@@ -67,6 +69,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:button="@null"
+            android:textSize="14sp"
             android:drawableTop="@drawable/app_main_mine_selector"
             android:gravity="center"
             android:text="我的" />

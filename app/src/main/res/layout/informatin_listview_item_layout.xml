@@ -2,10 +2,12 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:orientation="vertical"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content"
+    android:background="@color/app_main_background">
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="64dp"
+        android:background="@color/app_main_default">
         <ImageView
             android:id="@+id/infrom_item_img"
             android:layout_width="40dp"
@@ -14,14 +16,14 @@
             android:src="@drawable/icon_name"/>
 
             <TextView
-                android:layout_marginTop="22px"
+                android:layout_marginTop="8dp"
                 android:layout_width="wrap_content"
                 android:id="@+id/infrom_item_Name"
                 android:layout_height="wrap_content"
                 android:text="張xxx"
                 android:layout_toRightOf="@id/infrom_item_img"
                 android:textSize="18sp"
-                android:textColor="@color/text_color_main"/>
+                android:textColor="@color/black"/>
             <TextView
                 android:id="@+id/infrom_item_Time"
                 android:layout_toRightOf="@id/infrom_item_img"
@@ -30,8 +32,8 @@
                 android:layout_marginTop="3dp"
                 android:layout_height="wrap_content"
                 android:text="2018.12.12"
-                android:textSize="24px"
-                android:textColor="@color/text_color_subtitle"/>
+                android:textSize="14sp"
+                android:textColor="@color/black"/>
             <TextView
                 android:id="@+id/infrom_item_Context"
                 android:layout_toRightOf="@id/infrom_item_Time"
@@ -41,9 +43,9 @@
                 android:layout_marginLeft="6dp"
                 android:layout_marginTop="3dp"
                 android:text="張張張張張張張張張張張張張張"
-                android:textSize="24px"
-                android:textColor="@color/text_color_subtitle"/>
-
+                android:textSize="14sp"
+                android:textColor="@color/black"/>
     </RelativeLayout>
 
+    <include layout="@layout/v_horizontal_line"/>
 </LinearLayout>

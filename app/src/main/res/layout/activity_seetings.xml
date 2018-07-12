@@ -64,7 +64,7 @@
                 android:src="@drawable/background"/>
             <RadioGroup
                 android:orientation="horizontal"
-                android:background="@drawable/shape_seeting_text"
+                android:background="@drawable/shape_company_agency_background"
                 android:layout_width="match_parent"
                 android:layout_height="100dp">
 

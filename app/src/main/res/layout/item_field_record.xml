@@ -1,6 +1,87 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/app_main_background">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:background="@color/app_main_default"
+        android:paddingTop="17dp"
+        android:paddingBottom="17dp"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp">
+        <com.empowerment.salesrobot.view.RoundedImageView
+            android:id="@+id/record_icon"
+            android:layout_width="62dp"
+            android:layout_height="62dp"
+            android:adjustViewBounds="true"
+            android:padding="1.5dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/my_head_portrait"
+            app:is_oval="true"
+            tools:ignore="ContentDescription" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:layout_marginLeft="17dp"
+            android:layout_gravity="center">
+            <TextView
+                android:id="@+id/tv_record_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="18sp"
+                android:layout_weight="1"
+                android:textColor="@color/default_color"
+                android:gravity="center_vertical"/>
+            <TextView
+                android:id="@+id/tv_record_time"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="18sp"
+                android:visibility="gone"
+                android:layout_weight="1"
+                android:textColor="@color/default_color"
+                android:gravity="center_vertical"/>
+        </LinearLayout>
+    </LinearLayout>
 
+    <include layout="@layout/v_horizontal_line"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="@color/app_main_default"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp"
+        android:paddingBottom="15dp"
+        android:layout_marginBottom="13dp">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="现场记录"
+            android:textSize="18sp"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:textColor="@color/default_text"/>
+
+        <include layout="@layout/v_horizontal_line"/>
+
+        <com.empowerment.salesrobot.view.MyGridView
+            android:id="@+id/gv_record_label"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:numColumns="3"
+            android:layout_marginTop="6dp"
+            android:scrollbars="none"
+            android:background="@color/app_main_default">
+        </com.empowerment.salesrobot.view.MyGridView>
+    </LinearLayout>
 </LinearLayout>

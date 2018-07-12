@@ -1,4 +1,4 @@
-package com.lixin.freshmall.view;
+package com.empowerment.salesrobot.view;
 
 import android.content.Context;
 import android.util.AttributeSet;

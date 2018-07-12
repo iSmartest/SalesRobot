@@ -47,6 +47,8 @@ dependencies {
     implementation project(':recyclerviewanimators')
     //视频播放
     implementation project(':videoplayer')
+    //极光推送
     implementation files('libs/jcore-android_v1.0.0.jar')
     implementation files('libs/jpush-android_v3.0.0.jar')
+    implementation 'com.alibaba:fastjson:1.2.47'
 }

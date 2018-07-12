@@ -3,13 +3,26 @@ package com.empowerment.salesrobot.ui.activity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.empowerment.salesrobot.R;
+import com.empowerment.salesrobot.app.MyApplication;
+import com.empowerment.salesrobot.config.Url;
 import com.empowerment.salesrobot.listener.RecyclerItemTouchListener;
+import com.empowerment.salesrobot.okhttp.MyOkhttp;
+import com.empowerment.salesrobot.ui.adapter.FieldRecordAdapter;
+import com.empowerment.salesrobot.ui.model.FieldRecordBean;
+import com.empowerment.salesrobot.uitls.ToastUtils;
 import com.example.xrecyclerview.XRecyclerView;
+import com.google.gson.Gson;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -22,14 +35,17 @@ import butterknife.OnClick;
  * Description:
  */
 public class FieldRecordActivity extends BaseActivity {
-
     @BindView(R.id.title_Back)
     ImageView titleBack;
     @BindView(R.id.title)
     TextView title;
+    @BindView(R.id.iv_empty_data)
+    ImageView mEmpty;
     @BindView(R.id.record_recycler)
     XRecyclerView xRecyclerView;
-
+    private int nowPage = 1;
+    private List<FieldRecordBean.DataBean.ConsultList> mList = new ArrayList<>();
+    FieldRecordAdapter mAdapter;
     @Override
     protected int getLauoutId() {
         return R.layout.activity_field_record;
@@ -37,30 +53,52 @@ public class FieldRecordActivity extends BaseActivity {
 
     @Override
     protected void loadData() {
+       //"http://img1.imgtn.bdimg.com/it/u=439656461,1404332120&fm=214&gp=0.jpg"
 
+        Map<String,String> params = new HashMap<>();
+        params.put("page",String.valueOf(nowPage));
+        params.put("rows","10");
+        params.put("storeId","1");
+        MyOkhttp.Okhttp(context, Url.RECORD_LIST, dialog, params, new MyOkhttp.CallBack() {
+            @Override
+            public void onRequestComplete(String response, String result, String resultNote) {
+                Gson gson = new Gson();
+                FieldRecordBean fieldRecordBean = gson.fromJson(response,FieldRecordBean.class);
+                if (result.equals("1")){
+                    ToastUtils.makeText(context,resultNote);
+                    return;
+                }
+                List<FieldRecordBean.DataBean.ConsultList> consultLists = fieldRecordBean.getData().getConsultList();
+                if (consultLists != null && !consultLists.isEmpty() && consultLists.size() > 0){
+                    mList.addAll(consultLists);
+                    mAdapter.notifyDataSetChanged();
+                }
+            }
+        });
     }
 
     @Override
     protected void initView() {
         title.setText("现场记录");
         titleBack.setVisibility(View.VISIBLE);
+        mEmpty.setVisibility(View.GONE);
         xRecyclerView.setLayoutManager(new LinearLayoutManager(context));
-//        mAdapter = new LifeAdapter(context, mList);
-//        xRecyclerView.setAdapter(mAdapter);
+        mAdapter = new FieldRecordAdapter(context,mList);
+        xRecyclerView.setAdapter(mAdapter);
         xRecyclerView.setLoadingListener(new XRecyclerView.LoadingListener() {
             @Override
             public void onRefresh() {
-//                nowPage = 1;
-//                mList.clear();
-//                getLifeData();
-//                mAdapter.notifyDataSetChanged();
+                nowPage = 1;
+                mList.clear();
+                loadData();
+                mAdapter.notifyDataSetChanged();
                 xRecyclerView.refreshComplete();
             }
             @Override
             public void onLoadMore() {
-//                nowPage++;
-//                getLifeData();
-//                mAdapter.notifyDataSetChanged();
+                nowPage++;
+                loadData();
+                mAdapter.notifyDataSetChanged();
                 xRecyclerView.refreshComplete();
             }
         });
@@ -68,14 +106,22 @@ public class FieldRecordActivity extends BaseActivity {
         xRecyclerView.addOnItemTouchListener(new RecyclerItemTouchListener(xRecyclerView) {
             @Override
             public void onItemClick(RecyclerView.ViewHolder vh) {
-//                int position = vh.getAdapterPosition() - 1;
-//                if (position < 0 | position >= mList.size()){
-//                    return;
-//                }
-//                Bundle bundle = new Bundle();
-//                bundle.putString(KnowLedgeWebActivity.TITLE,mList.get(position).getLifeTitle());
-//                bundle.putString(KnowLedgeWebActivity.URL,mList.get(position).getLifeUrl());
-//                MyApplication.openActivity(context,KnowLedgeWebActivity.class,bundle);
+                int position = vh.getAdapterPosition() - 1;
+                if (position < 0 | position >= mList.size()){
+                    return;
+                }
+                Bundle bundle = new Bundle();
+                if (mList.get(position).getType() == 1){
+                    bundle.putString("type","1");
+                    bundle.putString("name",mList.get(position).getName());
+                    bundle.putString("sex",mList.get(position).getSex());
+                    bundle.putString("age",mList.get(position).getAge());
+                    bundle.putString("phone",mList.get(position).getPhone());
+                }else {
+                    bundle.putString("type","0");
+                }
+                bundle.putString("id",mList.get(position).getId()+"");
+                MyApplication.openActivity(context,FieldRecordInfoActivity.class,bundle);
             }
         });
     }

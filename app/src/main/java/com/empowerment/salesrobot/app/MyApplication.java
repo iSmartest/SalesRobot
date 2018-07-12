@@ -20,6 +20,8 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
 
+import cn.jpush.android.api.JPushInterface;
+
 
 /**
  * Created by 小火
@@ -41,6 +43,8 @@ public class MyApplication extends Application {
         myApplication = this;
         initImagePicker();
         //崩溃错误日志写入本地文档
+        JPushInterface.setDebugMode(true);//如果时正式版就改成false
+        JPushInterface.init(this);
         CrashHandler catchExcep = new CrashHandler(this);
         Thread.setDefaultUncaughtExceptionHandler(catchExcep);
     }

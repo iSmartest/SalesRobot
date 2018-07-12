@@ -111,29 +111,38 @@
 
     <include layout="@layout/v_horizontal_line"/>
 
-    <ListView
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:dividerHeight="1px"
-        android:divider="@color/divider_gray"
-        android:id="@+id/information_ListView"
         android:layout_height="match_parent">
-    </ListView>
+        <com.example.xrecyclerview.XRecyclerView
+            android:layout_width="match_parent"
+            android:dividerHeight="1px"
+            android:divider="@color/divider_gray"
+            android:id="@+id/information_ListView"
+            android:layout_height="match_parent">
+        </com.example.xrecyclerview.XRecyclerView>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:orientation="vertical"
-        android:visibility="gone"
-        android:id="@+id/infoLayouts"
-        android:gravity="center"
-        android:layout_height="match_parent">
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/loding_err"/>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="暂时没有数据哦"/>
-    </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:orientation="vertical"
+            android:visibility="gone"
+            android:id="@+id/infoLayouts"
+            android:gravity="center"
+            android:layout_height="match_parent">
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/loding_err"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="暂时没有数据哦"/>
+        </LinearLayout>
+    </RelativeLayout>
+
+
+
+
+
 
 </LinearLayout>

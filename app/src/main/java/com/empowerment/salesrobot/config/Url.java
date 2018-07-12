@@ -8,16 +8,25 @@ public class Url {
 
 
     //服务器地址
-    public static final String HTTP = "http://192.168.43.105:8081/robot";
+    public static final String HTTP = "http://192.168.1.14:8081/robot";
 
     //登录
     public static final String LOGIN_ = HTTP + "/app/sale/login?";
 
     //获取短信
-    public static final String SMS = HTTP + "/app/sale/sendCode?";
+    public static final String SMS = "http://api.sms.ronghub.com/sendCode/json";
+
+    //短信验证
+    public static final String VERIFICATION_SMS = "http://api.sms.ronghub.com/verifyCode/json";
 
     //完善资料
     public static final String SALE = HTTP + "/app/sale/prefectOrUpdateSale?";
+
+    //现场记录列表
+    public static final String RECORD_LIST = HTTP + "/app/sale/recordList?";
+
+    //现场记录详情
+    public static final String RECORD_DETAIL = HTTP + "/app/sale/recordDetail?";
 
     //销售员心得
     public static final String SALES_MANS = HTTP + "/app/sale/experience?";
@@ -30,6 +39,10 @@ public class Url {
 
     //修改头像
     public static final String FILE_IMG = HTTP + "/app/sale/changeImage?";
+
+    //待办事宜
+    public static final String AFFAIRS = HTTP +"/app/sale/agentList?";
+
 
     //客户资料**查询
     public static final String CUSTOMER = HTTP + "/app/customer/customerList?";

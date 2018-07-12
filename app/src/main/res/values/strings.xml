@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">SalesRobot</string>
+    <string name="app_name">车小宝</string>
 
     <string name="error_input_phone">请输入正确的手机号码</string>
     <string name="error_input_pwd_fail_info_tips">请输入6-20位英文字母或数字</string>

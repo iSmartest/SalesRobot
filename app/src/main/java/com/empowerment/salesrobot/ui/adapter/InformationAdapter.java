@@ -1,7 +1,11 @@
 package com.empowerment.salesrobot.ui.adapter;
 
 import android.content.Context;
-import android.text.format.DateUtils;
+import android.support.annotation.NonNull;
+import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 import android.widget.TextView;
 
 
@@ -11,19 +15,47 @@ import com.empowerment.salesrobot.uitls.TimeUtils;
 
 import java.util.List;
 
-public class InfromationAdapter extends AbsAdapter<InfromationEntity.DataBean.CustomerListBean> {
+
+public class InformationAdapter extends RecyclerView.Adapter<InformationAdapter.InformationViewHolder> {
 
     private static final String TAG = "InfromationAdapter";
+    private Context context;
+    private List<InfromationEntity.DataBean.CustomerListBean> infoList;
 
-    public InfromationAdapter(Context context, int layoutId, List<InfromationEntity.DataBean.CustomerListBean> datas) {
-        super(context, layoutId, datas);
+    public InformationAdapter(Context context, List<InfromationEntity.DataBean.CustomerListBean> infoList) {
+        this.context = context;
+        this.infoList = infoList;
+    }
+
+    @NonNull
+    @Override
+    public InformationViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(context).inflate(R.layout.informatin_listview_item_layout, parent, false);
+        InformationViewHolder viewHolder = new InformationViewHolder(view);
+        return viewHolder;
     }
 
     @Override
-    public void bindResponse(ViewHolder holder, InfromationEntity.DataBean.CustomerListBean data) {
+    public void onBindViewHolder(@NonNull InformationViewHolder holder, int position) {
+        InfromationEntity.DataBean.CustomerListBean customerListBean = infoList.get(position);
+        holder.mName.setText(customerListBean.getName());
+        holder.mTime.setText(TimeUtils.transferLongToDate(customerListBean.getDate()));
+        holder.mContext.setText(customerListBean.getContent());
+    }
 
-        ((TextView) holder.getView(R.id.infrom_item_Name)).setText(data.getName());
-        ((TextView) holder.getView(R.id.infrom_item_Time)).setText(TimeUtils.transferLongToDate(data.getDate()));
-        ((TextView) holder.getView(R.id.infrom_item_Context)).setText(data.getContent());
+    @Override
+    public int getItemCount() {
+        return infoList == null ? 0 : infoList.size();
+    }
+
+    class InformationViewHolder extends RecyclerView.ViewHolder {
+        TextView mName, mTime, mContext;
+
+        public InformationViewHolder(View itemView) {
+            super(itemView);
+            mName = itemView.findViewById(R.id.infrom_item_Name);
+            mTime = itemView.findViewById(R.id.infrom_item_Time);
+            mContext = itemView.findViewById(R.id.infrom_item_Context);
+        }
     }
 }

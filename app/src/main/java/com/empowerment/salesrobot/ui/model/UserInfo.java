@@ -7,17 +7,27 @@ package com.empowerment.salesrobot.ui.model;
  * Description:
  */
 public class UserInfo {
-    private String code;
+    private int code;
+    private String sessionId;
     private String resultCode;
     private String msg;
     private String groupid;
+    private Boolean success;
 
-    public String getCode() {
+    public int getCode() {
         return code;
     }
 
-    public void setCode(String code) {
+    public void setCode(int code) {
         this.code = code;
+    }
+
+    public String getSessionId() {
+        return sessionId;
+    }
+
+    public void setSessionId(String sessionId) {
+        this.sessionId = sessionId;
     }
 
     public String getResultCode() {
@@ -42,5 +52,13 @@ public class UserInfo {
 
     public void setGroupid(String groupid) {
         this.groupid = groupid;
+    }
+
+    public Boolean getSuccess() {
+        return success;
+    }
+
+    public void setSuccess(Boolean success) {
+        this.success = success;
     }
 }

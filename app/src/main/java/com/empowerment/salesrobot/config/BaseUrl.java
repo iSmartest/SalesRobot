@@ -10,12 +10,12 @@ public class BaseUrl {
             R.drawable.home_robot,
             R.drawable.home_point,
             R.drawable.home_sales,
-            R.drawable.home_stop
+            R.drawable.home_reception
 
     };
 
     public static final String[] NAMES ={
-            "待办事宜","客户资料","机器人","新品买点","产品销售","紧急停止"
+            "待办事宜","客户资料","机器人","新品买点","产品销售","接待"
     };
 
     public static final String DATA = "robot_data";//本地数据库名称

@@ -3,143 +3,43 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:orientation="vertical"
-    android:background="@color/app_main_background"
+    android:background="@color/app_main_default"
     android:layout_height="match_parent"
     tools:context=".ui.activity.AgencyAffairsActivity">
 
     <include layout="@layout/activity_base"/>
-
-    <CheckBox
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:button="@null"
-        android:textColor="@color/vipTextColor"
-        android:text="公司待办"
-        android:checked="false"
-        android:id="@+id/company"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center"
         android:background="@color/app_main_default"
-        android:paddingTop="12dp"
-        android:paddingBottom="12dp"
-        android:paddingLeft="15dp"
-        android:paddingRight="15dp"
-        android:drawableRight="@drawable/checkbox_bg"
-        android:textSize="18sp"/>
-
-    <LinearLayout
-        android:id="@+id/ll_company_wait_dealt"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:visibility="gone"
-        android:background="@color/background"
-        android:paddingRight="15dp"
-        android:paddingLeft="15dp"
-        android:layout_marginBottom="8dp">
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/background"/>
+        android:padding="10dp">
         <TextView
-            android:padding="30px"
-            android:id="@+id/company_TV"
-            android:visibility="visible"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textSize="14sp"
-            android:background="@drawable/shape_seeting_text"
-            android:minLines="5"
-            android:textColor="@color/vipTextColor"
-            android:text="这是公司待办"/>
-    </LinearLayout>
-
-
-    <include layout="@layout/v_horizontal_line"/>
-
-    <CheckBox
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:button="@null"
-        android:checked="false"
-        android:textColor="@color/vipTextColor"
-        android:text="客户待办"
-        android:id="@+id/Customer"
-        android:background="@color/white"
-        android:paddingTop="12dp"
-        android:paddingBottom="12dp"
-        android:paddingLeft="15dp"
-        android:paddingRight="15dp"
-        android:drawableRight="@drawable/checkbox_bg"
-        android:textSize="18sp"/>
-    <LinearLayout
-        android:id="@+id/ll_customer_wait_dealt"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:visibility="gone"
-        android:background="@color/background"
-        android:paddingRight="15dp"
-        android:paddingLeft="15dp"
-        android:layout_marginBottom="8dp">
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/background"/>
+            android:id="@+id/tv_company_agency"
+            android:layout_width="110dp"
+            android:layout_height="30dp"
+            android:textSize="13sp"
+            android:gravity="center"
+            android:focusable="true"
+            android:textColor="@color/app_main_default"
+            android:text="公司待办"
+            android:background="@drawable/shape_company_agency_select_background"/>
         <TextView
-            android:padding="15dp"
-            android:id="@+id/CustomerTV"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textSize="14sp"
-            android:background="@drawable/shape_seeting_text"
-            android:minLines="5"
-            android:textColor="@color/vipTextColor"
-            android:text="这是客户待办"/>
+            android:id="@+id/tv_personal_agency"
+            android:layout_width="110dp"
+            android:layout_height="30dp"
+            android:textSize="13sp"
+            android:gravity="center"
+            android:textColor="@color/default_color"
+            android:text="个人待办"
+            android:background="@drawable/shape_personal_agency_background"/>
     </LinearLayout>
-
-
-    <CheckBox
+    <com.example.xrecyclerview.XRecyclerView
+        android:id="@+id/affairs_list"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:button="@null"
-        android:layout_marginTop="66px"
-        android:checked="false"
-        android:id="@+id/personal"
-        android:textColor="@color/vipTextColor"
-        android:text="个人待办"
-        android:background="@color/white"
-        android:paddingTop="12dp"
-        android:paddingBottom="12dp"
-        android:paddingLeft="15dp"
-        android:paddingRight="15dp"
-        android:drawableRight="@drawable/checkbox_bg"
-        android:textSize="18sp"/>
+        android:layout_height="match_parent"
+        android:layout_marginTop="12dp">
 
-    <LinearLayout
-        android:id="@+id/ll_personal_wait_dealt"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:visibility="gone"
-        android:background="@color/background"
-        android:paddingRight="15dp"
-        android:paddingLeft="15dp"
-        android:layout_marginBottom="8dp">
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/background"/>
-        <TextView
-            android:padding="30px"
-            android:id="@+id/personalTV"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textSize="14sp"
-            android:background="@drawable/shape_seeting_text"
-            android:minLines="5"
-            android:textColor="@color/vipTextColor"
-            android:text="这是个人待办"/>
-    </LinearLayout>
-
-
-
+    </com.example.xrecyclerview.XRecyclerView>
 </LinearLayout>

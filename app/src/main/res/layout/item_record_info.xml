@@ -1,6 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/app_main_background"
+    android:orientation="vertical">
 
+    <TextView
+        android:id="@+id/tv_record_info_time"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:paddingBottom="10dp"
+        android:paddingLeft="15dp"
+        android:paddingTop="10dp"
+        android:textColor="@color/default_color"
+        android:textSize="14sp" />
+    <com.empowerment.salesrobot.view.MyListView
+        android:id="@+id/content_list"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/app_main_default"
+        android:paddingTop="15dp"
+        android:scrollbars="none"
+        android:divider="@null">
+    </com.empowerment.salesrobot.view.MyListView>
 </LinearLayout>

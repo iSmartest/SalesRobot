@@ -13,6 +13,7 @@
     <color name="red">#ff0000</color>
     <color name="gray">#666666</color>
     <color name="default_color">#4A4A4A</color>
+    <color name="label_color">#9B9B9B</color>
     <color name="divider_color">#EEEEEE</color>
     <color name="divider_gray">#cccccc</color>
     <color name="hint_text">#FF8E8E93</color>
@@ -22,6 +23,7 @@
     <color name="text_color_subtitle">#666666</color>
     <color name="text_color_main">#333333</color>
     <color name="vipTextColor">#333333</color>
+    <color name="unread_color">#038FFF</color>
     <color name="blu">	#FF00FF</color>
     <color name="getText">#F5A623</color>
     <!--555555555555555555555555555555555555555555-->

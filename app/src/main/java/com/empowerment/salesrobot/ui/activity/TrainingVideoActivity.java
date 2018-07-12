@@ -56,7 +56,7 @@ public class TrainingVideoActivity extends BaseActivity {
         Map<String, String> params = new HashMap<>();
         params.put(SALE_ID, "1");
         params.put("page", nowPage + "");
-        MyOkhttp.Okhttp(context, Url.TRAINDOCLIST, dialog, params, new MyOkhttp.CallBack() {
+        MyOkhttp.Okhttp(context, Url.TRAINVIDEOLIST, dialog, params, new MyOkhttp.CallBack() {
             @Override
             public void onRequestComplete(String response, String result, String resultNote) {
                 Gson gson = new Gson();

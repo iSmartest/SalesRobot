@@ -1,10 +1,11 @@
 package com.empowerment.salesrobot.ui.activity;
 
-import android.app.Dialog;
-import android.content.Intent;
+import android.app.TimePickerDialog;
 import android.content.res.ColorStateList;
 import android.content.res.Resources;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.view.View;
@@ -15,20 +16,24 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.TimePicker;
 
 import com.empowerment.salesrobot.R;
 import com.empowerment.salesrobot.app.MyApplication;
 import com.empowerment.salesrobot.config.Url;
+import com.empowerment.salesrobot.listener.RecyclerItemTouchListener;
 import com.empowerment.salesrobot.okhttp.MyOkhttp;
-import com.empowerment.salesrobot.ui.adapter.InfromationAdapter;
+import com.empowerment.salesrobot.ui.adapter.InformationAdapter;
 import com.empowerment.salesrobot.ui.model.InfromationEntity;
 import com.empowerment.salesrobot.uitls.ToastUtils;
 import com.example.liangmutian.mypicker.DatePickerDialog;
 import com.example.liangmutian.mypicker.DateUtil;
+import com.example.xrecyclerview.XRecyclerView;
 import com.google.gson.Gson;
 
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -40,8 +45,7 @@ import butterknife.OnClick;
 import static com.empowerment.salesrobot.config.BaseUrl.C_TYPE;
 import static com.empowerment.salesrobot.config.BaseUrl.KEY_WORD;
 import static com.empowerment.salesrobot.config.BaseUrl.PAGE;
-import static com.empowerment.salesrobot.config.BaseUrl.RESULTCODE_L;
-import static com.empowerment.salesrobot.config.BaseUrl.RESULTCODE_ONE;
+import static com.empowerment.salesrobot.config.BaseUrl.ROWS;
 import static com.empowerment.salesrobot.config.BaseUrl.TYPE;
 
 
@@ -61,28 +65,29 @@ public class InformationActivity extends BaseActivity {
     TextView mData;
     @BindView(R.id.tv_work)
     TextView mWork;
-     @BindView(R.id.tv_name)
+    @BindView(R.id.tv_name)
     TextView mName;
-     @BindView(R.id.tv_car_style)
+    @BindView(R.id.tv_car_style)
     TextView mCarStyle;
-     @BindView(R.id.tv_address)
+    @BindView(R.id.tv_address)
     TextView mAddress;
-     @BindView(R.id.ll_search)
-     LinearLayout mLLSearch;
-     @BindView(R.id.ll_labels)
-     LinearLayout mLabels;
+    @BindView(R.id.ll_search)
+    LinearLayout mLLSearch;
+    @BindView(R.id.ll_labels)
+    LinearLayout mLabels;
     @BindView(R.id.information_ListView)
-    ListView informationListView;
+    XRecyclerView informationListView;
     @BindView(R.id.infoLayouts)
     LinearLayout infoLayouts;
     private TextView[] mTextView;
     private Map<String, String> cusMap;
-    private InfromationAdapter infromationAdapter;
+    private InformationAdapter infromationAdapter;
     private List<InfromationEntity.DataBean.CustomerListBean> infoList;
     private int PAGR_SIZE = 1;
     private String type = "2";
     private String cType;
     private String keyWord = "";
+
     @Override
     protected int getLauoutId() {
         return R.layout.activity_information;
@@ -94,7 +99,7 @@ public class InformationActivity extends BaseActivity {
         mEditKey.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-                if (actionId == EditorInfo.IME_ACTION_SEARCH){
+                if (actionId == EditorInfo.IME_ACTION_SEARCH) {
                     if (TextUtils.isEmpty(mEditKey.getText().toString().trim())) {
                         ToastUtils.makeText(context, "请输入关键词");
                     } else {
@@ -107,13 +112,13 @@ public class InformationActivity extends BaseActivity {
             }
         });
 
-
-
-        //ListView点击事件*传值
-        informationListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-
+        informationListView.addOnItemTouchListener(new RecyclerItemTouchListener(informationListView) {
             @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+            public void onItemClick(RecyclerView.ViewHolder vh) {
+                int position = vh.getAdapterPosition()-1;
+                if (position < 0 | position >= infoList.size()) {
+                    return;
+                }
                 Bundle bundle = new Bundle();
                 InfromationEntity.DataBean.CustomerListBean listBean = new InfromationEntity.DataBean.CustomerListBean();
                 listBean.setAddress(infoList.get(position).getAddress());
@@ -132,11 +137,15 @@ public class InformationActivity extends BaseActivity {
                 bundle.putString("info", new Gson().toJson(listBean));
                 bundle.putString("title", title.getText().toString());
                 MyApplication.openActivity(context, EditActivity.class, bundle);
+
             }
         });
     }
 
     private void showDateDialog(List<Integer> date) {
+
+
+
         DatePickerDialog.Builder builder = new DatePickerDialog.Builder(this);
         builder.setOnDateSelectedListener(new DatePickerDialog.OnDateSelectedListener() {
             @Override
@@ -145,12 +154,14 @@ public class InformationActivity extends BaseActivity {
                         + (dates[2] > 9 ? dates[2] : ("0" + dates[2])));
                 keyWord = mEditKey.getText().toString().trim();
                 infoList.clear();
+
+                dialog.dismiss();
                 getdata();//往期根据时间查询
             }
 
             @Override
             public void onCancel() {
-
+                dialog.dismiss();
             }
         }).setSelectYear(date.get(0) - 1)
                 .setSelectMonth(date.get(1) - 1)
@@ -168,7 +179,8 @@ public class InformationActivity extends BaseActivity {
         title.setText(getIntent().getStringExtra("title"));
         titleBack.setVisibility(View.VISIBLE);
         infoList = new ArrayList<>();//实例化标签对象集合
-        infromationAdapter = new InfromationAdapter(this, R.layout.informatin_listview_item_layout, infoList);
+        informationListView.setLayoutManager(new LinearLayoutManager(context));
+        infromationAdapter = new InformationAdapter(context, infoList);
         informationListView.setAdapter(infromationAdapter);
         mTextView = new TextView[5];
         mTextView[0] = mData;
@@ -185,6 +197,22 @@ public class InformationActivity extends BaseActivity {
         }
         currentFocus(1);
         getdata();//开启网络请求*往期或者今日客户
+
+        informationListView.setLoadingListener(new XRecyclerView.LoadingListener() {
+            @Override
+            public void onRefresh() {
+                PAGR_SIZE = 1;
+                infoList.clear();
+                infromationAdapter.notifyDataSetChanged();
+                getdata();
+            }
+
+            @Override
+            public void onLoadMore() {
+                PAGR_SIZE++;
+                getdata();
+            }
+        });
     }
 
     @Override
@@ -194,9 +222,9 @@ public class InformationActivity extends BaseActivity {
         ButterKnife.bind(this);
     }
 
-    @OnClick({R.id.title_Back,R.id.tv_data,R.id.tv_work,R.id.tv_name,R.id.tv_car_style,R.id.tv_address})
+    @OnClick({R.id.title_Back, R.id.tv_data, R.id.tv_work, R.id.tv_name, R.id.tv_car_style, R.id.tv_address})
     public void onViewClicked(View view) {
-        switch (view.getId()){
+        switch (view.getId()) {
             case R.id.title_Back:
                 finish();
                 break;
@@ -240,10 +268,10 @@ public class InformationActivity extends BaseActivity {
         Resources resource = context.getResources();
         ColorStateList csl1 = resource.getColorStateList(R.color.vipTextColor);
         ColorStateList csl2 = resource.getColorStateList(R.color.yellow);
-        for (int i = 0;i < mTextView.length; i++){
-            if (i == position){
+        for (int i = 0; i < mTextView.length; i++) {
+            if (i == position) {
                 mTextView[i].setTextColor(csl2);
-            }else {
+            } else {
                 mTextView[i].setTextColor(csl1);
             }
         }
@@ -251,19 +279,11 @@ public class InformationActivity extends BaseActivity {
 
 
     public void getdata() {
-        if (keyWord.isEmpty()){
-            if (type.equals("1")){
-                ToastUtils.makeText(context,"请选择日期");
-                return;
-            }else {
-                ToastUtils.makeText(context,"请输入关键词");
-                return;
-            }
-        }
         cusMap = new HashMap<>();
-        cusMap.put(TYPE,type);
-        cusMap.put(KEY_WORD,keyWord);
-        cusMap.put(C_TYPE,cType);
+        cusMap.put(TYPE, type);
+        cusMap.put(KEY_WORD, keyWord);
+        cusMap.put(C_TYPE, cType);
+        cusMap.put(ROWS, "10");
         cusMap.put(PAGE, String.valueOf(PAGR_SIZE));
         MyOkhttp.Okhttp(context, Url.CUSTOMER, dialog, cusMap, new MyOkhttp.CallBack() {
             @Override
@@ -275,13 +295,9 @@ public class InformationActivity extends BaseActivity {
                         if (infromationEntity.getMsg().equals("暂无数据")) {
                             ToastUtils.makeText(context, infromationEntity.getMsg());
                             informationListView.setVisibility(View.GONE);
-                            mLLSearch.setVisibility(View.GONE);
-                            mLabels.setVisibility(View.GONE);
                             infoLayouts.setVisibility(View.VISIBLE);
                         } else {
                             informationListView.setVisibility(View.VISIBLE);
-                            mLLSearch.setVisibility(View.VISIBLE);
-                            mLabels.setVisibility(View.VISIBLE);
                             infoLayouts.setVisibility(View.GONE);
                             infoList.addAll(infromationEntity.getData().getCustomerList());
                             infromationAdapter.notifyDataSetChanged();
@@ -290,14 +306,12 @@ public class InformationActivity extends BaseActivity {
                     case "1":
                         ToastUtils.makeText(context, infromationEntity.getMsg());
                         informationListView.setVisibility(View.GONE);
-                        mLLSearch.setVisibility(View.GONE);
-                        mLabels.setVisibility(View.GONE);
                         infoLayouts.setVisibility(View.VISIBLE);
                         break;
                 }
 
+                informationListView.refreshComplete();
             }
         });
     }
-
 }

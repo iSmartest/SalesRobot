@@ -1,5 +1,6 @@
 package com.empowerment.salesrobot.ui.fragment;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
@@ -80,6 +81,12 @@ public class HomeFragment extends BaseFragment implements OnBannerClickListener 
     private List<HomeEntity.DataBean.NoticeListBean> mmList = new ArrayList<>();
     private List<GridViewBean> gridViewBeanList = new ArrayList<>();
     private GridViewAdapter gridViewAdapter;
+    private CallBackListener callBackListener;
+
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+        callBackListener = (HomeFragment.CallBackListener) getActivity();
+    }
 
     @Nullable
     @Override
@@ -119,12 +126,11 @@ public class HomeFragment extends BaseFragment implements OnBannerClickListener 
                     case 3://新品买点
                         MyApplication.openActivity(context, NewPointActivity.class);
                         break;
-                    case 4:
+                    case 4://产品销售
                         MyApplication.openActivity(context, ProductSalesActivity.class);
                         break;
-                    case 5: //紧急停止
-                        ToastUtils.makeText(context,"不弹提示框立即停止");
-//                instance.showActivity(APP.context, AgencyAffairsActivity.class);
+                    case 5: //接待
+                        callBackListener.onClickListener();
                         break;
                 }
             }
@@ -191,5 +197,10 @@ public class HomeFragment extends BaseFragment implements OnBannerClickListener 
     @Override
     public void OnBannerClick(int position) {
         ToastUtils.makeText(context, "这是第" + homeList.get(position) + "条....");
+    }
+
+
+    public interface CallBackListener {
+        void onClickListener();
     }
 }

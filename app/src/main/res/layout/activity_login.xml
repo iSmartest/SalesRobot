@@ -44,7 +44,7 @@
         android:orientation="horizontal"
         android:layout_marginTop="290dp">
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:gravity="bottom"
@@ -63,8 +63,9 @@
             <include layout="@layout/v_horizontal_line"/>
         </LinearLayout>
         <Button
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="35dp"
+            android:layout_weight="2"
             android:text="发送验证码"
             android:background="@drawable/bg_login_sms"
             android:clickable="false"
@@ -80,7 +81,7 @@
         android:layout_marginLeft="15dp"
         android:layout_marginRight="15dp"
         android:clickable="false"
-        android:layout_height="50dp"
+        android:layout_height="45dp"
         android:text="登录"
         android:gravity="center"
         android:textSize="20sp"
