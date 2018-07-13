@@ -67,7 +67,8 @@ public class CustomerInfoActivity extends BaseActivity {
             case R.id.customer_Past:
                 //往期客户
                 bundle.putString("title", "往期客户");
-                MyApplication.openActivity(context,InformationActivity.class,bundle);                break;
+                MyApplication.openActivity(context,InformationActivity.class,bundle);
+                break;
             case R.id.customer_VIP:
                 //VIP
                 bundle.putString("titles", "VIP客户");

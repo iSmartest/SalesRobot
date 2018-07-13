@@ -1,6 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="35dip"
+    android:orientation="horizontal"
+    android:gravity="center">
 
-</android.support.constraint.ConstraintLayout>
+    <TextView
+        android:id="@+id/tempValue"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:textColor="#323232"/>
+</LinearLayout>

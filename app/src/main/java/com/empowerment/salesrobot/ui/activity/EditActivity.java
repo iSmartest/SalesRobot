@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import com.empowerment.salesrobot.R;
 import com.empowerment.salesrobot.config.Url;
+import com.empowerment.salesrobot.dialog.LogOutDialog;
 import com.empowerment.salesrobot.dialog.StopTipsDialog;
 import com.empowerment.salesrobot.okhttp.MyOkhttp;
 import com.empowerment.salesrobot.ui.model.InfromationEntity;
@@ -205,7 +206,6 @@ public class EditActivity extends BaseActivity {
             case R.id.title_OK:
                 //编辑 保存
                 switch (titleOK.getText().toString()) {
-
                     case "编辑":
                         titleOK.setText("保存");
                         //设置可编辑
@@ -269,18 +269,13 @@ public class EditActivity extends BaseActivity {
                 }
                 break;
             case R.id.edit_Get:
-                StopTipsDialog dialog = new StopTipsDialog(context, R.string.log_out, new StopTipsDialog.OnSureBtnClickListener() {
+                LogOutDialog dialog = new LogOutDialog(context, R.string.sure_extract, new LogOutDialog.OnSureBtnClickListener() {
                     @Override
                     public void sure() {
-                        ToastUtils.makeText(context,"是");
-                    }
-                    @Override
-                    public void cancle() {
-                        ToastUtils.makeText(context,"否");
+                        ToastUtils.makeText(context,"提取成功");
                     }
                 });
                 dialog.show();
-
                 break;
         }
     }

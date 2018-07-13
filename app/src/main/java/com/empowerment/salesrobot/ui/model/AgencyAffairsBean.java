@@ -50,7 +50,7 @@ public class AgencyAffairsBean {
 
         public static class AgentList {
             private int isRead;
-            private int endTime;
+            private long endTime;
             private int id;
             private int isFinish;
             private int type;
@@ -64,11 +64,11 @@ public class AgencyAffairsBean {
                 this.isRead = isRead;
             }
 
-            public int getEndTime() {
+            public long getEndTime() {
                 return endTime;
             }
 
-            public void setEndTime(int endTime) {
+            public void setEndTime(long endTime) {
                 this.endTime = endTime;
             }
 

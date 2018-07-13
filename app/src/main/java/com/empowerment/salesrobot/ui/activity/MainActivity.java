@@ -1,28 +1,19 @@
 package com.empowerment.salesrobot.ui.activity;
 
-import android.Manifest;
-import android.content.pm.PackageManager;
 import android.graphics.drawable.Drawable;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.support.v4.content.ContextCompat;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.RadioButton;
 import android.widget.Toast;
-
 import com.empowerment.salesrobot.R;
 import com.empowerment.salesrobot.ui.fragment.HomeFragment;
 import com.empowerment.salesrobot.ui.fragment.MineFragment;
 import com.empowerment.salesrobot.ui.fragment.ReceptionFragment;
 import com.empowerment.salesrobot.ui.fragment.TrainFragment;
 import com.empowerment.salesrobot.uitls.AppManager;
-
-import java.util.ArrayList;
-import java.util.List;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -100,17 +91,6 @@ public class MainActivity extends BaseActivity implements HomeFragment.CallBackL
                 changeFragment(TrainFragment.class,R.id.linear_main_layout_content,true,null,false);
                 break;
             case R.id.iv_main_reception:
-//                StopTipsDialog dialog = new StopTipsDialog(context, R.string.stop_tips, new StopTipsDialog.OnSureBtnClickListener() {
-//                    @Override
-//                    public void sure() {
-//                        mStop.setChecked(true);
-//                    }
-//                    @Override
-//                    public void cancle() {
-//                        mStop.setChecked(false);
-//                    }
-//                });
-//                dialog.show();
                 changeFragment(ReceptionFragment.class,R.id.linear_main_layout_content,true,null,false);
                 break;
             case R.id.iv_main_mine:
@@ -118,7 +98,6 @@ public class MainActivity extends BaseActivity implements HomeFragment.CallBackL
                 break;
         }
     }
-
 
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK) {
@@ -140,10 +119,17 @@ public class MainActivity extends BaseActivity implements HomeFragment.CallBackL
         }
     }
 
-
     @Override
-    public void onClickListener() {
-        changeFragment(ReceptionFragment.class,R.id.linear_main_layout_content,true,null,false);
-        mReception.setChecked(true);
+    public void onClickListener(int falg) {
+        switch (falg){
+            case 1:
+                changeFragment(TrainFragment.class,R.id.linear_main_layout_content,true,null,false);
+                mTrain.setChecked(true);
+                break;
+            case 2:
+                changeFragment(ReceptionFragment.class,R.id.linear_main_layout_content,true,null,false);
+                mReception.setChecked(true);
+                break;
+        }
     }
 }

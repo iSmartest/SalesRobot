@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:orientation="vertical"
     android:background="@color/app_main_default">
 
@@ -14,9 +14,10 @@
         android:paddingLeft="12dp"
         android:paddingRight="12dp"
         android:orientation="vertical"
-        android:background="@drawable/shape_white_corners_bg">
+        android:background="@drawable/shape_edit_text">
 
         <TextView
+            android:id="@+id/tv_finish_time"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textSize="18sp"
@@ -29,6 +30,7 @@
         <include layout="@layout/v_horizontal_line"/>
 
         <TextView
+            android:id="@+id/tv_affairs_content"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textSize="18sp"

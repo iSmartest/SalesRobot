@@ -76,7 +76,7 @@ public class InformationActivity extends BaseActivity {
     @BindView(R.id.ll_labels)
     LinearLayout mLabels;
     @BindView(R.id.information_ListView)
-    XRecyclerView informationListView;
+    XRecyclerView xRecyclerView;
     @BindView(R.id.infoLayouts)
     LinearLayout infoLayouts;
     private TextView[] mTextView;
@@ -104,6 +104,8 @@ public class InformationActivity extends BaseActivity {
                         ToastUtils.makeText(context, "请输入关键词");
                     } else {
                         keyWord = mEditKey.getText().toString().trim();
+                        infoList.clear();
+                        infromationAdapter.notifyDataSetChanged();
                         getdata();
                     }
                     return true;
@@ -112,7 +114,7 @@ public class InformationActivity extends BaseActivity {
             }
         });
 
-        informationListView.addOnItemTouchListener(new RecyclerItemTouchListener(informationListView) {
+        xRecyclerView.addOnItemTouchListener(new RecyclerItemTouchListener(xRecyclerView) {
             @Override
             public void onItemClick(RecyclerView.ViewHolder vh) {
                 int position = vh.getAdapterPosition()-1;
@@ -154,7 +156,7 @@ public class InformationActivity extends BaseActivity {
                         + (dates[2] > 9 ? dates[2] : ("0" + dates[2])));
                 keyWord = mEditKey.getText().toString().trim();
                 infoList.clear();
-
+                infromationAdapter.notifyDataSetChanged();
                 dialog.dismiss();
                 getdata();//往期根据时间查询
             }
@@ -179,9 +181,9 @@ public class InformationActivity extends BaseActivity {
         title.setText(getIntent().getStringExtra("title"));
         titleBack.setVisibility(View.VISIBLE);
         infoList = new ArrayList<>();//实例化标签对象集合
-        informationListView.setLayoutManager(new LinearLayoutManager(context));
+        xRecyclerView.setLayoutManager(new LinearLayoutManager(context));
         infromationAdapter = new InformationAdapter(context, infoList);
-        informationListView.setAdapter(infromationAdapter);
+        xRecyclerView.setAdapter(infromationAdapter);
         mTextView = new TextView[5];
         mTextView[0] = mData;
         mTextView[1] = mWork;
@@ -198,7 +200,7 @@ public class InformationActivity extends BaseActivity {
         currentFocus(1);
         getdata();//开启网络请求*往期或者今日客户
 
-        informationListView.setLoadingListener(new XRecyclerView.LoadingListener() {
+        xRecyclerView.setLoadingListener(new XRecyclerView.LoadingListener() {
             @Override
             public void onRefresh() {
                 PAGR_SIZE = 1;
@@ -234,31 +236,35 @@ public class InformationActivity extends BaseActivity {
                 showDateDialog(DateUtil.getDateForString("1990-01-01"));//输入框赋值
                 break;
             case R.id.tv_work:
-                type = "2";//拿到日期标签索引
+                type = "2";//拿到工作标签索引
                 keyWord = mEditKey.getText().toString().trim();
                 currentFocus(1);
                 infoList.clear();
+                infromationAdapter.notifyDataSetChanged();
                 getdata();
                 break;
             case R.id.tv_name:
-                type = "3";//拿到日期标签索引
+                type = "3";//拿到姓名标签索引
                 keyWord = mEditKey.getText().toString().trim();
                 currentFocus(2);
                 infoList.clear();
+                infromationAdapter.notifyDataSetChanged();
                 getdata();
                 break;
             case R.id.tv_car_style:
-                type = "4";//拿到日期标签索引
+                type = "4";//拿到车型标签索引
                 keyWord = mEditKey.getText().toString().trim();
                 currentFocus(3);
                 infoList.clear();
+                infromationAdapter.notifyDataSetChanged();
                 getdata();
                 break;
             case R.id.tv_address:
-                type = "5";//拿到日期标签索引
+                type = "5";//拿到区域标签索引
                 keyWord = mEditKey.getText().toString().trim();
                 currentFocus(4);
                 infoList.clear();
+                infromationAdapter.notifyDataSetChanged();
                 getdata();
                 break;
         }
@@ -294,10 +300,10 @@ public class InformationActivity extends BaseActivity {
                     case "0":
                         if (infromationEntity.getMsg().equals("暂无数据")) {
                             ToastUtils.makeText(context, infromationEntity.getMsg());
-                            informationListView.setVisibility(View.GONE);
+                            xRecyclerView.setVisibility(View.GONE);
                             infoLayouts.setVisibility(View.VISIBLE);
                         } else {
-                            informationListView.setVisibility(View.VISIBLE);
+                            xRecyclerView.setVisibility(View.VISIBLE);
                             infoLayouts.setVisibility(View.GONE);
                             infoList.addAll(infromationEntity.getData().getCustomerList());
                             infromationAdapter.notifyDataSetChanged();
@@ -305,12 +311,12 @@ public class InformationActivity extends BaseActivity {
                         break;
                     case "1":
                         ToastUtils.makeText(context, infromationEntity.getMsg());
-                        informationListView.setVisibility(View.GONE);
+                        xRecyclerView.setVisibility(View.GONE);
                         infoLayouts.setVisibility(View.VISIBLE);
                         break;
                 }
 
-                informationListView.refreshComplete();
+                xRecyclerView.refreshComplete();
             }
         });
     }

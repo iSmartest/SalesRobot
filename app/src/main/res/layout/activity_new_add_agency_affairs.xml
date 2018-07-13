@@ -1,6 +1,97 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/app_main_background">
 
-</android.support.constraint.ConstraintLayout>
+    <include layout="@layout/activity_base"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/app_main_background">
+        <LinearLayout
+            android:id="@+id/ll_add_item1"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:orientation="horizontal"
+            android:paddingLeft="15dp"
+            android:paddingRight="15dp"
+            android:background="@color/app_main_default">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="待办时间"
+                android:textSize="18sp"
+                android:layout_weight="1"
+                android:textColor="@color/default_color"
+                android:gravity="center_vertical"/>
+
+            <include layout="@layout/v_vertical_line"/>
+
+            <TextView
+                android:id="@+id/tv_add_affairs_data"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:textSize="18sp"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:textColor="@color/default_color"/>
+            <TextView
+                android:id="@+id/tv_add_affairs_time"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:textSize="18sp"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:textColor="@color/default_color"/>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingLeft="15dp"
+            android:paddingRight="15dp"
+            android:paddingTop="8dp"
+            android:layout_marginTop="8dp"
+            android:background="@color/app_main_default"
+            android:layout_below="@+id/ll_add_item1">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="待办说明"
+                android:textSize="18sp"
+                android:layout_weight="4"
+                android:textColor="@color/default_color"
+                android:gravity="center_vertical"/>
+
+            <EditText
+                android:id="@+id/et_add_affairs_content"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:hint="在此输入..."
+                android:textSize="16sp"
+                android:layout_weight="4"
+                android:textColor="@color/default_color"
+                android:gravity="top|left"
+                android:paddingTop="8dp"
+                android:paddingBottom="8dp"
+                android:background="@null"
+                android:minLines="8"
+                android:maxLines="10"/>
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/tv_add_affairs_save"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:text="保存"
+            android:textSize="18sp"
+            android:gravity="center"
+            android:textColor="@color/app_main_default"
+            android:background="@color/colorPrimary"
+            android:layout_alignParentBottom="true"/>
+    </RelativeLayout>
+</LinearLayout>

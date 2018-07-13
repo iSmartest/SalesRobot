@@ -43,6 +43,12 @@ public class Url {
     //待办事宜
     public static final String AFFAIRS = HTTP +"/app/sale/agentList?";
 
+    //待办事宜阅读或者完结
+    public static final String READ_OR_FINISH = HTTP +"/app/sale/readOrFinish?";
+
+    //添加个人待办事宜
+    public static final String ADD_PERSONAL_AGENCY = HTTP +"/app/sale/addPersonalAgent?";
+
 
     //客户资料**查询
     public static final String CUSTOMER = HTTP + "/app/customer/customerList?";

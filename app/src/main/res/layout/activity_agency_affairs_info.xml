@@ -1,6 +1,54 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/app_main_default">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
 
-</LinearLayout>
+        <include layout="@layout/activity_base"/>
+
+        <TextView
+            android:id="@+id/tv_affairs_info_time"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="26dp"
+            android:paddingRight="26dp"
+            android:paddingTop="6dp"
+            android:paddingBottom="6dp"
+            android:textSize="18sp"
+            android:textColor="@color/default_color"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/divider_color"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"/>
+
+        <TextView
+            android:id="@+id/tv_affairs_info_content"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="26dp"
+            android:paddingRight="26dp"
+            android:paddingTop="6dp"
+            android:paddingBottom="6dp"
+            android:textSize="18sp"
+            android:textColor="@color/default_color"/>
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/tv_affairs_info_finish"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:text="完结"
+        android:textSize="18sp"
+        android:gravity="center"
+        android:textColor="@color/app_main_default"
+        android:background="@color/colorPrimary"
+        android:layout_alignParentBottom="true"/>
+</RelativeLayout>

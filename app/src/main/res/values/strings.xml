@@ -9,12 +9,14 @@
     <string name="loading">加载中</string>
     <string name="sure_to_do_sth">您确定要%s吗？</string>
     <string name="log_out">确定退出登录吗?</string>
+    <string name="sure_extract">确定提取资料?</string>
     <string name="stop_tips">是否紧急停止?</string>
     <string name="app_home">首页</string>
     <string name="app_train">训练</string>
     <string name="app_stop">停止</string>
     <string name="app_mine">我的</string>
     <string name="_settings">设置</string>
+    <string name="start_time">具体时间</string>
     <string name="take_photo">拍摄</string>
     <string name="local_album">本地相册</string>
     <string name="make_cancel">取消</string>

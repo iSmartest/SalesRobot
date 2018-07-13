@@ -2,6 +2,8 @@ package com.empowerment.salesrobot.config;
 
 import com.empowerment.salesrobot.R;
 
+import java.util.ArrayList;
+
 public class BaseUrl {
 
     public static final int[] IMGS ={
@@ -17,6 +19,32 @@ public class BaseUrl {
     public static final String[] NAMES ={
             "待办事宜","客户资料","机器人","新品买点","产品销售","接待"
     };
+
+    public static ArrayList<String> hourList;//年龄
+    public static ArrayList<String> minuteList;//年龄
+
+    public static ArrayList<String> getHourList(){
+        hourList = new ArrayList<>();
+        for (int i = 0; i < 24; i++) {
+            if (i < 10){
+                hourList.add("0" + i);
+            }else {
+                hourList.add("" + i);
+            }
+        }
+        return hourList;
+    }
+    public static ArrayList<String> getMinuteList() {
+        minuteList = new ArrayList<>();
+        for (int i = 0; i < 60; i++) {
+            if (i < 10){
+                minuteList.add("0" + i);
+            }else {
+                minuteList.add("" + i);
+            }
+        }
+        return minuteList;
+    }
 
     public static final String DATA = "robot_data";//本地数据库名称
     public static final int RESULTCODE_L = 0;//返回提示码  成功

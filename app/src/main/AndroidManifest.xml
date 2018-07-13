@@ -71,6 +71,16 @@
             android:windowSoftInputMode="adjustPan|stateHidden"
             android:configChanges="orientation"
             android:screenOrientation="portrait"/>
+        <!--查看待办事宜-->
+        <activity android:name=".ui.activity.AgencyAffairsInfoActivity"
+            android:windowSoftInputMode="adjustPan|stateHidden"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait"/>
+        <!--添加个人待办事宜-->
+        <activity android:name=".ui.activity.NewAddAgencyAffairsActivity"
+            android:windowSoftInputMode="adjustPan|stateHidden"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait"/>
         <!--客户资料-->
         <activity android:name=".ui.activity.CustomerInfoActivity"
             android:windowSoftInputMode="adjustPan|stateHidden"

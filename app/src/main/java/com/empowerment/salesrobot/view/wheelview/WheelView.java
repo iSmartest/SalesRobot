@@ -1,4 +1,4 @@
-package com.lixin.cityinformation.wheelview;
+package com.empowerment.salesrobot.view.wheelview;
 
 import android.content.Context;
 import android.database.DataSetObserver;
@@ -14,7 +14,7 @@ import android.view.ViewGroup;
 import android.view.animation.Interpolator;
 import android.widget.LinearLayout;
 
-import com.lixin.cityinformation.R;
+import com.empowerment.salesrobot.R;
 
 import java.util.LinkedList;
 import java.util.List;

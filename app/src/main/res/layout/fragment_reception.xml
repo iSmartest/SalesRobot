@@ -7,4 +7,16 @@
 
     <include layout="@layout/activity_base" />
 
+    <GridView
+        android:id="@+id/gv_reception"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:numColumns="3"
+        android:scrollbars="none"
+        android:horizontalSpacing="7dp"
+        android:verticalSpacing="7dp"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp"
+        android:paddingTop="15dp">
+    </GridView>
 </LinearLayout>

@@ -1,5 +1,7 @@
 package com.empowerment.salesrobot.uitls;
 
+import android.util.Log;
+
 import java.math.BigDecimal;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -201,13 +203,16 @@ public class TimeUtils {
 
      */
 
-    public static  String transferLongToDate(Long millSec){
+    public static  String transferLongToDate(long millSec){
+        long time = millSec*1000L;
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+        Date date = new Date(time);
+        return simpleDateFormat.format(date);
 
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
-        Date date= new Date(millSec);
 
-        return sdf.format(date);
+
+
 
     }
 }

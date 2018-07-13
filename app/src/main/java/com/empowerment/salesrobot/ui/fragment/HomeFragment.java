@@ -121,7 +121,7 @@ public class HomeFragment extends BaseFragment implements OnBannerClickListener 
                         MyApplication.openActivity(context, CustomerInfoActivity.class);
                         break;
                     case 2: //我的机器人
-//                instance.showActivity(APP.context, AgencyAffairsActivity.class);
+                        callBackListener.onClickListener(1);
                         break;
                     case 3://新品买点
                         MyApplication.openActivity(context, NewPointActivity.class);
@@ -130,7 +130,7 @@ public class HomeFragment extends BaseFragment implements OnBannerClickListener 
                         MyApplication.openActivity(context, ProductSalesActivity.class);
                         break;
                     case 5: //接待
-                        callBackListener.onClickListener();
+                        callBackListener.onClickListener(2);
                         break;
                 }
             }
@@ -201,6 +201,6 @@ public class HomeFragment extends BaseFragment implements OnBannerClickListener 
 
 
     public interface CallBackListener {
-        void onClickListener();
+        void onClickListener(int flag);
     }
 }

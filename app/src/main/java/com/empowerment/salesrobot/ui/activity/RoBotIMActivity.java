@@ -76,18 +76,18 @@ public class RoBotIMActivity extends BaseActivity implements RecordButton.Record
         SoftKeyBoardListener.setListener(RoBotIMActivity.this, new SoftKeyBoardListener.OnSoftKeyBoardChangeListener() {
             @Override
             public void keyBoardShow(int rootHight,int keyBroadheight) {
-                ToastUtils.makeText(context, "键盘显示 跟布局" + rootHight + "，高度" + keyBroadheight + "，ll高度" +linearLayout.getMeasuredHeight());
+                Log.i("TAG", "键盘显示 跟布局" + rootHight + "，高度" + keyBroadheight + "，ll高度" +linearLayout.getMeasuredHeight());
                 ViewGroup.LayoutParams params = relativeLayout.getLayoutParams();
-                params.height = rootHight - keyBroadheight - linearLayout.getMeasuredHeight();
+                params.height = rootHight - keyBroadheight - linearLayout.getMeasuredHeight()+35;
                 relativeLayout.setLayoutParams(params);
             }
 
             @Override
 
             public void keyBoardHide(int rootHight,int keyBroadheight) {
-                ToastUtils.makeText(context, "键盘隐藏 跟布局" + rootHight + "，高度" + keyBroadheight + "，ll高度" +linearLayout.getMeasuredHeight());
+                Log.i("TAG", "键盘隐藏 跟布局" + rootHight + "，高度" + keyBroadheight + "，ll高度" +linearLayout.getMeasuredHeight());
                 ViewGroup.LayoutParams params = relativeLayout.getLayoutParams();
-                params.height = rootHight + keyBroadheight - linearLayout.getMeasuredHeight();
+                params.height = rootHight + keyBroadheight - linearLayout.getMeasuredHeight()+35;
                 relativeLayout.setLayoutParams(params);
             }
         });
