@@ -171,7 +171,7 @@ public class HomeFragment extends BaseFragment implements OnBannerClickListener 
                                 @Override
                                 public void bindResponse(ViewHolder holder, HomeEntity.DataBean.NoticeListBean data) {
                                     ((TextView) holder.getView(R.id.home_item_tv)).setText(data.getContent());
-                                    Glide.with(getActivity()).load(HTTP + bean.getData().getImage()).error(R.drawable.image_fail_empty).into((ImageView) holder.getView(R.id.home_ImgView));
+                                    Glide.with(getActivity()).load(HTTP + bean.getData().getImage()).into((ImageView) holder.getView(R.id.home_ImgView));
                                     ((TextView) holder.getView(R.id.home_tvName)).setText(bean.getData().getName());
                                 }
                             });

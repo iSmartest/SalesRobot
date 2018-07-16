@@ -167,7 +167,6 @@
             android:windowSoftInputMode="adjustResize|stateHidden"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"/>
-
         <!--个人资料-->
         <activity android:name=".ui.activity.PersonalMainActivity"
             android:windowSoftInputMode="adjustResize|stateHidden"
@@ -200,8 +199,13 @@
             android:launchMode="singleTask"
             android:screenOrientation="portrait"/>
 
+        <activity
+            android:name="me.iwf.photopicker.PhotoPickerActivity"
+            android:theme="@style/AppTheme"/>
 
-
+        <activity
+            android:name="me.iwf.photopicker.PhotoPagerActivity"
+            android:theme="@style/AppTheme" />
         <!--Android 7.0相机调用-->
         <provider
             android:name="android.support.v4.content.FileProvider"

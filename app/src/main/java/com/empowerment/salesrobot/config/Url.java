@@ -8,7 +8,7 @@ public class Url {
 
 
     //服务器地址
-    public static final String HTTP = "http://192.168.1.14:8081/robot";
+    public static final String HTTP = "http://192.168.1.6:8081/robot";
 
     //登录
     public static final String LOGIN_ = HTTP + "/app/sale/login?";
@@ -27,6 +27,19 @@ public class Url {
 
     //现场记录详情
     public static final String RECORD_DETAIL = HTTP + "/app/sale/recordDetail?";
+
+    //训练—提问
+    public static final String TRAIN_ROBOT = HTTP + "/app/sale/trainRobot?";
+
+    //训练—结束训练
+    public static final String FINISH_TRAIN = HTTP + "/app/sale/finishTrain?";
+
+    //训练—提交图文
+    public static final String ADD_TRAIN_RECORD_ABOUT_PIC = HTTP + "/app/sale/addTrainRecordAboutPic?";
+
+    //训练—提交图文
+    public static final String ADD_TRAIN_RECORD_ABOUT_VIDEO = HTTP + "/app/sale/addTrainRecordAboutVideo?";
+
 
     //销售员心得
     public static final String SALES_MANS = HTTP + "/app/sale/experience?";

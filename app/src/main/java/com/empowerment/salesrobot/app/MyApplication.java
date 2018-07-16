@@ -12,9 +12,6 @@ import android.view.View;
 
 import com.empowerment.salesrobot.uitls.CrashHandler;
 import com.empowerment.salesrobot.uitls.ImageManagerUtils;
-import com.empowerment.salesrobot.uitls.UILImageLoader;
-import com.lzy.imagepicker.ImagePicker;
-import com.lzy.imagepicker.view.CropImageView;
 import com.nostra13.universalimageloader.cache.disc.naming.Md5FileNameGenerator;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
@@ -32,16 +29,12 @@ import cn.jpush.android.api.JPushInterface;
 public class MyApplication extends Application {
     public static Context CONTEXT;
     private static MyApplication myApplication;
-    public static int defaultItem = 0;
-    public static int shopPay = 0;
-    public static int evaluate = 0;
     @Override
     public void onCreate() {
         super.onCreate();
         CONTEXT = getApplicationContext();
         initImageLoader(this);
         myApplication = this;
-        initImagePicker();
         //崩溃错误日志写入本地文档
         JPushInterface.setDebugMode(true);//如果时正式版就改成false
         JPushInterface.init(this);
@@ -134,20 +127,6 @@ public class MyApplication extends Application {
         ImageLoader.getInstance().init(config);
 
         ImageManagerUtils.init();
-    }
-
-    private void initImagePicker() {
-        ImagePicker imagePicker = ImagePicker.getInstance();
-        imagePicker.setImageLoader(new UILImageLoader());   //设置图片加载器
-        imagePicker.setShowCamera(true);  //显示拍照按钮
-        imagePicker.setCrop(true);        //允许裁剪（单选才有效）
-        imagePicker.setSaveRectangle(true); //是否按矩形区域保存
-        imagePicker.setSelectLimit(10);    //选中数量限制
-        imagePicker.setStyle(CropImageView.Style.RECTANGLE);  //裁剪框的形状
-        imagePicker.setFocusWidth(800);   //裁剪框的宽度。单位像素（圆形自动取宽高最小值）
-        imagePicker.setFocusHeight(800);  //裁剪框的高度。单位像素（圆形自动取宽高最小值）
-        imagePicker.setOutPutX(1000);//保存文件的宽度。单位像素
-        imagePicker.setOutPutY(1000);//保存文件的高度。单位像素
     }
 
     public static void getWindows(Activity con) {

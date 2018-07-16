@@ -12,6 +12,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.empowerment.salesrobot.R;
 import com.empowerment.salesrobot.ui.model.FieldRecordBean;
+import com.empowerment.salesrobot.uitls.ImageManagerUtils;
 import com.empowerment.salesrobot.view.MyGridView;
 import com.empowerment.salesrobot.view.RoundedImageView;
 
@@ -45,7 +46,7 @@ public class FieldRecordAdapter extends RecyclerView.Adapter<FieldRecordAdapter.
         if (consultList.getType() == 1){
             holder.mName.setText("姓名：" + consultList.getName());
         }
-        Glide.with(context).load(consultList.getImage()).error(R.drawable.my_head_portrait).into(holder.mIcon);
+        Glide.with(context).load(consultList.getImage()).into(holder.mIcon);
         LabelAdapter labelAdapter = new LabelAdapter(context,consultList.getItems());
         holder.mGVLabel.setAdapter(labelAdapter);
     }

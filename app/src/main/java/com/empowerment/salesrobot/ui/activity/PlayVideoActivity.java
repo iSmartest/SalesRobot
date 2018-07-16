@@ -1,16 +1,22 @@
 package com.empowerment.salesrobot.ui.activity;
 
+import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.empowerment.salesrobot.R;
+import com.empowerment.salesrobot.dialog.ProgressDialog;
+import com.empowerment.salesrobot.uitls.AppManager;
+import com.empowerment.salesrobot.uitls.StatusBarUtil;
 import com.xiao.nicevideoplayer.NiceVideoPlayer;
 import com.xiao.nicevideoplayer.NiceVideoPlayerManager;
 import com.xiao.nicevideoplayer.TxVideoPlayerController;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 /**
@@ -19,7 +25,7 @@ import butterknife.OnClick;
  * Created by 2018/7/4.
  * Description:
  */
-public class PlayVideoActivity extends BaseActivity{
+public class PlayVideoActivity extends AppCompatActivity{
     @BindView(R.id.title_Back)
     ImageView titleBack;
     @BindView(R.id.title)
@@ -28,11 +34,14 @@ public class PlayVideoActivity extends BaseActivity{
     NiceVideoPlayer mNiceVideoPlayer;
     private String name;
     @Override
-    protected int getLauoutId() {
-        return R.layout.activity_play_video;
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_play_video);
+        ButterKnife.bind(this);
+        initView();//实例化
+        loadData();//加载数据
     }
 
-    @Override
     protected void loadData() {
         mNiceVideoPlayer.setPlayerType(NiceVideoPlayer.TYPE_IJK); // IjkPlayer or MediaPlayer
         String videoUrl = "http://tanzi27niu.cdsb.mobi/wps/wp-content/uploads/2017/05/2017-05-17_17-33-30.mp4";
@@ -43,13 +52,10 @@ public class PlayVideoActivity extends BaseActivity{
         controller.setLenght(98000);
         Glide.with(this)
                 .load("http://tanzi27niu.cdsb.mobi/wps/wp-content/uploads/2017/05/2017-05-17_17-30-43.jpg")
-                .placeholder(R.drawable.img_default)
-                .crossFade()
                 .into(controller.imageView());
         mNiceVideoPlayer.setController(controller);
     }
 
-    @Override
     protected void initView() {
         name = getIntent().getStringExtra("mName");
         title.setText("培训视频");

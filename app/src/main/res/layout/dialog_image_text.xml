@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/shape_white_corners_bg">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="32dp"
+        android:orientation="vertical">
+        <EditText
+            android:id="@+id/edit_content"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/shape_chat_voice"
+            android:minLines="5"
+            android:maxLines="6"
+            android:hint="请输入内容"
+            android:gravity="left|top"
+            android:textSize="15sp"
+            android:textColor="@color/black"
+            android:padding="5dp"
+            android:layout_marginBottom="8dp"
+            android:textColorHint="@color/hint_text"/>
+
+        <include layout="@layout/v_horizontal_line"/>
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+        </android.support.v7.widget.RecyclerView>
+    </LinearLayout>
+
+    <include layout="@layout/v_horizontal_line" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="8dp">
+        <Button
+            android:id="@+id/log_out_tips_btn_cancel"
+            android:textSize="16sp"
+            android:layout_width="0dp"
+            android:layout_height="42dp"
+            android:layout_weight="1"
+            android:layout_marginRight="@dimen/activity_horizontal_margin"
+            android:background="@null"
+            android:gravity="center"
+            android:text="@string/make_cancel" />
+        <View
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:layout_margin="4dp"
+            android:background="@color/divider_color" />
+        <Button
+            android:id="@+id/log_out_tips_btn_sure"
+            android:textSize="16sp"
+            android:layout_width="0dp"
+            android:layout_height="42dp"
+            android:layout_marginLeft="@dimen/activity_horizontal_margin"
+            android:layout_weight="1"
+            android:background="@null"
+            android:text="@string/make_sure"
+            android:textColor="@color/colorPrimary" />
+    </LinearLayout>
+</LinearLayout>

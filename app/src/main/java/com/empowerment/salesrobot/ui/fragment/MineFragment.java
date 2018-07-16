@@ -24,7 +24,6 @@ import com.empowerment.salesrobot.ui.model.MineBean;
 import com.empowerment.salesrobot.uitls.SPUtil;
 import com.empowerment.salesrobot.uitls.TimeUtils;
 import com.empowerment.salesrobot.uitls.ToastUtils;
-import com.empowerment.salesrobot.view.GlideCircleTransform;
 import com.empowerment.salesrobot.view.RoundedImageView;
 import com.example.xrecyclerview.XRecyclerView;
 import com.google.gson.Gson;
@@ -179,7 +178,6 @@ public class MineFragment extends BaseFragment {
     @Override
     public void onResume() {
         super.onResume();
-        Glide.with(this).load(HTTP + SPUtil.getString(context,IMAGE))
-                .transform(new GlideCircleTransform(getContext())).error(R.drawable.my_head_portrait).into(myIconImgview);
+        Glide.with(this).load(HTTP + SPUtil.getString(context,IMAGE)).into(myIconImgview);
     }
 }

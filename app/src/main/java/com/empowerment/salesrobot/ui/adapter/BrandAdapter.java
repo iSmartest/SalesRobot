@@ -26,7 +26,7 @@ public class BrandAdapter extends AbsAdapter<ProductSalesBean.DataBean.BList> {
     @Override
     public void bindResponse(ViewHolder holder, ProductSalesBean.DataBean.BList data) {
         ImageView view = (ImageView) holder.getView(R.id.iv_brand_pic);
-        Glide.with(context).load(data.getPic()).error(R.mipmap.ic_launcher).into(view);
+        Glide.with(context).load(data.getPic()).into(view);
         ((TextView)holder.getView(R.id.tv_brand_name)).setText(data.getName());
     }
 }

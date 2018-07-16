@@ -31,6 +31,7 @@
             android:layout_weight="1"
             android:background="@null"
             android:textColor="@color/black"
+            android:text="188888888"
             android:textSize="18sp" />
     </LinearLayout>
 
@@ -57,6 +58,7 @@
             android:layout_height="match_parent"
             android:background="@null"
             android:layout_weight="1"
+            android:text="男"
             android:gravity="center_vertical"
             android:textSize="30px" />
     </LinearLayout>
@@ -84,6 +86,7 @@
             android:layout_height="match_parent"
             android:background="@null"
             android:layout_weight="1"
+            android:text="23"
             android:gravity="center_vertical"
             android:textSize="30px" />
     </LinearLayout>
@@ -110,6 +113,7 @@
             android:layout_height="match_parent"
             android:background="@null"
             android:layout_weight="1"
+            android:text="汽车销售"
             android:gravity="center_vertical"
             android:textSize="30px" />
     </LinearLayout>
@@ -138,6 +142,7 @@
             android:background="@null"
             android:gravity="center_vertical"
             android:layout_weight="1"
+            android:text="0001"
             android:textSize="30px" />
     </LinearLayout>
 </LinearLayout>

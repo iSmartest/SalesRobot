@@ -11,7 +11,6 @@ import android.widget.TextView;
 import com.empowerment.salesrobot.R;
 import com.empowerment.salesrobot.config.Url;
 import com.empowerment.salesrobot.dialog.LogOutDialog;
-import com.empowerment.salesrobot.dialog.StopTipsDialog;
 import com.empowerment.salesrobot.okhttp.MyOkhttp;
 import com.empowerment.salesrobot.ui.model.InfromationEntity;
 import com.empowerment.salesrobot.ui.model.VipOrYxEntity;

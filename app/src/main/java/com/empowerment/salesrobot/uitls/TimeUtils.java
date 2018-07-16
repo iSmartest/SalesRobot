@@ -209,10 +209,25 @@ public class TimeUtils {
         Date date = new Date(time);
         return simpleDateFormat.format(date);
 
+    }
 
+    /**
+     * 将毫秒转换为字符串
+     *
+     * @param timeMs
+     * @return
+     */
+    public static String stringForTime(int timeMs) {
+        int totalSeconds = timeMs / 1000;
 
+        int seconds = totalSeconds % 60 + ((totalSeconds == 14 && totalSeconds % 1000 > 0) ? 1 : 0);
+        int minutes = (totalSeconds / 60) % 60;
+        int hours = totalSeconds / 3600;
 
-
-
+        if (hours > 0) {
+            return String.format(Locale.getDefault(), "%d:%02d:%02d", hours, minutes, seconds);
+        } else {
+            return String.format(Locale.getDefault(), "%02d:%02d", minutes, seconds);
+        }
     }
 }

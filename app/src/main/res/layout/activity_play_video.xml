@@ -7,7 +7,28 @@
     android:orientation="vertical"
     android:background="@drawable/transpant_bg"
     tools:context=".ui.activity.PlayVideoActivity">
-    <include layout="@layout/activity_base"/>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:background="@color/colorPrimary">
+        <ImageView
+            android:id="@+id/title_Back"
+            android:layout_width="45dp"
+            android:layout_height="match_parent"
+            android:src="@drawable/back_icon"
+            android:visibility="gone"
+            android:paddingLeft="15dp"
+            android:paddingRight="15dp"/>
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:gravity="center_horizontal|center_vertical"
+            android:textColor="#FFFFFF"
+            android:textSize="18dp" />
+    </RelativeLayout>
 
     <com.xiao.nicevideoplayer.NiceVideoPlayer
         android:id="@+id/nice_video_player"

@@ -17,9 +17,8 @@ import com.empowerment.salesrobot.config.Url;
 import com.empowerment.salesrobot.okhttp.MyOkhttp;
 import com.empowerment.salesrobot.ui.adapter.GalleryAdapter;
 import com.empowerment.salesrobot.ui.model.VipOrYxEntity;
-import com.empowerment.salesrobot.uitls.SPUtil;
+import com.empowerment.salesrobot.uitls.ImageManagerUtils;
 import com.empowerment.salesrobot.uitls.ToastUtils;
-import com.empowerment.salesrobot.view.GlideCircleTransform;
 import com.google.gson.Gson;
 
 import java.util.ArrayList;
@@ -133,10 +132,7 @@ public class VIPActivity extends BaseActivity {
                 vipPhone.setText("手机：" + vipList.get(position).getPhone());
                 vipWork.setText("职业：" + vipList.get(position).getWork());
                 vipId.setText("身份证：" + vipList.get(position).getIdCard());
-                Glide.with(context)
-                        .load(vipList.get(position).getPic())
-                        .transform(new GlideCircleTransform(context))
-                        .into(vipIcon);
+                ImageManagerUtils.imageLoader.displayImage(vipList.get(position).getPic(),vipIcon,ImageManagerUtils.options3);
                 switch (vipList.get(position).getSex()) {
                     case 1:
                         vipSex.setText("性别：男");

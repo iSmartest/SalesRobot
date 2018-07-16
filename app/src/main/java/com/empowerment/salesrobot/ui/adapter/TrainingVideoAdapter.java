@@ -41,7 +41,7 @@ public class TrainingVideoAdapter extends RecyclerView.Adapter<TrainingVideoAdap
     public void onBindViewHolder(@NonNull TrainingVideoViewHolder holder, int position) {
         TrainingVideoBean.DataBean.VideoList videoList = mList.get(position);
         holder.mTitle.setText(videoList.getName());
-        Glide.with(context).load(videoList.getCoverAddress()).error(R.drawable.image_fail_empty).into(holder.mCover);
+        Glide.with(context).load(videoList.getCoverAddress()).into(holder.mCover);
     }
 
     @Override

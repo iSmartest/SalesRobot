@@ -24,7 +24,7 @@ public class GridViewAdapter extends AbsAdapter<GridViewBean> {
     public void bindResponse(ViewHolder holder, GridViewBean data) {
         ImageView view = (ImageView) holder.getView(R.id.home_item_img);
 
-        Glide.with(context).load(data.getImg()).error(R.mipmap.ic_launcher).into(view);
+        Glide.with(context).load(data.getImg()).into(view);
         ((TextView)holder.getView(R.id.home_item_name)).setText(data.getName());
     }
 }

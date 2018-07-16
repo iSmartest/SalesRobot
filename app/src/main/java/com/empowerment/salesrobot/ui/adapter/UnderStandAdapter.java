@@ -43,7 +43,7 @@ public class UnderStandAdapter extends RecyclerView.Adapter<UnderStandAdapter.Un
         MineBean.DataBean.ContentListBean contentListBean = mList.get(position);
         holder.mUnderstand.setText(contentListBean.getContent());
         holder.mTime.setText(TimeUtils.transferLongToDate(contentListBean.getData()));
-        Glide.with(context).load(contentListBean.getImage()).error(R.drawable.my_head_portrait).into(holder.mIcon);
+        Glide.with(context).load(contentListBean.getImage()).into(holder.mIcon);
     }
 
     @Override

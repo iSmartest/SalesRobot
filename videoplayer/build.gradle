@@ -12,9 +12,7 @@ android {
 
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
-        ndk {
-            abiFilters 'armeabi', 'armeabi-v7a', 'x86'
-        }
+
     }
 
     buildTypes {
@@ -31,7 +29,10 @@ android {
     productFlavors {
     }
 }
-
+repositories {
+    flatDir { dirs 'libs/aars' }
+    google()
+}
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
 

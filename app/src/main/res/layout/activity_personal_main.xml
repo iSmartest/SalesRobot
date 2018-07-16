@@ -30,7 +30,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="17dp"
             android:layout_toRightOf="@id/my_iconImgview"
-            android:text="销售"
+            android:text="苏大大"
             android:textColor="@color/black"
             android:textSize="18sp" />
 
