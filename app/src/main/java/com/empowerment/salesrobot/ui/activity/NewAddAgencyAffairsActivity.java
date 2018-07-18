@@ -28,6 +28,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 import static com.empowerment.salesrobot.config.BaseUrl.SALE_ID;
+import static com.empowerment.salesrobot.config.BaseUrl.STORE_ID;
 
 /**
  * Author: 小火
@@ -40,7 +41,6 @@ public class NewAddAgencyAffairsActivity extends BaseActivity {
     ImageView titleBack;
     @BindView(R.id.title)
     TextView title;
-
     @BindView(R.id.tv_add_affairs_data)
     TextView mData;
     @BindView(R.id.tv_add_affairs_time)
@@ -118,8 +118,8 @@ public class NewAddAgencyAffairsActivity extends BaseActivity {
         Map<String,String> params = new HashMap<>();
         params.put("endDate",time);
         params.put("content",content);
-//        params.put("sId", SPUtil.getString(context,SALE_ID));
-        params.put("sId","1");
+        params.put("sId", SPUtil.getString(context,SALE_ID));
+        params.put("storeId", SPUtil.getString(context,STORE_ID));
         MyOkhttp.Okhttp(context, Url.ADD_PERSONAL_AGENCY, ProgressDialog.createLoadingDialog(context, "提交中..."), params, new MyOkhttp.CallBack() {
             @Override
             public void onRequestComplete(String response, String result, String resultNote) {

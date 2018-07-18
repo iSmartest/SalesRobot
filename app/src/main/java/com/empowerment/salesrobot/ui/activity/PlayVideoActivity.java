@@ -33,6 +33,10 @@ public class PlayVideoActivity extends AppCompatActivity{
     @BindView(R.id.nice_video_player)
     NiceVideoPlayer mNiceVideoPlayer;
     private String name;
+//    private String videoUrl = "http://tanzi27niu.cdsb.mobi/wps/wp-content/uploads/2017/05/2017-05-17_17-33-30.mp4";
+    private String videoUrl ;
+    private String videoUri ;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,21 +48,21 @@ public class PlayVideoActivity extends AppCompatActivity{
 
     protected void loadData() {
         mNiceVideoPlayer.setPlayerType(NiceVideoPlayer.TYPE_IJK); // IjkPlayer or MediaPlayer
-        String videoUrl = "http://tanzi27niu.cdsb.mobi/wps/wp-content/uploads/2017/05/2017-05-17_17-33-30.mp4";
-//        videoUrl = Environment.getExternalStorageDirectory().getPath().concat("/办公室小野.mp4");
         mNiceVideoPlayer.setUp(videoUrl, null);
         TxVideoPlayerController controller = new TxVideoPlayerController(this);
-        controller.setTitle("办公室小野开番外了，居然在办公室开澡堂！老板还点赞？");
+        controller.setTitle(name);
         controller.setLenght(98000);
         Glide.with(this)
-                .load("http://tanzi27niu.cdsb.mobi/wps/wp-content/uploads/2017/05/2017-05-17_17-30-43.jpg")
+                .load(videoUri)
                 .into(controller.imageView());
         mNiceVideoPlayer.setController(controller);
     }
 
     protected void initView() {
         name = getIntent().getStringExtra("mName");
-        title.setText("培训视频");
+        videoUrl = getIntent().getStringExtra("url");
+        videoUri = getIntent().getStringExtra("uri");
+        title.setText(name);
         titleBack.setVisibility(View.VISIBLE);
     }
 

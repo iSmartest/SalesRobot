@@ -1,6 +1,7 @@
 package com.empowerment.salesrobot.ui.activity;
 
 
+import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.content.res.Resources;
 import android.os.Bundle;
@@ -19,6 +20,7 @@ import com.empowerment.salesrobot.listener.RecyclerItemTouchListener;
 import com.empowerment.salesrobot.okhttp.MyOkhttp;
 import com.empowerment.salesrobot.ui.adapter.AgencyAffairsAdapter;
 import com.empowerment.salesrobot.ui.model.AgencyAffairsBean;
+import com.empowerment.salesrobot.uitls.SPUtil;
 import com.empowerment.salesrobot.uitls.TimeUtils;
 import com.empowerment.salesrobot.uitls.ToastUtils;
 import com.example.xrecyclerview.XRecyclerView;
@@ -32,6 +34,9 @@ import java.util.Map;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+
+import static com.empowerment.salesrobot.config.BaseUrl.SALE_ID;
+import static com.empowerment.salesrobot.config.BaseUrl.STORE_ID;
 
 /**
  * 待办事宜
@@ -63,11 +68,13 @@ public class AgencyAffairsActivity extends BaseActivity {
 
     @Override
     protected void loadData() {
+        mList.clear();
+        mAdapter.notifyDataSetChanged();
         Map<String,String> params = new HashMap<>();
-        params.put("storeId","1");
+        params.put("storeId",SPUtil.getString(context, "storeId"));
         params.put("page",String.valueOf(nowPage));
         params.put("rows","10");
-        params.put("saleId","1");
+        params.put("saleId",SPUtil.getString(context, SALE_ID));
         params.put("type",type);
         MyOkhttp.Okhttp(context, Url.AFFAIRS, ProgressDialog.createLoadingDialog(context, "加载中....."), params, new MyOkhttp.CallBack() {
             @Override
@@ -86,7 +93,6 @@ public class AgencyAffairsActivity extends BaseActivity {
                 }
             }
         });
-
     }
 
     @Override
@@ -140,14 +146,19 @@ public class AgencyAffairsActivity extends BaseActivity {
     private void sendRead(final int id, final int type, final Long endTime, final String content, final int isFinish) {
         Map<String,String> params = new HashMap<>();
         params.put("aId",id+"");
-//        params.put("sId", SPUtil.getString(context,SALE_ID));
-        params.put("sId","1");
+        params.put("sId", SPUtil.getString(context,SALE_ID));
         params.put("aType",String.valueOf(type));//待办类型
+        params.put("storeId",SPUtil.getString(context,STORE_ID));
         params.put("type", "1");//1为阅读，2为完结
         MyOkhttp.Okhttp(context, Url.READ_OR_FINISH, dialog, params, new MyOkhttp.CallBack() {
             @Override
             public void onRequestComplete(String response, String result, String resultNote) {
                 Log.i(TAG, "onRequestComplete: " + response);
+                if (result.equals("0")){
+                    Intent intent = new Intent();
+                    intent.setAction("com.empowerment.salesrobot.home");
+                    getApplicationContext().sendBroadcast(intent);
+                }
                 Bundle bundle = new Bundle();
                 bundle.putString("time", TimeUtils.transferLongToDate(endTime));
                 bundle.putString("content", content);
@@ -158,7 +169,6 @@ public class AgencyAffairsActivity extends BaseActivity {
             }
         });
     }
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -180,6 +190,7 @@ public class AgencyAffairsActivity extends BaseActivity {
                 ok.setVisibility(View.GONE);
                 type = "1";
                 mList.clear();
+                mAdapter.notifyDataSetChanged();
                 loadData();
                 break;
             case R.id.tv_personal_agency:
@@ -190,6 +201,7 @@ public class AgencyAffairsActivity extends BaseActivity {
                 ok.setVisibility(View.VISIBLE);
                 type = "0";
                 mList.clear();
+                mAdapter.notifyDataSetChanged();
                 loadData();
                 break;
             case R.id.title_OK:
@@ -197,4 +209,5 @@ public class AgencyAffairsActivity extends BaseActivity {
                 break;
         }
     }
+
 }

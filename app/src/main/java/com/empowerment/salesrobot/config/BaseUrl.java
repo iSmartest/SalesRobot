@@ -1,24 +1,10 @@
 package com.empowerment.salesrobot.config;
 
-import com.empowerment.salesrobot.R;
 
 import java.util.ArrayList;
 
 public class BaseUrl {
 
-    public static final int[] IMGS ={
-            R.drawable.home_new,
-            R.drawable.home_customer,
-            R.drawable.home_robot,
-            R.drawable.home_point,
-            R.drawable.home_sales,
-            R.drawable.home_reception
-
-    };
-
-    public static final String[] NAMES ={
-            "待办事宜","客户资料","机器人","新品买点","产品销售","接待"
-    };
 
     public static ArrayList<String> hourList;//年龄
     public static ArrayList<String> minuteList;//年龄
@@ -63,6 +49,7 @@ public class BaseUrl {
     public static final String WORK = "work";//职位
     public static final String NUMBER = "number";//工号
     public static final String SALE_ID = "saleId";//ID
+    public static final String STORE_ID = "storeId";//ID
     public static final String IMAGE = "image";//头像
     public static final String IS_ORPERFECT = "IsOrPerfect";
     public static final String CODE = "code";//验证码

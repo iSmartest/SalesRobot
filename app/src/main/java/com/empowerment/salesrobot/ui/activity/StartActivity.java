@@ -25,6 +25,8 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
+import static com.empowerment.salesrobot.config.BaseUrl.SALE_ID;
+
 
 /**
  * 启动页
@@ -66,7 +68,7 @@ public class StartActivity extends BaseActivity {
                 SPUtil.putBoolean(context, Constant.FIRST_COME, false);
                 finish();
             } else {
-                if (!TextUtils.isEmpty(SPUtil.getString(context, "SALE_ID"))) {
+                if (!TextUtils.isEmpty(SPUtil.getString(context, SALE_ID))) {
                     MyApplication.openActivity(context, MainActivity.class);
                     finish();
                 } else {

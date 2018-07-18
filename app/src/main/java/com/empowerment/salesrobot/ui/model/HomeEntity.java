@@ -4,23 +4,9 @@ import java.util.List;
 
 public class HomeEntity {
 
-
-    /**
-     * data : {"image":"/upload/image/touxiang.jpg","noticeList":[{"content":"老铁们，今天放假！"}],"name":"李广","imageList":[{"address":"/upload/image/55887.jpg","name":"产品比较","link":"guge.con"},{"address":"/upload/image/55887.jpg","name":"产品比较","link":"baidu.com"}]}
-     * resultCode : 0
-     * msg : 查询成功
-     */
     private int resultCode;
     private String msg;
     private DataBean data;
-
-    public DataBean getData() {
-        return data;
-    }
-
-    public void setData(DataBean data) {
-        this.data = data;
-    }
 
     public int getResultCode() {
         return resultCode;
@@ -38,18 +24,20 @@ public class HomeEntity {
         this.msg = msg;
     }
 
-    public static class DataBean {
-        /**
-         * image : /upload/image/touxiang.jpg
-         * noticeList : [{"content":"老铁们，今天放假！"}]
-         * name : 李广
-         * imageList : [{"address":"/upload/image/55887.jpg","name":"产品比较","link":"guge.con"},{"address":"/upload/image/55887.jpg","name":"产品比较","link":"baidu.com"}]
-         */
+    public DataBean getData() {
+        return data;
+    }
 
+    public void setData(DataBean data) {
+        this.data = data;
+    }
+
+    public static class DataBean {
         private String image;
         private String name;
-        private List<NoticeListBean> noticeList;
-        private List<ImageListBean> imageList;
+        private int companyNoticeCount;
+        private String notice;
+        private List<ImageList> imageList;
 
         public String getImage() {
             return image;
@@ -67,45 +55,31 @@ public class HomeEntity {
             this.name = name;
         }
 
-        public List<NoticeListBean> getNoticeList() {
-            return noticeList;
+        public int getCompanyNoticeCount() {
+            return companyNoticeCount;
         }
 
-        public void setNoticeList(List<NoticeListBean> noticeList) {
-            this.noticeList = noticeList;
+        public void setCompanyNoticeCount(int companyNoticeCount) {
+            this.companyNoticeCount = companyNoticeCount;
         }
 
-        public List<ImageListBean> getImageList() {
+        public String getNotice() {
+            return notice;
+        }
+
+        public void setNotice(String notice) {
+            this.notice = notice;
+        }
+
+        public List<ImageList> getImageList() {
             return imageList;
         }
 
-        public void setImageList(List<ImageListBean> imageList) {
+        public void setImageList(List<ImageList> imageList) {
             this.imageList = imageList;
         }
 
-        public static class NoticeListBean {
-            /**
-             * content : 老铁们，今天放假！
-             */
-
-            private String content;
-
-            public String getContent() {
-                return content;
-            }
-
-            public void setContent(String content) {
-                this.content = content;
-            }
-        }
-
-        public static class ImageListBean {
-            /**
-             * address : /upload/image/55887.jpg
-             * name : 产品比较
-             * link : guge.con
-             */
-
+        public static class ImageList{
             private String address;
             private String name;
             private String link;

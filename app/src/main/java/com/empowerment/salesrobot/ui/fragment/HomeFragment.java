@@ -1,6 +1,10 @@
 package com.empowerment.salesrobot.ui.fragment;
 
 import android.app.Activity;
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
@@ -9,6 +13,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -23,10 +28,7 @@ import com.empowerment.salesrobot.ui.activity.AgencyAffairsActivity;
 import com.empowerment.salesrobot.ui.activity.CustomerInfoActivity;
 import com.empowerment.salesrobot.ui.activity.NewPointActivity;
 import com.empowerment.salesrobot.ui.activity.ProductSalesActivity;
-import com.empowerment.salesrobot.ui.adapter.AbsAdapter;
-import com.empowerment.salesrobot.ui.adapter.GridViewAdapter;
 import com.empowerment.salesrobot.ui.adapter.HomeBannerAdapter;
-import com.empowerment.salesrobot.ui.model.GridViewBean;
 import com.empowerment.salesrobot.ui.model.HomeEntity;
 import com.empowerment.salesrobot.uitls.SPUtil;
 import com.empowerment.salesrobot.uitls.ToastUtils;
@@ -43,10 +45,9 @@ import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import butterknife.Unbinder;
 
-import static com.empowerment.salesrobot.config.BaseUrl.NAMES;
-import static com.empowerment.salesrobot.config.BaseUrl.IMGS;
 import static com.empowerment.salesrobot.config.BaseUrl.SALE_ID;
 import static com.empowerment.salesrobot.config.Url.HTTP;
 
@@ -65,27 +66,41 @@ public class HomeFragment extends BaseFragment implements OnBannerClickListener 
     TextView title;
     @BindView(R.id.title_Layout)
     RelativeLayout titleLayout;
-    @BindView(R.id.homeListView)
-    ListView homeListView;
+    @BindView(R.id.tv_home_notice)
+    TextView mNotice;
     @BindView(R.id.mBanner)
     Banner mBanner;
-    @BindView(R.id.homeGridView)
-    GridView homeGridView;
+    @BindView(R.id.ll_home_item0)
+    LinearLayout mLayout0;
+    @BindView(R.id.ll_home_item1)
+    LinearLayout mLayout1;
+    @BindView(R.id.ll_home_item2)
+    LinearLayout mLayout2;
+    @BindView(R.id.ll_home_item3)
+    LinearLayout mLayout3;
+    @BindView(R.id.ll_home_item4)
+    LinearLayout mLayout4;
+    @BindView(R.id.ll_home_item5)
+    LinearLayout mLayout5;
+
+    @BindView(R.id.tv_red_count)
+    TextView mRedCount;
     private View view;
     Unbinder unbinder;
-
+    private String notice;
+    private int companyNoticeCount;
     private Map<String, String> homeMap = new HashMap<>();
     private List<String> titleList = new ArrayList<>();
     private List<String> imgList = new ArrayList<>();
-    private List<HomeEntity.DataBean.ImageListBean> homeList = new ArrayList<>();
-    private List<HomeEntity.DataBean.NoticeListBean> mmList = new ArrayList<>();
-    private List<GridViewBean> gridViewBeanList = new ArrayList<>();
-    private GridViewAdapter gridViewAdapter;
+    private List<HomeEntity.DataBean.ImageList> homeList = new ArrayList<>();
     private CallBackListener callBackListener;
 
     public void onAttach(Activity activity) {
         super.onAttach(activity);
         callBackListener = (HomeFragment.CallBackListener) getActivity();
+        IntentFilter intentFilter = new IntentFilter();
+        intentFilter.addAction("com.empowerment.salesrobot.home");
+        getActivity().registerReceiver(mAllBroad, intentFilter);
     }
 
     @Nullable
@@ -102,45 +117,35 @@ public class HomeFragment extends BaseFragment implements OnBannerClickListener 
         title.setText(R.string.app_home);
         titleLayout.setBackgroundColor(context.getResources().getColor(R.color.colorTransParent));
         mBanner.setOnBannerClickListener(this);
-        for (int i = 0; i < IMGS.length; i++) {
-            GridViewBean bean = new GridViewBean();
-            bean.setImg(IMGS[i]);
-            bean.setName(NAMES[i]);
-            gridViewBeanList.add(bean);
-        }
-        gridViewAdapter = new GridViewAdapter(context, R.layout.home_gridview_item_list, gridViewBeanList);
-        homeGridView.setAdapter(gridViewAdapter);
-        homeGridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                switch (position) {
-                    case 0: //待办事宜
-                        MyApplication.openActivity(context, AgencyAffairsActivity.class);
-                        break;
-                    case 1://客户资料
-                        MyApplication.openActivity(context, CustomerInfoActivity.class);
-                        break;
-                    case 2: //我的机器人
-                        callBackListener.onClickListener(1);
-                        break;
-                    case 3://新品买点
-                        MyApplication.openActivity(context, NewPointActivity.class);
-                        break;
-                    case 4://产品销售
-                        MyApplication.openActivity(context, ProductSalesActivity.class);
-                        break;
-                    case 5: //接待
-                        callBackListener.onClickListener(2);
-                        break;
-                }
-            }
-        });
+    }
 
+    @OnClick({R.id.ll_home_item0, R.id.ll_home_item1, R.id.ll_home_item2, R.id.ll_home_item3, R.id.ll_home_item4, R.id.ll_home_item5})
+    public void onViewClicked(View view) {
+        switch (view.getId()) {
+            case R.id.ll_home_item0://待办事宜
+                MyApplication.openActivity(context, AgencyAffairsActivity.class);
+                break;
+            case R.id.ll_home_item1://客户资料
+                MyApplication.openActivity(context, CustomerInfoActivity.class);
+                break;
+            case R.id.ll_home_item2: //我的机器人
+                callBackListener.onClickListener(1);
+                break;
+            case R.id.ll_home_item3://新品买点
+                MyApplication.openActivity(context, NewPointActivity.class);
+                break;
+            case R.id.ll_home_item4://产品销售
+                MyApplication.openActivity(context, ProductSalesActivity.class);
+                break;
+            case R.id.ll_home_item5://接待
+                callBackListener.onClickListener(2);
+                break;
+        }
     }
 
     protected void loadData() {
-//        homeMap.put(SALE_ID, SPUtil.getString(context, SALE_ID));
-        homeMap.put(SALE_ID, "1");
+        homeMap.put(SALE_ID,SPUtil.getString(context, SALE_ID));
+        homeMap.put("storeId",SPUtil.getString(context, "storeId"));
         MyOkhttp.Okhttp(context, Url.INDEX, dialog, homeMap, new MyOkhttp.CallBack() {
             @Override
             public void onRequestComplete(String response, String result, String resultNote) {
@@ -150,41 +155,33 @@ public class HomeFragment extends BaseFragment implements OnBannerClickListener 
                     case "0":
                         if (bean.getData().getImageList() != null && !bean.getData().getImageList().isEmpty() && bean.getData().getImageList().size() > 0) {
                             homeList.addAll(bean.getData().getImageList());
-                            for (int i = 0; i < bean.getData().getImageList().size(); i++) {
-                                titleList.add(bean.getData().getImageList().get(i).getName());
-                                imgList.add(HTTP + bean.getData().getImageList().get(i).getAddress());
+                            for (int i = 0; i <homeList.size(); i++) {
+                                imgList.add(HTTP + homeList.get(i).getAddress());
                             }
-                            mBanner.setBannerStyle(BannerConfig.CIRCLE_INDICATOR_TITLE_INSIDE)
+                            mBanner.setBannerStyle(BannerConfig.CIRCLE_INDICATOR)
                                     .setImageLoader(new HomeBannerAdapter())
                                     .setImages(imgList)
                                     .setBannerAnimation(Transformer.Default)
-                                    .setBannerTitles(titleList)
                                     .setDelayTime(3000)
                                     .isAutoPlay(true)
-                                    .setIndicatorGravity(BannerConfig.CENTER)
                                     .start();
                         }
-
-                        if (bean.getData().getNoticeList() != null && !bean.getData().getNoticeList().isEmpty() && bean.getData().getNoticeList().size() > 0) {
-                            mmList.addAll(bean.getData().getNoticeList());
-                            homeListView.setAdapter(new AbsAdapter<HomeEntity.DataBean.NoticeListBean>(context, R.layout.home_list_item, mmList) {
-                                @Override
-                                public void bindResponse(ViewHolder holder, HomeEntity.DataBean.NoticeListBean data) {
-                                    ((TextView) holder.getView(R.id.home_item_tv)).setText(data.getContent());
-                                    Glide.with(getActivity()).load(HTTP + bean.getData().getImage()).into((ImageView) holder.getView(R.id.home_ImgView));
-                                    ((TextView) holder.getView(R.id.home_tvName)).setText(bean.getData().getName());
-                                }
-                            });
+                        notice = bean.getData().getNotice();
+                        companyNoticeCount = bean.getData().getCompanyNoticeCount();
+                        if (companyNoticeCount == 0){
+                            mRedCount.setVisibility(View.GONE);
+                        }else {
+                            mRedCount.setVisibility(View.VISIBLE);
+                            mRedCount.setText(companyNoticeCount+"");
                         }
+                        mNotice.setText(notice);
                         break;
                     case "1":
                         ToastUtils.makeText(context, bean.getMsg());
                         break;
                 }
             }
-
         });
-
     }
 
 
@@ -196,11 +193,21 @@ public class HomeFragment extends BaseFragment implements OnBannerClickListener 
 
     @Override
     public void OnBannerClick(int position) {
-        ToastUtils.makeText(context, "这是第" + homeList.get(position) + "条....");
+        ToastUtils.makeText(context, "这是" + homeList.get(position - 1).getName());
     }
 
 
     public interface CallBackListener {
         void onClickListener(int flag);
     }
+
+    private BroadcastReceiver mAllBroad = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, final Intent intent) {
+            //接到广播通知后刷新数据源
+            homeList.clear();
+            imgList.clear();
+            loadData();
+        }
+    };
 }

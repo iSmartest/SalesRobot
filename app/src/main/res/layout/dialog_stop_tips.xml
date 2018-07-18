@@ -9,7 +9,8 @@
         android:layout_height="wrap_content"
         android:src="@drawable/stop_tips"
         android:layout_gravity="center"
-        android:layout_marginTop="32dp"/>
+        android:visibility="gone"
+        />
     <TextView
         android:id="@+id/log_out_tips_tv"
         android:textSize="14sp"
@@ -18,7 +19,7 @@
         android:layout_marginLeft="32dp"
         android:layout_marginRight="32dp"
         android:layout_marginBottom="32dp"
-        android:layout_marginTop="4dp"
+        android:layout_marginTop="32dp"
         android:gravity="center_horizontal"
         android:text="是否紧急停止？"
         android:textColor="@color/black" />

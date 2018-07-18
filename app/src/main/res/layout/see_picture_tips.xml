@@ -16,22 +16,38 @@
         android:layout_alignParentBottom="true"
         android:background="@color/black_50_transparent"
         android:orientation="vertical">
-        <TextView
-            android:id="@+id/text_total_item"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:orientation="horizontal"
             android:gravity="center"
-            android:textColor="@color/app_main_default"
-            android:textSize="14sp"
-            android:padding="8dp"/>
+            android:padding="8dp">
+            <TextView
+                android:id="@+id/text_total_item"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:text="是否感到十分"
+                android:layout_weight="1"
+                android:textColor="@color/app_main_default"
+                android:textSize="14sp"/>
+            <ImageView
+                android:id="@+id/iv_play_video"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                android:src="@drawable/play_video"/>
+        </LinearLayout>
+
         <TextView
             android:id="@+id/text_pic_info"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center"
+            android:gravity="center|left"
             android:textColor="@color/app_main_default"
-            android:textSize="14sp"
-            android:padding="8dp"/>
+            android:textSize="16sp"
+            android:paddingLeft="8dp"
+            android:paddingRight="8dp"/>
 
     </LinearLayout>
 

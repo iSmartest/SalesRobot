@@ -42,11 +42,12 @@ public class TrainRecordBean {
             this.url = url;
         }
         //本地图文
-        public ContentRecord(int leftOrRight, int contentType, String pic,String content,Uri uri) {
+        public ContentRecord(int leftOrRight, int contentType, String pic,String content,List<RobotResultBean.DataBean.Answers.Pics> picLists,Uri uri) {
             this.leftOrRight = leftOrRight;
             this.contentType = contentType;
-            this.uri = uri;
+            this.picLists = picLists;
             this.pic = pic;
+            this.uri = uri;
             this.content = content;
         }
         //纯文
@@ -77,6 +78,8 @@ public class TrainRecordBean {
             this.url = url;
             this.picLists = picLists;
         }
+
+
 
         public int getLeftOrRight() {
             return leftOrRight;

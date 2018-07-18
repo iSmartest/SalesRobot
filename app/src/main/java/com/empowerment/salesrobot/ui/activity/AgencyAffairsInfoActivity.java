@@ -8,6 +8,7 @@ import android.widget.TextView;
 import com.empowerment.salesrobot.R;
 import com.empowerment.salesrobot.config.Url;
 import com.empowerment.salesrobot.okhttp.MyOkhttp;
+import com.empowerment.salesrobot.uitls.SPUtil;
 import com.empowerment.salesrobot.uitls.ToastUtils;
 
 import java.util.HashMap;
@@ -16,6 +17,9 @@ import java.util.Map;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+
+import static com.empowerment.salesrobot.config.BaseUrl.SALE_ID;
+import static com.empowerment.salesrobot.config.BaseUrl.STORE_ID;
 
 /**
  * Author: 小火
@@ -83,11 +87,10 @@ public class AgencyAffairsInfoActivity extends BaseActivity {
     private void submitFinish() {
         Map<String,String> params = new HashMap<>();
         params.put("aId",id+"");
-//        params.put("sId", SPUtil.getString(context,SALE_ID));
-        params.put("sId","1");
+        params.put("sId", SPUtil.getString(context,SALE_ID));
         params.put("aType",String.valueOf(type));//待办类型
+        params.put("storeId",SPUtil.getString(context,STORE_ID));
         params.put("type", "2");//1为阅读，2为完结
-
         MyOkhttp.Okhttp(context, Url.READ_OR_FINISH, dialog, params, new MyOkhttp.CallBack() {
             @Override
             public void onRequestComplete(String response, String result, String resultNote) {
@@ -95,6 +98,7 @@ public class AgencyAffairsInfoActivity extends BaseActivity {
                     ToastUtils.makeText(context,resultNote);
                 }else {
                     ToastUtils.makeText(context,"已完结");
+                    mFinish.setBackgroundResource(R.color.gray);
                 }
             }
         });

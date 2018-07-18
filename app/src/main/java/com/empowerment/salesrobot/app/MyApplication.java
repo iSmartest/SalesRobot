@@ -34,12 +34,13 @@ public class MyApplication extends Application {
         super.onCreate();
         CONTEXT = getApplicationContext();
         initImageLoader(this);
-        myApplication = this;
-        //崩溃错误日志写入本地文档
         JPushInterface.setDebugMode(true);//如果时正式版就改成false
         JPushInterface.init(this);
+        myApplication = this;
+        //崩溃错误日志写入本地文档
         CrashHandler catchExcep = new CrashHandler(this);
         Thread.setDefaultUncaughtExceptionHandler(catchExcep);
+
     }
 
     public static Context getContext(){

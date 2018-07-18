@@ -9,12 +9,13 @@ public class Url {
 
     //服务器地址
     public static final String HTTP = "http://192.168.1.6:8081/robot";
+//    public static final String HTTP = "http://192.168.1.6:8080/robot-manager-web";
 
     //登录
     public static final String LOGIN_ = HTTP + "/app/sale/login?";
 
     //获取短信
-    public static final String SMS = "http://api.sms.ronghub.com/sendCode/json";
+    public static final String SMS = HTTP +"/app/sale/sendCode";
 
     //短信验证
     public static final String VERIFICATION_SMS = "http://api.sms.ronghub.com/verifyCode/json";

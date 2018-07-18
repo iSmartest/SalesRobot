@@ -14,10 +14,8 @@ import com.empowerment.salesrobot.app.MyApplication;
 import com.empowerment.salesrobot.config.Url;
 import com.empowerment.salesrobot.okhttp.MyOkhttp;
 import com.empowerment.salesrobot.ui.adapter.BrandAdapter;
-import com.empowerment.salesrobot.ui.adapter.GridViewAdapter;
 import com.empowerment.salesrobot.ui.model.ProductSalesBean;
 import com.empowerment.salesrobot.uitls.ImageManagerUtils;
-import com.empowerment.salesrobot.uitls.SPUtil;
 import com.empowerment.salesrobot.uitls.ToastUtils;
 import com.google.gson.Gson;
 

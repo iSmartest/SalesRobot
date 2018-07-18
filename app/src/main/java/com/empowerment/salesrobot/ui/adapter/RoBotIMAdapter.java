@@ -1,6 +1,7 @@
 package com.empowerment.salesrobot.ui.adapter;
 
 import android.content.Context;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -78,7 +79,7 @@ public class RoBotIMAdapter extends BaseAdapter {
                 viewHolder.mLeftIamge.setImageResource(R.drawable.mine_backround);
                 viewHolder.mLeftIamge.setOnClickListener(v -> {
                     if (contentRecord.getPicLists() != null && !contentRecord.getPicLists().isEmpty()) {
-                        mSeePictureDialog = new SeePictureDialog(context, contentRecord.getPicLists());
+                        mSeePictureDialog = new SeePictureDialog(context, contentRecord.getPicLists(),1);
                         mSeePictureDialog.show();
                     }
                 });
@@ -93,7 +94,12 @@ public class RoBotIMAdapter extends BaseAdapter {
                 viewHolder.mLeftContent.setVisibility(View.GONE);
                 viewHolder.mLeftIamge.setImageResource(R.drawable.sale_icon_img);
                 Glide.with(context).load(Url.HTTP+contentRecord.getPic()).into(viewHolder.mLeftIamge);
-//                viewHolder.mLeftIamge.setOnClickListener(v -> MyApplication.openActivity(context, PlayVideoOrPicsActivity.class));
+                viewHolder.mLeftIamge.setOnClickListener(v ->{
+                    if (contentRecord.getPicLists() != null && !contentRecord.getPicLists().isEmpty()) {
+                        mSeePictureDialog = new SeePictureDialog(context, contentRecord.getPicLists(),Url.HTTP+contentRecord.getUrl(),contentRecord.getContent(),Url.HTTP+contentRecord.getPic());
+                        mSeePictureDialog.show();
+                    }
+                        });
             }else {//文本
                 viewHolder.mLeftIamge.setVisibility(View.GONE);
                 viewHolder.mLeftContent.setVisibility(View.VISIBLE);
@@ -107,11 +113,26 @@ public class RoBotIMAdapter extends BaseAdapter {
                 viewHolder.mRightContent.setVisibility(View.GONE);
 //                viewHolder.mRightIamge.setImageResource(R.drawable.mine_backround);
                 Glide.with(context).load(contentRecord.getPic()).into(viewHolder.mRightIamge);
+                viewHolder.mRightIamge.setOnClickListener(v -> {
+                    if (contentRecord.getPicLists() != null && !contentRecord.getPicLists().isEmpty()) {
+                        mSeePictureDialog = new SeePictureDialog(context, contentRecord.getPicLists(),0);
+                        mSeePictureDialog.show();
+                    }
+                });
             }else if (contentRecord.getContentType() == 1){//视频
                 viewHolder.mRightIamge.setVisibility(View.VISIBLE);
                 viewHolder.mRightContent.setVisibility(View.GONE);
                 Glide.with(convertView).load(contentRecord.getUri()).into(viewHolder.mRightIamge);
-                viewHolder.mRightIamge.setOnClickListener(v -> MyApplication.openActivity(context, PlayVideoActivity.class));
+                viewHolder.mRightIamge.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Bundle bundle = new Bundle();
+                        bundle.putString("uri",contentRecord.getUri()+"");
+                        bundle.putString("url",contentRecord.getUrl());
+                        bundle.putString("mName","本地视频");
+                        MyApplication.openActivity(context, PlayVideoActivity.class,bundle);
+                    }
+                });
             }else {//文本
                 viewHolder.mRightIamge.setVisibility(View.GONE);
                 viewHolder.mRightContent.setVisibility(View.VISIBLE);

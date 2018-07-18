@@ -46,7 +46,7 @@ public class ImageAndTextDialog extends Dialog implements View.OnClickListener, 
         this.mSureListener = sureListener;
         setContentView(R.layout.dialog_image_text);
         recyclerView = findViewById(R.id.recyclerView);
-        mContent = findViewById(R.id.edit_content);
+        mContent = findViewById(R.id.edit_content_im);
         cancelButton = findViewById(R.id.log_out_tips_btn_cancel);
         cancelButton.setOnClickListener(this);
         sureButton = findViewById(R.id.log_out_tips_btn_sure);

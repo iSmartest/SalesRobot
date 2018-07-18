@@ -107,7 +107,12 @@ public class RobotResultBean {
 
             public static class Pics{
                 private String des;
-                private String pics;
+                private String pic;
+
+                public Pics(String image, String content) {
+                    this.des = content;
+                    this.pic = image;
+                }
 
                 public String getDes() {
                     return des;
@@ -118,11 +123,11 @@ public class RobotResultBean {
                 }
 
                 public String getPics() {
-                    return pics;
+                    return pic;
                 }
 
                 public void setPics(String pics) {
-                    this.pics = pics;
+                    this.pic = pics;
                 }
             }
         }

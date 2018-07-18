@@ -1,11 +1,17 @@
 package com.empowerment.salesrobot.ui.activity;
 
+import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.database.Cursor;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Handler;
 import android.os.Message;
+import android.support.annotation.RequiresApi;
+import android.support.v4.app.ActivityCompat;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -33,6 +39,7 @@ import com.empowerment.salesrobot.ui.model.RobotResultBean;
 import com.empowerment.salesrobot.ui.model.TrainRecordBean;
 import com.empowerment.salesrobot.uitls.PhotoUtil;
 import com.empowerment.salesrobot.uitls.ToastUtils;
+import com.empowerment.salesrobot.uitls.UriUtils;
 import com.empowerment.salesrobot.view.voicebutton.AudioRecorder;
 import com.empowerment.salesrobot.view.voicebutton.RecordButton;
 import com.google.gson.Gson;
@@ -86,17 +93,16 @@ public class RoBotIMActivity extends BaseActivity implements RecordButton.Record
     @BindView(R.id.chat_list)
     ListView mChatList;
     private String type;
-    private String mContent;
-    private List<ImageBean> mBinnerList = new ArrayList<>();
+    private String mContent = "";
+    private List<ImageBean> mBinnerList;
     private ImageAndTextDialog imageAndTextDialog;
     private List<TrainRecordBean.ContentRecord> mList = new ArrayList<>();
+    List<RobotResultBean.DataBean.Answers.Pics> picLists = new ArrayList<>();
     private RoBotIMAdapter mAdapter;
     public final static int CHECK_VIDEO_REQUEST = 24;
     private String path;
     private File tempFile;
     private String url;//视频播放地址
-    private String getVideoThumbnail;
-
     @Override
     protected int getLauoutId() {
         return R.layout.activity_robot_im;
@@ -167,6 +173,7 @@ public class RoBotIMActivity extends BaseActivity implements RecordButton.Record
         mChatList.setAdapter(mAdapter);
     }
 
+
     @OnClick({R.id.title_Back, R.id.iv_voice, R.id.iv_keyboard, R.id.tv_album, R.id.tv_video, R.id.text_chat_reply})
     public void onViewClicked(View view) {
         switch (view.getId()) {
@@ -186,8 +193,11 @@ public class RoBotIMActivity extends BaseActivity implements RecordButton.Record
                 mLongChat.setVisibility(View.GONE);
                 break;
             case R.id.tv_album:
+                mBinnerList = new ArrayList<>();
                 imageAndTextDialog = new ImageAndTextDialog(context, content -> {
-                    TrainRecordBean.ContentRecord comm = new TrainRecordBean.ContentRecord(1, 0, mBinnerList.get(0).getImage(), content, (Uri) null);
+                    RobotResultBean.DataBean.Answers.Pics pics = new RobotResultBean.DataBean.Answers.Pics(mBinnerList.get(0).getImage(),content);
+                    picLists.add(pics);
+                    TrainRecordBean.ContentRecord comm = new TrainRecordBean.ContentRecord(1, 0, mBinnerList.get(0).getImage(), content,picLists,null);
                     mList.add(comm);
                     mAdapter.notifyDataSetChanged();
                     submit(content);
@@ -243,7 +253,7 @@ public class RoBotIMActivity extends BaseActivity implements RecordButton.Record
                         TrainRecordBean.ContentRecord comm2 = new TrainRecordBean.ContentRecord(0, 2, resultNote);
                         mList.add(comm2);
                         mAdapter.notifyDataSetChanged();
-                        StopTipsDialog dialog = new StopTipsDialog(context, "是否告诉他", "否", "是", new StopTipsDialog.OnSureBtnClickListener() {
+                        StopTipsDialog dialog = new StopTipsDialog(context, resultNote, "否", "是", new StopTipsDialog.OnSureBtnClickListener() {
                             @Override
                             public void sure() {
                                 finishTrain("1");
@@ -318,6 +328,7 @@ public class RoBotIMActivity extends BaseActivity implements RecordButton.Record
             @Override
             public void onResponse(String response, int id) {
                 Gson gson = new Gson();
+                dialog.dismiss();
                 RobotResultBean robotResultBean = gson.fromJson(response, RobotResultBean.class);
                 if (robotResultBean.getResultCode() == 1) {
 
@@ -335,7 +346,7 @@ public class RoBotIMActivity extends BaseActivity implements RecordButton.Record
                             StopTipsDialog dialog = new StopTipsDialog(context, robotResultBean.getMsg(), "否", "是", new StopTipsDialog.OnSureBtnClickListener() {
                                 @Override
                                 public void sure() {
-                                    finishTrain("0");
+                                    finishTrain("1");
                                 }
                                 @Override
                                 public void cancle() {
@@ -356,6 +367,7 @@ public class RoBotIMActivity extends BaseActivity implements RecordButton.Record
     }
 
 
+    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -371,15 +383,20 @@ public class RoBotIMActivity extends BaseActivity implements RecordButton.Record
                 case CHECK_VIDEO_REQUEST:
                     try {
                         Uri uri = data.getData();
-                        path = PhotoUtil.getPath(this, uri);
+                        path = UriUtils.getPath(this, uri);
                         tempFile = new File(path);
                         url = tempFile.getAbsolutePath();
                         TrainRecordBean.ContentRecord comm = new TrainRecordBean.ContentRecord(1, 1, uri, url);
                         mList.add(comm);
                         mAdapter.notifyDataSetChanged();
-                        submitVideo(tempFile);
+
                     } catch (Exception e) {
+
                     }
+                    if(!tempFile.exists()){
+                        tempFile.mkdirs();
+                    }
+                    submitVideo(tempFile);//上传提交
                     break;
             }
         }
@@ -387,22 +404,26 @@ public class RoBotIMActivity extends BaseActivity implements RecordButton.Record
 
     private void submitVideo(File tempFile) {
         Map<String, String> params = new HashMap<>();
-        params.put("storeId", "1");
-        params.put("sId", "1");
-        params.put("keyWord", mContent);
+        params.put("storeId","1");
+        params.put("sId","1");
+        params.put("keyWord",mContent);
+
         dialog.show();
         OkHttpUtils.post().url(Url.ADD_TRAIN_RECORD_ABOUT_VIDEO).params(params)
                 .addFile("uploadFile", tempFile.getName(), tempFile)
                 .build().execute(new StringCallback() {
             @Override
             public void onError(Call call, Exception e, int id) {
-                ToastUtils.makeText(context, e.getMessage());
+                ToastUtils.makeText(context, e.getMessage() + tempFile.getName() + tempFile);
+                Log.i("TAG", "onError: " + e.getMessage() + tempFile.getName() + tempFile);
                 dialog.dismiss();
             }
 
             @Override
             public void onResponse(String response, int id) {
+                Log.i("TAG", "onResponse: " + response);
                 Gson gson = new Gson();
+                dialog.dismiss();
                 RobotResultBean robotResultBean = gson.fromJson(response, RobotResultBean.class);
                 if (robotResultBean.getResultCode() == 1) {
 
@@ -417,11 +438,10 @@ public class RoBotIMActivity extends BaseActivity implements RecordButton.Record
                             TrainRecordBean.ContentRecord comm7 = new TrainRecordBean.ContentRecord(0, 2, robotResultBean.getMsg());
                             mList.add(comm7);
                             mAdapter.notifyDataSetChanged();
-
                             StopTipsDialog dialog = new StopTipsDialog(context, robotResultBean.getMsg(), "否", "是", new StopTipsDialog.OnSureBtnClickListener() {
                                 @Override
                                 public void sure() {
-                                    finishTrain("0");
+                                    finishTrain("1");
                                 }
 
                                 @Override
@@ -435,11 +455,10 @@ public class RoBotIMActivity extends BaseActivity implements RecordButton.Record
                             TrainRecordBean.ContentRecord comm8 = new TrainRecordBean.ContentRecord(0, 2, robotResultBean.getMsg());
                             mList.add(comm8);
                             mAdapter.notifyDataSetChanged();
-
                             StopTipsDialog stopTipsDialog = new StopTipsDialog(context, robotResultBean.getMsg(), "否", "是", new StopTipsDialog.OnSureBtnClickListener() {
                                 @Override
                                 public void sure() {
-                                    finishTrain("0");
+                                    finishTrain("1");
                                 }
 
                                 @Override

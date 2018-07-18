@@ -39,6 +39,12 @@ public abstract class BaseActivity extends FragmentActivity{
         StatusBarUtil.fullScreen(BaseActivity.this);
         AppManager.addActivity(this);
         initView();//实例化
+
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
         loadData();//加载数据
     }
 

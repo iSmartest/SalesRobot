@@ -14,7 +14,10 @@ import com.empowerment.salesrobot.uitls.SPUtil;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.Iterator;
+
 import cn.jpush.android.api.JPushInterface;
+
 
 /**
  * Created by 小火
@@ -23,113 +26,99 @@ import cn.jpush.android.api.JPushInterface;
  */
 
 public class MyReceiver extends BroadcastReceiver {
-   private Receiver receiver ;
+
+    private static final String TAG = "JIGUANG";
+
+    // RegistrationID 定义
+    // 集成了 JPush SDK 的应用程序在第一次成功注册到 JPush 服务器时，
+    // JPush 服务器会给客户端返回一个唯一的该设备的标识 - RegistrationID。
+    // JPush SDK 会以广播的形式发送 RegistrationID 到应用程序。
+    // 应用程序可以把此 RegistrationID 保存以自己的应用服务器上，
+    // 然后就可以根据 RegistrationID 来向设备推送消息或者通知。
+    public static String regId;
+
     @Override
     public void onReceive(Context context, Intent intent) {
-        // TODO Auto-generated method stub
-        Bundle bundle = intent.getExtras();
-        if (JPushInterface.ACTION_REGISTRATION_ID.equals(intent.getAction())) {
-            String regId = bundle.getString(JPushInterface.EXTRA_REGISTRATION_ID);
-            Log.i("MyReceiver", "接收Registration Id : " + regId);
-        } else if (JPushInterface.ACTION_MESSAGE_RECEIVED.equals(intent.getAction())) {
-            Constant.EXTRA = bundle.getString(JPushInterface.EXTRA_EXTRA);
-            Log.i("sdfdf", "接收到推送下来的自定义消息: " + Constant.EXTRA);
-            receiver  = new Receiver();
-            String message = bundle.getString(JPushInterface.EXTRA_EXTRA);
-            receiver.setMsg(message);
-            String title = null;
-            try {
-                JSONObject obj = new JSONObject(message);
-                title = obj.getString("text");
-                receiver.setTitle(title);
-            } catch (JSONException e) {
-                e.printStackTrace();
+
+        try {
+
+            Bundle bundle = intent.getExtras();
+            Log.d(TAG, "[MyReceiver] onReceive - " + intent.getAction() + ", extras: " + printBundle(bundle));
+
+            if (JPushInterface.ACTION_REGISTRATION_ID.equals(intent.getAction())) {
+                regId = bundle.getString(JPushInterface.EXTRA_REGISTRATION_ID);
+                Log.d(TAG, "[MyReceiver] 接收Registration Id : " + regId);
+                //send the Registration Id to your server...
+
+            } else if (JPushInterface.ACTION_MESSAGE_RECEIVED.equals(intent.getAction())) {
+                Log.d(TAG, "[MyReceiver] 接收到推送下来的自定义消息: " + bundle.getString(JPushInterface.EXTRA_MESSAGE));
+
+                // 对应极光后台的 - 自定义消息  默认不会出现在notification上 所以一般都选用发送通知
+            } else if (JPushInterface.ACTION_NOTIFICATION_RECEIVED.equals(intent.getAction())) {
+                Log.d(TAG, "[MyReceiver] 接收到推送下来的通知");
+                int notifactionId = bundle.getInt(JPushInterface.EXTRA_NOTIFICATION_ID);
+                Log.d(TAG, "[MyReceiver] 接收到推送下来的通知的ID: " + notifactionId);
+
+            } else if (JPushInterface.ACTION_NOTIFICATION_OPENED.equals(intent.getAction())) {
+                Log.d(TAG, "[MyReceiver] 用户点击打开了通知");
+
+
+                //打开自定义的Activity
+                //Intent i = new Intent(context,ContentActivity.class);
+                //i.putExtras(bundle);
+                //i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                //context.startActivity(i);
+
+            } else if (JPushInterface.ACTION_RICHPUSH_CALLBACK.equals(intent.getAction())) {
+                Log.d(TAG, "[MyReceiver] 用户收到到RICH PUSH CALLBACK: " + bundle.getString(JPushInterface.EXTRA_EXTRA));
+                //在这里根据 JPushInterface.EXTRA_EXTRA 的内容处理代码，比如打开新的Activity， 打开一个网页等..
+
+            } else if (JPushInterface.ACTION_CONNECTION_CHANGE.equals(intent.getAction())) {
+                boolean connected = intent.getBooleanExtra(JPushInterface.EXTRA_CONNECTION_CHANGE, false);
+                Log.w(TAG, "[MyReceiver]" + intent.getAction() + " connected state change to " + connected);
+            } else {
+                Log.d(TAG, "[MyReceiver] Unhandled intent - " + intent.getAction());
             }
-            Constant.mReceiver.add(receiver);
-            SPUtil.putList(context,"mReceiver", Constant.mReceiver);
-        } else if (JPushInterface.ACTION_NOTIFICATION_RECEIVED.equals(intent.getAction())) {
-            System.out.println("[MyReceiver] 接收到推送下来的通知");
-            int notifactionId = bundle.getInt(JPushInterface.EXTRA_NOTIFICATION_ID);
-            Log.i("MyReceiver", "[MyReceiver] 接收到推送下来的通知的ID: " + notifactionId);
-        } else if (JPushInterface.ACTION_NOTIFICATION_OPENED.equals(intent.getAction())) {
-            System.out.println("[MyReceiver] 用户点击打开了通知");
-            String title = bundle.getString(JPushInterface.EXTRA_ALERT);
-            openAppOrActivity(context, title);
-            Log.i("sdfdf", "onReceive: " + title);
-        } else if (JPushInterface.ACTION_RICHPUSH_CALLBACK.equals(intent.getAction())) {
-            //在这里根据 JPushInterface.EXTRA_EXTRA 的内容处理代码，比如打开新的Activity， 打开一个网页等..
-            Log.i("MyReceiver", "[MyReceiver] 用户收到到RICH PUSH CALLBACK: " + bundle.getString(JPushInterface.EXTRA_EXTRA));
-        } else if (JPushInterface.ACTION_CONNECTION_CHANGE.equals(intent.getAction())) {
-            boolean connected = intent.getBooleanExtra(JPushInterface.EXTRA_CONNECTION_CHANGE, false);
-            Log.i("MyReceiver", "[MyReceiver]" + intent.getAction() + " connected state change to " + connected);
-        } else {
-            System.out.println();
-            Log.i("MyReceiver", "[MyReceiver] Unhandled intent - " + intent.getAction());
+
+        }catch (Exception e){
+
         }
+
     }
 
-    private void openAppOrActivity(Context context, String extra) {
-        //判断app进程是否处于前台 此时用户处于登陆状态userId!=0
-        Log.i("sdfdf", "openAppOrActivity: " + extra);
-        if (isLogin(context)) {
-            Intent detailIntent = parseJpushBundle(context, extra);
-            if (detailIntent == null)
-                return;
-            detailIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            context.startActivity(detailIntent);
-        } else {
-            Intent launchIntent = context.getPackageManager().getLaunchIntentForPackage(context.getPackageName());
-            if (launchIntent == null)
-                return;
-            launchIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_RESET_TASK_IF_NEEDED);
-            launchIntent.putExtra(Constant.JPUSH_EXTRA, extra);
-            context.startActivity(launchIntent);
-        }
-    }
-    public static Intent parseJpushBundle(Context context, String extra) {
-        Intent detailIntent = null;
-        Log.i("sdfdf", "parseJpushBundle: " + extra);
-        String type = null, id = null,url = null,text = null;
-        for (int i = 0; i < Constant.mReceiver.size(); i++) {
-            Receiver bean = Constant.mReceiver.get(i);
-                JSONObject obj = null;
+
+    // 打印所有的 intent extra 数据
+    private static String printBundle(Bundle bundle) {
+
+        StringBuilder sb = new StringBuilder();
+        for (String key : bundle.keySet()) {
+            if (key.equals(JPushInterface.EXTRA_NOTIFICATION_ID)) {
+                sb.append("\nkey:" + key + ", value:" + bundle.getInt(key));
+            } else if (key.equals(JPushInterface.EXTRA_CONNECTION_CHANGE)) {
+                sb.append("\nkey:" + key + ", value:" + bundle.getBoolean(key));
+            } else if (key.equals(JPushInterface.EXTRA_EXTRA)) {
+                if (bundle.getString(JPushInterface.EXTRA_EXTRA).isEmpty()) {
+                    Log.i(TAG, "This message has no Extra data");
+                    continue;
+                }
                 try {
-                    obj = new JSONObject(bean.getMsg());
-                    type = obj.getString("type");
-                    id = obj.getString("id");
-                    url = obj.getString("url");
-                    text = obj.getString("text");
-                    if (text.equals(extra)){
-//                        if (type.equals("0")){
-//                            detailIntent = new Intent(context, MyCouponActivity.class);
-//                        }else if (type.equals("1")){
-//                            detailIntent = new Intent(context,ShopDecActivity.class);
-//                            detailIntent.putExtra("rotateid",id)
-//                                    .putExtra("rotateIcon",url);
-//                        }else if (type.equals("2")){
-//                            detailIntent = new Intent(context,RefundDecActivity.class);
-//                            detailIntent.putExtra("orderId", id);
-//                        }else if (type.equals("3")){
-//                            detailIntent = new Intent(context,OrderMoneyDecActivity.class);
-//                            detailIntent.putExtra("orderId", id);
-//                        }else if (type.equals("4")){
-//                            detailIntent = new Intent(context,MyOrderActivity.class);
-//                            detailIntent.putExtra("currentItem", "1");
-//                        }else {
-//                            detailIntent = new Intent(context,MyMassageActivity.class);
-//                        }
+                    JSONObject json = new JSONObject(bundle.getString(JPushInterface.EXTRA_EXTRA));
+                    Iterator<String> it = json.keys();
+
+                    while (it.hasNext()) {
+                        String myKey = it.next().toString();
+                        sb.append("\nkey:" + key + ", value: [" +
+                                myKey + " - " + json.optString(myKey) + "]");
                     }
                 } catch (JSONException e) {
-                    e.printStackTrace();
+                    Log.e(TAG, "Get message extra JSON error!");
                 }
+            } else {
+                sb.append("\nkey:" + key + ", value:" + bundle.getString(key));
+            }
         }
+        return sb.toString();
+    }
 
-        return detailIntent;
-    }
-    public static boolean isLogin(Context context) {
-        if (!TextUtils.isEmpty(SPUtil.getString(context,"uid")))
-            return true;
-        else
-            return false;
-    }
+
 }

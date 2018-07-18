@@ -3,6 +3,7 @@ package com.empowerment.salesrobot.dialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.graphics.Color;
+import android.os.Bundle;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.Gravity;
@@ -16,7 +17,11 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 
+import com.bumptech.glide.Glide;
 import com.empowerment.salesrobot.R;
+import com.empowerment.salesrobot.app.MyApplication;
+import com.empowerment.salesrobot.config.Url;
+import com.empowerment.salesrobot.ui.activity.PlayVideoActivity;
 import com.empowerment.salesrobot.ui.model.RobotResultBean;
 import com.empowerment.salesrobot.uitls.ImageManagerUtils;
 import com.empowerment.salesrobot.view.PhotoView;
@@ -35,13 +40,37 @@ public class SeePictureDialog extends Dialog {
     private List<RobotResultBean.DataBean.Answers.Pics> mShopImgList;
     private ViewPager mPager;
     private TextView mTotalItem,mPicInfo;
+    private ImageView mPlay;
     private ImagAdapter mImagAdapter;
-    public SeePictureDialog(Context context, List<RobotResultBean.DataBean.Answers.Pics> mShopImgList) {
+    private String videoUrl;
+    private String name;
+    private String viderUri;
+    private int isLiftOrRight = 1;
+    public SeePictureDialog(Context context, List<RobotResultBean.DataBean.Answers.Pics> mShopImgList,int isLiftOrRight) {
         super(context);
         this.mContext = context;
         this.mShopImgList = mShopImgList;
+        this.isLiftOrRight = isLiftOrRight;
         setContentView(R.layout.see_picture_tips);
-        initView();
+        initView(0);
+        try {
+            int dividerID = mContext.getResources().getIdentifier("android:id/titleDivider", null, null);
+            View divider = findViewById(dividerID);
+            divider.setBackgroundColor(Color.TRANSPARENT);
+        } catch (Exception e) {
+            //上面的代码，是用来去除Holo主题的蓝色线条
+            e.printStackTrace();
+        }
+    }
+    public SeePictureDialog(Context context, List<RobotResultBean.DataBean.Answers.Pics> mShopImgList,String videoUrl,String name,String viderUri) {
+        super(context);
+        this.mContext = context;
+        this.mShopImgList = mShopImgList;
+        this.videoUrl = videoUrl;
+        this.name = name;
+        this.viderUri = viderUri;
+        setContentView(R.layout.see_picture_tips);
+        initView(1);
         try {
             int dividerID = mContext.getResources().getIdentifier("android:id/titleDivider", null, null);
             View divider = findViewById(dividerID);
@@ -52,10 +81,16 @@ public class SeePictureDialog extends Dialog {
         }
     }
 
-    private void initView() {
+    private void initView(int type) {
         mPager = findViewById(R.id.see_pager);
         mTotalItem = findViewById(R.id.text_total_item);
         mPicInfo = findViewById(R.id.text_pic_info);
+        mPlay = findViewById(R.id.iv_play_video);
+        if (type == 0){
+            mPlay.setVisibility(View.GONE);
+        }else {
+            mPlay.setVisibility(View.VISIBLE);
+        }
         mTotalItem.setText(1 + "/" + mShopImgList.size());
         mPager.setPageMargin((int) (mContext.getResources().getDisplayMetrics().density * 15));
         mImagAdapter = new ImagAdapter(mContext,mShopImgList);
@@ -67,7 +102,18 @@ public class SeePictureDialog extends Dialog {
                 mPicInfo.setText(mShopImgList.get(position).getDes());
             }
         });
+        mPlay.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Bundle bundle = new Bundle();
+                bundle.putString("uri",viderUri);
+                bundle.putString("url",videoUrl);
+                bundle.putString("mName",name);
+                MyApplication.openActivity(mContext, PlayVideoActivity.class,bundle);
+            }
+        });
     }
+
 
     public class ImagAdapter extends PagerAdapter {
         private PhotoView photo_view;
@@ -101,7 +147,12 @@ public class SeePictureDialog extends Dialog {
                     dismiss();
                 }
             });
-            ImageManagerUtils.imageLoader.displayImage(mShopImgList.get(position).getPics(),photo_view, ImageManagerUtils.options3);
+            if (isLiftOrRight==0){
+                Glide.with(mContext).load(mShopImgList.get(position).getPics()).into(photo_view);
+            }else {
+                Glide.with(mContext).load(Url.HTTP + mShopImgList.get(position).getPics()).into(photo_view);
+
+            }
             container.addView(view);
             return view;
         }
