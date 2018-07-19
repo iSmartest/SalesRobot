@@ -58,10 +58,10 @@
                     android:layout_marginLeft="-6dp"
                     android:background="@drawable/red_round_dot"
                     android:gravity="center"
-                    android:text="1"
+                    android:text="0"
                     android:textColor="@color/app_main_default"
                     android:textSize="10dp"
-                    android:visibility="visible" />
+                    android:visibility="gone" />
             </RelativeLayout>
 
             <TextView
@@ -129,7 +129,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginBottom="16px"
-                android:text="机器人"
+                android:text="训练室"
                 android:textColor="@color/vipTextColor"
                 android:textSize="14sp" />
         </LinearLayout>
@@ -165,7 +165,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginBottom="16px"
-                android:text="新品买点"
+                android:text="新品卖点"
                 android:textColor="@color/vipTextColor"
                 android:textSize="14sp" />
         </LinearLayout>

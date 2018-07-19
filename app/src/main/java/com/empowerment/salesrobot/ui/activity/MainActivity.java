@@ -29,7 +29,6 @@ public class MainActivity extends BaseActivity implements HomeFragment.CallBackL
     @BindView(R.id.iv_main_mine)
     RadioButton mMy;
     private HomeFragment homeFragmen;
-
     // 定义一个变量，来标识是否退出
     private static boolean isExit = false;
     Handler mHandler = new Handler() {

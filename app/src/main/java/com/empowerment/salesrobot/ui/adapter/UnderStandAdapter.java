@@ -11,6 +11,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.empowerment.salesrobot.R;
 import com.empowerment.salesrobot.ui.model.MineBean;
+import com.empowerment.salesrobot.uitls.GlideUtils;
 import com.empowerment.salesrobot.uitls.TimeUtils;
 import com.empowerment.salesrobot.view.RoundedImageView;
 
@@ -43,7 +44,7 @@ public class UnderStandAdapter extends RecyclerView.Adapter<UnderStandAdapter.Un
         MineBean.DataBean.ContentListBean contentListBean = mList.get(position);
         holder.mUnderstand.setText(contentListBean.getContent());
         holder.mTime.setText(TimeUtils.transferLongToDate(contentListBean.getData()));
-        Glide.with(context).load(contentListBean.getImage()).into(holder.mIcon);
+        GlideUtils.imageLoader(context,contentListBean.getImage(),holder.mIcon);
     }
 
     @Override
@@ -58,7 +59,6 @@ public class UnderStandAdapter extends RecyclerView.Adapter<UnderStandAdapter.Un
         TextView mTime;
         public UnderstandViewHolder(View itemView) {
             super(itemView);
-
             mIcon = itemView.findViewById(R.id.iv_sale_icon);
             mUnderstand = itemView.findViewById(R.id.tv_sale_understand);
             mTime = itemView.findViewById(R.id.tv_sale_time);

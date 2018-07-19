@@ -54,16 +54,15 @@ public class ModificationActivity extends BaseActivity {
     @BindView(R.id.title_OK)
     TextView titleOK;
     @BindView(R.id.modif_Name)
-    EditText modifName;
+    TextView modifName;
     @BindView(R.id.modif_Sex)
-    EditText modifSex;
+    TextView modifSex;
     @BindView(R.id.modif_Age)
-    EditText modifAge;
+    TextView modifAge;
     @BindView(R.id.modif_Work)
-    EditText modifWork;
+    TextView modifWork;
     @BindView(R.id.modif_Number)
-    EditText modifNumber;
-    private Map<String, String> modifMap;
+    TextView modifNumber;
 
     @Override
     protected int getLauoutId() {
@@ -72,18 +71,21 @@ public class ModificationActivity extends BaseActivity {
 
     @Override
     protected void loadData() {
-
-        modifMap = new HashMap<>();
-        modifMap.put(SALE_ID, (String) SPUtil.getString(context, SALE_ID));
-        modifMap.put(TYPE, TYPE_VALUE_TWO);
+        modifName.setText(SPUtil.getString(context,NAME));
+        if (SPUtil.getString(context,SEX).equals("0"))
+        modifSex.setText("男");
+        else modifSex.setText("女");
+        modifAge.setText(SPUtil.getString(context,AGE));
+        modifWork.setText(SPUtil.getString(context,WORK));
+        modifNumber.setText(SPUtil.getString(context,NUMBER));
 
     }
 
     @Override
     protected void initView() {
         titleBack.setVisibility(View.VISIBLE);
-        titleOK.setVisibility(View.VISIBLE);
-        title.setText("修改资料");
+        titleOK.setVisibility(View.GONE);
+        title.setText("个人资料");
         titleOK.setText("确定");
     }
 
@@ -91,7 +93,6 @@ public class ModificationActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        // TODO: add setContentView(...) invocation
         ButterKnife.bind(this);
     }
 
@@ -129,40 +130,40 @@ public class ModificationActivity extends BaseActivity {
             ToastUtils.makeText(context, "请填写工号");
             return;
         }
-
-            modifMap.put(NAME, name);
-            if (sex.equals("男")) {
-                modifMap.put(SEX, TYPE_VALUE_O);
-            } else {
-                modifMap.put(SEX, TYPE_VALUE_ONE);
-            }
-
-            modifMap.put(AGE, age);
-            modifMap.put(WORK, work);
-            modifMap.put(NUMBER, num);
-            MyOkhttp.Okhttp(context, Url.SALE, dialog, modifMap, new MyOkhttp.CallBack() {
-                @Override
-                public void onRequestComplete(String response, String result, String resultNote) {
-                    Gson gson = new Gson();
-                    SalePerfectinBean salePerfectinBean = gson.fromJson(response,SalePerfectinBean.class);
-                    if (result.equals("1")){
-                        ToastUtils.makeText(context,resultNote);
-                        return;
-                    }
-
-                    SalePerfectinBean.DataBean.SaleBean sale = salePerfectinBean.getData().getSale();
-                    SPUtil.putString(context,NAME, sale.getName());
-                    SPUtil.putString(context,SEX, String.valueOf(sale.getSex()));
-                    SPUtil.putString(context,AGE, String.valueOf(sale.getAge()));
-                    SPUtil.putString(context,SALE_ID, String.valueOf(sale.getId()));
-                    SPUtil.putString(context,PHONE_NUMBER, sale.getPhone());
-                    SPUtil.putInt(context,WORK, sale.getWork());
-                    SPUtil.putString(context,NUMBER, String.valueOf(sale.getNumber()));
-                    SPUtil.putString(context,IMAGE, sale.getImage());
-                    SPUtil.putString(context,IS_ORPERFECT, String.valueOf(sale.getIsOrPerfect()));
-                    SPUtil.putString(context,SUCCESSINDEX, String.valueOf(sale.getSuccessIndex()));
-                    SPUtil.putString(context,SALEINDEX, String.valueOf(sale.getSaleIndex()));
-                }
-            });
+//            Map<String,String> modifMap = new HashMap<>();
+//            modifMap.put(NAME, name);
+//            if (sex.equals("男")) {
+//                modifMap.put(SEX, TYPE_VALUE_O);
+//            } else {
+//                modifMap.put(SEX, TYPE_VALUE_ONE);
+//            }
+//
+//            modifMap.put(AGE, age);
+//            modifMap.put(WORK, work);
+//            modifMap.put(NUMBER, num);
+//            MyOkhttp.Okhttp(context, Url.SALE, "提交中...", modifMap, new MyOkhttp.CallBack() {
+//                @Override
+//                public void onRequestComplete(String response, String result, String resultNote) {
+//                    Gson gson = new Gson();
+//                    SalePerfectinBean salePerfectinBean = gson.fromJson(response,SalePerfectinBean.class);
+//                    if (result.equals("1")){
+//                        ToastUtils.makeText(context,resultNote);
+//                        return;
+//                    }
+//
+//                    SalePerfectinBean.DataBean.SaleBean sale = salePerfectinBean.getData().getSale();
+//                    SPUtil.putString(context,NAME, sale.getName());
+//                    SPUtil.putString(context,SEX, String.valueOf(sale.getSex()));
+//                    SPUtil.putString(context,AGE, String.valueOf(sale.getAge()));
+//                    SPUtil.putString(context,SALE_ID, String.valueOf(sale.getId()));
+//                    SPUtil.putString(context,PHONE_NUMBER, sale.getPhone());
+//                    SPUtil.putInt(context,WORK, sale.getWork());
+//                    SPUtil.putString(context,NUMBER, String.valueOf(sale.getNumber()));
+//                    SPUtil.putString(context,IMAGE, sale.getImage());
+//                    SPUtil.putString(context,IS_ORPERFECT, String.valueOf(sale.getIsOrPerfect()));
+//                    SPUtil.putString(context,SUCCESSINDEX, String.valueOf(sale.getSuccessIndex()));
+//                    SPUtil.putString(context,SALEINDEX, String.valueOf(sale.getSaleIndex()));
+//                }
+//            });
     }
 }

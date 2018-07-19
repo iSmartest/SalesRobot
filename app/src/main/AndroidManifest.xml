@@ -48,9 +48,8 @@
     <application
         android:name=".app.MyApplication"
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@mipmap/app_icon"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".ui.activity.StartActivity">
@@ -85,13 +84,18 @@
             android:windowSoftInputMode="adjustPan|stateHidden"
             android:configChanges="orientation"
             android:screenOrientation="portrait"/>
-        <!--客户资料-->
+        <!--客户资料详情-->
         <activity android:name=".ui.activity.CustomerInfoActivity"
             android:windowSoftInputMode="adjustPan|stateHidden"
             android:configChanges="orientation"
             android:screenOrientation="portrait"/>
-        <!--客户资料详情-->
+        <!--客户资料-->
         <activity android:name=".ui.activity.InformationActivity"
+            android:windowSoftInputMode="adjustPan|stateHidden"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait"/>
+        <!--客户资料-->
+        <activity android:name=".ui.activity.AddCustomerActivity"
             android:windowSoftInputMode="adjustPan|stateHidden"
             android:configChanges="orientation"
             android:screenOrientation="portrait"/>
@@ -105,7 +109,7 @@
             android:windowSoftInputMode="adjustPan|stateHidden"
             android:configChanges="orientation"
             android:screenOrientation="portrait"/>
-        <!--添加客户-->
+        <!--添加VIP客户-->
         <activity android:name=".ui.activity.AddVIPActivity"
             android:windowSoftInputMode="adjustPan|stateHidden"
             android:configChanges="orientation"

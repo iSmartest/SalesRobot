@@ -62,8 +62,6 @@ import static com.empowerment.salesrobot.config.Url.HTTP;
 public class HomeFragment extends BaseFragment implements OnBannerClickListener {
 
     private static final String TAG = "HomeFragment";
-    @BindView(R.id.title)
-    TextView title;
     @BindView(R.id.title_Layout)
     RelativeLayout titleLayout;
     @BindView(R.id.tv_home_notice)
@@ -82,7 +80,6 @@ public class HomeFragment extends BaseFragment implements OnBannerClickListener 
     LinearLayout mLayout4;
     @BindView(R.id.ll_home_item5)
     LinearLayout mLayout5;
-
     @BindView(R.id.tv_red_count)
     TextView mRedCount;
     private View view;
@@ -114,7 +111,6 @@ public class HomeFragment extends BaseFragment implements OnBannerClickListener 
     }
 
     protected void initView() {
-        title.setText(R.string.app_home);
         titleLayout.setBackgroundColor(context.getResources().getColor(R.color.colorTransParent));
         mBanner.setOnBannerClickListener(this);
     }
@@ -131,7 +127,7 @@ public class HomeFragment extends BaseFragment implements OnBannerClickListener 
             case R.id.ll_home_item2: //我的机器人
                 callBackListener.onClickListener(1);
                 break;
-            case R.id.ll_home_item3://新品买点
+            case R.id.ll_home_item3://新品卖点
                 MyApplication.openActivity(context, NewPointActivity.class);
                 break;
             case R.id.ll_home_item4://产品销售
@@ -146,7 +142,7 @@ public class HomeFragment extends BaseFragment implements OnBannerClickListener 
     protected void loadData() {
         homeMap.put(SALE_ID,SPUtil.getString(context, SALE_ID));
         homeMap.put("storeId",SPUtil.getString(context, "storeId"));
-        MyOkhttp.Okhttp(context, Url.INDEX, dialog, homeMap, new MyOkhttp.CallBack() {
+        MyOkhttp.Okhttp(context, Url.INDEX, "加载中...", homeMap, new MyOkhttp.CallBack() {
             @Override
             public void onRequestComplete(String response, String result, String resultNote) {
                 Gson gson = new Gson();
@@ -184,7 +180,6 @@ public class HomeFragment extends BaseFragment implements OnBannerClickListener 
         });
     }
 
-
     @Override
     public void onDestroyView() {
         super.onDestroyView();
@@ -195,7 +190,6 @@ public class HomeFragment extends BaseFragment implements OnBannerClickListener 
     public void OnBannerClick(int position) {
         ToastUtils.makeText(context, "这是" + homeList.get(position - 1).getName());
     }
-
 
     public interface CallBackListener {
         void onClickListener(int flag);

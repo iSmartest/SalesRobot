@@ -5,6 +5,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.empowerment.salesrobot.dialog.ErrorDialog;
@@ -34,7 +35,7 @@ public class UpdateActivity extends BaseActivity{
     @BindView(R.id.a_about_lay_rate)
     TextView mRate;
     @BindView(R.id.a_about_check_version)
-    TextView mVersion;
+    LinearLayout llVersion;
     @BindView(R.id.text_lay_introduce_dec)
     TextView mIntroduce;
     @BindView(R.id.a_about_tv_right)

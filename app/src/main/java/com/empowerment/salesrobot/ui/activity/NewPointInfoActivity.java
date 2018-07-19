@@ -58,7 +58,7 @@ public class NewPointInfoActivity extends BaseActivity {
     protected void loadData() {
         Map<String, String> params = new HashMap<>();
         params.put("carId", id);
-        MyOkhttp.Okhttp(context, Url.BUYPOINTDETAIL, dialog, params, new MyOkhttp.CallBack() {
+        MyOkhttp.Okhttp(context, Url.BUYPOINTDETAIL, "加载中...", params, new MyOkhttp.CallBack() {
             @Override
             public void onRequestComplete(String response, String result, String resultNote) {
                 Gson gson = new Gson();

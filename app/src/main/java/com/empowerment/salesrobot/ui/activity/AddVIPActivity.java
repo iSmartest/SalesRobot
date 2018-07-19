@@ -161,7 +161,7 @@ public class AddVIPActivity extends BaseActivity {
     }
 
     private void strar(Map<String, String> map) {
-        MyOkhttp.Okhttp(context, Url.ADD_CUSTOMER, dialog, map, new MyOkhttp.CallBack() {
+        MyOkhttp.Okhttp(context, Url.ADD_CUSTOMER, "提交中...", map, new MyOkhttp.CallBack() {
             @Override
             public void onRequestComplete(String response, String result, String resultNote) {
                 Gson gson = new Gson();

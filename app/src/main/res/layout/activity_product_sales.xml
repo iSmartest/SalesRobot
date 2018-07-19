@@ -15,26 +15,26 @@
         android:background="@color/white"
         android:gravity="center|left"
         android:paddingLeft="15dp"
-        android:text="新品买点"
+        android:text="产品一览"
         android:textColor="@color/vipTextColor"
         android:textSize="18sp" />
 
     <include layout="@layout/v_horizontal_line" />
 
-    <GridView
-        android:id="@+id/grid_brand"
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recycler_brand"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:horizontalSpacing="1dp"
-        android:numColumns="3">
-    </GridView>
+        android:layout_height="wrap_content" />
+
+    <include layout="@layout/v_horizontal_line" />
+
     <TextView
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:background="@color/white"
         android:gravity="center|left"
         android:paddingLeft="15dp"
-        android:text="销售训练"
+        android:text="培训资料"
         android:textColor="@color/vipTextColor"
         android:textSize="18sp" />
 
@@ -65,7 +65,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="6dp"
                 android:layout_marginTop="5dp"
-                android:text="训练文档"
+                android:text="培训文档"
                 android:textColor="@color/vipTextColor"
                 android:textSize="14sp" />
         </LinearLayout>
@@ -91,7 +91,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="6dp"
                 android:layout_marginTop="5dp"
-                android:text="训练视频"
+                android:text="培训视频"
                 android:textColor="@color/vipTextColor"
                 android:textSize="14sp" />
         </LinearLayout>
@@ -117,8 +117,8 @@
         android:layout_height="wrap_content"
         android:background="@color/white"
         android:gravity="center"
-        android:paddingTop="15dp"
-        android:paddingBottom="15dp">
+        android:paddingBottom="15dp"
+        android:paddingTop="15dp">
 
         <ImageView
             android:id="@+id/mAudi"

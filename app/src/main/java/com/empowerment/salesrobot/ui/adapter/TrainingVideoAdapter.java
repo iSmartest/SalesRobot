@@ -11,7 +11,9 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.empowerment.salesrobot.R;
+import com.empowerment.salesrobot.config.Url;
 import com.empowerment.salesrobot.ui.model.TrainingVideoBean;
+import com.empowerment.salesrobot.uitls.GlideUtils;
 
 import java.util.List;
 
@@ -41,7 +43,7 @@ public class TrainingVideoAdapter extends RecyclerView.Adapter<TrainingVideoAdap
     public void onBindViewHolder(@NonNull TrainingVideoViewHolder holder, int position) {
         TrainingVideoBean.DataBean.VideoList videoList = mList.get(position);
         holder.mTitle.setText(videoList.getName());
-        Glide.with(context).load(videoList.getCoverAddress()).into(holder.mCover);
+        GlideUtils.imageLoader(context,Url.HTTP + videoList.getCoverAddress(),holder.mCover);
     }
 
     @Override

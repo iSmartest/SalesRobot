@@ -22,7 +22,11 @@
             android:id="@+id/my_iconImgview"
             android:layout_width="56dp"
             android:layout_height="56dp"
-            android:src="@drawable/my_head_portrait"/>
+            android:src="@drawable/my_head_portrait"
+            android:adjustViewBounds="true"
+            android:scaleType="centerCrop"
+            app:is_oval="true"
+            tools:ignore="ContentDescription"/>
 
         <TextView
             android:id="@+id/my_icon_Name"
@@ -57,7 +61,7 @@
         android:gravity="center_vertical"
         android:paddingLeft="15dp"
         android:paddingRight="15dp"
-        android:text="资料设置"
+        android:text="个人资料"
         android:textColor="@color/black"
         android:textSize="18sp" />
 

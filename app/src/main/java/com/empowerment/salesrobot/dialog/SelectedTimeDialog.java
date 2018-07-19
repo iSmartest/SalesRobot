@@ -15,6 +15,7 @@ import android.widget.TextView;
 
 import com.empowerment.salesrobot.R;
 import com.empowerment.salesrobot.config.BaseUrl;
+import com.empowerment.salesrobot.config.DataCenter;
 import com.empowerment.salesrobot.view.wheelview.AbstractWheelTextAdapter1;
 import com.empowerment.salesrobot.view.wheelview.OnWheelChangedListener;
 import com.empowerment.salesrobot.view.wheelview.WheelView;
@@ -52,7 +53,7 @@ public class SelectedTimeDialog extends Dialog implements
     }
 
     private void initView(int title) {
-        lyChangeDataChild = findViewById(R.id.lyChangeDataChild);
+        lyChangeDataChild = findViewById(R.id.lyChangeTimeDataChild);
         mTitle = findViewById(R.id.text_select_time_title);
         mWVHour = findViewById(R.id.wv_hour);
         mWVMinute = findViewById(R.id.wv_minute);
@@ -62,9 +63,9 @@ public class SelectedTimeDialog extends Dialog implements
         sureButton.setOnClickListener(this);
         mTitle.setText(title);
         mTitle.setTextSize(TypedValue.COMPLEX_UNIT_PX, mContext.getResources().getDimensionPixelSize(R.dimen.textsize));
-        selectedMinuteAdapter = new SelectedTextAdapter(mContext, BaseUrl.getMinuteList(), getWvMinuteItem(strMinuteData), maxsize, minsize);
+        selectedMinuteAdapter = new SelectedTextAdapter(mContext, DataCenter.getMinuteList(), getWvMinuteItem(strMinuteData), maxsize, minsize);
 
-        selectedHourAdapter = new SelectedTextAdapter(mContext, BaseUrl.getHourList(), getWvHourItem(strHourData), maxsize, minsize);
+        selectedHourAdapter = new SelectedTextAdapter(mContext, DataCenter.getHourList(), getWvHourItem(strHourData), maxsize, minsize);
         mWVHour.setVisibleItems(5);
         mWVHour.setViewAdapter(selectedHourAdapter);
         mWVHour.setCurrentItem(getWvHourItem(strHourData));
@@ -122,11 +123,11 @@ public class SelectedTimeDialog extends Dialog implements
 
     //
     public int getWvHourItem(String province) {
-        int size = BaseUrl.getHourList().size();
+        int size = DataCenter.getHourList().size();
         int provinceIndex = 0;
         boolean noprovince = true;
         for (int i = 0; i < size; i++) {
-            if (province.equals(BaseUrl.getHourList().get(i))) {
+            if (province.equals(DataCenter.getHourList().get(i))) {
                 noprovince = false;
                 return provinceIndex;
             } else {
@@ -141,11 +142,11 @@ public class SelectedTimeDialog extends Dialog implements
     }
 
     public int getWvMinuteItem(String province) {
-        int size = BaseUrl.getMinuteList().size();
+        int size = DataCenter.getMinuteList().size();
         int provinceIndex = 0;
         boolean noprovince = true;
         for (int i = 0; i < size; i++) {
-            if (province.equals(BaseUrl.getMinuteList().get(i))) {
+            if (province.equals(DataCenter.getMinuteList().get(i))) {
                 noprovince = false;
                 return provinceIndex;
             } else {

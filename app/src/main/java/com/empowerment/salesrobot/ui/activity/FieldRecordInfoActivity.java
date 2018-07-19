@@ -13,6 +13,7 @@ import com.empowerment.salesrobot.config.Url;
 import com.empowerment.salesrobot.okhttp.MyOkhttp;
 import com.empowerment.salesrobot.ui.adapter.FieldRecordInfoAdapter;
 import com.empowerment.salesrobot.ui.model.FieldRecordInfoBean;
+import com.empowerment.salesrobot.uitls.SPUtil;
 import com.empowerment.salesrobot.uitls.ToastUtils;
 import com.example.xrecyclerview.XRecyclerView;
 import com.google.gson.Gson;
@@ -25,6 +26,8 @@ import java.util.Map;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+
+import static com.empowerment.salesrobot.config.BaseUrl.STORE_ID;
 
 /**
  * Author: 小火
@@ -55,10 +58,10 @@ public class FieldRecordInfoActivity extends BaseActivity {
     @Override
     protected void loadData() {
         Map<String,String> params = new HashMap<>();
-        params.put("storeId","1");
+        params.put("storeId", SPUtil.getString(context,STORE_ID));
         params.put("cId",id);
         params.put("page",String.valueOf(nowPage));
-        MyOkhttp.Okhttp(context, Url.RECORD_DETAIL, dialog, params, new MyOkhttp.CallBack() {
+        MyOkhttp.Okhttp(context, Url.RECORD_DETAIL, "加载中...", params, new MyOkhttp.CallBack() {
             @Override
             public void onRequestComplete(String response, String result, String resultNote) {
                 Gson gson = new Gson();

@@ -15,6 +15,7 @@ import com.empowerment.salesrobot.config.Url;
 import com.empowerment.salesrobot.okhttp.MyOkhttp;
 import com.empowerment.salesrobot.ui.adapter.MyUnderstandAdapter;
 import com.empowerment.salesrobot.ui.model.MyUnderstandBean;
+import com.empowerment.salesrobot.uitls.SPUtil;
 import com.empowerment.salesrobot.uitls.ToastUtils;
 import com.empowerment.salesrobot.view.swipeLayout.SwipeLayoutManager;
 import com.google.gson.Gson;
@@ -32,6 +33,7 @@ import butterknife.OnClick;
 import static com.empowerment.salesrobot.config.BaseUrl.PAGE;
 import static com.empowerment.salesrobot.config.BaseUrl.PAGE_SIZI;
 import static com.empowerment.salesrobot.config.BaseUrl.SALE_ID;
+import static com.empowerment.salesrobot.config.BaseUrl.STORE_ID;
 
 
 public class MyUnderstandActivity extends BaseActivity implements MyUnderstandAdapter.ModifyCountInterface {
@@ -59,10 +61,9 @@ public class MyUnderstandActivity extends BaseActivity implements MyUnderstandAd
     @Override
     protected void loadData() {
         Map<String, String> params = new HashMap<>();
-        params.put(SALE_ID, "1");
-//        params.put(SALE_ID, SPUtil.getString(context,SALE_ID));
+        params.put(SALE_ID, SPUtil.getString(context,SALE_ID));
         params.put(PAGE, PAGE_SIZI + "");
-        MyOkhttp.Okhttp(context, Url.SALES_MANS, dialog, params, new MyOkhttp.CallBack() {
+        MyOkhttp.Okhttp(context, Url.SALES_MANS, "加载中...", params, new MyOkhttp.CallBack() {
             @Override
             public void onRequestComplete(String response, String result, String resultNote) {
                 Gson gson = new Gson();
@@ -130,10 +131,9 @@ public class MyUnderstandActivity extends BaseActivity implements MyUnderstandAd
     public void childDelete(final int position, String itemId) {
         Map<String,String> params = new HashMap<>();
         params.put("eid",itemId);
-        params.put(SALE_ID,"1");
-//        params.put(SALE_ID,SPUtil.getString(context,SALE_ID));
-
-        MyOkhttp.Okhttp(context, Url.DELET_SALE_MANS, dialog, params, new MyOkhttp.CallBack() {
+        params.put(SALE_ID,SPUtil.getString(context,SALE_ID));
+        params.put(STORE_ID,SPUtil.getString(context,STORE_ID));
+        MyOkhttp.Okhttp(context, Url.DELET_SALE_MANS, "", params, new MyOkhttp.CallBack() {
             @Override
             public void onRequestComplete(String response, String result, String resultNote) {
                 if (result.equals("1")){

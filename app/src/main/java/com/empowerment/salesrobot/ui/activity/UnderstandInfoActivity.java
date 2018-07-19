@@ -8,6 +8,9 @@ import android.widget.TextView;
 
 import com.empowerment.salesrobot.R;
 import com.empowerment.salesrobot.app.MyApplication;
+import com.empowerment.salesrobot.config.Url;
+import com.empowerment.salesrobot.uitls.GlideUtils;
+import com.empowerment.salesrobot.view.RoundedImageView;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -28,7 +31,13 @@ public class UnderstandInfoActivity extends BaseActivity {
     TextView tvContent;
     @BindView(R.id.tv_data)
     TextView tvData;
-    private String mName;
+    @BindView(R.id.iv_other_sale_icon)
+    RoundedImageView mIcon;
+    @BindView(R.id.tv_other_sale_name)
+    TextView tvName;
+    @BindView(R.id.tv_other_sale_phone)
+    TextView tvPhone;
+    private String mName,mImage,mPhone;
     private String mContent;
     private String mTime;
     @Override
@@ -40,14 +49,19 @@ public class UnderstandInfoActivity extends BaseActivity {
     protected void loadData() {
         tvContent.setText(mContent);
         tvData.setText(mTime);
+        GlideUtils.imageLoader(context, Url.HTTP + mImage,mIcon);
+        tvName.setText(mName);
+        tvPhone.setText(mPhone);
     }
 
     @Override
     protected void initView() {
         mName = getIntent().getStringExtra("mName");
+        mImage = getIntent().getStringExtra("mImage");
+        mPhone = getIntent().getStringExtra("mPhone");
         mContent = getIntent().getStringExtra("mContent");
         mTime = getIntent().getStringExtra("mTime");
-        title.setText(mName + "的心得");
+        title.setText("销售心得");
         titleBack.setVisibility(View.VISIBLE);
     }
     @Override

@@ -3,6 +3,7 @@ package com.empowerment.salesrobot.ui.activity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.empowerment.salesrobot.R;
@@ -21,14 +22,21 @@ public class CustomerInfoActivity extends BaseActivity {
     @BindView(R.id.title)
     TextView title;
     @BindView(R.id.customer_Todays)
-    TextView customerTodays;
+    LinearLayout customerTodays;
     @BindView(R.id.customer_Past)
-    TextView customerPast;
+    LinearLayout customerPast;
     @BindView(R.id.customer_VIP)
-    TextView customerVIP;
+    LinearLayout customerVIP;
     @BindView(R.id.customer_Per)
-    TextView customerPer;
-
+    LinearLayout customerPer;
+    @BindView(R.id.tv_today_customer)
+    TextView tvTodayCustomer;
+    @BindView(R.id.tv_per_customer)
+    TextView tvPerCustomer;
+    @BindView(R.id.tv_past_customer)
+    TextView tvPastCustomer;
+    @BindView(R.id.tv_vip_customer)
+    TextView tvVIPCustomer;
     @Override
     protected int getLauoutId() {
         return R.layout.activity_customer_info;
@@ -36,6 +44,7 @@ public class CustomerInfoActivity extends BaseActivity {
 
     @Override
     protected void loadData() {
+
 
     }
 

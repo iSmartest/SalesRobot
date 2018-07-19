@@ -12,10 +12,9 @@ import com.empowerment.salesrobot.app.MyApplication;
 import com.empowerment.salesrobot.config.Url;
 import com.empowerment.salesrobot.listener.RecyclerItemTouchListener;
 import com.empowerment.salesrobot.okhttp.MyOkhttp;
-import com.empowerment.salesrobot.ui.adapter.TrainingDocumentsAdapter;
 import com.empowerment.salesrobot.ui.adapter.TrainingVideoAdapter;
-import com.empowerment.salesrobot.ui.model.TrainingDocBean;
 import com.empowerment.salesrobot.ui.model.TrainingVideoBean;
+import com.empowerment.salesrobot.uitls.SPUtil;
 import com.empowerment.salesrobot.uitls.ToastUtils;
 import com.example.xrecyclerview.XRecyclerView;
 import com.google.gson.Gson;
@@ -54,9 +53,9 @@ public class TrainingVideoActivity extends BaseActivity {
     @Override
     protected void loadData() {
         Map<String, String> params = new HashMap<>();
-        params.put(SALE_ID, "1");
+        params.put(SALE_ID, SPUtil.getString(context,SALE_ID));
         params.put("page", nowPage + "");
-        MyOkhttp.Okhttp(context, Url.TRAINVIDEOLIST, dialog, params, new MyOkhttp.CallBack() {
+        MyOkhttp.Okhttp(context, Url.TRAINVIDEOLIST, "加载中...", params, new MyOkhttp.CallBack() {
             @Override
             public void onRequestComplete(String response, String result, String resultNote) {
                 Gson gson = new Gson();
@@ -97,8 +96,9 @@ public class TrainingVideoActivity extends BaseActivity {
 
             @Override
             public void onLoadMore() {
-                nowPage++;
-                loadData();
+//                nowPage++;
+//                loadData();
+                xRecyclerView.noMoreLoading();
             }
         });
         xRecyclerView.addOnItemTouchListener(new RecyclerItemTouchListener(xRecyclerView) {

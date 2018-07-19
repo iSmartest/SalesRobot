@@ -20,19 +20,19 @@
             android:layout_height="match_parent"
             android:gravity="center_vertical"
             android:text="姓名："
-            android:textColor="@color/black"
-            android:textSize="18sp" />
+            android:textColor="@color/vipTextColor"
+            android:textSize="16sp" />
 
-        <EditText
+        <TextView
             android:id="@+id/modif_Name"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:gravity="center_vertical"
             android:layout_weight="1"
             android:background="@null"
-            android:textColor="@color/black"
+            android:textColor="@color/text_color_subtitle"
             android:text="张浩彬"
-            android:textSize="18sp" />
+            android:textSize="16sp" />
     </LinearLayout>
 
     <include layout="@layout/v_horizontal_line" />
@@ -49,18 +49,19 @@
             android:background="@color/white"
             android:gravity="center_vertical"
             android:text="性别："
-            android:textColor="@color/black"
-            android:textSize="18sp" />
+            android:textColor="@color/vipTextColor"
+            android:textSize="16sp" />
 
-        <EditText
+        <TextView
             android:id="@+id/modif_Sex"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:background="@null"
             android:layout_weight="1"
             android:text="男"
+            android:textColor="@color/text_color_subtitle"
             android:gravity="center_vertical"
-            android:textSize="30px" />
+            android:textSize="16sp" />
     </LinearLayout>
 
     <include layout="@layout/v_horizontal_line"/>
@@ -77,18 +78,19 @@
             android:background="@color/white"
             android:gravity="center_vertical"
             android:text="年龄："
-            android:textColor="@color/black"
-            android:textSize="18sp" />
+            android:textColor="@color/vipTextColor"
+            android:textSize="16sp" />
 
-        <EditText
+        <TextView
             android:id="@+id/modif_Age"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:background="@null"
             android:layout_weight="1"
             android:text="23"
+            android:textColor="@color/text_color_subtitle"
             android:gravity="center_vertical"
-            android:textSize="30px" />
+            android:textSize="16sp" />
     </LinearLayout>
 
     <include layout="@layout/v_horizontal_line"/>
@@ -104,18 +106,19 @@
             android:background="@color/white"
             android:gravity="center_vertical"
             android:text="职位："
-            android:textColor="@color/black"
-            android:textSize="18sp" />
+            android:textColor="@color/vipTextColor"
+            android:textSize="16sp" />
 
-        <EditText
+        <TextView
             android:id="@+id/modif_Work"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:background="@null"
             android:layout_weight="1"
             android:text="汽车销售"
+            android:textColor="@color/text_color_subtitle"
             android:gravity="center_vertical"
-            android:textSize="30px" />
+            android:textSize="16sp" />
     </LinearLayout>
 
     <include layout="@layout/v_horizontal_line"/>
@@ -132,17 +135,18 @@
             android:background="@color/white"
             android:gravity="center_vertical"
             android:text="工号："
-            android:textColor="@color/black"
-            android:textSize="18sp" />
+            android:textColor="@color/vipTextColor"
+            android:textSize="16sp" />
 
-        <EditText
+        <TextView
             android:id="@+id/modif_Number"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@null"
             android:gravity="center_vertical"
+            android:textColor="@color/text_color_subtitle"
             android:layout_weight="1"
             android:text="00006"
-            android:textSize="30px" />
+            android:textSize="16sp" />
     </LinearLayout>
 </LinearLayout>

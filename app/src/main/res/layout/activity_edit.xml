@@ -11,7 +11,7 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="180dp"
         android:background="@drawable/edit_bg_title">
 
         <include layout="@layout/activity_base" />
@@ -45,33 +45,6 @@
             android:text=""
             android:textColor="@color/white"
             android:textSize="16sp" />
-
-        <TextView
-            android:id="@+id/edit_Perfac"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/edit_Time"
-            android:layout_marginLeft="9dp"
-            android:layout_marginTop="3dp"
-            android:layout_toRightOf="@id/editPic"
-            android:text="资料完整度0%"
-            android:textColor="@color/white"
-            android:textSize="12sp" />
-
-        <TextView
-            android:id="@+id/edit_Get"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/edit_Time"
-            android:layout_marginTop="3dp"
-            android:layout_toRightOf="@id/edit_Perfac"
-            android:paddingBottom="24dp"
-            android:paddingLeft="26dp"
-            android:text="提取资料"
-            android:textColor="@color/getText"
-            android:textSize="12sp" />
-
-
     </RelativeLayout>
 
     <ScrollView
@@ -105,7 +78,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:background="@null"
-                    android:focusable="false"
                     android:gravity="center|left"
                     android:text=""
                     android:textSize="16sp" />
@@ -311,6 +283,30 @@
                     android:gravity="center|left"
                     android:text=""
                     android:textSize="15dp" />
+            </LinearLayout>
+
+            <include layout="@layout/v_horizontal_line" />
+
+            <LinearLayout
+                android:id="@+id/ll_vip_reason"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/app_main_default"
+                android:padding="15dp"
+                android:visibility="gone">
+                <EditText
+                    android:id="@+id/edit_vip_reason"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:minLines="8"
+                    android:background="@drawable/shape_chat_voice"
+                    android:maxLines="10"
+                    android:hint="请输入您修改该Vip用户资料的理由"
+                    android:gravity="left|top"
+                    android:textSize="15sp"
+                    android:textColor="@color/black"
+                    android:padding="5dp"
+                    android:textColorHint="@color/hint_text"/>
             </LinearLayout>
         </LinearLayout>
     </ScrollView>

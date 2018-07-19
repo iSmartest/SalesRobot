@@ -12,6 +12,7 @@ import android.widget.TextView;
 import com.empowerment.salesrobot.R;
 import com.empowerment.salesrobot.ui.model.InfromationEntity;
 import com.empowerment.salesrobot.uitls.TimeUtils;
+import com.empowerment.salesrobot.view.RoundedImageView;
 
 import java.util.List;
 
@@ -50,7 +51,7 @@ public class InformationAdapter extends RecyclerView.Adapter<InformationAdapter.
 
     class InformationViewHolder extends RecyclerView.ViewHolder {
         TextView mName, mTime, mContext;
-
+        RoundedImageView mCustomerIcon;
         public InformationViewHolder(View itemView) {
             super(itemView);
             mName = itemView.findViewById(R.id.infrom_item_Name);

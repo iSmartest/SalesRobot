@@ -53,7 +53,7 @@ public class TrainFragment extends BaseFragment{
         return view;
     }
     protected void initView() {
-        title.setText("机器人");
+        title.setText("训练室");
 //        titleImg.setVisibility(View.VISIBLE);
     }
 

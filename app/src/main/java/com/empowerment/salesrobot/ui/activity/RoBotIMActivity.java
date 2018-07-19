@@ -1,17 +1,13 @@
 package com.empowerment.salesrobot.ui.activity;
 
-import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.database.Cursor;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Handler;
 import android.os.Message;
 import android.support.annotation.RequiresApi;
-import android.support.v4.app.ActivityCompat;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -31,13 +27,12 @@ import com.empowerment.salesrobot.dialog.StopTipsDialog;
 import com.empowerment.salesrobot.listener.SoftKeyBoardListener;
 import com.empowerment.salesrobot.okhttp.MyOkhttp;
 import com.empowerment.salesrobot.okhttp.OkHttpUtils;
-import com.empowerment.salesrobot.okhttp.budiler.Callback;
 import com.empowerment.salesrobot.okhttp.budiler.StringCallback;
 import com.empowerment.salesrobot.ui.adapter.RoBotIMAdapter;
 import com.empowerment.salesrobot.ui.model.ImageBean;
 import com.empowerment.salesrobot.ui.model.RobotResultBean;
 import com.empowerment.salesrobot.ui.model.TrainRecordBean;
-import com.empowerment.salesrobot.uitls.PhotoUtil;
+import com.empowerment.salesrobot.uitls.SPUtil;
 import com.empowerment.salesrobot.uitls.ToastUtils;
 import com.empowerment.salesrobot.uitls.UriUtils;
 import com.empowerment.salesrobot.view.voicebutton.AudioRecorder;
@@ -58,6 +53,9 @@ import io.reactivex.schedulers.Schedulers;
 import me.iwf.photopicker.PhotoPicker;
 import okhttp3.Call;
 import top.zibin.luban.Luban;
+
+import static com.empowerment.salesrobot.config.BaseUrl.SALE_ID;
+import static com.empowerment.salesrobot.config.BaseUrl.STORE_ID;
 
 /**
  * Author: 小火
@@ -230,10 +228,10 @@ public class RoBotIMActivity extends BaseActivity implements RecordButton.Record
     private void SubmitQuestion() {
         mEditContent.setText("");
         Map<String, String> params = new HashMap<>();
-        params.put("storeId", "1");
-        params.put("sId", "1");
+        params.put(STORE_ID, SPUtil.getString(context,STORE_ID));
+        params.put("sId",SPUtil.getString(context,SALE_ID));
         params.put("keyWord", mContent);
-        MyOkhttp.Okhttp(context, Url.TRAIN_ROBOT, dialog, params, (response, result, resultNote) -> {
+        MyOkhttp.Okhttp(context, Url.TRAIN_ROBOT, "", params, (response, result, resultNote) -> {
             Log.i("TAG", "SubmitQuestion: " + response);
             Gson gson = new Gson();
             RobotResultBean robotResultBean = gson.fromJson(response, RobotResultBean.class);
@@ -295,11 +293,11 @@ public class RoBotIMActivity extends BaseActivity implements RecordButton.Record
 
     private void finishTrain(String isFinish) {
         Map<String, String> params = new HashMap<>();
-        params.put("storeId", "1");
-        params.put("sId", "1");
+        params.put(STORE_ID, SPUtil.getString(context,STORE_ID));
+        params.put("sId",SPUtil.getString(context,SALE_ID));
         params.put("keyWord", mContent);
         params.put("isFinish", isFinish);
-        MyOkhttp.Okhttp(context, Url.FINISH_TRAIN, dialog, params, (response, result, resultNote) -> Log.i("TAG", "onRequestComplete: " + response));
+        MyOkhttp.Okhttp(context, Url.FINISH_TRAIN, "", params, (response, result, resultNote) -> Log.i("TAG", "onRequestComplete: " + response));
 
     }
 
@@ -310,8 +308,8 @@ public class RoBotIMActivity extends BaseActivity implements RecordButton.Record
      */
     private void submit(String content) {
         Map<String, String> params = new HashMap<>();
-        params.put("storeId", "1");
-        params.put("sId", "1");
+        params.put(STORE_ID, SPUtil.getString(context,STORE_ID));
+        params.put("sId",SPUtil.getString(context,SALE_ID));
         params.put("keyWord", mContent);
         params.put("describe", content);
         File fileDec = new File(mBinnerList.get(0).getImage());

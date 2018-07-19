@@ -32,7 +32,6 @@ public class AgencyAffairsInfoActivity extends BaseActivity {
     ImageView titleBack;
     @BindView(R.id.title)
     TextView title;
-
     @BindView(R.id.tv_affairs_info_time)
     TextView mTime;
     @BindView(R.id.tv_affairs_info_content)
@@ -91,7 +90,7 @@ public class AgencyAffairsInfoActivity extends BaseActivity {
         params.put("aType",String.valueOf(type));//待办类型
         params.put("storeId",SPUtil.getString(context,STORE_ID));
         params.put("type", "2");//1为阅读，2为完结
-        MyOkhttp.Okhttp(context, Url.READ_OR_FINISH, dialog, params, new MyOkhttp.CallBack() {
+        MyOkhttp.Okhttp(context, Url.READ_OR_FINISH, "加载中...", params, new MyOkhttp.CallBack() {
             @Override
             public void onRequestComplete(String response, String result, String resultNote) {
                 if (result.equals("1")){

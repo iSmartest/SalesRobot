@@ -110,15 +110,15 @@ public class LoginActivity extends BaseActivity {
             ToastUtils.makeText(context, "验证码不能为空");
             return;
         }
-        findPassword(passPin,userphone) ;
+        login(passPin,userphone) ;
     }
 
-    private void findPassword(String passPin,String userphone) {
+    private void login(String passPin,String userphone) {
         Map<String, String> loginMap = new HashMap<>();
         loginMap.put(PHONE_NUMBER, userphone);
         loginMap.put(CODE, passPin);
         loginMap.put("sessionId", sessionId);
-        MyOkhttp.Okhttp(context, Url.LOGIN_, dialog, loginMap, new MyOkhttp.CallBack() {
+        MyOkhttp.Okhttp(context, Url.LOGIN_, "加载中...", loginMap, new MyOkhttp.CallBack() {
             @Override
             public void onRequestComplete(String response, String result, String resultNote) {
                 Gson gson = new Gson();
@@ -136,6 +136,7 @@ public class LoginActivity extends BaseActivity {
                 SPUtil.putString(context,WORK,info.getData().getWork()+"");
                 SPUtil.putString(context,NUMBER,info.getData().getNumber());
                 SPUtil.putString(context,IMAGE,info.getData().getImage());
+                SPUtil.putString(context,PHONE_NUMBER,info.getData().getPhone());
                 JPushInterface.setAlias(LoginActivity.this,1,info.getData().getUserid());
                 MyApplication.openActivity(context, MainActivity.class);
             }
@@ -150,7 +151,7 @@ public class LoginActivity extends BaseActivity {
         timerUtil.timers();
         Map<String,String> params = new HashMap<>();
         params.put("mobile",ph);
-        MyOkhttp.Okhttp(context, Url.SMS, dialog, params, new MyOkhttp.CallBack() {
+        MyOkhttp.Okhttp(context, Url.SMS, "获取中...", params, new MyOkhttp.CallBack() {
             @Override
             public void onRequestComplete(String response, String result, String resultNote) {
                 if (result.equals("0")){

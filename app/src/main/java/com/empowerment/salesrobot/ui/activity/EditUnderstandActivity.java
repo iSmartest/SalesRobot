@@ -100,7 +100,7 @@ public class EditUnderstandActivity extends BaseActivity {
 //        params.put(SALE_ID, SPUtil.getString(context,SALE_ID));
         params.put(EXPERIENCE, content);
 
-        MyOkhttp.Okhttp(context, Url.ADD_EXPERLIST, dialog, params, new MyOkhttp.CallBack() {
+        MyOkhttp.Okhttp(context, Url.ADD_EXPERLIST, "保存中...", params, new MyOkhttp.CallBack() {
             @Override
             public void onRequestComplete(String response, String result, String resultNote) {
                 if (result.equals("1")){

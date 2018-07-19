@@ -18,6 +18,7 @@ import com.empowerment.salesrobot.listener.RecyclerItemTouchListener;
 import com.empowerment.salesrobot.okhttp.MyOkhttp;
 import com.empowerment.salesrobot.ui.adapter.TrainingDocumentsAdapter;
 import com.empowerment.salesrobot.ui.model.TrainingDocBean;
+import com.empowerment.salesrobot.uitls.SPUtil;
 import com.empowerment.salesrobot.uitls.ToastUtils;
 import com.example.xrecyclerview.XRecyclerView;
 import com.google.gson.Gson;
@@ -69,9 +70,9 @@ public class TrainingDocumentsActivity extends BaseActivity {
     @Override
     protected void loadData() {
         Map<String, String> params = new HashMap<>();
-        params.put(SALE_ID, "1");
+        params.put(SALE_ID, SPUtil.getString(context,SALE_ID));
         params.put("page", nowPage + "");
-        MyOkhttp.Okhttp(context, Url.TRAINDOCLIST, dialog, params, new MyOkhttp.CallBack() {
+        MyOkhttp.Okhttp(context, Url.TRAINDOCLIST, "加载中...", params, new MyOkhttp.CallBack() {
             @Override
             public void onRequestComplete(String response, String result, String resultNote) {
                 Gson gson = new Gson();

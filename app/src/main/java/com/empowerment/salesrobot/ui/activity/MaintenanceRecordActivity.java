@@ -84,7 +84,7 @@ public class MaintenanceRecordActivity extends BaseActivity{
     }
 
     private void getdata(Map<String, String> mainMap) {
-        MyOkhttp.Okhttp(context, Url.MPBLIST, dialog, mainMap, new MyOkhttp.CallBack() {
+        MyOkhttp.Okhttp(context, Url.MPBLIST, "加载中...", mainMap, new MyOkhttp.CallBack() {
             @Override
             public void onRequestComplete(String response, String result, String resultNote) {
                 Gson gson = new Gson();

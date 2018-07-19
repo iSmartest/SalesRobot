@@ -67,6 +67,8 @@ public class Url {
     //客户资料**查询
     public static final String CUSTOMER = HTTP + "/app/customer/customerList?";
 
+    //添加今日客户
+    public static final String SUBMIT_CUSTOMER = HTTP;
     //客户资料修改
     public static final String EDIT_CUSTOMER = HTTP + "/app/customer/updateCustomer?";
 
@@ -76,7 +78,7 @@ public class Url {
     //客户 维修 保养 保险
     public static final String MPBLIST = HTTP + "/app/customer/mpbList?";
 
-    //添加客户
+    //添加VIP客户
     public static final String ADD_CUSTOMER = HTTP + "/app/customer/addCustomer?";
 
     //获取VIP*有意向客户

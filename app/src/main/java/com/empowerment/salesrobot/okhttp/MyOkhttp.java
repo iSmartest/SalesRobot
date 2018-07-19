@@ -5,6 +5,7 @@ import android.content.Context;
 import android.util.Log;
 
 
+import com.empowerment.salesrobot.dialog.ProgressDialog;
 import com.empowerment.salesrobot.okhttp.budiler.StringCallback;
 import com.empowerment.salesrobot.uitls.ToastUtils;
 
@@ -31,7 +32,8 @@ public class MyOkhttp {
      * @param params   post参数
      * @param callBack 回调
      */
-    public static void Okhttp(final Context context, String url, final Dialog dialog,Map<String, String> params, final CallBack callBack) {
+    public static void Okhttp(final Context context, String url, final String mContent,Map<String, String> params, final CallBack callBack) {
+        Dialog dialog = ProgressDialog.createLoadingDialog(context,mContent);
         dialog.show();
         Log.e("TAG", "json1=" + params.get("saleId"));
         Log.e("TAG", "json2=" + params.get("page"));

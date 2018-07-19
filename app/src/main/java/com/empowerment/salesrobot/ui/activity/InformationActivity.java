@@ -59,6 +59,8 @@ public class InformationActivity extends BaseActivity {
     ImageView titleBack;
     @BindView(R.id.title)
     TextView title;
+    @BindView(R.id.title_OK)
+    TextView titleOK;
     @BindView(R.id.information_a_key_edt_search)
     EditText mEditKey;
     @BindView(R.id.tv_data)
@@ -117,7 +119,7 @@ public class InformationActivity extends BaseActivity {
         xRecyclerView.addOnItemTouchListener(new RecyclerItemTouchListener(xRecyclerView) {
             @Override
             public void onItemClick(RecyclerView.ViewHolder vh) {
-                int position = vh.getAdapterPosition()-1;
+                int position = vh.getAdapterPosition() - 1;
                 if (position < 0 | position >= infoList.size()) {
                     return;
                 }
@@ -145,8 +147,6 @@ public class InformationActivity extends BaseActivity {
     }
 
     private void showDateDialog(List<Integer> date) {
-
-
 
         DatePickerDialog.Builder builder = new DatePickerDialog.Builder(this);
         builder.setOnDateSelectedListener(new DatePickerDialog.OnDateSelectedListener() {
@@ -193,9 +193,12 @@ public class InformationActivity extends BaseActivity {
         if (title.getText().toString().equals("今日客户")) {
             cType = "1";
             mData.setVisibility(View.GONE);
+            titleOK.setVisibility(View.VISIBLE);
+            titleOK.setText("添加");
         } else {
             cType = "2";
             mData.setVisibility(View.VISIBLE);
+            titleOK.setVisibility(View.GONE);
         }
         currentFocus(1);
         getdata();//开启网络请求*往期或者今日客户
@@ -224,11 +227,14 @@ public class InformationActivity extends BaseActivity {
         ButterKnife.bind(this);
     }
 
-    @OnClick({R.id.title_Back, R.id.tv_data, R.id.tv_work, R.id.tv_name, R.id.tv_car_style, R.id.tv_address})
+    @OnClick({R.id.title_Back, R.id.title_OK, R.id.tv_data, R.id.tv_work, R.id.tv_name, R.id.tv_car_style, R.id.tv_address})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.title_Back:
                 finish();
+                break;
+            case R.id.title_OK:
+                MyApplication.openActivity(context,AddCustomerActivity.class);
                 break;
             case R.id.tv_data:
                 type = "1";//拿到日期标签索引
@@ -291,7 +297,7 @@ public class InformationActivity extends BaseActivity {
         cusMap.put(C_TYPE, cType);
         cusMap.put(ROWS, "10");
         cusMap.put(PAGE, String.valueOf(PAGR_SIZE));
-        MyOkhttp.Okhttp(context, Url.CUSTOMER, dialog, cusMap, new MyOkhttp.CallBack() {
+        MyOkhttp.Okhttp(context, Url.CUSTOMER, "加载中...", cusMap, new MyOkhttp.CallBack() {
             @Override
             public void onRequestComplete(String response, String result, String resultNote) {
                 Gson gson = new Gson();

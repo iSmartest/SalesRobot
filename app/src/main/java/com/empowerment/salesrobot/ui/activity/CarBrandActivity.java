@@ -49,7 +49,7 @@ public class CarBrandActivity extends BaseActivity {
     protected void loadData() {
         Map<String,String> params = new HashMap<>();
         params.put("brandId",brandId);
-        MyOkhttp.Okhttp(context, Url.CARLIST, dialog, params, new MyOkhttp.CallBack() {
+        MyOkhttp.Okhttp(context, Url.CARLIST, "加载中...", params, new MyOkhttp.CallBack() {
             @Override
             public void onRequestComplete(String response, String result, String resultNote) {
                 Gson gson = new Gson();

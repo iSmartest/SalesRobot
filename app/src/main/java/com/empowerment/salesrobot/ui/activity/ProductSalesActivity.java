@@ -1,6 +1,10 @@
 package com.empowerment.salesrobot.ui.activity;
 
 import android.os.Bundle;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.OrientationHelper;
+import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.AdapterView;
@@ -12,10 +16,12 @@ import android.widget.TextView;
 import com.empowerment.salesrobot.R;
 import com.empowerment.salesrobot.app.MyApplication;
 import com.empowerment.salesrobot.config.Url;
+import com.empowerment.salesrobot.listener.RecyclerItemTouchListener;
 import com.empowerment.salesrobot.okhttp.MyOkhttp;
 import com.empowerment.salesrobot.ui.adapter.BrandAdapter;
 import com.empowerment.salesrobot.ui.model.ProductSalesBean;
 import com.empowerment.salesrobot.uitls.ImageManagerUtils;
+import com.empowerment.salesrobot.uitls.SPUtil;
 import com.empowerment.salesrobot.uitls.ToastUtils;
 import com.google.gson.Gson;
 
@@ -29,18 +35,18 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 import static com.empowerment.salesrobot.config.BaseUrl.SALE_ID;
+import static com.empowerment.salesrobot.config.BaseUrl.STORE_ID;
 
 /**
  * 产品销售
  */
 public class ProductSalesActivity extends BaseActivity {
-
     @BindView(R.id.title_Back)
     ImageView titleBack;
     @BindView(R.id.title)
     TextView title;
-    @BindView(R.id.grid_brand)
-    GridView mGridBrand;
+    @BindView(R.id.recycler_brand)
+    RecyclerView recyclerView;
     @BindView(R.id.mWord_Layout)
     LinearLayout mWordLayout;
     @BindView(R.id.mVido_Layout)
@@ -57,9 +63,12 @@ public class ProductSalesActivity extends BaseActivity {
 
     @Override
     protected void loadData() {
+        mList.clear();
+        mAdapter.notifyDataSetChanged();
         Map<String,String> params = new HashMap<>();
-        params.put(SALE_ID, "1");
-        MyOkhttp.Okhttp(context, Url.PRODUCTSALE, dialog, params, new MyOkhttp.CallBack() {
+        params.put(STORE_ID, SPUtil.getString(context,STORE_ID));
+        params.put(SALE_ID,SPUtil.getString(context,SALE_ID));
+        MyOkhttp.Okhttp(context, Url.PRODUCTSALE, "加载中...", params, new MyOkhttp.CallBack() {
             @Override
             public void onRequestComplete(String response, String result, String resultNote) {
                 Gson gson = new Gson();
@@ -90,11 +99,16 @@ public class ProductSalesActivity extends BaseActivity {
     protected void initView() {
         title.setText("产品销售");
         titleBack.setVisibility(View.VISIBLE);
-        mAdapter = new BrandAdapter(context,R.layout.item_grid_brand,mList);
-        mGridBrand.setAdapter(mAdapter);
-        mGridBrand.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        mAdapter = new BrandAdapter(context,mList);
+        recyclerView.setLayoutManager(new LinearLayoutManager(context, OrientationHelper.HORIZONTAL,false));
+        recyclerView.setAdapter(mAdapter);
+        recyclerView.addOnItemTouchListener(new RecyclerItemTouchListener(recyclerView) {
             @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+            public void onItemClick(RecyclerView.ViewHolder vh) {
+                int position = vh.getAdapterPosition() - 1;
+                if (position < 0 | position >= mList.size()) {
+                    return;
+                }
                 Bundle bundle = new Bundle();
                 bundle.putString("mTitle", mList.get(position).getName());
                 bundle.putString("brandId", mList.get(position).getId());
@@ -106,7 +120,6 @@ public class ProductSalesActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        // TODO: add setContentView(...) invocation
         ButterKnife.bind(this);
     }
 

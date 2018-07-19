@@ -9,64 +9,135 @@
 
     <include layout="@layout/activity_base"/>
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:background="@color/app_main_default"
-        android:text="今日客户"
+    <LinearLayout
         android:id="@+id/customer_Todays"
-        android:textColor="@color/homeTextColor"
-        android:drawableRight="@drawable/check"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:orientation="horizontal"
         android:paddingTop="12dp"
         android:paddingBottom="12dp"
         android:paddingLeft="15dp"
         android:paddingRight="15dp"
-        android:textSize="18sp"
-        android:gravity="center_vertical"/>
+        android:background="@color/app_main_default">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="今日客户"
+            android:textColor="@color/homeTextColor"
+            android:textSize="16sp"
+            android:gravity="center_vertical"/>
+        <TextView
+            android:id="@+id/tv_today_customer"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="12"
+            android:gravity="center|right"
+            android:drawablePadding="6dp"
+            android:textColor="@color/vipTextColor"
+            android:textSize="18sp"
+            android:drawableRight="@drawable/right_in"/>
+    </LinearLayout>
+
     <include layout="@layout/v_horizontal_line"/>
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:background="@color/app_main_default"
-        android:text="预成交客户"
+
+    <LinearLayout
         android:id="@+id/customer_Per"
-        android:textColor="@color/homeTextColor"
-        android:drawableRight="@drawable/check"
-        android:paddingTop="12dp"
-        android:paddingBottom="12dp"
-        android:paddingLeft="15dp"
-        android:paddingRight="15dp"
-        android:textSize="18sp"
-        android:gravity="center_vertical"/>
-    <TextView
-        android:layout_marginTop="68px"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:id="@+id/customer_Past"
-        android:background="@color/app_main_default"
-        android:text="往期客户"
-        android:textColor="@color/homeTextColor"
+        android:orientation="horizontal"
         android:paddingTop="12dp"
         android:paddingBottom="12dp"
-        android:drawableRight="@drawable/check"
         android:paddingLeft="15dp"
         android:paddingRight="15dp"
-        android:textSize="18sp"
-        android:gravity="center_vertical"/>
+        android:background="@color/app_main_default">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="预成交客户"
+            android:textColor="@color/homeTextColor"
+            android:textSize="16sp"
+            android:gravity="center_vertical"/>
+        <TextView
+            android:id="@+id/tv_per_customer"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="12"
+            android:gravity="center|right"
+            android:drawablePadding="6dp"
+            android:textColor="@color/vipTextColor"
+            android:textSize="18sp"
+            android:drawableRight="@drawable/right_in"/>
+    </LinearLayout>
+
     <include layout="@layout/v_horizontal_line"/>
-    <TextView
+
+
+    <LinearLayout
+        android:id="@+id/customer_Past"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:id="@+id/customer_VIP"
-        android:background="@color/app_main_default"
-        android:text="VIP客户"
-        android:textColor="@color/homeTextColor"
-        android:drawableRight="@drawable/check"
+        android:orientation="horizontal"
+        android:layout_marginTop="34dp"
         android:paddingTop="12dp"
         android:paddingBottom="12dp"
         android:paddingLeft="15dp"
         android:paddingRight="15dp"
-        android:textSize="18sp"
-        android:gravity="center_vertical"/>
+        android:background="@color/app_main_default">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="往期客户"
+            android:textColor="@color/homeTextColor"
+            android:textSize="16sp"
+            android:gravity="center_vertical"/>
+        <TextView
+            android:id="@+id/tv_past_customer"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="12"
+            android:gravity="center|right"
+            android:drawablePadding="6dp"
+            android:textColor="@color/vipTextColor"
+            android:textSize="18sp"
+            android:drawableRight="@drawable/right_in"/>
+    </LinearLayout>
+
+    <include layout="@layout/v_horizontal_line"/>
+
+    <LinearLayout
+        android:id="@+id/customer_VIP"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:orientation="horizontal"
+        android:paddingTop="12dp"
+        android:paddingBottom="12dp"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp"
+        android:background="@color/app_main_default">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="VIP客户"
+            android:textColor="@color/homeTextColor"
+            android:textSize="16sp"
+            android:gravity="center_vertical"/>
+        <TextView
+            android:id="@+id/tv_vip_customer"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="12"
+            android:gravity="center|right"
+            android:drawablePadding="6dp"
+            android:textColor="@color/vipTextColor"
+            android:textSize="18sp"
+            android:drawableRight="@drawable/right_in"/>
+    </LinearLayout>
+
+    <include layout="@layout/v_horizontal_line"/>
+
 
 </LinearLayout>

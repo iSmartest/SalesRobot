@@ -76,7 +76,7 @@ public class AgencyAffairsActivity extends BaseActivity {
         params.put("rows","10");
         params.put("saleId",SPUtil.getString(context, SALE_ID));
         params.put("type",type);
-        MyOkhttp.Okhttp(context, Url.AFFAIRS, ProgressDialog.createLoadingDialog(context, "加载中....."), params, new MyOkhttp.CallBack() {
+        MyOkhttp.Okhttp(context, Url.AFFAIRS, "加载中...", params, new MyOkhttp.CallBack() {
             @Override
             public void onRequestComplete(String response, String result, String resultNote) {
                 xRecyclerView.refreshComplete();
@@ -118,7 +118,8 @@ public class AgencyAffairsActivity extends BaseActivity {
             @Override
             public void onLoadMore() {
                 nowPage++;
-                loadData();
+//                loadData();
+                xRecyclerView.noMoreLoading();
             }
         });
         xRecyclerView.addOnItemTouchListener(new RecyclerItemTouchListener(xRecyclerView) {
@@ -150,7 +151,7 @@ public class AgencyAffairsActivity extends BaseActivity {
         params.put("aType",String.valueOf(type));//待办类型
         params.put("storeId",SPUtil.getString(context,STORE_ID));
         params.put("type", "1");//1为阅读，2为完结
-        MyOkhttp.Okhttp(context, Url.READ_OR_FINISH, dialog, params, new MyOkhttp.CallBack() {
+        MyOkhttp.Okhttp(context, Url.READ_OR_FINISH, "", params, new MyOkhttp.CallBack() {
             @Override
             public void onRequestComplete(String response, String result, String resultNote) {
                 Log.i(TAG, "onRequestComplete: " + response);
@@ -188,6 +189,7 @@ public class AgencyAffairsActivity extends BaseActivity {
                 company.setTextColor(csl1);
                 personal.setTextColor(csl2);
                 ok.setVisibility(View.GONE);
+                nowPage = 1;
                 type = "1";
                 mList.clear();
                 mAdapter.notifyDataSetChanged();
@@ -199,6 +201,7 @@ public class AgencyAffairsActivity extends BaseActivity {
                 company.setTextColor(csl2);
                 personal.setTextColor(csl1);
                 ok.setVisibility(View.VISIBLE);
+                nowPage = 1;
                 type = "0";
                 mList.clear();
                 mAdapter.notifyDataSetChanged();
@@ -209,5 +212,4 @@ public class AgencyAffairsActivity extends BaseActivity {
                 break;
         }
     }
-
 }

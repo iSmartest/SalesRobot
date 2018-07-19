@@ -52,7 +52,7 @@ public class NewPointActivity extends BaseActivity {
     protected void loadData() {
         Map<String,String> params = new HashMap<>();
         params.put("groupid", SPUtil.getString(context,SALE_ID));
-        MyOkhttp.Okhttp(context, Url.BUYPOINT, dialog, params, new MyOkhttp.CallBack() {
+        MyOkhttp.Okhttp(context, Url.BUYPOINT, "加载中...", params, new MyOkhttp.CallBack() {
             @Override
             public void onRequestComplete(String response, String result, String resultNote) {
                 Gson gson = new Gson();
@@ -74,7 +74,7 @@ public class NewPointActivity extends BaseActivity {
 
     @Override
     protected void initView() {
-        title.setText("新品买点");
+        title.setText("新品卖点");
         titleBack.setVisibility(View.VISIBLE);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(context));
         mAdapter = new NewPointAdapter(context,mList);

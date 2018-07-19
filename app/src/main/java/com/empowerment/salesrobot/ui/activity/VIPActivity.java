@@ -251,7 +251,7 @@ public class VIPActivity extends BaseActivity {
     }
 
     public void getdata(Map<String,String> params){
-        MyOkhttp.Okhttp(context, Url.VIP_YCJ, dialog, params, new MyOkhttp.CallBack() {
+        MyOkhttp.Okhttp(context, Url.VIP_YCJ, "加载中...", params, new MyOkhttp.CallBack() {
             @Override
             public void onRequestComplete(String response, String result, String resultNote) {
                 Gson gson = new Gson();

@@ -21,6 +21,7 @@ import com.empowerment.salesrobot.ui.activity.MyUnderstandActivity;
 import com.empowerment.salesrobot.ui.activity.PersonalMainActivity;
 import com.empowerment.salesrobot.ui.adapter.UnderStandAdapter;
 import com.empowerment.salesrobot.ui.model.MineBean;
+import com.empowerment.salesrobot.uitls.GlideUtils;
 import com.empowerment.salesrobot.uitls.SPUtil;
 import com.empowerment.salesrobot.uitls.TimeUtils;
 import com.empowerment.salesrobot.uitls.ToastUtils;
@@ -38,9 +39,16 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
 
+import static com.empowerment.salesrobot.config.BaseUrl.AGE;
 import static com.empowerment.salesrobot.config.BaseUrl.IMAGE;
+import static com.empowerment.salesrobot.config.BaseUrl.NAME;
+import static com.empowerment.salesrobot.config.BaseUrl.NUMBER;
 import static com.empowerment.salesrobot.config.BaseUrl.PAGE;
+import static com.empowerment.salesrobot.config.BaseUrl.PHONE_NUMBER;
 import static com.empowerment.salesrobot.config.BaseUrl.SALE_ID;
+import static com.empowerment.salesrobot.config.BaseUrl.SEX;
+import static com.empowerment.salesrobot.config.BaseUrl.STORE_ID;
+import static com.empowerment.salesrobot.config.BaseUrl.WORK;
 import static com.empowerment.salesrobot.config.Url.HTTP;
 
 /**
@@ -65,7 +73,8 @@ public class MineFragment extends BaseFragment {
     @BindView(R.id.my_doubel_nos)
     TextView myDoubelNos;
     @BindView(R.id.understand_recycler)
-    XRecyclerView xRecyclerView;
+    XRecyclerView
+            xRecyclerView;
     @BindView(R.id.mXd)
     TextView mXd;
     Unbinder unbinder;
@@ -117,6 +126,8 @@ public class MineFragment extends BaseFragment {
                 }
                 Bundle bundle = new Bundle();
                 bundle.putString("mName",mList.get(position).getName());
+                bundle.putString("mImage",mList.get(position).getImage());
+                bundle.putString("mPhone",mList.get(position).getPhone());
                 bundle.putString("mContent",mList.get(position).getContent());
                 bundle.putString("mTime",String.valueOf(TimeUtils.transferLongToDate(mList.get(position).getData())));
                 MyApplication.openActivity(context,UnderstandInfoActivity.class,bundle);
@@ -126,12 +137,11 @@ public class MineFragment extends BaseFragment {
     }
 
     protected void loadData() {
-//        myMap.put(SALE_ID, SPUtil.getString(context,SALE_ID));
         Map<String, String> params = new HashMap<>();
-        params.put(SALE_ID, "1");
+        params.put(SALE_ID, SPUtil.getString(context,SALE_ID));
         params.put("rows", "10");
         params.put(PAGE,String.valueOf(nowPage));
-        MyOkhttp.Okhttp(context, Url.EXPERIENCELIST, dialog, params, new MyOkhttp.CallBack() {
+        MyOkhttp.Okhttp(context, Url.EXPERIENCELIST, "加载中...", params, new MyOkhttp.CallBack() {
             @Override
             public void onRequestComplete(String response, String result, String resultNote) {
                 Gson gson = new Gson();
@@ -148,6 +158,11 @@ public class MineFragment extends BaseFragment {
                     xRecyclerView.refreshComplete();
                 }
                 SPUtil.putString(context,IMAGE,mineBean.getData().getSale().getImage());
+                SPUtil.putString(context,AGE,mineBean.getData().getSale().getAge()+"");
+                SPUtil.putString(context,NAME,mineBean.getData().getSale().getName());
+                SPUtil.putString(context,WORK,mineBean.getData().getSale().getWork());
+                SPUtil.putString(context,PHONE_NUMBER,mineBean.getData().getSale().getPhone());
+                GlideUtils.imageLoader(context,mineBean.getData().getSale().getImage(),myIconImgview);
                 mName.setText(mineBean.getData().getSale().getName());
                 myDoubelNo.setText(mineBean.getData().getSale().getSaleIndex());
                 myDoubelNos.setText(mineBean.getData().getSale().getSuccessIndex());
@@ -168,7 +183,6 @@ public class MineFragment extends BaseFragment {
             case R.id.mXd:
                 MyApplication.openActivity(context,MyUnderstandActivity.class);
                 break;
-
             case R.id.my_icon_img:
                 MyApplication.openActivity(context,PersonalMainActivity.class);
                 break;
