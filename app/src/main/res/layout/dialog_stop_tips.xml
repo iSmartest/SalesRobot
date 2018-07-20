@@ -4,26 +4,35 @@
     android:layout_height="wrap_content"
     android:background="@drawable/shape_white_corners_bg"
     android:orientation="vertical">
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/stop_tips"
-        android:layout_gravity="center"
-        android:visibility="gone"
-        />
-    <TextView
-        android:id="@+id/log_out_tips_tv"
-        android:textSize="14sp"
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:orientation="vertical"
         android:layout_marginLeft="32dp"
         android:layout_marginRight="32dp"
         android:layout_marginBottom="32dp"
-        android:layout_marginTop="32dp"
-        android:gravity="center_horizontal"
-        android:text="是否紧急停止？"
-        android:textColor="@color/black" />
+        android:layout_marginTop="32dp">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="小宝"
+            android:textColor="@color/black"
+            android:textSize="14sp"
+            android:gravity="center"/>
+        <TextView
+            android:id="@+id/log_out_tips_tv"
+            android:textSize="12sp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:text="是否紧急停止？"
+            android:layout_marginTop="8dp"
+            android:textColor="@color/vipTextColor" />
+    </LinearLayout>
+
     <include layout="@layout/v_horizontal_line" />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

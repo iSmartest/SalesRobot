@@ -35,8 +35,6 @@ import com.empowerment.salesrobot.ui.model.TrainRecordBean;
 import com.empowerment.salesrobot.uitls.SPUtil;
 import com.empowerment.salesrobot.uitls.ToastUtils;
 import com.empowerment.salesrobot.uitls.UriUtils;
-import com.empowerment.salesrobot.view.voicebutton.AudioRecorder;
-import com.empowerment.salesrobot.view.voicebutton.RecordButton;
 import com.google.gson.Gson;
 
 import java.io.File;
@@ -63,7 +61,7 @@ import static com.empowerment.salesrobot.config.BaseUrl.STORE_ID;
  * Created by 2018/7/4.
  * Description:
  */
-public class RoBotIMActivity extends BaseActivity implements RecordButton.RecordListener {
+public class RoBotIMActivity extends BaseActivity {
     @BindView(R.id.title_Back)
     ImageView titleBack;
     @BindView(R.id.title)
@@ -72,14 +70,10 @@ public class RoBotIMActivity extends BaseActivity implements RecordButton.Record
     RelativeLayout relativeLayout;
     @BindView(R.id.ll_item)
     LinearLayout linearLayout;
-    @BindView(R.id.iv_voice)
-    ImageView mVoice;
     @BindView(R.id.iv_keyboard)
     ImageView mKeyBoard;
     @BindView(R.id.edi_chat_reply_content)
     EditText mEditContent;
-    @BindView(R.id.tv_long_chat)
-    RecordButton mLongChat;
     @BindView(R.id.tv_album)
     ImageView mAlbum;
     @BindView(R.id.tv_video)
@@ -90,12 +84,11 @@ public class RoBotIMActivity extends BaseActivity implements RecordButton.Record
     LinearLayout mFunction;
     @BindView(R.id.chat_list)
     ListView mChatList;
-    private String type;
     private String mContent = "";
     private List<ImageBean> mBinnerList;
     private ImageAndTextDialog imageAndTextDialog;
     private List<TrainRecordBean.ContentRecord> mList = new ArrayList<>();
-    List<RobotResultBean.DataBean.Answers.Pics> picLists = new ArrayList<>();
+    List<RobotResultBean.DataBean.Answers.Pics> picLists;
     private RoBotIMAdapter mAdapter;
     public final static int CHECK_VIDEO_REQUEST = 24;
     private String path;
@@ -113,16 +106,8 @@ public class RoBotIMActivity extends BaseActivity implements RecordButton.Record
 
     @Override
     protected void initView() {
-        type = getIntent().getStringExtra("type");
-        if (type.equals("0")) {
-            title.setText("销售训练室");
-        } else if (type.equals("1")) {
-            title.setText("维修保养室");
-        } else if (type.equals("2")) {
-            title.setText("保险理赔室");
-        }
+        title.setText("销售训练室");
         titleBack.setVisibility(View.VISIBLE);
-
         SoftKeyBoardListener.setListener(RoBotIMActivity.this, new SoftKeyBoardListener.OnSoftKeyBoardChangeListener() {
             @Override
             public void keyBoardShow(int rootHight, int keyBroadheight) {
@@ -141,9 +126,6 @@ public class RoBotIMActivity extends BaseActivity implements RecordButton.Record
                 relativeLayout.setLayoutParams(params);
             }
         });
-
-        mLongChat.setListener(this);
-        mLongChat.setRecordStrategy(new AudioRecorder());
 
         mEditContent.addTextChangedListener(new TextWatcher() {
             @Override
@@ -172,32 +154,19 @@ public class RoBotIMActivity extends BaseActivity implements RecordButton.Record
     }
 
 
-    @OnClick({R.id.title_Back, R.id.iv_voice, R.id.iv_keyboard, R.id.tv_album, R.id.tv_video, R.id.text_chat_reply})
+    @OnClick({R.id.title_Back,R.id.iv_keyboard, R.id.tv_album, R.id.tv_video, R.id.text_chat_reply})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.title_Back:
                 finish();
                 break;
-            case R.id.iv_voice:
-                mVoice.setVisibility(View.GONE);
-                mKeyBoard.setVisibility(View.VISIBLE);
-                mEditContent.setVisibility(View.GONE);
-                mLongChat.setVisibility(View.VISIBLE);
-                break;
             case R.id.iv_keyboard:
-                mVoice.setVisibility(View.VISIBLE);
-                mKeyBoard.setVisibility(View.GONE);
-                mEditContent.setVisibility(View.VISIBLE);
-                mLongChat.setVisibility(View.GONE);
+                ToastUtils.makeText(context,"你好666啊！");
                 break;
             case R.id.tv_album:
                 mBinnerList = new ArrayList<>();
+                picLists = new ArrayList<>();
                 imageAndTextDialog = new ImageAndTextDialog(context, content -> {
-                    RobotResultBean.DataBean.Answers.Pics pics = new RobotResultBean.DataBean.Answers.Pics(mBinnerList.get(0).getImage(),content);
-                    picLists.add(pics);
-                    TrainRecordBean.ContentRecord comm = new TrainRecordBean.ContentRecord(1, 0, mBinnerList.get(0).getImage(), content,picLists,null);
-                    mList.add(comm);
-                    mAdapter.notifyDataSetChanged();
                     submit(content);
                 });
                 imageAndTextDialog.show();
@@ -262,20 +231,21 @@ public class RoBotIMActivity extends BaseActivity implements RecordButton.Record
                                 finishTrain("0");
                             }
                         });
+                        dialog.setCanceledOnTouchOutside(false);
                         dialog.show();
                         break;
                     case 3://只有视频
-                        TrainRecordBean.ContentRecord comm3 = new TrainRecordBean.ContentRecord(0, 1, robotResultBean.getData().getAnswers().get(0).getPics().get(0).getPics(), robotResultBean.getData().getAnswers().get(0).getVideoAddress());
+                        TrainRecordBean.ContentRecord comm3 = new TrainRecordBean.ContentRecord(0, 1, robotResultBean.getData().getAnswers().get(0).getPics().get(0).getPics(), robotResultBean.getData().getAnswers().get(0).getVideoAddress(),robotResultBean.getData().getQuestion());
                         mList.add(comm3);
                         mAdapter.notifyDataSetChanged();
                         break;
                     case 4: //只有图文
-                        TrainRecordBean.ContentRecord comm4 = new TrainRecordBean.ContentRecord(0, 0, robotResultBean.getData().getAnswers().get(0).getPics().get(0).getPics(), robotResultBean.getData().getAnswers().get(0).getPics());
+                        TrainRecordBean.ContentRecord comm4 = new TrainRecordBean.ContentRecord(0, 0, robotResultBean.getData().getAnswers().get(0).getPics().get(0).getPics(), robotResultBean.getData().getAnswers().get(0).getPics(),robotResultBean.getData().getQuestion(),robotResultBean.getData().getId());
                         mList.add(comm4);
                         mAdapter.notifyDataSetChanged();
                         break;
                     case 5:// 视频图文都有
-                        TrainRecordBean.ContentRecord comm5 = new TrainRecordBean.ContentRecord(0, 3, robotResultBean.getData().getAnswers().get(0).getPics().get(0).getPics(), robotResultBean.getData().getAnswers().get(0).getVideoAddress(), robotResultBean.getData().getAnswers().get(0).getPics());
+                        TrainRecordBean.ContentRecord comm5 = new TrainRecordBean.ContentRecord(0, 3, robotResultBean.getData().getAnswers().get(0).getPics().get(0).getPics(), robotResultBean.getData().getAnswers().get(0).getVideoAddress(), robotResultBean.getData().getAnswers().get(0).getPics(),robotResultBean.getData().getQuestion(),robotResultBean.getData().getId());
                         mList.add(comm5);
                         mAdapter.notifyDataSetChanged();
                         break;
@@ -325,12 +295,20 @@ public class RoBotIMActivity extends BaseActivity implements RecordButton.Record
 
             @Override
             public void onResponse(String response, int id) {
+                Log.i("TAG", "onResponse: " + response);
                 Gson gson = new Gson();
                 dialog.dismiss();
                 RobotResultBean robotResultBean = gson.fromJson(response, RobotResultBean.class);
                 if (robotResultBean.getResultCode() == 1) {
-
+                    TrainRecordBean.ContentRecord comm99 = new TrainRecordBean.ContentRecord(0, 2, robotResultBean.getMsg());
+                    mList.add(comm99);
+                    mAdapter.notifyDataSetChanged();
                 } else {
+                    RobotResultBean.DataBean.Answers.Pics pics = new RobotResultBean.DataBean.Answers.Pics(mBinnerList.get(0).getImage(),content);
+                    picLists.add(pics);
+                    TrainRecordBean.ContentRecord comm = new TrainRecordBean.ContentRecord(1, 0, mBinnerList.get(0).getImage(), content,picLists,robotResultBean.getData().getId(),robotResultBean.getData().getPosition());
+                    mList.add(comm);
+                    mAdapter.notifyDataSetChanged();
                     switch (robotResultBean.getData().getType()) {
                         case 6:// 您已上传过,请等待后台审核....
                             TrainRecordBean.ContentRecord comm6 = new TrainRecordBean.ContentRecord(0, 2, robotResultBean.getMsg());
@@ -351,17 +329,18 @@ public class RoBotIMActivity extends BaseActivity implements RecordButton.Record
                                     finishTrain("0");
                                 }
                             });
+                            dialog.setCanceledOnTouchOutside(false);
                             dialog.show();
+                            break;
+                        case 99://
+                            TrainRecordBean.ContentRecord comm99 = new TrainRecordBean.ContentRecord(0, 2, robotResultBean.getMsg());
+                            mList.add(comm99);
+                            mAdapter.notifyDataSetChanged();
                             break;
                     }
                 }
             }
         });
-    }
-
-    @Override
-    public void RecordEnd(File path) {
-
     }
 
 
@@ -379,28 +358,24 @@ public class RoBotIMActivity extends BaseActivity implements RecordButton.Record
                     }
                     break;
                 case CHECK_VIDEO_REQUEST:
+                    Uri uri = data.getData();
                     try {
-                        Uri uri = data.getData();
                         path = UriUtils.getPath(this, uri);
                         tempFile = new File(path);
                         url = tempFile.getAbsolutePath();
-                        TrainRecordBean.ContentRecord comm = new TrainRecordBean.ContentRecord(1, 1, uri, url);
-                        mList.add(comm);
-                        mAdapter.notifyDataSetChanged();
-
                     } catch (Exception e) {
 
                     }
                     if(!tempFile.exists()){
                         tempFile.mkdirs();
                     }
-                    submitVideo(tempFile);//上传提交
+                    submitVideo(tempFile,uri);//上传提交
                     break;
             }
         }
     }
 
-    private void submitVideo(File tempFile) {
+    private void submitVideo(File tempFile, Uri uri) {
         Map<String, String> params = new HashMap<>();
         params.put("storeId","1");
         params.put("sId","1");
@@ -424,8 +399,13 @@ public class RoBotIMActivity extends BaseActivity implements RecordButton.Record
                 dialog.dismiss();
                 RobotResultBean robotResultBean = gson.fromJson(response, RobotResultBean.class);
                 if (robotResultBean.getResultCode() == 1) {
-
+                    TrainRecordBean.ContentRecord comm99 = new TrainRecordBean.ContentRecord(0, 2, robotResultBean.getMsg());
+                    mList.add(comm99);
+                    mAdapter.notifyDataSetChanged();
                 } else {
+                    TrainRecordBean.ContentRecord comm = new TrainRecordBean.ContentRecord(1, 1, uri, url,mContent);
+                    mList.add(comm);
+                    mAdapter.notifyDataSetChanged();
                     switch (robotResultBean.getData().getType()) {
                         case 6:// 您已上传过,请等待后台审核....
                             TrainRecordBean.ContentRecord comm6 = new TrainRecordBean.ContentRecord(0, 2, robotResultBean.getMsg());
@@ -447,6 +427,7 @@ public class RoBotIMActivity extends BaseActivity implements RecordButton.Record
                                     finishTrain("0");
                                 }
                             });
+                            dialog.setCanceledOnTouchOutside(false);
                             dialog.show();
                             break;
                         case 8: //再次上传会覆盖原先的视频,您确定上传吗？
@@ -464,6 +445,7 @@ public class RoBotIMActivity extends BaseActivity implements RecordButton.Record
                                     finishTrain("0");
                                 }
                             });
+                            stopTipsDialog.setCanceledOnTouchOutside(false);
                             stopTipsDialog.show();
                             break;
                     }

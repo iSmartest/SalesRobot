@@ -42,6 +42,12 @@ public class Url {
     public static final String ADD_TRAIN_RECORD_ABOUT_VIDEO = HTTP + "/app/sale/addTrainRecordAboutVideo?";
 
 
+    //维修保养室
+    public static final String ROBOT_MAINTAIN = "http://192.168.1.6:8081/app/train/robotMaintain?";
+
+    //保险理赔室
+    public static final String ROBOT_INSURANCE = "http://192.168.1.6:8081/app/train/robotInsurance?";
+
     //销售员心得
     public static final String SALES_MANS = HTTP + "/app/sale/experience?";
 
@@ -63,12 +69,12 @@ public class Url {
     //添加个人待办事宜
     public static final String ADD_PERSONAL_AGENCY = HTTP +"/app/sale/addPersonalAgent?";
 
-
     //客户资料**查询
     public static final String CUSTOMER = HTTP + "/app/customer/customerList?";
 
     //添加今日客户
     public static final String SUBMIT_CUSTOMER = HTTP;
+
     //客户资料修改
     public static final String EDIT_CUSTOMER = HTTP + "/app/customer/updateCustomer?";
 

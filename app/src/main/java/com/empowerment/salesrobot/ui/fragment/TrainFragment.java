@@ -14,6 +14,7 @@ import com.empowerment.salesrobot.app.MyApplication;
 import com.empowerment.salesrobot.ui.activity.FieldRecordActivity;
 import com.empowerment.salesrobot.ui.activity.RoBotIMActivity;
 import com.empowerment.salesrobot.ui.activity.SeetingsActivity;
+import com.empowerment.salesrobot.ui.activity.TrainKnowledgeActivity;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -75,16 +76,15 @@ public class TrainFragment extends BaseFragment{
                 MyApplication.openActivity(context,FieldRecordActivity.class);
                 break;
             case R.id.traiNing:
-                bundle.putString("type", "0");
-                MyApplication.openActivity(context,RoBotIMActivity.class,bundle);
+                MyApplication.openActivity(context,RoBotIMActivity.class);
                 break;
             case R.id.mainTenance:
-                bundle.putString("type", "1");
-                MyApplication.openActivity(context,RoBotIMActivity.class,bundle);
+                bundle.putString("type", "0");
+                MyApplication.openActivity(context,TrainKnowledgeActivity.class,bundle);
                 break;
             case R.id.insuyance_Claims:
-                bundle.putString("type", "2");
-                MyApplication.openActivity(context,RoBotIMActivity.class,bundle);
+                bundle.putString("type", "1");
+                MyApplication.openActivity(context,TrainKnowledgeActivity.class,bundle);
                 break;
         }
     }

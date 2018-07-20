@@ -56,6 +56,5 @@ public class Input_monitoring implements TextWatcher {
             }
 
         }
-
     }
 }

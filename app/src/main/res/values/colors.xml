@@ -16,6 +16,7 @@
     <color name="label_color">#9B9B9B</color>
     <color name="divider_color">#EEEEEE</color>
     <color name="divider_gray">#cccccc</color>
+    <color name="stroke_color">#f0eff5</color>
     <color name="hint_text">#FF8E8E93</color>
     <color name="background">#eeeeee</color>
     <color name="app_main_background">#f2f2f2</color>

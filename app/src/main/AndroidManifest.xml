@@ -175,6 +175,17 @@
             android:windowSoftInputMode="adjustResize|stateHidden"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"/>
+        <!--查看图片-->
+        <activity android:name=".ui.activity.SeePictureActivity"
+            android:windowSoftInputMode="adjustResize|stateHidden"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"/>
+        <!--维修保养室/保险理赔室-->
+        <activity android:name=".ui.activity.TrainKnowledgeActivity"
+            android:windowSoftInputMode="adjustResize|stateHidden"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"/>
+
         <!--个人资料-->
         <activity android:name=".ui.activity.PersonalMainActivity"
             android:windowSoftInputMode="adjustResize|stateHidden"

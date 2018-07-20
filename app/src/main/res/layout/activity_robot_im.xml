@@ -47,22 +47,13 @@
                     android:layout_height="wrap_content">
 
                     <ImageView
-                        android:id="@+id/iv_voice"
-                        android:layout_width="35dp"
-                        android:layout_height="35dp"
-                        android:layout_alignParentLeft="true"
-                        android:layout_centerInParent="true"
-                        android:src="@drawable/voice_icon"
-                        android:visibility="visible" />
-
-                    <ImageView
                         android:id="@+id/iv_keyboard"
                         android:layout_width="35dp"
                         android:layout_height="35dp"
                         android:layout_alignParentLeft="true"
                         android:layout_centerInParent="true"
                         android:src="@drawable/keyboard_icon"
-                        android:visibility="gone" />
+                        android:visibility="visible" />
                 </RelativeLayout>
 
                 <RelativeLayout
@@ -79,23 +70,10 @@
                         android:layout_centerInParent="true"
                         android:background="@drawable/line_et_bg"
                         android:focusable="true"
+                        android:textCursorDrawable="@drawable/edit_cursor_color"
                         android:focusableInTouchMode="true"
                         android:textSize="16sp"
                         android:visibility="visible" />
-
-                    <com.empowerment.salesrobot.view.voicebutton.RecordButton
-                        android:id="@+id/tv_long_chat"
-                        android:layout_width="match_parent"
-                        android:layout_height="35dp"
-                        android:layout_centerInParent="true"
-                        android:background="@drawable/shape_chat_voice"
-                        android:focusableInTouchMode="true"
-                        android:gravity="center"
-                        android:text="按 着 说 话"
-                        android:textColor="@color/default_color"
-                        android:textSize="16sp"
-                        android:visibility="gone" />
-
                 </RelativeLayout>
 
                 <RelativeLayout

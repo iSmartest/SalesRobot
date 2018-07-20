@@ -2,6 +2,8 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:background="@color/app_main_background">
 
@@ -15,22 +17,34 @@
         android:orientation="horizontal">
         <com.empowerment.salesrobot.view.RoundedImageView
             android:id="@+id/iv_machine_icon"
-            android:layout_width="56dp"
-            android:layout_height="56dp"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
             android:layout_centerInParent="true"
-            android:src="@drawable/robot_icon">
+            android:src="@drawable/robot_icon01"
+            android:adjustViewBounds="true"
+            android:scaleType="centerCrop"
+            app:is_oval="true"
+            tools:ignore="ContentDescription">
         </com.empowerment.salesrobot.view.RoundedImageView>
 
+        <com.empowerment.salesrobot.view.RCRelativeLayout
+            android:id="@+id/rc_left_image"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            app:round_corner="6dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginLeft="4dp"
+            app:stroke_color="@color/stroke_color"
+            android:visibility="visible"
+            app:stroke_width="1dp">
         <ImageView
             android:id="@+id/iv_left_iamge"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:src="@drawable/image_fail_empty"
             android:scaleType="fitXY"
-            android:layout_marginTop="8dp"
-            android:visibility="visible"
-            android:layout_gravity="center"
-            android:background="@drawable/bj_left_text"/>
+            android:layout_gravity="center"/>
+        </com.empowerment.salesrobot.view.RCRelativeLayout>
         <TextView
             android:id="@+id/text_left_content"
             android:layout_width="wrap_content"
@@ -53,19 +67,24 @@
         android:layout_marginLeft="60dp"
         android:layout_alignParentRight="true"
         android:orientation="horizontal">
+        <com.empowerment.salesrobot.view.RCRelativeLayout
+            android:id="@+id/rc_right_image"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            app:round_corner="6dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginRight="4dp"
+            app:stroke_color="@color/stroke_color"
+            android:visibility="gone"
+            app:stroke_width="1dp">
         <ImageView
             android:id="@+id/iv_right_iamge"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:src="@drawable/image_fail_empty"
-            android:scaleType="centerCrop"
-            android:paddingLeft="6dp"
-            android:paddingRight="10dp"
-            android:paddingTop="6dp"
-            android:paddingBottom="6dp"
-            android:layout_marginTop="8dp"
-            android:visibility="gone"
-            android:background="@drawable/bj_right_text"/>
+            android:scaleType="fitXY"
+            android:layout_gravity="center"/>
+        </com.empowerment.salesrobot.view.RCRelativeLayout>
         <TextView
             android:id="@+id/text_right_content"
             android:layout_width="wrap_content"
@@ -79,10 +98,14 @@
             android:textSize="16dp"/>
         <com.empowerment.salesrobot.view.RoundedImageView
             android:id="@+id/iv_user_icon"
-            android:layout_width="56dp"
-            android:layout_height="56dp"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
             android:layout_centerInParent="true"
-            android:src="@drawable/my_head_portrait">
+            android:src="@drawable/my_head_portrait"
+            android:adjustViewBounds="true"
+            android:scaleType="centerCrop"
+            app:is_oval="true"
+            tools:ignore="ContentDescription">
         </com.empowerment.salesrobot.view.RoundedImageView>
     </LinearLayout>
 </RelativeLayout>

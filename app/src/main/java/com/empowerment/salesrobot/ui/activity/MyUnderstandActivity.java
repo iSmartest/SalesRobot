@@ -46,12 +46,8 @@ public class MyUnderstandActivity extends BaseActivity implements MyUnderstandAd
     TextView titleOK;
     @BindView(R.id.swipeListView)
     RecyclerView swipeListView;
-
     private List<MyUnderstandBean.DataBean.ExperienceListBean> mList = new ArrayList<>();
     private MyUnderstandAdapter mAdapter;
-    private Map<String, String> map = new HashMap<>();
-    private Map<String, String> exMap = new HashMap<>();
-    private EditText et_search;
 
     @Override
     protected int getLauoutId() {
@@ -60,6 +56,8 @@ public class MyUnderstandActivity extends BaseActivity implements MyUnderstandAd
 
     @Override
     protected void loadData() {
+        mList.clear();
+        mAdapter.notifyDataSetChanged();
         Map<String, String> params = new HashMap<>();
         params.put(SALE_ID, SPUtil.getString(context,SALE_ID));
         params.put(PAGE, PAGE_SIZI + "");
@@ -80,7 +78,6 @@ public class MyUnderstandActivity extends BaseActivity implements MyUnderstandAd
                 }
             }
         });
-
     }
 
     @Override

@@ -32,6 +32,7 @@ import com.empowerment.salesrobot.ui.adapter.HomeBannerAdapter;
 import com.empowerment.salesrobot.ui.model.HomeEntity;
 import com.empowerment.salesrobot.uitls.SPUtil;
 import com.empowerment.salesrobot.uitls.ToastUtils;
+import com.empowerment.salesrobot.uitls.Utils;
 import com.google.gson.Gson;
 import com.youth.banner.Banner;
 import com.youth.banner.BannerConfig;
@@ -201,7 +202,21 @@ public class HomeFragment extends BaseFragment implements OnBannerClickListener 
             //接到广播通知后刷新数据源
             homeList.clear();
             imgList.clear();
-            loadData();
+
         }
     };
+
+    @Override
+    public void onHiddenChanged(boolean hidden) {
+        super.onHiddenChanged(hidden);
+        if (!hidden){
+            if (imgList.isEmpty()){
+                if (Utils.isNetworkAvailable(getActivity())){
+                    loadData();
+                }else {
+                    ToastUtils.makeText(getActivity(),"呀！网络跑丢了！");
+                }
+            }
+        }
+    }
 }

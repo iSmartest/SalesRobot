@@ -35,8 +35,6 @@ public class MyOkhttp {
     public static void Okhttp(final Context context, String url, final String mContent,Map<String, String> params, final CallBack callBack) {
         Dialog dialog = ProgressDialog.createLoadingDialog(context,mContent);
         dialog.show();
-        Log.e("TAG", "json1=" + params.get("saleId"));
-        Log.e("TAG", "json2=" + params.get("page"));
         OkHttpUtils.post().params(params).url(url).build().execute(new StringCallback() {
                     @Override
                     public void onError(Call call, Exception e, int id) {
@@ -50,6 +48,7 @@ public class MyOkhttp {
                         String result = "1";
                         String resultNote = "服务器异常";
                         try {
+
                             JSONObject object = new JSONObject(response);
 
                             if (object.has("resultCode") && !object.isNull("resultCode")) {
@@ -59,11 +58,14 @@ public class MyOkhttp {
                             if (object.has("msg") && !object.isNull("msg")) {
                                 resultNote = object.getString("msg");
                             }
+
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
+
                         callBack.onRequestComplete(response, result, resultNote);
                         dialog.dismiss();
+
                     }
                 });
     }

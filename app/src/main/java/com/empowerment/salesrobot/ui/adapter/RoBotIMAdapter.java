@@ -14,11 +14,13 @@ import com.bumptech.glide.Glide;
 import com.empowerment.salesrobot.R;
 import com.empowerment.salesrobot.app.MyApplication;
 import com.empowerment.salesrobot.config.Url;
-import com.empowerment.salesrobot.dialog.SeePictureDialog;
+import com.empowerment.salesrobot.ui.activity.SeePictureActivity;
 import com.empowerment.salesrobot.ui.activity.PlayVideoActivity;
 import com.empowerment.salesrobot.ui.model.TrainRecordBean;
-import com.empowerment.salesrobot.uitls.ImageManagerUtils;
+import com.empowerment.salesrobot.uitls.GlideUtils;
+import com.empowerment.salesrobot.view.RCRelativeLayout;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -29,8 +31,8 @@ import java.util.List;
  */
 public class RoBotIMAdapter extends BaseAdapter {
     private Context context;
-    private SeePictureDialog mSeePictureDialog;
     private List<TrainRecordBean.ContentRecord> mList;
+
     public RoBotIMAdapter(Context context, List<TrainRecordBean.ContentRecord> mList) {
         this.context = context;
         this.mList = mList;
@@ -54,8 +56,8 @@ public class RoBotIMAdapter extends BaseAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         final RoBotIMHolder viewHolder;
-        if (convertView == null ){
-            convertView = LayoutInflater.from(context).inflate(R.layout.item_robot_im,null);
+        if (convertView == null) {
+            convertView = LayoutInflater.from(context).inflate(R.layout.item_robot_im, null);
             viewHolder = new RoBotIMHolder();
             viewHolder.mLeft = convertView.findViewById(R.id.left);
             viewHolder.mRight = convertView.findViewById(R.id.right);
@@ -65,76 +67,95 @@ public class RoBotIMAdapter extends BaseAdapter {
             viewHolder.mRightIamge = convertView.findViewById(R.id.iv_right_iamge);
             viewHolder.mLeftContent = convertView.findViewById(R.id.text_left_content);
             viewHolder.mRightContent = convertView.findViewById(R.id.text_right_content);
+            viewHolder.mRCLeftImage = convertView.findViewById(R.id.rc_left_image);
+            viewHolder.mRCRightImage = convertView.findViewById(R.id.rc_right_image);
             convertView.setTag(viewHolder);
-        }else {
+        } else {
             viewHolder = (RoBotIMHolder) convertView.getTag();
         }
         TrainRecordBean.ContentRecord contentRecord = mList.get(position);
-        if (contentRecord.getLeftOrRight() == 0){//左边
+        if (contentRecord.getLeftOrRight() == 0) {//左边
             viewHolder.mLeft.setVisibility(View.VISIBLE);
             viewHolder.mRight.setVisibility(View.GONE);
-            if (contentRecord.getContentType() == 0){//图文
-                viewHolder.mLeftIamge.setVisibility(View.VISIBLE);
+            if (contentRecord.getContentType() == 0) {//图文
+                viewHolder.mRCLeftImage.setVisibility(View.VISIBLE);
                 viewHolder.mLeftContent.setVisibility(View.GONE);
                 viewHolder.mLeftIamge.setImageResource(R.drawable.mine_backround);
                 viewHolder.mLeftIamge.setOnClickListener(v -> {
                     if (contentRecord.getPicLists() != null && !contentRecord.getPicLists().isEmpty()) {
-                        mSeePictureDialog = new SeePictureDialog(context, contentRecord.getPicLists(),1);
-                        mSeePictureDialog.show();
+                        Bundle bundle = new Bundle();
+                        bundle.putSerializable("mPicList", (Serializable) contentRecord.getPicLists());
+                        bundle.putString("mVideoUrl", Url.HTTP + contentRecord.getUrl());
+                        bundle.putString("mVideoPic", Url.HTTP + contentRecord.getPic());
+                        bundle.putString("isPicOrVideo", "0");
+                        bundle.putString("isLiftOrRight", "1");
+                        bundle.putString("mQuestion", contentRecord.getContent());
+                        bundle.putInt("mQuestionId",contentRecord.getQuestionId());
+                        MyApplication.openActivity(context, SeePictureActivity.class,bundle);
                     }
                 });
-            }else if (contentRecord.getContentType() == 1){//视频
-                viewHolder.mLeftIamge.setVisibility(View.VISIBLE);
+            } else if (contentRecord.getContentType() == 1) {//视频
+                viewHolder.mRCLeftImage.setVisibility(View.VISIBLE);
                 viewHolder.mLeftContent.setVisibility(View.GONE);
                 viewHolder.mLeftIamge.setImageResource(R.drawable.sale_icon_img);
-//                Glide.with(context).load("http://tanzi27niu.cdsb.mobi/wps/wp-content/uploads/2017/05/2017-05-17_17-30-43.jpg").into(viewHolder.mLeftIamge);
                 viewHolder.mLeftIamge.setOnClickListener(v -> MyApplication.openActivity(context, PlayVideoActivity.class));
-            }else if (contentRecord.getContentType() == 3){//图文+视频
-                viewHolder.mLeftIamge.setVisibility(View.VISIBLE);
+            } else if (contentRecord.getContentType() == 3) {//图文+视频
+                viewHolder.mRCLeftImage.setVisibility(View.VISIBLE);
                 viewHolder.mLeftContent.setVisibility(View.GONE);
                 viewHolder.mLeftIamge.setImageResource(R.drawable.sale_icon_img);
-                Glide.with(context).load(Url.HTTP+contentRecord.getPic()).into(viewHolder.mLeftIamge);
-                viewHolder.mLeftIamge.setOnClickListener(v ->{
+                GlideUtils.imageLoader(context,Url.HTTP + contentRecord.getPic(),viewHolder.mLeftIamge);
+                viewHolder.mLeftIamge.setOnClickListener(v -> {
                     if (contentRecord.getPicLists() != null && !contentRecord.getPicLists().isEmpty()) {
-                        mSeePictureDialog = new SeePictureDialog(context, contentRecord.getPicLists(),Url.HTTP+contentRecord.getUrl(),contentRecord.getContent(),Url.HTTP+contentRecord.getPic());
-                        mSeePictureDialog.show();
+                        Bundle bundle = new Bundle();
+                        bundle.putSerializable("mPicList", (Serializable) contentRecord.getPicLists());
+                        bundle.putString("mVideoUrl", Url.HTTP + contentRecord.getUrl());
+                        bundle.putString("mVideoPic", Url.HTTP + contentRecord.getPic());
+                        bundle.putString("isPicOrVideo", "1");
+                        bundle.putString("isLiftOrRight", "1");
+                        bundle.putString("mQuestion", contentRecord.getContent());
+                        bundle.putInt("mQuestionId",contentRecord.getQuestionId());
+                        MyApplication.openActivity(context, SeePictureActivity.class,bundle);
                     }
-                        });
-            }else {//文本
-                viewHolder.mLeftIamge.setVisibility(View.GONE);
+                });
+            } else {//文本
+                viewHolder.mRCLeftImage.setVisibility(View.GONE);
                 viewHolder.mLeftContent.setVisibility(View.VISIBLE);
                 viewHolder.mLeftContent.setText(contentRecord.getContent());
             }
-        }else {//右边
+        } else {//右边
             viewHolder.mLeft.setVisibility(View.GONE);
             viewHolder.mRight.setVisibility(View.VISIBLE);
-            if (contentRecord.getContentType() == 0){//图文
-                viewHolder.mRightIamge.setVisibility(View.VISIBLE);
+            if (contentRecord.getContentType() == 0) {//图文
+                viewHolder.mRCRightImage.setVisibility(View.VISIBLE);
                 viewHolder.mRightContent.setVisibility(View.GONE);
 //                viewHolder.mRightIamge.setImageResource(R.drawable.mine_backround);
                 Glide.with(context).load(contentRecord.getPic()).into(viewHolder.mRightIamge);
                 viewHolder.mRightIamge.setOnClickListener(v -> {
-                    if (contentRecord.getPicLists() != null && !contentRecord.getPicLists().isEmpty()) {
-                        mSeePictureDialog = new SeePictureDialog(context, contentRecord.getPicLists(),0);
-                        mSeePictureDialog.show();
-                    }
+                    Bundle bundle = new Bundle();
+                    bundle.putSerializable("mPicList", (Serializable) contentRecord.getPicLists());
+                    bundle.putString("isPicOrVideo","0");
+                    bundle.putString("isLiftOrRight","0");
+                    bundle.putString("mQuestion", contentRecord.getContent());
+                    bundle.putInt("mQuestionId",contentRecord.getQuestionId());
+                    bundle.putInt("position",contentRecord.getPosition());
+                    MyApplication.openActivity(context, SeePictureActivity.class,bundle);
                 });
-            }else if (contentRecord.getContentType() == 1){//视频
-                viewHolder.mRightIamge.setVisibility(View.VISIBLE);
+            } else if (contentRecord.getContentType() == 1) {//视频
+                viewHolder.mRCRightImage.setVisibility(View.VISIBLE);
                 viewHolder.mRightContent.setVisibility(View.GONE);
                 Glide.with(convertView).load(contentRecord.getUri()).into(viewHolder.mRightIamge);
                 viewHolder.mRightIamge.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         Bundle bundle = new Bundle();
-                        bundle.putString("uri",contentRecord.getUri()+"");
-                        bundle.putString("url",contentRecord.getUrl());
-                        bundle.putString("mName","本地视频");
-                        MyApplication.openActivity(context, PlayVideoActivity.class,bundle);
+                        bundle.putString("uri", contentRecord.getUri() + "");
+                        bundle.putString("url", contentRecord.getUrl());
+                        bundle.putString("mQuestion", contentRecord.getContent());
+                        MyApplication.openActivity(context, PlayVideoActivity.class, bundle);
                     }
                 });
-            }else {//文本
-                viewHolder.mRightIamge.setVisibility(View.GONE);
+            } else {//文本
+                viewHolder.mRCRightImage.setVisibility(View.GONE);
                 viewHolder.mRightContent.setVisibility(View.VISIBLE);
                 viewHolder.mRightContent.setText(contentRecord.getContent());
             }
@@ -142,9 +163,11 @@ public class RoBotIMAdapter extends BaseAdapter {
         return convertView;
     }
 
+
     class RoBotIMHolder {
-        LinearLayout mLeft,mRight;
-        ImageView mMachineIcon,mLeftIamge,mUserIcon,mRightIamge;
-        TextView mLeftContent,mRightContent;
+        LinearLayout mLeft, mRight;
+        ImageView mMachineIcon, mLeftIamge, mUserIcon, mRightIamge;
+        TextView mLeftContent, mRightContent;
+        RCRelativeLayout mRCLeftImage, mRCRightImage;
     }
 }

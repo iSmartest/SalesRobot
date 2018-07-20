@@ -5,7 +5,6 @@
     android:gravity="center"
     android:orientation="vertical"
     android:background="@color/text_color_main">
-
     <android.support.v4.view.ViewPager
         android:id="@+id/see_pager"
         android:layout_width="match_parent"
@@ -50,5 +49,7 @@
             android:paddingRight="8dp"/>
 
     </LinearLayout>
+
+    <include layout="@layout/activity_base"/>
 
 </RelativeLayout>

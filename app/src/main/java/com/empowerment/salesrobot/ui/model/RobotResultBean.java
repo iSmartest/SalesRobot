@@ -1,5 +1,6 @@
 package com.empowerment.salesrobot.ui.model;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -42,6 +43,8 @@ public class RobotResultBean {
         private String image;
         private String question;
         private String name;
+        private int id;
+        private int position;
         private List<Answers> answers;
 
         public String getImage() {
@@ -105,13 +108,13 @@ public class RobotResultBean {
                 this.pics = pics;
             }
 
-            public static class Pics{
+            public static class Pics implements Serializable{
                 private String des;
                 private String pic;
 
                 public Pics(String image, String content) {
-                    this.des = content;
                     this.pic = image;
+                    this.des = content;
                 }
 
                 public String getDes() {
@@ -138,6 +141,22 @@ public class RobotResultBean {
 
         public void setType(int type) {
             this.type = type;
+        }
+
+        public int getId() {
+            return id;
+        }
+
+        public void setId(int id) {
+            this.id = id;
+        }
+
+        public int getPosition() {
+            return position;
+        }
+
+        public void setPosition(int position) {
+            this.position = position;
         }
     }
 }
