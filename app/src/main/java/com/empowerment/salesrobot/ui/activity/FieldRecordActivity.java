@@ -62,20 +62,17 @@ public class FieldRecordActivity extends BaseActivity {
         params.put("page",String.valueOf(nowPage));
         params.put("rows","10");
         params.put("storeId", SPUtil.getString(context,STORE_ID));
-        MyOkhttp.Okhttp(context, Url.RECORD_LIST, "加载中...", params, new MyOkhttp.CallBack() {
-            @Override
-            public void onRequestComplete(String response, String result, String resultNote) {
-                Gson gson = new Gson();
-                FieldRecordBean fieldRecordBean = gson.fromJson(response,FieldRecordBean.class);
-                if (result.equals("1")){
-                    ToastUtils.makeText(context,resultNote);
-                    return;
-                }
-                List<FieldRecordBean.DataBean.ConsultList> consultLists = fieldRecordBean.getData().getConsultList();
-                if (consultLists != null && !consultLists.isEmpty() && consultLists.size() > 0){
-                    mList.addAll(consultLists);
-                    mAdapter.notifyDataSetChanged();
-                }
+        MyOkhttp.Okhttp(context, Url.RECORD_LIST, "加载中...", params, (response, result, resultNote) -> {
+            Gson gson = new Gson();
+            FieldRecordBean fieldRecordBean = gson.fromJson(response,FieldRecordBean.class);
+            if (result.equals("1")){
+                ToastUtils.makeText(context,resultNote);
+                return;
+            }
+            List<FieldRecordBean.DataBean.ConsultList> consultLists = fieldRecordBean.getData().getConsultList();
+            if (consultLists != null && !consultLists.isEmpty() && consultLists.size() > 0){
+                mList.addAll(consultLists);
+                mAdapter.notifyDataSetChanged();
             }
         });
     }

@@ -12,6 +12,8 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 
+import java.util.Objects;
+
 /**
  * Name 赋睿智能
  * Date 2018/4/27
@@ -64,15 +66,13 @@ public class IconCenterEditText extends EditText implements View.OnFocusChangeLi
             super.onDraw(canvas);
         } else { // 如果不是默认样式，需要将图标绘制在中间
             Drawable[] drawables = getCompoundDrawables();
-            if (drawables != null) {
-                Drawable drawableLeft = drawables[0];
-                if (drawableLeft != null) {
-                    float textWidth = getPaint().measureText(getHint().toString());
-                    int drawablePadding = getCompoundDrawablePadding();
-                    int drawableWidth = drawableLeft.getIntrinsicWidth();
-                    float bodyWidth = textWidth + drawableWidth + drawablePadding;
-                    canvas.translate((getWidth() - bodyWidth - getPaddingLeft() - getPaddingRight()) / 2, 0);
-                }
+            Drawable drawableLeft = drawables[0];
+            if (drawableLeft != null) {
+                float textWidth = getPaint().measureText(getHint().toString());
+                int drawablePadding = getCompoundDrawablePadding();
+                int drawableWidth = drawableLeft.getIntrinsicWidth();
+                float bodyWidth = textWidth + drawableWidth + drawablePadding;
+                canvas.translate((getWidth() - bodyWidth - getPaddingLeft() - getPaddingRight()) / 2, 0);
             }
             super.onDraw(canvas);
         }
@@ -93,7 +93,7 @@ public class IconCenterEditText extends EditText implements View.OnFocusChangeLi
         if (pressSearch && listener != null) {
             /*隐藏软键盘*/
             InputMethodManager imm = (InputMethodManager) v.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
-            if (imm.isActive()) {
+            if (Objects.requireNonNull(imm).isActive()) {
                 imm.hideSoftInputFromWindow(v.getApplicationWindowToken(), 0);
             }
             listener.onSearchClick(v);

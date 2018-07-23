@@ -25,6 +25,7 @@ import com.empowerment.salesrobot.listener.RecyclerItemTouchListener;
 import com.empowerment.salesrobot.okhttp.MyOkhttp;
 import com.empowerment.salesrobot.ui.adapter.InformationAdapter;
 import com.empowerment.salesrobot.ui.model.InfromationEntity;
+import com.empowerment.salesrobot.uitls.SPUtil;
 import com.empowerment.salesrobot.uitls.ToastUtils;
 import com.example.liangmutian.mypicker.DatePickerDialog;
 import com.example.liangmutian.mypicker.DateUtil;
@@ -46,6 +47,8 @@ import static com.empowerment.salesrobot.config.BaseUrl.C_TYPE;
 import static com.empowerment.salesrobot.config.BaseUrl.KEY_WORD;
 import static com.empowerment.salesrobot.config.BaseUrl.PAGE;
 import static com.empowerment.salesrobot.config.BaseUrl.ROWS;
+import static com.empowerment.salesrobot.config.BaseUrl.SALE_ID;
+import static com.empowerment.salesrobot.config.BaseUrl.STORE_ID;
 import static com.empowerment.salesrobot.config.BaseUrl.TYPE;
 
 
@@ -98,22 +101,19 @@ public class InformationActivity extends BaseActivity {
     @Override
     protected void loadData() {
 
-        mEditKey.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-            @Override
-            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-                if (actionId == EditorInfo.IME_ACTION_SEARCH) {
-                    if (TextUtils.isEmpty(mEditKey.getText().toString().trim())) {
-                        ToastUtils.makeText(context, "请输入关键词");
-                    } else {
-                        keyWord = mEditKey.getText().toString().trim();
-                        infoList.clear();
-                        infromationAdapter.notifyDataSetChanged();
-                        getdata();
-                    }
-                    return true;
+        mEditKey.setOnEditorActionListener((v, actionId, event) -> {
+            if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+                if (TextUtils.isEmpty(mEditKey.getText().toString().trim())) {
+                    ToastUtils.makeText(context, "请输入关键词");
+                } else {
+                    keyWord = mEditKey.getText().toString().trim();
+                    infoList.clear();
+                    infromationAdapter.notifyDataSetChanged();
+                    getdata();
                 }
-                return false;
+                return true;
             }
+            return false;
         });
 
         xRecyclerView.addOnItemTouchListener(new RecyclerItemTouchListener(xRecyclerView) {
@@ -127,7 +127,6 @@ public class InformationActivity extends BaseActivity {
                 InfromationEntity.DataBean.CustomerListBean listBean = new InfromationEntity.DataBean.CustomerListBean();
                 listBean.setAddress(infoList.get(position).getAddress());
                 listBean.setAge(infoList.get(position).getAge());
-                listBean.setCarType(infoList.get(position).getCarType());
                 listBean.setContent(infoList.get(position).getContent());
                 listBean.setDate(infoList.get(position).getDate());
                 listBean.setHobby(infoList.get(position).getHobby());
@@ -234,7 +233,9 @@ public class InformationActivity extends BaseActivity {
                 finish();
                 break;
             case R.id.title_OK:
-                MyApplication.openActivity(context,AddCustomerActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putString("mStyle","");
+                MyApplication.openActivity(context,AddCustomerActivity.class,bundle);
                 break;
             case R.id.tv_data:
                 type = "1";//拿到日期标签索引
@@ -297,33 +298,29 @@ public class InformationActivity extends BaseActivity {
         cusMap.put(C_TYPE, cType);
         cusMap.put(ROWS, "10");
         cusMap.put(PAGE, String.valueOf(PAGR_SIZE));
-        MyOkhttp.Okhttp(context, Url.CUSTOMER, "加载中...", cusMap, new MyOkhttp.CallBack() {
-            @Override
-            public void onRequestComplete(String response, String result, String resultNote) {
-                Gson gson = new Gson();
-                InfromationEntity infromationEntity = gson.fromJson(response, InfromationEntity.class);
-                switch (result) {
-                    case "0":
-                        if (infromationEntity.getMsg().equals("暂无数据")) {
-                            ToastUtils.makeText(context, infromationEntity.getMsg());
-                            xRecyclerView.setVisibility(View.GONE);
-                            infoLayouts.setVisibility(View.VISIBLE);
-                        } else {
-                            xRecyclerView.setVisibility(View.VISIBLE);
-                            infoLayouts.setVisibility(View.GONE);
-                            infoList.addAll(infromationEntity.getData().getCustomerList());
-                            infromationAdapter.notifyDataSetChanged();
-                        }
-                        break;
-                    case "1":
-                        ToastUtils.makeText(context, infromationEntity.getMsg());
-                        xRecyclerView.setVisibility(View.GONE);
-                        infoLayouts.setVisibility(View.VISIBLE);
-                        break;
-                }
-
-                xRecyclerView.refreshComplete();
+        cusMap.put(SALE_ID, SPUtil.getString(context,SALE_ID));
+        cusMap.put(STORE_ID, SPUtil.getString(context,STORE_ID));
+        MyOkhttp.Okhttp(context, Url.CUSTOMER, "加载中...", cusMap, (response, result, resultNote) -> {
+            Gson gson = new Gson();
+            InfromationEntity infromationEntity = gson.fromJson(response, InfromationEntity.class);
+            if (result.equals("1")){
+                ToastUtils.makeText(context,resultNote);
+                xRecyclerView.setVisibility(View.GONE);
+                infoLayouts.setVisibility(View.VISIBLE);
+                return;
             }
+            List<InfromationEntity.DataBean.CustomerListBean> customerListBeans = infromationEntity.getData().getCustomerList();
+            if (customerListBeans != null && !customerListBeans.isEmpty() && customerListBeans.size() > 0){
+                xRecyclerView.setVisibility(View.VISIBLE);
+                infoLayouts.setVisibility(View.GONE);
+                infoList.addAll(customerListBeans);
+                infromationAdapter.notifyDataSetChanged();
+            }else {
+                ToastUtils.makeText(context, resultNote);
+                xRecyclerView.setVisibility(View.GONE);
+                infoLayouts.setVisibility(View.VISIBLE);
+            }
+            xRecyclerView.refreshComplete();
         });
     }
 }

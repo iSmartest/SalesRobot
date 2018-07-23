@@ -32,7 +32,9 @@
                 android:layout_height="18dp"
                 android:layout_gravity="center"
                 android:layout_marginLeft="8dp"
-                android:src="@drawable/icon_search"/>
+                android:src="@drawable/icon_search"
+                android:contentDescription="@string/search"
+                android:layout_marginStart="8dp" />
             <EditText
                 android:id="@+id/information_a_key_edt_search"
                 android:layout_width="0dp"
@@ -45,7 +47,8 @@
                 android:imeOptions="actionSearch"
                 android:singleLine="true"
                 android:textColorHint="@color/hint_text"
-                android:textSize="12sp" />
+                android:textSize="12sp"
+                android:layout_marginStart="8dp" />
 
         </LinearLayout>
     </LinearLayout>
@@ -132,7 +135,8 @@
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/loding_err"/>
+                android:src="@drawable/loding_err"
+                android:contentDescription="@string/data_empty"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

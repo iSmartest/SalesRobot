@@ -144,15 +144,12 @@ public class PersonalMainActivity extends BaseActivity{
                 MyApplication.openActivity(context, UpdateActivity.class);
                 break;
             case R.id.sign_Out:
-                LogOutDialog dialog = new LogOutDialog(PersonalMainActivity.this, R.string.log_out, new LogOutDialog.OnSureBtnClickListener() {
-                    @Override
-                    public void sure() {
-                        SPUtil.putString(context, SALE_ID, "");//用户ID
-                        SPUtil.putString(context, PHONE_NUMBER, "");//手机号码
-                        ToastUtils.makeText(context, "已安全退出账号");
-                        AppManager.finishAllActivity();
-                        MyApplication.openActivity(context, LoginActivity.class);
-                    }
+                LogOutDialog dialog = new LogOutDialog(PersonalMainActivity.this, R.string.log_out, () -> {
+                    SPUtil.putString(context, SALE_ID, "");//用户ID
+                    SPUtil.putString(context, PHONE_NUMBER, "");//手机号码
+                    ToastUtils.makeText(context, "已安全退出账号");
+                    AppManager.finishAllActivity();
+                    MyApplication.openActivity(context, LoginActivity.class);
                 });
                 dialog.show();
                 break;

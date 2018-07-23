@@ -47,23 +47,14 @@ public class PostFileRequest extends OkHttpRequest
     protected RequestBody wrapRequestBody(RequestBody requestBody, final Callback callback)
     {
         if (callback == null) return requestBody;
-        CountingRequestBody countingRequestBody = new CountingRequestBody(requestBody, new CountingRequestBody.Listener()
+        CountingRequestBody countingRequestBody = new CountingRequestBody(requestBody, (bytesWritten, contentLength) -> OkHttpUtils.getInstance().getDelivery().execute(new Runnable()
         {
             @Override
-            public void onRequestProgress(final long bytesWritten, final long contentLength)
+            public void run()
             {
-
-                OkHttpUtils.getInstance().getDelivery().execute(new Runnable()
-                {
-                    @Override
-                    public void run()
-                    {
-                        callback.inProgress(bytesWritten * 1.0f / contentLength,contentLength,id);
-                    }
-                });
-
+                callback.inProgress(bytesWritten * 1.0f / contentLength,contentLength,id);
             }
-        });
+        }));
         return countingRequestBody;
     }
 

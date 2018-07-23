@@ -43,17 +43,14 @@ public class TrainKnowledgeActivity extends BaseActivity {
     @Override
     protected void loadData() {
         Map<String,String> params = new HashMap<>();
-        MyOkhttp.Okhttp(context, url, "加载中...", params, new MyOkhttp.CallBack() {
-            @Override
-            public void onRequestComplete(String response, String result, String resultNote) {
-                Gson gson = new Gson();
-                TrainKnowledgeBean trainKnowledgeBean = gson.fromJson(response,TrainKnowledgeBean.class);
-                if (result.equals("1")){
-                    ToastUtils.makeText(context,resultNote);
-                    return;
-                }
-                mKnowledge.setText(trainKnowledgeBean.getData().getMaintain());
+        MyOkhttp.Okhttp(context, url, "加载中...", params, (response, result, resultNote) -> {
+            Gson gson = new Gson();
+            TrainKnowledgeBean trainKnowledgeBean = gson.fromJson(response,TrainKnowledgeBean.class);
+            if (result.equals("1")){
+                ToastUtils.makeText(context,resultNote);
+                return;
             }
+            mKnowledge.setText(trainKnowledgeBean.getData().getMaintain());
         });
     }
 

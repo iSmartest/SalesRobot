@@ -72,24 +72,21 @@ public class TrainingDocumentsActivity extends BaseActivity {
         Map<String, String> params = new HashMap<>();
         params.put(SALE_ID, SPUtil.getString(context,SALE_ID));
         params.put("page", nowPage + "");
-        MyOkhttp.Okhttp(context, Url.TRAINDOCLIST, "加载中...", params, new MyOkhttp.CallBack() {
-            @Override
-            public void onRequestComplete(String response, String result, String resultNote) {
-                Gson gson = new Gson();
-                TrainingDocBean trainingDocBean = gson.fromJson(response, TrainingDocBean.class);
-                if (result.equals("1")) {
-                    ToastUtils.makeText(context, resultNote);
-                    return;
-                }
-                List<TrainingDocBean.DataBean.TdoctList> tdoctLists = trainingDocBean.getData().getTdoctList();
-                if (tdoctLists != null && !tdoctLists.isEmpty() && tdoctLists.size() > 0) {
-                    mList.addAll(tdoctLists);
-                    mAdapter.notifyDataSetChanged();
-                    xRecyclerView.refreshComplete();
-                    if (3 < nowPage) {
-                        ToastUtils.makeText(context, "没有更多了");
-                        xRecyclerView.noMoreLoading();
-                    }
+        MyOkhttp.Okhttp(context, Url.TRAINDOCLIST, "加载中...", params, (response, result, resultNote) -> {
+            Gson gson = new Gson();
+            TrainingDocBean trainingDocBean = gson.fromJson(response, TrainingDocBean.class);
+            if (result.equals("1")) {
+                ToastUtils.makeText(context, resultNote);
+                return;
+            }
+            List<TrainingDocBean.DataBean.TdoctList> tdoctLists = trainingDocBean.getData().getTdoctList();
+            if (tdoctLists != null && !tdoctLists.isEmpty() && tdoctLists.size() > 0) {
+                mList.addAll(tdoctLists);
+                mAdapter.notifyDataSetChanged();
+                xRecyclerView.refreshComplete();
+                if (3 < nowPage) {
+                    ToastUtils.makeText(context, "没有更多了");
+                    xRecyclerView.noMoreLoading();
                 }
             }
         });
@@ -124,7 +121,8 @@ public class TrainingDocumentsActivity extends BaseActivity {
                 if (position < 0 | position >= mList.size()) {
                     return;
                 }
-                final String mUrl = Url.HTTP + mList.get(position).getAddress();
+//                final String mUrl = Url.HTTP + mList.get(position).getAddress();
+                final String mUrl = "";
                 mProgressDialog = new ProgressDialog(context);
                 mProgressDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
                 mProgressDialog.setCancelable(false);

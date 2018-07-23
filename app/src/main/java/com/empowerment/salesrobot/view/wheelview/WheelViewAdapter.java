@@ -1,16 +1,13 @@
 package com.empowerment.salesrobot.view.wheelview;
 
-/**
- * Created by 小火
- * Create time on  2017/5/27
- * My mailbox is 1403241630@qq.com
- */
-
 import android.database.DataSetObserver;
 import android.view.View;
 import android.view.ViewGroup;
 
 /**
+ * Created by 小火
+ * Create time on  2017/5/27
+ * My mailbox is 1403241630@qq.com
  * Wheel items adapter interface
  */
 public interface WheelViewAdapter {

@@ -76,21 +76,18 @@ public class AgencyAffairsActivity extends BaseActivity {
         params.put("rows","10");
         params.put("saleId",SPUtil.getString(context, SALE_ID));
         params.put("type",type);
-        MyOkhttp.Okhttp(context, Url.AFFAIRS, "加载中...", params, new MyOkhttp.CallBack() {
-            @Override
-            public void onRequestComplete(String response, String result, String resultNote) {
-                xRecyclerView.refreshComplete();
-                Gson gson = new Gson();
-                AgencyAffairsBean agencyAffairsBean = gson.fromJson(response,AgencyAffairsBean.class);
-                if (result.equals("1")){
-                    ToastUtils.makeText(context,resultNote);
-                    return;
-                }
-                List<AgencyAffairsBean.DataBean.AgentList> agentLists = agencyAffairsBean.getData().getAgentList();
-                if (agentLists != null && !agentLists.isEmpty() && agentLists.size() > 0){
-                    mList.addAll(agentLists);
-                    mAdapter.notifyDataSetChanged();
-                }
+        MyOkhttp.Okhttp(context, Url.AFFAIRS, "加载中...", params, (response, result, resultNote) -> {
+            xRecyclerView.refreshComplete();
+            Gson gson = new Gson();
+            AgencyAffairsBean agencyAffairsBean = gson.fromJson(response,AgencyAffairsBean.class);
+            if (result.equals("1")){
+                ToastUtils.makeText(context,resultNote);
+                return;
+            }
+            List<AgencyAffairsBean.DataBean.AgentList> agentLists = agencyAffairsBean.getData().getAgentList();
+            if (agentLists != null && !agentLists.isEmpty() && agentLists.size() > 0){
+                mList.addAll(agentLists);
+                mAdapter.notifyDataSetChanged();
             }
         });
     }
@@ -151,23 +148,20 @@ public class AgencyAffairsActivity extends BaseActivity {
         params.put("aType",String.valueOf(type));//待办类型
         params.put("storeId",SPUtil.getString(context,STORE_ID));
         params.put("type", "1");//1为阅读，2为完结
-        MyOkhttp.Okhttp(context, Url.READ_OR_FINISH, "", params, new MyOkhttp.CallBack() {
-            @Override
-            public void onRequestComplete(String response, String result, String resultNote) {
-                Log.i(TAG, "onRequestComplete: " + response);
-                if (result.equals("0")){
-                    Intent intent = new Intent();
-                    intent.setAction("com.empowerment.salesrobot.home");
-                    getApplicationContext().sendBroadcast(intent);
-                }
-                Bundle bundle = new Bundle();
-                bundle.putString("time", TimeUtils.transferLongToDate(endTime));
-                bundle.putString("content", content);
-                bundle.putString("type", type+"");
-                bundle.putString("id", id+"");
-                bundle.putString("isFinish", isFinish+"");
-                MyApplication.openActivity(context, AgencyAffairsInfoActivity.class, bundle);
+        MyOkhttp.Okhttp(context, Url.READ_OR_FINISH, "", params, (response, result, resultNote) -> {
+            Log.i(TAG, "onRequestComplete: " + response);
+            if (result.equals("0")){
+                Intent intent = new Intent();
+                intent.setAction("com.empowerment.salesrobot.home");
+                getApplicationContext().sendBroadcast(intent);
             }
+            Bundle bundle = new Bundle();
+            bundle.putString("time", TimeUtils.transferLongToDate(endTime));
+            bundle.putString("content", content);
+            bundle.putString("type", type+"");
+            bundle.putString("id", id+"");
+            bundle.putString("isFinish", isFinish+"");
+            MyApplication.openActivity(context, AgencyAffairsInfoActivity.class, bundle);
         });
     }
 

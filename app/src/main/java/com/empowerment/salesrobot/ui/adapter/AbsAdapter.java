@@ -1,5 +1,6 @@
 package com.empowerment.salesrobot.ui.adapter;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -74,10 +75,11 @@ public abstract class AbsAdapter<T> extends BaseAdapter {
         private View view;
         private Map<Integer, View> cache;
 
+        @SuppressLint("UseSparseArrays")
         public ViewHolder(View view) {
             super();
             this.view = view;
-            cache = new HashMap<Integer, View>();
+            cache = new HashMap<>();
         }
 
         public View getView(int id) {

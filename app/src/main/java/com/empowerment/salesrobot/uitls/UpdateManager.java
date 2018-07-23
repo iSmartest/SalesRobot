@@ -1,5 +1,6 @@
 package com.empowerment.salesrobot.uitls;
 
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
@@ -31,6 +32,7 @@ import java.net.URL;
  * 版本更新工具类
  */
 
+@SuppressWarnings("JavaDoc")
 public class UpdateManager {
     private Context mContext;
 
@@ -66,6 +68,7 @@ public class UpdateManager {
         this.apkUrl = updataAddress;
         this.updateMsg = name;
     }
+    @SuppressLint("HandlerLeak")
     private Handler mHandler = new Handler() {
         public void handleMessage(Message msg) {
             switch (msg.what) {

@@ -1,11 +1,5 @@
 package com.empowerment.salesrobot.view.wheelview;
 
-/**
- * Created by 小火
- * Create time on  2017/5/27
- * My mailbox is 1403241630@qq.com
- */
-
 import android.content.Context;
 import android.graphics.Typeface;
 import android.util.Log;
@@ -56,7 +50,7 @@ public abstract class AbstractWheelTextAdapter1 extends AbstractWheelAdapter {
     private int currentIndex = 0;
     private static int maxsize = 14;
     private static int minsize = 12;
-    private ArrayList<View> arrayList = new ArrayList<View>();
+    private ArrayList<View> arrayList = new ArrayList<>();
 
     /**
      * Constructor

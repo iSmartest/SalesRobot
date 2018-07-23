@@ -47,7 +47,7 @@
         </com.empowerment.salesrobot.view.RCRelativeLayout>
         <TextView
             android:id="@+id/text_left_content"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:visibility="gone"
             android:layout_weight="1"
@@ -56,7 +56,7 @@
             android:gravity="center|left"
             android:background="@drawable/bj_left_text"
             android:text="slhgudhsguhdskjghdskjg"
-            android:textSize="16dp"/>
+            android:textSize="16sp"/>
     </LinearLayout>
 
     <LinearLayout
@@ -87,7 +87,7 @@
         </com.empowerment.salesrobot.view.RCRelativeLayout>
         <TextView
             android:id="@+id/text_right_content"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:background="@drawable/bj_right_text"
             android:text=""
@@ -95,7 +95,7 @@
             android:layout_marginTop="8dp"
             android:gravity="center|left"
             android:visibility="visible"
-            android:textSize="16dp"/>
+            android:textSize="16sp"/>
         <com.empowerment.salesrobot.view.RoundedImageView
             android:id="@+id/iv_user_icon"
             android:layout_width="50dp"

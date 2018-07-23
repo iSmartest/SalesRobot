@@ -499,12 +499,16 @@ public class PhotoView extends ImageView {
                 width = pWidth;
             }
         } else {
-            if (widthMode == MeasureSpec.EXACTLY) {
-                width = pWidth;
-            } else if (widthMode == MeasureSpec.AT_MOST) {
-                width = drawableW > pWidth ? pWidth : drawableW;
-            } else {
-                width = drawableW;
+            switch (widthMode) {
+                case MeasureSpec.EXACTLY:
+                    width = pWidth;
+                    break;
+                case MeasureSpec.AT_MOST:
+                    width = drawableW > pWidth ? pWidth : drawableW;
+                    break;
+                default:
+                    width = drawableW;
+                    break;
             }
         }
 
@@ -515,12 +519,16 @@ public class PhotoView extends ImageView {
                 height = pHeight;
             }
         } else {
-            if (heightMode == MeasureSpec.EXACTLY) {
-                height = pHeight;
-            } else if (heightMode == MeasureSpec.AT_MOST) {
-                height = drawableH > pHeight ? pHeight : drawableH;
-            } else {
-                height = drawableH;
+            switch (heightMode) {
+                case MeasureSpec.EXACTLY:
+                    height = pHeight;
+                    break;
+                case MeasureSpec.AT_MOST:
+                    height = drawableH > pHeight ? pHeight : drawableH;
+                    break;
+                default:
+                    height = drawableH;
+                    break;
             }
         }
 
@@ -1373,12 +1381,7 @@ public class PhotoView extends ImageView {
                 final float cy = clipY;
                 final ClipCalculate c = info.mScaleType == ScaleType.FIT_START ? new START() : info.mScaleType == ScaleType.FIT_END ? new END() : new OTHER();
 
-                postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        mTranslate.withClip(1, 1, -1 + cx, -1 + cy, mAnimaDuring / 2, c);
-                    }
-                }, mAnimaDuring / 2);
+                postDelayed(() -> mTranslate.withClip(1, 1, -1 + cx, -1 + cy, mAnimaDuring / 2, c), mAnimaDuring / 2);
             }
 
             mCompleteCallBack = completeCallBack;

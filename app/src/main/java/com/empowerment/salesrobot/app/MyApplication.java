@@ -7,15 +7,19 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Debug;
 import android.view.View;
 
 
+import com.empowerment.salesrobot.service.InitializeService;
 import com.empowerment.salesrobot.uitls.CrashHandler;
 import com.empowerment.salesrobot.uitls.ImageManagerUtils;
 import com.nostra13.universalimageloader.cache.disc.naming.Md5FileNameGenerator;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
+
+import java.util.Objects;
 
 import cn.jpush.android.api.JPushInterface;
 
@@ -26,6 +30,7 @@ import cn.jpush.android.api.JPushInterface;
  * My mailbox is 1403241630@qq.com
  */
 
+@SuppressWarnings("JavaDoc")
 public class MyApplication extends Application {
     public static Context CONTEXT;
     private static MyApplication myApplication;
@@ -33,14 +38,8 @@ public class MyApplication extends Application {
     public void onCreate() {
         super.onCreate();
         CONTEXT = getApplicationContext();
-        initImageLoader(this);
-        JPushInterface.setDebugMode(true);//如果时正式版就改成false
-        JPushInterface.init(this);
         myApplication = this;
-        //崩溃错误日志写入本地文档
-        CrashHandler catchExcep = new CrashHandler(this);
-        Thread.setDefaultUncaughtExceptionHandler(catchExcep);
-
+        InitializeService.start(this);
     }
 
     public static Context getContext(){
@@ -116,7 +115,7 @@ public class MyApplication extends Application {
         ImageManagerUtils.imageLoader.destroy();
         android.os.Process.killProcess(android.os.Process.myPid());
         ActivityManager activityMgr = (ActivityManager) this.getSystemService(ACTIVITY_SERVICE);
-        activityMgr.killBackgroundProcesses(getPackageName());
+        Objects.requireNonNull(activityMgr).killBackgroundProcesses(getPackageName());
         System.exit(0);
     }
 

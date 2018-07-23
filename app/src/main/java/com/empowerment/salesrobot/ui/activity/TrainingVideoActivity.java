@@ -52,27 +52,26 @@ public class TrainingVideoActivity extends BaseActivity {
 
     @Override
     protected void loadData() {
+        mList.clear();
+        mAdapter.notifyDataSetChanged();
         Map<String, String> params = new HashMap<>();
         params.put(SALE_ID, SPUtil.getString(context,SALE_ID));
         params.put("page", nowPage + "");
-        MyOkhttp.Okhttp(context, Url.TRAINVIDEOLIST, "加载中...", params, new MyOkhttp.CallBack() {
-            @Override
-            public void onRequestComplete(String response, String result, String resultNote) {
-                Gson gson = new Gson();
-                TrainingVideoBean trainingVideoBean = gson.fromJson(response, TrainingVideoBean.class);
-                if (result.equals("1")) {
-                    ToastUtils.makeText(context, resultNote);
-                    return;
-                }
-                List<TrainingVideoBean.DataBean.VideoList> videoList = trainingVideoBean.getData().getVideoList();
-                if (videoList != null && !videoList.isEmpty() && videoList.size() > 0) {
-                    mList.addAll(videoList);
-                    mAdapter.notifyDataSetChanged();
-                    xRecyclerView.refreshComplete();
-                    if (3 < nowPage) {
-                        ToastUtils.makeText(context, "没有更多了");
-                        xRecyclerView.noMoreLoading();
-                    }
+        MyOkhttp.Okhttp(context, Url.TRAINVIDEOLIST, "加载中...", params, (response, result, resultNote) -> {
+            Gson gson = new Gson();
+            TrainingVideoBean trainingVideoBean = gson.fromJson(response, TrainingVideoBean.class);
+            if (result.equals("1")) {
+                ToastUtils.makeText(context, resultNote);
+                return;
+            }
+            List<TrainingVideoBean.DataBean.VideoList> videoList = trainingVideoBean.getData().getVideoList();
+            if (videoList != null && !videoList.isEmpty() && videoList.size() > 0) {
+                mList.addAll(videoList);
+                mAdapter.notifyDataSetChanged();
+                xRecyclerView.refreshComplete();
+                if (3 < nowPage) {
+                    ToastUtils.makeText(context, "没有更多了");
+                    xRecyclerView.noMoreLoading();
                 }
             }
         });
@@ -109,8 +108,8 @@ public class TrainingVideoActivity extends BaseActivity {
                     return;
                 }
                 Bundle bundle = new Bundle();
-                bundle.putString("mAddress", mList.get(position).getAddress());
-                bundle.putString("mCoverAddress", mList.get(position).getCoverAddress());
+                bundle.putString("url", mList.get(position).getAddress());
+                bundle.putString("uri", mList.get(position).getCoverAddress());
                 bundle.putString("mName", mList.get(position).getName());
                 MyApplication.openActivity(context, PlayVideoActivity.class, bundle);
             }

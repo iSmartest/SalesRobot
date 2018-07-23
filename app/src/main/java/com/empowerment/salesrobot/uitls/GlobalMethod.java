@@ -1,5 +1,6 @@
 package com.empowerment.salesrobot.uitls;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.ActivityManager;
 import android.content.Context;
@@ -34,6 +35,7 @@ import java.security.NoSuchAlgorithmException;
 import java.text.DecimalFormat;
 import java.util.List;
 import java.util.Locale;
+import java.util.Objects;
 
 
 /**
@@ -48,7 +50,7 @@ public class GlobalMethod {
      */
     public static boolean isNetworkAvailable(Context context) {
         ConnectivityManager manager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
-        NetworkInfo info = manager.getActiveNetworkInfo();
+        NetworkInfo info = Objects.requireNonNull(manager).getActiveNetworkInfo();
         if (info != null && info.isAvailable()) {
             return true;
         }
@@ -60,7 +62,7 @@ public class GlobalMethod {
         DisplayMetrics dm = new DisplayMetrics();
         WindowManager mWm = (WindowManager) context
                 .getSystemService(Context.WINDOW_SERVICE);
-        mWm.getDefaultDisplay().getMetrics(dm);
+        Objects.requireNonNull(mWm).getDefaultDisplay().getMetrics(dm);
         p.x = dm.widthPixels;
         p.y = dm.heightPixels;
         return p;
@@ -69,13 +71,13 @@ public class GlobalMethod {
     public static String getAbsoluteImagePath(Activity a, Uri uri) {
         // can post image
         String[] proj = {MediaColumns.DATA};
-        Cursor cursor = a.getContentResolver().query(uri, proj, // Which columns
+        @SuppressLint("Recycle") Cursor cursor = a.getContentResolver().query(uri, proj, // Which columns
                 // to return
                 null, // WHERE clause; which rows to return (all rows)
                 null, // WHERE clause selection arguments (none)
                 null); // Order-by clause (ascending by name)
 
-        int column_index = cursor.getColumnIndexOrThrow(MediaColumns.DATA);
+        int column_index = Objects.requireNonNull(cursor).getColumnIndexOrThrow(MediaColumns.DATA);
         cursor.moveToFirst();
         return cursor.getString(column_index);
     }
@@ -84,7 +86,7 @@ public class GlobalMethod {
         String res = null;
         String[] proj = {MediaStore.Images.Media.DATA};
         Cursor cursor = a.getContentResolver().query(contentUri, proj, null, null, null);
-        if (cursor.moveToFirst()) {
+        if (Objects.requireNonNull(cursor).moveToFirst()) {
             int column_index = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
             res = cursor.getString(column_index);
         }
@@ -146,7 +148,7 @@ public class GlobalMethod {
     public static int getNetState(Context context) {
         int state = Constant.NetState.NOWAY;
         ConnectivityManager manager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
-        NetworkInfo info = manager.getActiveNetworkInfo();
+        NetworkInfo info = Objects.requireNonNull(manager).getActiveNetworkInfo();
         if (info != null && info.isAvailable()) {
             int type = info.getType();
             if (type == ConnectivityManager.TYPE_MOBILE)
@@ -262,7 +264,7 @@ public class GlobalMethod {
         ActivityManager activityManager =
                 (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
         List<ActivityManager.RunningAppProcessInfo> processInfos
-                = activityManager.getRunningAppProcesses();
+                = Objects.requireNonNull(activityManager).getRunningAppProcesses();
         for (int i = 0; i < processInfos.size(); i++) {
             if (processInfos.get(i).processName.equals(context.getPackageName())) {
                 return true;
@@ -280,7 +282,7 @@ public class GlobalMethod {
     public static boolean isAppForeGround(Context context) {
         ActivityManager activityManager = (ActivityManager) context
                 .getSystemService(Context.ACTIVITY_SERVICE);
-        List<ActivityManager.RunningAppProcessInfo> appProcesses = activityManager
+        List<ActivityManager.RunningAppProcessInfo> appProcesses = Objects.requireNonNull(activityManager)
                 .getRunningAppProcesses();
         if (appProcesses == null)
             return false;
@@ -305,7 +307,7 @@ public class GlobalMethod {
         editText.requestFocus();
         editText.setText(null);
         InputMethodManager imm = (InputMethodManager) activity.getSystemService(Context.INPUT_METHOD_SERVICE);
-        imm.showSoftInput(editText, InputMethodManager.SHOW_FORCED);
+        Objects.requireNonNull(imm).showSoftInput(editText, InputMethodManager.SHOW_FORCED);
     }
 
     /**
@@ -315,7 +317,7 @@ public class GlobalMethod {
         View view = activity.getWindow().peekDecorView();
         if (view != null) {
             InputMethodManager inputmanger = (InputMethodManager) activity.getSystemService(Context.INPUT_METHOD_SERVICE);
-            inputmanger.hideSoftInputFromWindow(view.getWindowToken(), 0);
+            Objects.requireNonNull(inputmanger).hideSoftInputFromWindow(view.getWindowToken(), 0);
         }
     }
 
@@ -353,10 +355,7 @@ public class GlobalMethod {
      * @return
      */
     private static boolean isEmojiCharacter(char codePoint) {
-        return (codePoint == 0x0) || (codePoint == 0x9) || (codePoint == 0xA) ||
-                (codePoint == 0xD) || ((codePoint >= 0x20) && (codePoint <= 0xD7FF)) ||
-                ((codePoint >= 0xE000) && (codePoint <= 0xFFFD)) || ((codePoint >= 0x10000)
-                && (codePoint <= 0x10FFFF));
+        return codePoint == 0x0 || codePoint == 0x9 || codePoint == 0xA || codePoint == 0xD || codePoint >= 0x20 && codePoint <= 0xD7FF || codePoint >= 0xE000 && codePoint <= 0xFFFD;
     }
 
     /**
@@ -371,9 +370,9 @@ public class GlobalMethod {
             byte[] cert = info.signatures[0].toByteArray();
             MessageDigest md = MessageDigest.getInstance("SHA1");
             byte[] publicKey = md.digest(cert);
-            StringBuffer hexString = new StringBuffer();
-            for (int i = 0; i < publicKey.length; i++) {
-                String appendString = Integer.toHexString(0xFF & publicKey[i])
+            StringBuilder hexString = new StringBuilder();
+            for (byte aPublicKey : publicKey) {
+                String appendString = Integer.toHexString(0xFF & aPublicKey)
                         .toUpperCase(Locale.US);
                 if (appendString.length() == 1)
                     hexString.append("0");

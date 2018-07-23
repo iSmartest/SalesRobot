@@ -52,22 +52,19 @@ public class NewPointActivity extends BaseActivity {
     protected void loadData() {
         Map<String,String> params = new HashMap<>();
         params.put("groupid", SPUtil.getString(context,SALE_ID));
-        MyOkhttp.Okhttp(context, Url.BUYPOINT, "加载中...", params, new MyOkhttp.CallBack() {
-            @Override
-            public void onRequestComplete(String response, String result, String resultNote) {
-                Gson gson = new Gson();
-                NewPointBean newPointBean = gson.fromJson(response,NewPointBean.class);
-                if (result.equals("1")){
-                    ToastUtils.makeText(context,resultNote);
-                    return;
-                }
-                List<NewPointBean.DataBean.CList> cLists = newPointBean.getData().getcList();
-                if (cLists != null && !cLists.isEmpty() && cLists.size() > 0){
-                    mList.addAll(cLists);
-                    mAdapter.notifyDataSetChanged();
-                }
-
+        MyOkhttp.Okhttp(context, Url.BUYPOINT, "加载中...", params, (response, result, resultNote) -> {
+            Gson gson = new Gson();
+            NewPointBean newPointBean = gson.fromJson(response,NewPointBean.class);
+            if (result.equals("1")){
+                ToastUtils.makeText(context,resultNote);
+                return;
             }
+            List<NewPointBean.DataBean.CList> cLists = newPointBean.getData().getcList();
+            if (cLists != null && !cLists.isEmpty() && cLists.size() > 0){
+                mList.addAll(cLists);
+                mAdapter.notifyDataSetChanged();
+            }
+
         });
 
     }

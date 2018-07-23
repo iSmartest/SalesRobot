@@ -34,8 +34,8 @@ public class Utils {
             mDigest.update(key.getBytes());
             byte[] bytes = mDigest.digest();
             StringBuilder sb = new StringBuilder();
-            for (int i = 0; i < bytes.length; i++) {
-                String hex = Integer.toHexString(0xFF & bytes[i]);
+            for (byte aByte : bytes) {
+                String hex = Integer.toHexString(0xFF & aByte);
                 if (hex.length() == 1) {
                     sb.append('0');
                 }

@@ -1,5 +1,6 @@
 package com.empowerment.salesrobot.uitls;
 
+import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.app.Activity;
 import android.app.TabActivity;
@@ -546,6 +547,7 @@ public class StatusBarUtil {
             hasNavigationBar = rs.getBoolean(id);
         }
         try {
+            @SuppressLint("PrivateApi")
             Class<?> systemPropertiesClass = Class.forName("android.os.SystemProperties");
             Method m = systemPropertiesClass.getMethod("get", String.class);
             String navBarOverride = (String) m.invoke(systemPropertiesClass, "qemu.hw.mainkeys");
@@ -664,6 +666,7 @@ public class StatusBarUtil {
      *
      * @param activity Activity对象
      */
+    @SuppressWarnings("JavaDoc")
     private static float DEFAULT_ALPHA = Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP ? 0.2f : 0.3f;
     public static void immersiveStatusBar(Activity activity) {
         immersiveStatusBar(activity, DEFAULT_ALPHA);
@@ -749,6 +752,7 @@ public class StatusBarUtil {
      *
      * @param activity
      */
+    @SuppressWarnings("JavaDoc")
     public static  void fullScreen(Activity activity) {
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {

@@ -13,6 +13,7 @@ import com.empowerment.salesrobot.okhttp.budiler.budiler.PostFileBuilder;
 import com.empowerment.salesrobot.okhttp.budiler.budiler.RequestCall;
 
 import java.io.IOException;
+import java.util.Objects;
 import java.util.concurrent.Executor;
 
 import okhttp3.Call;
@@ -156,7 +157,7 @@ public class OkHttpUtils {
                 } finally
                 {
                     if (response.body() != null)
-                        response.body().close();
+                        Objects.requireNonNull(response.body()).close();
                 }
 
             }
@@ -168,29 +169,19 @@ public class OkHttpUtils {
     {
         if (callback == null) return;
 
-        mPlatform.execute(new Runnable()
-        {
-            @Override
-            public void run()
-            {
-                callback.onError(call, e, id);
-                callback.onAfter(id);
-            }
+        mPlatform.execute(() -> {
+            callback.onError(call, e, id);
+            callback.onAfter(id);
         });
     }
 
     public void sendSuccessResultCallback(final Object object, final Callback callback, final int id)
     {
         if (callback == null) return;
-        mPlatform.execute(new Runnable()
-        {
-            @Override
-            public void run()
-            {
-                callback.onResponse(object, id);
-                Log.i("wwww", "json: " + object);
-                callback.onAfter(id);
-            }
+        mPlatform.execute(() -> {
+            callback.onResponse(object, id);
+            Log.i("wwww", "json: " + object);
+            callback.onAfter(id);
         });
     }
 

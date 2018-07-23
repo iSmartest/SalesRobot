@@ -74,6 +74,7 @@ public class RCRelativeLayout extends RelativeLayout {
         mPaint = new Paint();
         mPaint.setColor(Color.WHITE);
         mPaint.setAntiAlias(true);
+        ta.recycle();
     }
 
     @Override

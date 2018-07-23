@@ -21,6 +21,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 
 import butterknife.BindView;
@@ -65,8 +66,8 @@ public class NewAddAgencyAffairsActivity extends BaseActivity {
         mDay = ca.get(Calendar.DAY_OF_MONTH);
         long time = System.currentTimeMillis();
         Date date = new Date(time);
-        SimpleDateFormat format1 = new SimpleDateFormat("yyyy-MM-dd");
-        SimpleDateFormat format2 = new SimpleDateFormat("HH:mm");
+        SimpleDateFormat format1 = new SimpleDateFormat("yyyy-MM-dd", Locale.CHINA);
+        SimpleDateFormat format2 = new SimpleDateFormat("HH:mm",Locale.CHINA);
         mData.setText(format1.format(date)); //更新时间
         mTime.setText(format2.format(date)); //更新时间
     }

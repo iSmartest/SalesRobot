@@ -43,6 +43,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -98,7 +99,7 @@ public class HomeFragment extends BaseFragment implements OnBannerClickListener 
         callBackListener = (HomeFragment.CallBackListener) getActivity();
         IntentFilter intentFilter = new IntentFilter();
         intentFilter.addAction("com.empowerment.salesrobot.home");
-        getActivity().registerReceiver(mAllBroad, intentFilter);
+        Objects.requireNonNull(getActivity()).registerReceiver(mAllBroad, intentFilter);
     }
 
     @Nullable
@@ -143,40 +144,37 @@ public class HomeFragment extends BaseFragment implements OnBannerClickListener 
     protected void loadData() {
         homeMap.put(SALE_ID,SPUtil.getString(context, SALE_ID));
         homeMap.put("storeId",SPUtil.getString(context, "storeId"));
-        MyOkhttp.Okhttp(context, Url.INDEX, "加载中...", homeMap, new MyOkhttp.CallBack() {
-            @Override
-            public void onRequestComplete(String response, String result, String resultNote) {
-                Gson gson = new Gson();
-                final HomeEntity bean = gson.fromJson(response, HomeEntity.class);
-                switch (result) {
-                    case "0":
-                        if (bean.getData().getImageList() != null && !bean.getData().getImageList().isEmpty() && bean.getData().getImageList().size() > 0) {
-                            homeList.addAll(bean.getData().getImageList());
-                            for (int i = 0; i <homeList.size(); i++) {
-                                imgList.add(HTTP + homeList.get(i).getAddress());
-                            }
-                            mBanner.setBannerStyle(BannerConfig.CIRCLE_INDICATOR)
-                                    .setImageLoader(new HomeBannerAdapter())
-                                    .setImages(imgList)
-                                    .setBannerAnimation(Transformer.Default)
-                                    .setDelayTime(3000)
-                                    .isAutoPlay(true)
-                                    .start();
+        MyOkhttp.Okhttp(context, Url.INDEX, "加载中...", homeMap, (response, result, resultNote) -> {
+            Gson gson = new Gson();
+            final HomeEntity bean = gson.fromJson(response, HomeEntity.class);
+            switch (result) {
+                case "0":
+                    if (bean.getData().getImageList() != null && !bean.getData().getImageList().isEmpty() && bean.getData().getImageList().size() > 0) {
+                        homeList.addAll(bean.getData().getImageList());
+                        for (int i = 0; i <homeList.size(); i++) {
+                            imgList.add(HTTP + homeList.get(i).getAddress());
                         }
-                        notice = bean.getData().getNotice();
-                        companyNoticeCount = bean.getData().getCompanyNoticeCount();
-                        if (companyNoticeCount == 0){
-                            mRedCount.setVisibility(View.GONE);
-                        }else {
-                            mRedCount.setVisibility(View.VISIBLE);
-                            mRedCount.setText(companyNoticeCount+"");
-                        }
-                        mNotice.setText(notice);
-                        break;
-                    case "1":
-                        ToastUtils.makeText(context, bean.getMsg());
-                        break;
-                }
+                        mBanner.setBannerStyle(BannerConfig.CIRCLE_INDICATOR)
+                                .setImageLoader(new HomeBannerAdapter())
+                                .setImages(imgList)
+                                .setBannerAnimation(Transformer.Default)
+                                .setDelayTime(3000)
+                                .isAutoPlay(true)
+                                .start();
+                    }
+                    notice = bean.getData().getNotice();
+                    companyNoticeCount = bean.getData().getCompanyNoticeCount();
+                    if (companyNoticeCount == 0){
+                        mRedCount.setVisibility(View.GONE);
+                    }else {
+                        mRedCount.setVisibility(View.VISIBLE);
+                        mRedCount.setText(companyNoticeCount+"");
+                    }
+                    mNotice.setText(notice);
+                    break;
+                case "1":
+                    ToastUtils.makeText(context, bean.getMsg());
+                    break;
             }
         });
     }
@@ -211,7 +209,7 @@ public class HomeFragment extends BaseFragment implements OnBannerClickListener 
         super.onHiddenChanged(hidden);
         if (!hidden){
             if (imgList.isEmpty()){
-                if (Utils.isNetworkAvailable(getActivity())){
+                if (Utils.isNetworkAvailable(Objects.requireNonNull(getActivity()))){
                     loadData();
                 }else {
                     ToastUtils.makeText(getActivity(),"呀！网络跑丢了！");

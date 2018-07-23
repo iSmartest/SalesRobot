@@ -16,7 +16,7 @@
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content">
 
         <TextView
             android:gravity="center_vertical"
@@ -30,13 +30,14 @@
             android:paddingRight="15dp"
             android:paddingLeft="15dp"
             android:drawableRight="@drawable/checkbox_bg"
-            android:textSize="18sp"/>
+            android:textSize="18sp"
+            android:drawableEnd="@drawable/checkbox_bg" />
 
         <include layout="@layout/v_horizontal_line"/>
 
         <CheckBox
             android:layout_width="match_parent"
-            android:layout_height="98px"
+            android:layout_height="50dp"
             android:button="@null"
             android:id="@+id/language_Setting"
             android:background="@color/white"
@@ -45,7 +46,8 @@
             android:text="语种设置"
             android:paddingLeft="15dp"
             android:drawableRight="@drawable/checkbox_bg"
-            android:textSize="18sp"/>
+            android:textSize="18sp"
+            android:drawableEnd="@drawable/checkbox_bg" />
 
         <include layout="@layout/v_horizontal_line"/>
         <LinearLayout
@@ -61,7 +63,8 @@
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/background"/>
+                android:src="@drawable/background"
+                android:contentDescription="@string/placeholder_picture"/>
             <RadioGroup
                 android:orientation="horizontal"
                 android:background="@drawable/shape_company_agency_background"
@@ -117,7 +120,8 @@
             android:paddingRight="15dp"
             android:paddingLeft="15dp"
             android:drawableRight="@drawable/checkbox_bg"
-            android:textSize="18sp"/>
+            android:textSize="18sp"
+            android:drawableEnd="@drawable/checkbox_bg" />
     <include layout="@layout/v_horizontal_line"/>
 
     <LinearLayout
@@ -133,7 +137,8 @@
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/background"/>
+            android:src="@drawable/background"
+            android:contentDescription="@string/placeholder_picture"/>
         <RadioGroup
             android:layout_width="match_parent"
             android:layout_height="74dp"
@@ -179,7 +184,8 @@
             android:paddingRight="15dp"
             android:paddingLeft="15dp"
             android:drawableRight="@drawable/checkbox_bg"
-            android:textSize="18sp"/>
+            android:textSize="18sp"
+            android:drawableEnd="@drawable/checkbox_bg" />
 
         <include layout="@layout/v_horizontal_line"/>
 
@@ -196,16 +202,17 @@
                 android:button="@null"
                 android:checked="false"
                 android:id="@+id/englishi"
-                android:paddingTop="10px"
+                android:paddingTop="5dp"
                 android:textColor="@color/seetings_radio_textcolor"
-                android:paddingBottom="10px"
-                android:paddingLeft="90px"
+                android:paddingBottom="5dp"
+                android:paddingLeft="45dp"
                 android:layout_height="wrap_content"
-                android:text="English"/>
+                android:text="English"
+                android:paddingStart="45dp" />
             <View
                 android:layout_width="match_parent"
-                android:layout_marginLeft="30px"
-                android:layout_marginRight="30px"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
                 android:layout_height="1px"
                 android:background="@color/divider_gray"/>
             <RadioButton
@@ -215,10 +222,11 @@
                 android:id="@+id/chinese"
                 android:textColor="@color/seetings_radio_textcolor"
                 android:checked="true"
-                android:paddingTop="10px"
-                android:paddingBottom="10px"
-                android:paddingLeft="90px"
-                android:text="中文"/>
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp"
+                android:paddingLeft="45dp"
+                android:text="中文"
+                android:paddingStart="45dp" />
         </RadioGroup>
 
         <TextView
@@ -231,7 +239,8 @@
             android:background="@color/white"
             android:gravity="center_vertical"
             android:textSize="18sp"
-            android:textColor="@color/black"/>
+            android:textColor="@color/black"
+            android:paddingStart="15dp" />
     </LinearLayout>
 </ScrollView>
 </LinearLayout>

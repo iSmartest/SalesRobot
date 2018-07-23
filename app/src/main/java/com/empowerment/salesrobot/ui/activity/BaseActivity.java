@@ -17,6 +17,8 @@ import com.empowerment.salesrobot.ui.fragment.BaseFragment;
 import com.empowerment.salesrobot.uitls.AppManager;
 import com.empowerment.salesrobot.uitls.StatusBarUtil;
 
+import java.util.Objects;
+
 import butterknife.ButterKnife;
 
 /**
@@ -25,6 +27,7 @@ import butterknife.ButterKnife;
  * Created by 2018/7/2.
  * Description:
  */
+@SuppressWarnings("JavaDoc")
 public abstract class BaseActivity extends FragmentActivity{
     protected Context context;
     private BaseFragment lastFragment;
@@ -99,7 +102,7 @@ public abstract class BaseActivity extends FragmentActivity{
         }
         //传递参数
         if (bundle != null) {
-            currentFragment.setBundle(bundle);
+            Objects.requireNonNull(currentFragment).setBundle(bundle);
         }
 
         if (isBack) {

@@ -86,18 +86,10 @@ public class ImageAndTextAdapter extends RecyclerView.Adapter<ImageAndTextAdapte
             holder.iv_del.setVisibility(View.VISIBLE);
         }
 
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (listener != null) listener.onItemClick(v, clickPosition);
-            }
+        holder.itemView.setOnClickListener(v -> {
+            if (listener != null) listener.onItemClick(v, clickPosition);
         });
-        holder.iv_del.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                removeListener.onRemoveBinnerClick(clickPosition);
-            }
-        });
+        holder.iv_del.setOnClickListener(view -> removeListener.onRemoveBinnerClick(clickPosition));
     }
 
     public class ImageAndTextViewHolder extends RecyclerView.ViewHolder{

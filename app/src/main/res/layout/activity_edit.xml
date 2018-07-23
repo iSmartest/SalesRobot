@@ -22,7 +22,9 @@
             android:layout_height="40dp"
             android:layout_marginLeft="18dp"
             android:layout_marginTop="97dp"
-            android:src="@drawable/icon_name" />
+            android:src="@drawable/icon_name"
+            android:contentDescription="@string/user_head_portrait"
+            android:layout_marginStart="18dp" />
 
         <TextView
             android:id="@+id/edit_Name"
@@ -33,7 +35,9 @@
             android:layout_toRightOf="@id/editPic"
             android:text=""
             android:textColor="@color/white"
-            android:textSize="24sp" />
+            android:textSize="24sp"
+            android:layout_marginStart="9dp"
+            android:layout_toEndOf="@id/editPic" />
 
         <TextView
             android:id="@+id/edit_Time"
@@ -44,7 +48,9 @@
             android:layout_toRightOf="@id/editPic"
             android:text=""
             android:textColor="@color/white"
-            android:textSize="16sp" />
+            android:textSize="16sp"
+            android:layout_marginStart="9dp"
+            android:layout_toEndOf="@id/editPic" />
     </RelativeLayout>
 
     <ScrollView
@@ -54,7 +60,7 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:background="@color/app_main_default"
             android:orientation="vertical">
 
@@ -78,7 +84,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:background="@null"
-                    android:gravity="center|left"
+                    android:gravity="center_vertical"
                     android:text=""
                     android:textSize="16sp" />
             </LinearLayout>
@@ -106,7 +112,7 @@
                     android:layout_height="match_parent"
                     android:background="@null"
                     android:focusable="false"
-                    android:gravity="center|left"
+                    android:gravity="center_vertical"
                     android:text=""
                     android:inputType="number"
                     android:textSize="16sp" />
@@ -135,7 +141,7 @@
                     android:layout_height="match_parent"
                     android:background="@null"
                     android:focusable="false"
-                    android:gravity="center|left"
+                    android:gravity="center_vertical"
                     android:text=""
                     android:textSize="16sp" />
             </LinearLayout>
@@ -163,7 +169,7 @@
                     android:layout_height="match_parent"
                     android:background="@null"
                     android:focusable="false"
-                    android:gravity="center|left"
+                    android:gravity="center_vertical"
                     android:text=""
                     android:textSize="16sp" />
             </LinearLayout>
@@ -191,7 +197,7 @@
                     android:layout_height="match_parent"
                     android:background="@null"
                     android:focusable="false"
-                    android:gravity="center|left"
+                    android:gravity="center_vertical"
                     android:text=""
                     android:textSize="16sp" />
             </LinearLayout>
@@ -209,7 +215,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:gravity="center|left"
+                    android:gravity="center|start"
                     android:text="身份证："
                     android:textColor="@color/vipTextColor"
                     android:textSize="16sp" />
@@ -220,7 +226,7 @@
                     android:layout_height="match_parent"
                     android:background="@null"
                     android:focusable="false"
-                    android:gravity="center|left"
+                    android:gravity="center_vertical"
                     android:text=""
                     android:textSize="16sp" />
             </LinearLayout>
@@ -241,9 +247,7 @@
                     android:gravity="center_vertical"
                     android:text="手机号："
                     android:textColor="@color/vipTextColor"
-                    android:textSize="16sp"
-                    android:maxLength="11"
-                    android:inputType="phone"/>
+                    android:textSize="16sp"/>
 
                 <EditText
                     android:id="@+id/editPhone"
@@ -251,9 +255,11 @@
                     android:layout_height="match_parent"
                     android:background="@null"
                     android:focusable="false"
-                    android:gravity="center|left"
+                    android:gravity="center_vertical"
                     android:text=""
-                    android:textSize="15dp" />
+                    android:maxLength="11"
+                    android:inputType="phone"
+                    android:textSize="15sp" />
             </LinearLayout>
 
             <include layout="@layout/v_horizontal_line" />
@@ -280,9 +286,9 @@
                     android:layout_height="match_parent"
                     android:background="@null"
                     android:focusable="false"
-                    android:gravity="center|left"
+                    android:gravity="center_vertical"
                     android:text=""
-                    android:textSize="15dp" />
+                    android:textSize="15sp" />
             </LinearLayout>
 
             <include layout="@layout/v_horizontal_line" />

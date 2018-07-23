@@ -7,17 +7,9 @@ import java.util.List;
  * 客户资料
  */
 public class InfromationEntity implements Serializable{
-
-
-    /**
-     * data : {"customerList":[{"date":1525925591000,"address":"头说啦咯人咯啦","idCard":"1545454545","work":"某公司高管","sex":20,"pic":"bbb","content":"买啥买  没钱","carType":"奔驰","phone":"18668656566","name":"李世民","id":2,"age":20,"hobby":"足球"},{"date":1525925556000,"address":"喜欢自驾游，想买一款越野山地SUV","idCard":"1122222222","work":"某公司高管","sex":10,"pic":"aaa","content":"？款越野山地SUV","carType":"宝马","phone":"18332212560","name":"李牧","id":1,"age":10,"hobby":"篮球"}]}
-     * resultCode : 0
-     * msg : 查询成功！
-     */
-
-    private DataBean data;
     private int resultCode;
     private String msg;
+    private DataBean data;
 
     public DataBean getData() {
         return data;
@@ -55,41 +47,28 @@ public class InfromationEntity implements Serializable{
         }
 
         public static class CustomerListBean {
-            /**
-             * date : 1525925591000
-             * address : 头说啦咯人咯啦
-             * idCard : 1545454545
-             * work : 某公司高管
-             * sex : 20
-             * pic : bbb
-             * content : 买啥买  没钱
-             * carType : 奔驰
-             * phone : 18668656566
-             * name : 李世民
-             * id : 2
-             * age : 20
-             * hobby : 足球
-             */
 
-            private long date;
+            private String date;
             private String address;
             private String idCard;
             private String work;
             private int sex;
+            private int count;
+            private List<String> dates;
             private String pic;
+            private int type;
             private String content;
-            private String carType;
             private String phone;
             private String name;
             private int id;
             private int age;
             private String hobby;
 
-            public long getDate() {
+            public String getDate() {
                 return date;
             }
 
-            public void setDate(long date) {
+            public void setDate(String date) {
                 this.date = date;
             }
 
@@ -125,6 +104,22 @@ public class InfromationEntity implements Serializable{
                 this.sex = sex;
             }
 
+            public int getCount() {
+                return count;
+            }
+
+            public void setCount(int count) {
+                this.count = count;
+            }
+
+            public List<String> getDates() {
+                return dates;
+            }
+
+            public void setDates(List<String> dates) {
+                this.dates = dates;
+            }
+
             public String getPic() {
                 return pic;
             }
@@ -133,20 +128,20 @@ public class InfromationEntity implements Serializable{
                 this.pic = pic;
             }
 
+            public int getType() {
+                return type;
+            }
+
+            public void setType(int type) {
+                this.type = type;
+            }
+
             public String getContent() {
                 return content;
             }
 
             public void setContent(String content) {
                 this.content = content;
-            }
-
-            public String getCarType() {
-                return carType;
-            }
-
-            public void setCarType(String carType) {
-                this.carType = carType;
             }
 
             public String getPhone() {

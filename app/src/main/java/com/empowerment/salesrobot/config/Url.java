@@ -17,9 +17,6 @@ public class Url {
     //获取短信
     public static final String SMS = HTTP +"/app/sale/sendCode";
 
-    //短信验证
-    public static final String VERIFICATION_SMS = "http://api.sms.ronghub.com/verifyCode/json";
-
     //完善资料
     public static final String SALE = HTTP + "/app/sale/prefectOrUpdateSale?";
 
@@ -40,7 +37,6 @@ public class Url {
 
     //训练—提交图文
     public static final String ADD_TRAIN_RECORD_ABOUT_VIDEO = HTTP + "/app/sale/addTrainRecordAboutVideo?";
-
 
     //维修保养室
     public static final String ROBOT_MAINTAIN = "http://192.168.1.6:8081/app/train/robotMaintain?";
@@ -69,11 +65,14 @@ public class Url {
     //添加个人待办事宜
     public static final String ADD_PERSONAL_AGENCY = HTTP +"/app/sale/addPersonalAgent?";
 
+    //客户数量
+    public static final String CUSTOMER_COUNT = HTTP +"/app/customer/customerCount?";
+
     //客户资料**查询
     public static final String CUSTOMER = HTTP + "/app/customer/customerList?";
 
-    //添加今日客户
-    public static final String SUBMIT_CUSTOMER = HTTP;
+    //添加客户(今日客户和VIP客和预成交客户)
+    public static final String SUBMIT_CUSTOMER = HTTP + "/app/customer/addCustomer?";
 
     //客户资料修改
     public static final String EDIT_CUSTOMER = HTTP + "/app/customer/updateCustomer?";
@@ -83,9 +82,6 @@ public class Url {
 
     //客户 维修 保养 保险
     public static final String MPBLIST = HTTP + "/app/customer/mpbList?";
-
-    //添加VIP客户
-    public static final String ADD_CUSTOMER = HTTP + "/app/customer/addCustomer?";
 
     //获取VIP*有意向客户
     public static final String VIP_YCJ = HTTP + "/app/customer/vipOrYuChengJiaoCustomer?";

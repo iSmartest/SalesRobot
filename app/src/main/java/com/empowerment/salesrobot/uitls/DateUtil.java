@@ -11,6 +11,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
+import java.util.Objects;
 
 /**
  * @creation_time: 2017/3/27
@@ -389,7 +390,7 @@ public class DateUtil {
         } catch (ParseException e) {
             e.printStackTrace();
         }
-        return date1.getTime();
+        return Objects.requireNonNull(date1).getTime();
 
     }
 
@@ -480,16 +481,10 @@ public class DateUtil {
         try {
             Date dt1 = df.parse(DATE1);
             Date dt2 = df.parse(DATE2);
-            if (dt1.getTime() > dt2.getTime()) {
-//				System.out.println("dt1 在dt2前");
-                return 1;
-            } else if (dt1.getTime() < dt2.getTime()) {
-//				System.out.println("dt1在dt2后");
-                return -1;
-            } else {
-                //相等
-                return 0;
-            }
+            //				System.out.println("dt1 在dt2前");
+            //				System.out.println("dt1在dt2后");
+            //相等
+            return Long.compare(dt1.getTime(), dt2.getTime());
         } catch (Exception exception) {
             exception.printStackTrace();
         }
@@ -513,12 +508,12 @@ public class DateUtil {
         // 相差的秒数
         long time = (now - past) / 1000;
 
-        StringBuffer sb = new StringBuffer();
+        StringBuilder sb = new StringBuilder();
         if (time == 0){
             return sb.append("刚刚").toString();
         }
         else if (time > 0 && time < 60) { // 1小时内
-            return sb.append(time + "秒前").toString();
+            return sb.append(time).append("秒前").toString();
         } else if (time > 60 && time < 3600) {
             return sb.append(time / 60+"分钟前").toString();
         } else if (time >= 3600 && time < 3600 * 24) {

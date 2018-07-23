@@ -166,9 +166,7 @@ public class RoBotIMActivity extends BaseActivity {
             case R.id.tv_album:
                 mBinnerList = new ArrayList<>();
                 picLists = new ArrayList<>();
-                imageAndTextDialog = new ImageAndTextDialog(context, content -> {
-                    submit(content);
-                });
+                imageAndTextDialog = new ImageAndTextDialog(context, this::submit);
                 imageAndTextDialog.show();
                 break;
             case R.id.tv_video:
@@ -454,6 +452,7 @@ public class RoBotIMActivity extends BaseActivity {
         });
     }
 
+    @SuppressLint("CheckResult")
     private void compressWithRx(final List<String> photos) {
         Flowable.just(photos)
                 .observeOn(Schedulers.io())

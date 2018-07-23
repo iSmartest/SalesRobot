@@ -1,11 +1,5 @@
 package com.empowerment.salesrobot.view.wheelview;
 
-/**
- * Created by 小火
- * Create time on  2017/5/27
- * My mailbox is 1403241630@qq.com
- */
-
 import android.database.DataSetObserver;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,7 +22,7 @@ public abstract class AbstractWheelAdapter implements WheelViewAdapter {
     @Override
     public void registerDataSetObserver(DataSetObserver observer) {
         if (datasetObservers == null) {
-            datasetObservers = new LinkedList<DataSetObserver>();
+            datasetObservers = new LinkedList<>();
         }
         datasetObservers.add(observer);
     }

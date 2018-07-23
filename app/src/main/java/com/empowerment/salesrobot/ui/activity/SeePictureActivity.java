@@ -11,6 +11,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.provider.Settings;
 import android.support.annotation.RequiresApi;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
@@ -140,15 +141,12 @@ public class SeePictureActivity extends BaseActivity {
                 mPosition = position;
             }
         });
-        mPlay.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Bundle bundle = new Bundle();
-                bundle.putString("uri",mVideoPic);
-                bundle.putString("url",mVideoUrl);
-                bundle.putString("mName",name);
-                MyApplication.openActivity(context, PlayVideoActivity.class,bundle);
-            }
+        mPlay.setOnClickListener(v -> {
+            Bundle bundle = new Bundle();
+            bundle.putString("uri",mVideoPic);
+            bundle.putString("url",mVideoUrl);
+            bundle.putString("mName",name);
+            MyApplication.openActivity(context, PlayVideoActivity.class,bundle);
         });
     }
 
@@ -164,9 +162,7 @@ public class SeePictureActivity extends BaseActivity {
                 break;
             case R.id.title_OK:
                 mBinnerList = new ArrayList<>();
-                imageAndTextDialog = new ImageAndTextDialog(context, content -> {
-                    submit(content);
-                });
+                imageAndTextDialog = new ImageAndTextDialog(context, this::submit);
                 break;
         }
     }
@@ -230,6 +226,7 @@ public class SeePictureActivity extends BaseActivity {
         }
     }
 
+    @SuppressLint("CheckResult")
     private void compressWithRx(final List<String> photos) {
         Flowable.just(photos)
                 .observeOn(Schedulers.io())
@@ -288,5 +285,7 @@ public class SeePictureActivity extends BaseActivity {
             }
         });
     }
+
+
 }
 

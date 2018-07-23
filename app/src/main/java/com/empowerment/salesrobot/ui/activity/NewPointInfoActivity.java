@@ -58,23 +58,20 @@ public class NewPointInfoActivity extends BaseActivity {
     protected void loadData() {
         Map<String, String> params = new HashMap<>();
         params.put("carId", id);
-        MyOkhttp.Okhttp(context, Url.BUYPOINTDETAIL, "加载中...", params, new MyOkhttp.CallBack() {
-            @Override
-            public void onRequestComplete(String response, String result, String resultNote) {
-                Gson gson = new Gson();
-                NewPointInfoBean newPointInfoBean = gson.fromJson(response, NewPointInfoBean.class);
-                if (result.equals("1")) {
-                    ToastUtils.makeText(context, resultNote);
-                    return;
-                }
-                Glide.with(context).load(newPointInfoBean.getData().getBuyPointDetail().getDetailPic()).into(mDetailPic);
-                Glide.with(context).load(newPointInfoBean.getData().getBuyPointDetail().getBodyPic()).into(mBobylPic);
-                Glide.with(context).load(newPointInfoBean.getData().getBuyPointDetail().getInnerPic()).into(mInnerPic);
-                mDetailDes.setText(newPointInfoBean.getData().getBuyPointDetail().getDetailDesc());
-                mBobyDes.setText(newPointInfoBean.getData().getBuyPointDetail().getBodyDesc());
-                mInnerDes.setText(newPointInfoBean.getData().getBuyPointDetail().getInnerDesc());
-                policy = newPointInfoBean.getData().getPolicy();
+        MyOkhttp.Okhttp(context, Url.BUYPOINTDETAIL, "加载中...", params, (response, result, resultNote) -> {
+            Gson gson = new Gson();
+            NewPointInfoBean newPointInfoBean = gson.fromJson(response, NewPointInfoBean.class);
+            if (result.equals("1")) {
+                ToastUtils.makeText(context, resultNote);
+                return;
             }
+            Glide.with(context).load(newPointInfoBean.getData().getBuyPointDetail().getDetailPic()).into(mDetailPic);
+            Glide.with(context).load(newPointInfoBean.getData().getBuyPointDetail().getBodyPic()).into(mBobylPic);
+            Glide.with(context).load(newPointInfoBean.getData().getBuyPointDetail().getInnerPic()).into(mInnerPic);
+            mDetailDes.setText(newPointInfoBean.getData().getBuyPointDetail().getDetailDesc());
+            mBobyDes.setText(newPointInfoBean.getData().getBuyPointDetail().getBodyDesc());
+            mInnerDes.setText(newPointInfoBean.getData().getBuyPointDetail().getInnerDesc());
+            policy = newPointInfoBean.getData().getPolicy();
         });
 
 

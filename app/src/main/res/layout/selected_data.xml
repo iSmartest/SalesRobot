@@ -13,7 +13,7 @@
         android:orientation="vertical">
         <TextView
             android:id="@+id/text_select_title"
-            android:textSize="16dp"
+            android:textSize="16sp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
@@ -38,7 +38,7 @@
         android:padding="8dp">
         <Button
             android:id="@+id/select_btn_cancel"
-            android:textSize="16dp"
+            android:textSize="16sp"
             android:layout_width="0dp"
             android:layout_height="42dp"
             android:layout_weight="1"
@@ -53,13 +53,14 @@
             android:background="@color/gray" />
         <Button
             android:id="@+id/select_btn_sure"
-            android:textSize="16dp"
+            android:textSize="16sp"
             android:layout_width="0dp"
             android:layout_height="42dp"
             android:layout_marginLeft="@dimen/activity_horizontal_margin"
             android:layout_weight="1"
             android:background="@null"
             android:text="确定"
-            android:textColor="@color/text_color_main" />
+            android:textColor="@color/text_color_main"
+            android:layout_marginStart="@dimen/activity_horizontal_margin" />
     </LinearLayout>
 </LinearLayout>

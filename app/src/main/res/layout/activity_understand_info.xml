@@ -16,7 +16,7 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:orientation="vertical"
             android:paddingTop="12dp"
             android:paddingBottom="12dp"
@@ -42,7 +42,9 @@
                     android:orientation="vertical"
                     android:layout_marginLeft="12dp"
                     android:layout_centerInParent="true"
-                    android:layout_toRightOf="@+id/iv_other_sale_icon">
+                    android:layout_toRightOf="@+id/iv_other_sale_icon"
+                    android:layout_marginStart="12dp"
+                    android:layout_toEndOf="@+id/iv_other_sale_icon">
                     <TextView
                         android:id="@+id/tv_other_sale_name"
                         android:layout_width="match_parent"
@@ -76,7 +78,7 @@
                 android:text="TextView"
                 android:textSize="12sp"
                 android:textColor="@color/time_color"
-                android:gravity="center|right"
+                android:gravity="center|end"
                 android:layout_marginTop="8dp"/>
         </LinearLayout>
     </ScrollView>

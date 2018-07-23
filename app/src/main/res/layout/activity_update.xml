@@ -23,7 +23,8 @@
                 android:layout_width="80dp"
                 android:layout_height="80dp"
                 android:layout_marginTop="24dp"
-                android:src="@mipmap/app_icon"/>
+                android:src="@mipmap/app_icon"
+                android:contentDescription="@string/app_name"/>
 
             <TextView
                 android:id="@+id/a_about_tv_version"
@@ -47,7 +48,7 @@
             android:id="@+id/a_about_lay_rate"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="left|center_vertical"
+            android:gravity="center_vertical"
             android:padding="10dp"
             android:text="@string/want_good_praise"
             android:textColor="@color/text_color_main" />
@@ -66,7 +67,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="left|center_vertical"
+                android:gravity="center_vertical"
                 android:padding="10dp"
                 android:text="@string/version_update"
                 android:layout_weight="1"
@@ -75,7 +76,7 @@
                 android:id="@+id/a_about_version_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="right|center_vertical"
+                android:gravity="end|center_vertical"
                 android:padding="10dp"
                 android:layout_weight="1"
                 android:textColor="@color/red1" />
@@ -93,7 +94,7 @@
             android:id="@+id/a_about_lay_introduce"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="left|center_vertical"
+            android:gravity="start|center_vertical"
             android:padding="10dp"
             android:text="@string/version_introduction"
             android:textColor="@color/text_color_main" />
@@ -102,7 +103,7 @@
                 android:id="@+id/text_lay_introduce_dec"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="left|center_vertical"
+                android:gravity="start|center_vertical"
                 android:padding="10dp"
                 android:textSize="12sp"
                 android:background="@color/app_main_background"

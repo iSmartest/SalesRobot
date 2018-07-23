@@ -13,6 +13,8 @@ import android.widget.TextView;
 
 import com.empowerment.salesrobot.R;
 
+import java.util.Objects;
+
 
 /**
  * Created by 小火
@@ -49,7 +51,7 @@ public class StopTipsDialog extends Dialog implements
         sureButton = findViewById(R.id.log_out_tips_btn_sure);
         sureButton.setOnClickListener(this);
         tv_tips.setText(tips);
-        tv_tips.setTextSize(TypedValue.COMPLEX_UNIT_PX, context.getResources().getDimensionPixelSize(R.dimen.default_text_size));
+        tv_tips.setTextSize(TypedValue.COMPLEX_UNIT_PX, context.getResources().getDimensionPixelSize(R.dimen.menu_view_textSize));
         try{
             int dividerID = mContext.getResources().getIdentifier("android:id/titleDivider", null, null);
             View divider=findViewById(dividerID);
@@ -70,7 +72,7 @@ public class StopTipsDialog extends Dialog implements
         sureButton.setOnClickListener(this);
         sureButton.setText(sure);
         tv_tips.setText(tips);
-        tv_tips.setTextSize(20);
+        tv_tips.setTextSize(TypedValue.COMPLEX_UNIT_PX, mContext.getResources().getDimensionPixelSize(R.dimen.menu_view_textSize));
         try{
             int dividerID = mContext.getResources().getIdentifier("android:id/titleDivider", null, null);
             View divider=findViewById(dividerID);
@@ -126,7 +128,7 @@ public class StopTipsDialog extends Dialog implements
 
     public void windowDeploy(int x, int y) {
         Window window = getWindow(); // 得到对话框
-        window.setBackgroundDrawableResource(R.drawable.transpant_bg); // 设置对话框背景为透明
+        Objects.requireNonNull(window).setBackgroundDrawableResource(R.drawable.transpant_bg); // 设置对话框背景为透明
 
         WindowManager.LayoutParams wl = window.getAttributes();
         wl.width = (int) (mContext.getApplicationContext().getResources()

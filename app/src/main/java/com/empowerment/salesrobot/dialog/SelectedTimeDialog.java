@@ -69,27 +69,21 @@ public class SelectedTimeDialog extends Dialog implements
         mWVHour.setVisibleItems(5);
         mWVHour.setViewAdapter(selectedHourAdapter);
         mWVHour.setCurrentItem(getWvHourItem(strHourData));
-        mWVHour.addChangingListener(new OnWheelChangedListener() {
-            @Override
-            public void onChanged(WheelView wheel, int oldValue, int newValue) {
-                // TODO Auto-generated method stub
-                String currentText = (String) selectedHourAdapter.getItemText(wheel.getCurrentItem());
-                strHourData = currentText;
-                setTextviewSize(currentText, selectedHourAdapter);
-            }
+        mWVHour.addChangingListener((wheel, oldValue, newValue) -> {
+            // TODO Auto-generated method stub
+            String currentText = (String) selectedHourAdapter.getItemText(wheel.getCurrentItem());
+            strHourData = currentText;
+            setTextviewSize(currentText, selectedHourAdapter);
         });
 
         mWVMinute.setVisibleItems(5);
         mWVMinute.setViewAdapter(selectedMinuteAdapter);
         mWVMinute.setCurrentItem(getWvMinuteItem(strMinuteData));
-        mWVMinute.addChangingListener(new OnWheelChangedListener() {
-            @Override
-            public void onChanged(WheelView wheel, int oldValue, int newValue) {
-                // TODO Auto-generated method stub
-                String currentText = (String) selectedMinuteAdapter.getItemText(wheel.getCurrentItem());
-                strMinuteData = currentText;
-                setTextviewSize(currentText, selectedMinuteAdapter);
-            }
+        mWVMinute.addChangingListener((wheel, oldValue, newValue) -> {
+            // TODO Auto-generated method stub
+            String currentText = (String) selectedMinuteAdapter.getItemText(wheel.getCurrentItem());
+            strMinuteData = currentText;
+            setTextviewSize(currentText, selectedMinuteAdapter);
         });
         try {
             int dividerID = mContext.getResources().getIdentifier("android:id/titleDivider", null, null);

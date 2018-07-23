@@ -16,6 +16,7 @@ import com.empowerment.salesrobot.R;
  * My mailbox is 1403241630@qq.com
  */
 
+@SuppressWarnings("ALL")
 public class ToastUtils {
     /**
      * 使用Toast显示信息，时间较短

@@ -85,8 +85,6 @@ public class AddVIPActivity extends BaseActivity {
         titleOK.setText("确定");
         titleOK.setVisibility(View.VISIBLE);
         addMap = new HashMap<>();
-
-
     }
 
     @Override
@@ -104,8 +102,8 @@ public class AddVIPActivity extends BaseActivity {
                 break;
             case R.id.title_OK:
 
-                /**
-                 * 获取输入框内容并去除空格
+                /*
+                  获取输入框内容并去除空格
                  */
                 getAdd(addName.getText().toString().trim()//姓名
                         , addAge.getText().toString().trim()//年龄
@@ -161,15 +159,11 @@ public class AddVIPActivity extends BaseActivity {
     }
 
     private void strar(Map<String, String> map) {
-        MyOkhttp.Okhttp(context, Url.ADD_CUSTOMER, "提交中...", map, new MyOkhttp.CallBack() {
-            @Override
-            public void onRequestComplete(String response, String result, String resultNote) {
-                Gson gson = new Gson();
-                AddBean addBean = gson.fromJson(response,AddBean.class);
-                ToastUtils.makeText(context, response);//拿到数据
-            }
+        MyOkhttp.Okhttp(context, Url.SUBMIT_CUSTOMER, "提交中...", map, (response, result, resultNote) -> {
+            Gson gson = new Gson();
+            AddBean addBean = gson.fromJson(response,AddBean.class);
+            ToastUtils.makeText(context, response);//拿到数据
         });
 
     }
-
 }

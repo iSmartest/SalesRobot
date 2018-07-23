@@ -20,7 +20,7 @@
             android:layout_margin="12dp">
 
             <com.empowerment.salesrobot.view.RoundedImageView
-                android:id="@+id/infrom_item_img"
+                android:id="@+id/ri_customer_icon"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:adjustViewBounds="true"
@@ -30,12 +30,13 @@
                 tools:ignore="ContentDescription" />
 
             <ImageView
+                android:id="@+id/iv_customer_type"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:src="@drawable/vip_image" />
 
             <TextView
-                android:id="@+id/tv_red_count"
+                android:id="@+id/tv_customer_red_count"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
@@ -44,7 +45,7 @@
                 android:gravity="center"
                 android:text="10"
                 android:textColor="@color/app_main_default"
-                android:textSize="10dp"
+                android:textSize="10sp"
                 android:visibility="visible" />
         </RelativeLayout>
 

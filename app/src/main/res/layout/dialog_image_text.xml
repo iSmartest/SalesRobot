@@ -18,7 +18,7 @@
             android:minLines="5"
             android:maxLines="6"
             android:hint="请输入内容"
-            android:gravity="left|top"
+            android:gravity="start|top"
             android:textSize="15sp"
             android:textColor="@color/black"
             android:padding="5dp"
@@ -51,7 +51,8 @@
             android:layout_marginRight="@dimen/activity_horizontal_margin"
             android:background="@null"
             android:gravity="center"
-            android:text="@string/make_cancel" />
+            android:text="@string/make_cancel"
+            android:layout_marginEnd="@dimen/activity_horizontal_margin" />
         <View
             android:layout_width="1dp"
             android:layout_height="match_parent"
@@ -66,6 +67,7 @@
             android:layout_weight="1"
             android:background="@null"
             android:text="@string/make_sure"
-            android:textColor="@color/colorPrimary" />
+            android:textColor="@color/colorPrimary"
+            android:layout_marginStart="@dimen/activity_horizontal_margin" />
     </LinearLayout>
 </LinearLayout>

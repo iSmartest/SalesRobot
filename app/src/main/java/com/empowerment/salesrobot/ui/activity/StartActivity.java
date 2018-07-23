@@ -1,12 +1,14 @@
 package com.empowerment.salesrobot.ui.activity;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.provider.Settings;
 import android.support.v4.content.ContextCompat;
 import android.text.TextUtils;
 import android.view.animation.AlphaAnimation;
@@ -38,6 +40,7 @@ public class StartActivity extends BaseActivity {
     private long mStartTime;// 开始时间
     private boolean IsFirst;//第一次进入应用
     final private int REQUEST_CODE_ASK_PERMISSIONS = 123;
+    @SuppressLint("HandlerLeak")
     private Handler mHandler = new Handler() {
         public void handleMessage(android.os.Message msg) {
             switch (msg.what) {
@@ -49,6 +52,7 @@ public class StartActivity extends BaseActivity {
                                 - loadingTime);
                     } else {
                         mHandler.post(goToMainActivity);
+                        
                     }
                     break;
                 default:

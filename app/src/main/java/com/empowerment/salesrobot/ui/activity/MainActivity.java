@@ -1,5 +1,6 @@
 package com.empowerment.salesrobot.ui.activity;
 
+import android.annotation.SuppressLint;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
@@ -31,6 +32,7 @@ public class MainActivity extends BaseActivity implements HomeFragment.CallBackL
     private HomeFragment homeFragmen;
     // 定义一个变量，来标识是否退出
     private static boolean isExit = false;
+    @SuppressLint("HandlerLeak")
     Handler mHandler = new Handler() {
 
         @Override

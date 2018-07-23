@@ -48,27 +48,35 @@ public class MyReceiver extends BroadcastReceiver {
         try {
             Bundle bundle = intent.getExtras();
             Log.d(TAG, "[MyReceiver] onReceive - " + intent.getAction() + ", extras: " + printBundle(bundle));
-            if (JPushInterface.ACTION_REGISTRATION_ID.equals(intent.getAction())) {
-                regId = bundle.getString(JPushInterface.EXTRA_REGISTRATION_ID);
-                Log.d(TAG, "[MyReceiver] 接收Registration Id : " + regId);
-            } else if (JPushInterface.ACTION_MESSAGE_RECEIVED.equals(intent.getAction())) {
-                Log.d(TAG, "[MyReceiver] 接收到推送下来的自定义消息: " + bundle.getString(JPushInterface.EXTRA_MESSAGE));
-                // 对应极光后台的 - 自定义消息  默认不会出现在notification上 所以一般都选用发送通知
-            } else if (JPushInterface.ACTION_NOTIFICATION_RECEIVED.equals(intent.getAction())) {
-                Log.d(TAG, "[MyReceiver] 接收到推送下来的通知");
-                int notifactionId = bundle.getInt(JPushInterface.EXTRA_NOTIFICATION_ID);
-                Log.d(TAG, "[MyReceiver] 接收到推送下来的通知的ID: " + notifactionId);
-            } else if (JPushInterface.ACTION_NOTIFICATION_OPENED.equals(intent.getAction())) {
-                Log.d(TAG, "[MyReceiver] 用户点击打开了通知");
-                openAppOrActivity(context, bundle);
-            } else if (JPushInterface.ACTION_RICHPUSH_CALLBACK.equals(intent.getAction())) {
-                Log.d(TAG, "[MyReceiver] 用户收到到RICH PUSH CALLBACK: " + bundle.getString(JPushInterface.EXTRA_EXTRA));
-                //在这里根据 JPushInterface.EXTRA_EXTRA 的内容处理代码，比如打开新的Activity， 打开一个网页等..
-            } else if (JPushInterface.ACTION_CONNECTION_CHANGE.equals(intent.getAction())) {
-                boolean connected = intent.getBooleanExtra(JPushInterface.EXTRA_CONNECTION_CHANGE, false);
-                Log.w(TAG, "[MyReceiver]" + intent.getAction() + " connected state change to " + connected);
-            } else {
-                Log.d(TAG, "[MyReceiver] Unhandled intent - " + intent.getAction());
+            switch (intent.getAction()) {
+                case JPushInterface.ACTION_REGISTRATION_ID:
+                    regId = bundle.getString(JPushInterface.EXTRA_REGISTRATION_ID);
+                    Log.d(TAG, "[MyReceiver] 接收Registration Id : " + regId);
+                    break;
+                case JPushInterface.ACTION_MESSAGE_RECEIVED:
+                    Log.d(TAG, "[MyReceiver] 接收到推送下来的自定义消息: " + bundle.getString(JPushInterface.EXTRA_MESSAGE));
+                    // 对应极光后台的 - 自定义消息  默认不会出现在notification上 所以一般都选用发送通知
+                    break;
+                case JPushInterface.ACTION_NOTIFICATION_RECEIVED:
+                    Log.d(TAG, "[MyReceiver] 接收到推送下来的通知");
+                    int notifactionId = bundle.getInt(JPushInterface.EXTRA_NOTIFICATION_ID);
+                    Log.d(TAG, "[MyReceiver] 接收到推送下来的通知的ID: " + notifactionId);
+                    break;
+                case JPushInterface.ACTION_NOTIFICATION_OPENED:
+                    Log.d(TAG, "[MyReceiver] 用户点击打开了通知");
+                    openAppOrActivity(context, bundle);
+                    break;
+                case JPushInterface.ACTION_RICHPUSH_CALLBACK:
+                    Log.d(TAG, "[MyReceiver] 用户收到到RICH PUSH CALLBACK: " + bundle.getString(JPushInterface.EXTRA_EXTRA));
+                    //在这里根据 JPushInterface.EXTRA_EXTRA 的内容处理代码，比如打开新的Activity， 打开一个网页等..
+                    break;
+                case JPushInterface.ACTION_CONNECTION_CHANGE:
+                    boolean connected = intent.getBooleanExtra(JPushInterface.EXTRA_CONNECTION_CHANGE, false);
+                    Log.w(TAG, "[MyReceiver]" + intent.getAction() + " connected state change to " + connected);
+                    break;
+                default:
+                    Log.d(TAG, "[MyReceiver] Unhandled intent - " + intent.getAction());
+                    break;
             }
         }catch (Exception e){
         }
@@ -104,25 +112,30 @@ public class MyReceiver extends BroadcastReceiver {
             String finish = object.getString("finish");
             String id = object.getString("id");
             String type = object.getString("type");
-            if (type.equals("1")){//公司待办
-                detailIntent = new Intent(context, AgencyAffairsInfoActivity.class);
-                detailIntent.putExtra("type",type);
-                detailIntent.putExtra("id",id);
-                detailIntent.putExtra("isFinish",finish);
-                detailIntent.putExtra("content",content);
-                detailIntent.putExtra("time",endDate);
-            }else if (type.equals("3")){//个人待办
-                detailIntent = new Intent(context, AgencyAffairsInfoActivity.class);
-                detailIntent.putExtra("type",type);
-                detailIntent.putExtra("id",id);
-                detailIntent.putExtra("isFinish",finish);
-                detailIntent.putExtra("content",content);
-                detailIntent.putExtra("time",endDate);
-            }else if (type.equals("4")){//系统消息
-                detailIntent = new Intent(context, MainActivity.class);
-                detailIntent.putExtra("content",content);
-            }else if (type.equals("99")){//系统消息
+            switch (type) {
+                case "1": //公司待办
+                    detailIntent = new Intent(context, AgencyAffairsInfoActivity.class);
+                    detailIntent.putExtra("type", type);
+                    detailIntent.putExtra("id", id);
+                    detailIntent.putExtra("isFinish", finish);
+                    detailIntent.putExtra("content", content);
+                    detailIntent.putExtra("time", endDate);
+                    break;
+                case "3": //个人待办
+                    detailIntent = new Intent(context, AgencyAffairsInfoActivity.class);
+                    detailIntent.putExtra("type", type);
+                    detailIntent.putExtra("id", id);
+                    detailIntent.putExtra("isFinish", finish);
+                    detailIntent.putExtra("content", content);
+                    detailIntent.putExtra("time", endDate);
+                    break;
+                case "4": //系统消息
+                    detailIntent = new Intent(context, MainActivity.class);
+                    detailIntent.putExtra("content", content);
+                    break;
+                case "99": //系统消息
 
+                    break;
             }
         } catch (JSONException e) {
             e.printStackTrace();
@@ -141,29 +154,34 @@ public class MyReceiver extends BroadcastReceiver {
     private static String printBundle(Bundle bundle) {
         StringBuilder sb = new StringBuilder();
         for (String key : bundle.keySet()) {
-            if (key.equals(JPushInterface.EXTRA_NOTIFICATION_ID)) {
-                sb.append("\nkey:" + key + ", value:" + bundle.getInt(key));
-            } else if (key.equals(JPushInterface.EXTRA_CONNECTION_CHANGE)) {
-                sb.append("\nkey:" + key + ", value:" + bundle.getBoolean(key));
-            } else if (key.equals(JPushInterface.EXTRA_EXTRA)) {
-                if (bundle.getString(JPushInterface.EXTRA_EXTRA).isEmpty()) {
-                    Log.i(TAG, "This message has no Extra data");
-                    continue;
-                }
-                try {
-                    JSONObject json = new JSONObject(bundle.getString(JPushInterface.EXTRA_EXTRA));
-                    Iterator<String> it = json.keys();
-
-                    while (it.hasNext()) {
-                        String myKey = it.next().toString();
-                        sb.append("\nkey:" + key + ", value: [" +
-                                myKey + " - " + json.optString(myKey) + "]");
+            switch (key) {
+                case JPushInterface.EXTRA_NOTIFICATION_ID:
+                    sb.append("\nkey:" + key + ", value:" + bundle.getInt(key));
+                    break;
+                case JPushInterface.EXTRA_CONNECTION_CHANGE:
+                    sb.append("\nkey:" + key + ", value:" + bundle.getBoolean(key));
+                    break;
+                case JPushInterface.EXTRA_EXTRA:
+                    if (bundle.getString(JPushInterface.EXTRA_EXTRA).isEmpty()) {
+                        Log.i(TAG, "This message has no Extra data");
+                        continue;
                     }
-                } catch (JSONException e) {
-                    Log.e(TAG, "Get message extra JSON error!");
-                }
-            } else {
-                sb.append("\nkey:" + key + ", value:" + bundle.getString(key));
+                    try {
+                        JSONObject json = new JSONObject(bundle.getString(JPushInterface.EXTRA_EXTRA));
+                        Iterator<String> it = json.keys();
+
+                        while (it.hasNext()) {
+                            String myKey = it.next().toString();
+                            sb.append("\nkey:" + key + ", value: [" +
+                                    myKey + " - " + json.optString(myKey) + "]");
+                        }
+                    } catch (JSONException e) {
+                        Log.e(TAG, "Get message extra JSON error!");
+                    }
+                    break;
+                default:
+                    sb.append("\nkey:" + key + ", value:" + bundle.getString(key));
+                    break;
             }
         }
         return sb.toString();

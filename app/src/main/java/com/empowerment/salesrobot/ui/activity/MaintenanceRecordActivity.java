@@ -1,7 +1,6 @@
 package com.empowerment.salesrobot.ui.activity;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -84,25 +83,22 @@ public class MaintenanceRecordActivity extends BaseActivity{
     }
 
     private void getdata(Map<String, String> mainMap) {
-        MyOkhttp.Okhttp(context, Url.MPBLIST, "加载中...", mainMap, new MyOkhttp.CallBack() {
-            @Override
-            public void onRequestComplete(String response, String result, String resultNote) {
-                Gson gson = new Gson();
-                MpbListEntity entity = gson.fromJson(response,MpbListEntity.class);
-                switch (entity.getResultCode()){
-                    case 0:
-                        if (entity.getMsg().equals("查询成功")){
-                            mpList.addAll(entity.getData().getMaintianList());
-                            mainTenanAdapter.notifyDataSetChanged();
-                        }else {
-                            ToastUtils.makeText(context,entity.getMsg());
-                        }
-
-                        break;
-                    case 1:
+        MyOkhttp.Okhttp(context, Url.MPBLIST, "加载中...", mainMap, (response, result, resultNote) -> {
+            Gson gson = new Gson();
+            MpbListEntity entity = gson.fromJson(response,MpbListEntity.class);
+            switch (entity.getResultCode()){
+                case 0:
+                    if (entity.getMsg().equals("查询成功")){
+                        mpList.addAll(entity.getData().getMaintianList());
+                        mainTenanAdapter.notifyDataSetChanged();
+                    }else {
                         ToastUtils.makeText(context,entity.getMsg());
-                        break;
-                }
+                    }
+
+                    break;
+                case 1:
+                    ToastUtils.makeText(context,entity.getMsg());
+                    break;
             }
         });
     }

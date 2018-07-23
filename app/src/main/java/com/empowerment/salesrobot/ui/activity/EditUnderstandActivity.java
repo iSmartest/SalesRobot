@@ -18,6 +18,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 
 import butterknife.BindView;
@@ -65,7 +66,7 @@ public class EditUnderstandActivity extends BaseActivity {
         Calendar calendar = new GregorianCalendar();
         calendar.setTime(date);
         date = calendar.getTime();
-        SimpleDateFormat formatter2 = new SimpleDateFormat("yyyy" + "." + "MM" + "." + "dd");
+        SimpleDateFormat formatter2 = new SimpleDateFormat("yyyy" + "." + "MM" + "." + "dd", Locale.CHINA);
         String dateString = formatter2.format(date);
         mTime.setText(dateString);
     }
@@ -100,16 +101,13 @@ public class EditUnderstandActivity extends BaseActivity {
 //        params.put(SALE_ID, SPUtil.getString(context,SALE_ID));
         params.put(EXPERIENCE, content);
 
-        MyOkhttp.Okhttp(context, Url.ADD_EXPERLIST, "保存中...", params, new MyOkhttp.CallBack() {
-            @Override
-            public void onRequestComplete(String response, String result, String resultNote) {
-                if (result.equals("1")){
-                    ToastUtils.makeText(context,resultNote);
-                    return;
-                }
+        MyOkhttp.Okhttp(context, Url.ADD_EXPERLIST, "保存中...", params, (response, result, resultNote) -> {
+            if (result.equals("1")){
                 ToastUtils.makeText(context,resultNote);
-                finish();
+                return;
             }
+            ToastUtils.makeText(context,resultNote);
+            finish();
         });
     }
 }

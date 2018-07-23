@@ -64,15 +64,11 @@ public class SelectedDialog extends Dialog implements
         mWVData.setVisibleItems(5);
         mWVData.setViewAdapter(selectedTextAdapter);
         mWVData.setCurrentItem(getWvItem(strData));
-        mWVData.addChangingListener(new OnWheelChangedListener() {
-
-            @Override
-            public void onChanged(WheelView wheel, int oldValue, int newValue) {
-                // TODO Auto-generated method stub
-                String currentText = (String) selectedTextAdapter.getItemText(wheel.getCurrentItem());
-                strData = currentText;
-                setTextviewSize(currentText, selectedTextAdapter);
-            }
+        mWVData.addChangingListener((wheel, oldValue, newValue) -> {
+            // TODO Auto-generated method stub
+            String currentText = (String) selectedTextAdapter.getItemText(wheel.getCurrentItem());
+            strData = currentText;
+            setTextviewSize(currentText, selectedTextAdapter);
         });
 
 

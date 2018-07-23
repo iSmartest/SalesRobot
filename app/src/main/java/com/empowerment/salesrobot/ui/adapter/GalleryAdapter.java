@@ -11,77 +11,50 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.empowerment.salesrobot.R;
 import com.empowerment.salesrobot.ui.model.VipOrYxEntity;
+import com.empowerment.salesrobot.uitls.GlideUtils;
+import com.empowerment.salesrobot.view.RoundedImageView;
 
 
 import java.util.List;
 
-public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.ViewHolder> {
-
-    /**
-     * ItemClick的回调接口
-     *
-     * @author zhy
-     */
-    public interface OnItemClickLitener {
-        void onItemClick(View view, int position);
-    }
-
-    private OnItemClickLitener mOnItemClickLitener;
-
-    public void setOnItemClickLitener(OnItemClickLitener mOnItemClickLitener) {
-        this.mOnItemClickLitener = mOnItemClickLitener;
-    }
-
+public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.GalleryViewHolder> {
     private LayoutInflater mInflater;
-    private List<VipOrYxEntity.DataBean.CustListBean> mDatas;
+    private List<VipOrYxEntity.DataBean.CustListBean> mList;
     private Context context;
-    public GalleryAdapter(Context context, List<VipOrYxEntity.DataBean.CustListBean> datats) {
+
+    public GalleryAdapter(Context context, List<VipOrYxEntity.DataBean.CustListBean> mList) {
         mInflater = LayoutInflater.from(context);
-        mDatas = datats;
+        this.mList = mList;
         this.context = context;
-    }
-
-    public static class ViewHolder extends RecyclerView.ViewHolder {
-        public ViewHolder(View arg0) {
-            super(arg0);
-        }
-
-        ImageView mImg;
-        TextView mTxt;
     }
 
     @Override
     public int getItemCount() {
-        return mDatas.size();
+        return mList == null ? 0 : mList.size();
     }
 
     @Override
-    public ViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
-        View view = mInflater.inflate(R.layout.galler_item,
-                viewGroup, false);
-        ViewHolder viewHolder = new ViewHolder(view);
-
-        viewHolder.mImg = (ImageView) view.findViewById(R.id.id_index_gallery_item_image);
-        viewHolder.mTxt = view.findViewById(R.id.id_index_gallery_item_text);
+    public GalleryViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
+        View view = mInflater.inflate(R.layout.galler_item, viewGroup, false);
+        GalleryViewHolder viewHolder = new GalleryViewHolder(view);
         return viewHolder;
     }
 
     @Override
-    public void onBindViewHolder(final ViewHolder viewHolder, final int i) {
-        Glide.with(context).load(mDatas.get(i).getPic()).into(viewHolder.mImg);
-        viewHolder.mTxt.setText(mDatas.get(i).getName());
-        //如果设置了回调，则设置点击事件
-        if (mOnItemClickLitener != null) {
-            viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    mOnItemClickLitener.onItemClick(viewHolder.itemView, i);
-                }
-            });
-
-
-        }
-
+    public void onBindViewHolder(final GalleryViewHolder viewHolder, final int position) {
+        VipOrYxEntity.DataBean.CustListBean custListBean = mList.get(position);
+        GlideUtils.imageLoader(context,custListBean.getPic(),viewHolder.mImg);
+        viewHolder.mTxt.setText(custListBean.getName());
     }
 
+    public static class GalleryViewHolder extends RecyclerView.ViewHolder {
+        RoundedImageView mImg;
+        TextView mTxt;
+
+        public GalleryViewHolder(View itemView) {
+            super(itemView);
+            mImg = itemView.findViewById(R.id.id_index_gallery_item_image);
+            mTxt = itemView.findViewById(R.id.id_index_gallery_item_text);
+        }
+    }
 }

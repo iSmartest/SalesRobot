@@ -49,21 +49,18 @@ public class CarBrandActivity extends BaseActivity {
     protected void loadData() {
         Map<String,String> params = new HashMap<>();
         params.put("brandId",brandId);
-        MyOkhttp.Okhttp(context, Url.CARLIST, "加载中...", params, new MyOkhttp.CallBack() {
-            @Override
-            public void onRequestComplete(String response, String result, String resultNote) {
-                Gson gson = new Gson();
-                CarBrandBean carBrandBean = gson.fromJson(response,CarBrandBean.class);
-                if (result.equals("1")){
-                    ToastUtils.makeText(context,resultNote);
-                    return;
-                }
+        MyOkhttp.Okhttp(context, Url.CARLIST, "加载中...", params, (response, result, resultNote) -> {
+            Gson gson = new Gson();
+            CarBrandBean carBrandBean = gson.fromJson(response,CarBrandBean.class);
+            if (result.equals("1")){
+                ToastUtils.makeText(context,resultNote);
+                return;
+            }
 
-                List<CarBrandBean.DataBean.CarList> carLists = carBrandBean.getData().getCarList();
-                if (carLists != null && !carLists.isEmpty() && carLists.size() > 0){
-                    mList.addAll(carLists);
-                    mAdapter.notifyDataSetChanged();
-                }
+            List<CarBrandBean.DataBean.CarList> carLists = carBrandBean.getData().getCarList();
+            if (carLists != null && !carLists.isEmpty() && carLists.size() > 0){
+                mList.addAll(carLists);
+                mAdapter.notifyDataSetChanged();
             }
         });
     }

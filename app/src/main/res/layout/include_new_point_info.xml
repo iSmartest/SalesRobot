@@ -22,7 +22,8 @@
             android:textColor="@color/vipTextColor"
             android:layout_marginBottom="8dp"
             android:layout_marginTop="4dp"
-            android:paddingLeft="18dp"/>
+            android:paddingLeft="18dp"
+            android:paddingStart="18dp" />
     </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
@@ -43,7 +44,8 @@
             android:textColor="@color/vipTextColor"
             android:layout_marginBottom="8dp"
             android:layout_marginTop="4dp"
-            android:paddingLeft="18dp"/>
+            android:paddingLeft="18dp"
+            android:paddingStart="18dp" />
     </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
@@ -64,7 +66,8 @@
             android:textColor="@color/vipTextColor"
             android:layout_marginBottom="8dp"
             android:layout_marginTop="4dp"
-            android:paddingLeft="18dp"/>
+            android:paddingLeft="18dp"
+            android:paddingStart="18dp" />
     </LinearLayout>
 
 </LinearLayout>

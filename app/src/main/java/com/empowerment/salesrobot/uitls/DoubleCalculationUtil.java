@@ -7,6 +7,7 @@ import java.math.BigDecimal;
  * Created by Slingge on 2017/7/18 0018.
  */
 
+@SuppressWarnings("JavaDoc")
 public class DoubleCalculationUtil {
 
     /**

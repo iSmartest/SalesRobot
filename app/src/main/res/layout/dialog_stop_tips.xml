@@ -9,16 +9,13 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:layout_marginLeft="32dp"
-        android:layout_marginRight="32dp"
-        android:layout_marginBottom="32dp"
-        android:layout_marginTop="32dp">
+       android:layout_margin="32dp">
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="小宝"
             android:textColor="@color/black"
-            android:textSize="14sp"
+            android:textSize="16sp"
             android:gravity="center"/>
         <TextView
             android:id="@+id/log_out_tips_tv"
@@ -47,7 +44,8 @@
             android:layout_marginRight="16dp"
             android:background="@null"
             android:gravity="center"
-            android:text="取消" />
+            android:text="取消"
+            android:layout_marginEnd="16dp" />
         <View
             android:layout_width="1dp"
             android:layout_height="match_parent"

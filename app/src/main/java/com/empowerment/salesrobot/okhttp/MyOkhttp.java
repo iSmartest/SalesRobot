@@ -35,6 +35,7 @@ public class MyOkhttp {
     public static void Okhttp(final Context context, String url, final String mContent,Map<String, String> params, final CallBack callBack) {
         Dialog dialog = ProgressDialog.createLoadingDialog(context,mContent);
         dialog.show();
+        Log.i("TAG", "Okhttp: " + params);
         OkHttpUtils.post().params(params).url(url).build().execute(new StringCallback() {
                     @Override
                     public void onError(Call call, Exception e, int id) {

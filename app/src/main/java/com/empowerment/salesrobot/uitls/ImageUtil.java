@@ -31,6 +31,7 @@ import java.io.OutputStream;
  * My mailbox is 1403241630@qq.com
  */
 
+@SuppressWarnings("ConstantConditions")
 public class ImageUtil {
     /**
      * Save image to the SD card
@@ -290,27 +291,31 @@ public class ImageUtil {
         }
 
         String scheme = uri.getScheme();
-        if (ContentResolver.SCHEME_CONTENT.equals(scheme) ||
-                ContentResolver.SCHEME_FILE.equals(scheme)) {
-            InputStream stream = null;
-            try {
-                stream = context.getContentResolver().openInputStream(uri);
-                BitmapFactory.decodeStream(stream, null, options);
-            } catch (Exception e) {
-                Log.w("resolveUri", "Unable to open content: " + uri, e);
-            } finally {
-                if (stream != null) {
-                    try {
-                        stream.close();
-                    } catch (IOException e) {
-                        Log.w("resolveUri", "Unable to close content: " + uri, e);
+        switch (scheme) {
+            case ContentResolver.SCHEME_CONTENT:
+            case ContentResolver.SCHEME_FILE:
+                InputStream stream = null;
+                try {
+                    stream = context.getContentResolver().openInputStream(uri);
+                    BitmapFactory.decodeStream(stream, null, options);
+                } catch (Exception e) {
+                    Log.w("resolveUri", "Unable to open content: " + uri, e);
+                } finally {
+                    if (stream != null) {
+                        try {
+                            stream.close();
+                        } catch (IOException e) {
+                            Log.w("resolveUri", "Unable to close content: " + uri, e);
+                        }
                     }
                 }
-            }
-        } else if (ContentResolver.SCHEME_ANDROID_RESOURCE.equals(scheme)) {
-            Log.w("resolveUri", "Unable to close content: " + uri);
-        } else {
-            Log.w("resolveUri", "Unable to close content: " + uri);
+                break;
+            case ContentResolver.SCHEME_ANDROID_RESOURCE:
+                Log.w("resolveUri", "Unable to close content: " + uri);
+                break;
+            default:
+                Log.w("resolveUri", "Unable to close content: " + uri);
+                break;
         }
     }
 
@@ -321,27 +326,31 @@ public class ImageUtil {
 
         Bitmap bitmap = null;
         String scheme = uri.getScheme();
-        if (ContentResolver.SCHEME_CONTENT.equals(scheme) ||
-                ContentResolver.SCHEME_FILE.equals(scheme)) {
-            InputStream stream = null;
-            try {
-                stream = context.getContentResolver().openInputStream(uri);
-                bitmap = BitmapFactory.decodeStream(stream, null, options);
-            } catch (Exception e) {
-                Log.w("resolveUriForBitmap", "Unable to open content: " + uri, e);
-            } finally {
-                if (stream != null) {
-                    try {
-                        stream.close();
-                    } catch (IOException e) {
-                        Log.w("resolveUriForBitmap", "Unable to close content: " + uri, e);
+        switch (scheme) {
+            case ContentResolver.SCHEME_CONTENT:
+            case ContentResolver.SCHEME_FILE:
+                InputStream stream = null;
+                try {
+                    stream = context.getContentResolver().openInputStream(uri);
+                    bitmap = BitmapFactory.decodeStream(stream, null, options);
+                } catch (Exception e) {
+                    Log.w("resolveUriForBitmap", "Unable to open content: " + uri, e);
+                } finally {
+                    if (stream != null) {
+                        try {
+                            stream.close();
+                        } catch (IOException e) {
+                            Log.w("resolveUriForBitmap", "Unable to close content: " + uri, e);
+                        }
                     }
                 }
-            }
-        } else if (ContentResolver.SCHEME_ANDROID_RESOURCE.equals(scheme)) {
-            Log.w("resolveUriForBitmap", "Unable to close content: " + uri);
-        } else {
-            Log.w("resolveUriForBitmap", "Unable to close content: " + uri);
+                break;
+            case ContentResolver.SCHEME_ANDROID_RESOURCE:
+                Log.w("resolveUriForBitmap", "Unable to close content: " + uri);
+                break;
+            default:
+                Log.w("resolveUriForBitmap", "Unable to close content: " + uri);
+                break;
         }
 
         return bitmap;

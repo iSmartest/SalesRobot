@@ -28,15 +28,16 @@
             android:gravity="center_vertical"/>
         <TextView
             android:id="@+id/tv_today_customer"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:text="12"
-            android:gravity="center|right"
+            android:gravity="center|end"
             android:drawablePadding="6dp"
             android:textColor="@color/vipTextColor"
             android:textSize="18sp"
-            android:drawableRight="@drawable/right_in"/>
+            android:drawableRight="@drawable/right_in"
+            android:drawableEnd="@drawable/right_in"/>
     </LinearLayout>
 
     <include layout="@layout/v_horizontal_line"/>
@@ -60,15 +61,16 @@
             android:gravity="center_vertical"/>
         <TextView
             android:id="@+id/tv_per_customer"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:text="12"
-            android:gravity="center|right"
+            android:gravity="center|end"
             android:drawablePadding="6dp"
             android:textColor="@color/vipTextColor"
             android:textSize="18sp"
-            android:drawableRight="@drawable/right_in"/>
+            android:drawableRight="@drawable/right_in"
+            android:drawableEnd="@drawable/right_in"/>
     </LinearLayout>
 
     <include layout="@layout/v_horizontal_line"/>
@@ -94,15 +96,16 @@
             android:gravity="center_vertical"/>
         <TextView
             android:id="@+id/tv_past_customer"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:text="12"
-            android:gravity="center|right"
+            android:gravity="center|end"
             android:drawablePadding="6dp"
             android:textColor="@color/vipTextColor"
             android:textSize="18sp"
-            android:drawableRight="@drawable/right_in"/>
+            android:drawableRight="@drawable/right_in"
+            android:drawableEnd="@drawable/right_in"/>
     </LinearLayout>
 
     <include layout="@layout/v_horizontal_line"/>
@@ -126,15 +129,16 @@
             android:gravity="center_vertical"/>
         <TextView
             android:id="@+id/tv_vip_customer"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:text="12"
-            android:gravity="center|right"
+            android:gravity="center|end"
             android:drawablePadding="6dp"
             android:textColor="@color/vipTextColor"
             android:textSize="18sp"
-            android:drawableRight="@drawable/right_in"/>
+            android:drawableRight="@drawable/right_in"
+            android:drawableEnd="@drawable/right_in"/>
     </LinearLayout>
 
     <include layout="@layout/v_horizontal_line"/>

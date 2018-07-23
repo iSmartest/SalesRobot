@@ -15,6 +15,7 @@ import java.io.PrintStream;
  * Create time on  2017/5/15
  * My mailbox is 1403241630@qq.com
  */
+@SuppressWarnings("ALL")
 public class CrashHandler implements Thread.UncaughtExceptionHandler {
 
     private Thread.UncaughtExceptionHandler mDefaultHandler;

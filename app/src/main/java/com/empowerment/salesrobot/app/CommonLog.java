@@ -57,9 +57,7 @@ public class CommonLog {
 
         StackTraceElement[] newElements = new StackTraceElement[sts.length
                 - flag];
-        for (int i = flag; i < sts.length; i++) {
-            newElements[i - flag] = sts[i];
-        }
+        System.arraycopy(sts, flag, newElements, flag - flag, sts.length - flag);
 
         return newElements;
     }

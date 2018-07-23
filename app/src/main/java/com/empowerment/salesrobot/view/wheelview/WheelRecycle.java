@@ -1,11 +1,5 @@
 package com.empowerment.salesrobot.view.wheelview;
 
-/**
- * Created by 小火
- * Create time on  2017/5/27
- * My mailbox is 1403241630@qq.com
- */
-
 import android.view.View;
 import android.widget.LinearLayout;
 
@@ -96,7 +90,7 @@ public class WheelRecycle {
      */
     private List<View> addView(View view, List<View> cache) {
         if (cache == null) {
-            cache = new LinkedList<View>();
+            cache = new LinkedList<>();
         }
 
         cache.add(view);

@@ -8,6 +8,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
+@SuppressWarnings("ALL")
 public class TimeUtils {
 
     /**
@@ -35,7 +36,7 @@ public class TimeUtils {
 
         if (day > 14) {
             result = data;
-        } else if (day <= 14 && day > 0) {
+        } else if (day > 0) {
             result = String.valueOf(day) + "天前";
         } else if (hour > 0) {
             result = String.valueOf(hour) + "小时前";
@@ -58,7 +59,7 @@ public class TimeUtils {
         String dateStr = "";
         if (isBlank(releaseDate) || releaseDate.length() < 19)
             return "";
-        if (releaseDate.indexOf("+") == -1) {
+        if (!releaseDate.contains("+")) {
             dateStr = releaseDate;
         } else {
             dateStr = releaseDate.substring(0, releaseDate.indexOf("+"));
@@ -87,7 +88,7 @@ public class TimeUtils {
 
         if (day > 14) {
             result = releaseDate.substring(0, releaseDate.indexOf("T"));
-        } else if (day <= 14 && day > 0) {
+        } else if (day > 0) {
             result = String.valueOf(day) + "天前";
         } else if (hour > 0) {
             result = String.valueOf(hour) + "小时前";
@@ -122,7 +123,7 @@ public class TimeUtils {
             return 0;
         }
         String msStr = null;
-        if (ms.indexOf("/Date(") < 0 || ms.indexOf(")/") < 0) {
+        if (!ms.contains("/Date(") || !ms.contains(")/")) {
             msStr = ms;
         } else {
             msStr = ms.replace("/Date(", "").replace(")/", "");
@@ -205,7 +206,7 @@ public class TimeUtils {
 
     public static  String transferLongToDate(long millSec){
         long time = millSec*1000L;
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm",Locale.CHINA);
         Date date = new Date(time);
         return simpleDateFormat.format(date);
 

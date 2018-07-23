@@ -60,22 +60,16 @@ public class MyUnderstandAdapter extends RecyclerView.Adapter<MyUnderstandAdapte
         final MyUnderstandBean.DataBean.ExperienceListBean experienceListBean = mList.get(position);
         holder.tv_text.setText(experienceListBean.getContent());
         holder.tv_time.setText(TimeUtils.transferLongToDate(experienceListBean.getTime()));
-        holder.id_item_btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                SwipeLayoutManager.getInstance().closeOpenInstance();
-                modifyCountInterface.childDelete(position,experienceListBean.getId());
-            }
+        holder.id_item_btn.setOnClickListener(v -> {
+            SwipeLayoutManager.getInstance().closeOpenInstance();
+            modifyCountInterface.childDelete(holder.getAdapterPosition(),experienceListBean.getId());
         });
-        holder.swipeLayout.setOnSwipeLayoutClickListener(new SwipeLayout.OnSwipeLayoutClickListener() {
-            @Override
-            public void onClick() {
-                Bundle bundle = new Bundle();
-                bundle.putString("mName",mList.get(position).getName());
-                bundle.putString("mContent",mList.get(position).getContent());
-                bundle.putString("mTime",String.valueOf(TimeUtils.transferLongToDate(mList.get(position).getTime())));
-                MyApplication.openActivity(context,UnderstandInfoActivity.class,bundle);
-            }
+        holder.swipeLayout.setOnSwipeLayoutClickListener(() -> {
+            Bundle bundle = new Bundle();
+            bundle.putString("mName",mList.get(position).getName());
+            bundle.putString("mContent",mList.get(position).getContent());
+            bundle.putString("mTime",String.valueOf(TimeUtils.transferLongToDate(mList.get(position).getTime())));
+            MyApplication.openActivity(context,UnderstandInfoActivity.class,bundle);
         });
     }
 

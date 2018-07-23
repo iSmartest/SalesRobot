@@ -17,6 +17,7 @@ import java.util.regex.Pattern;
  * My mailbox is 1403241630@qq.com
  */
 
+@SuppressWarnings("ALL")
 public class StringUtils {
     /**
      * 判断字符串是否有内容
@@ -32,25 +33,7 @@ public class StringUtils {
         if (TextUtils.isEmpty(telPhone) || telPhone.length() != 11)
             return false;
         BaseConfig config = null;
-        if (config == null || TextUtils.isEmpty(config.getContent()))
-            return telPhone.matches("^[1][3-8]\\d{9}");
-        else {
-            String[] telPrefix = config.getContent().split(",");
-            int index = -1;
-            if (telPrefix != null) {
-                for (int i = 0; i < telPrefix.length; i++) {
-                    if (telPhone.substring(0, 3).equals(telPrefix[i])) {
-                        index = i;
-                        break;
-                    }
-                }
-            }
-            if (index == -1)
-                return false;
-            else {
-                return telPhone.matches("\\d{11}");
-            }
-        }
+        return telPhone.matches("^[1][3-8]\\d{9}");
     }
 
     /**

@@ -141,32 +141,29 @@ public class MineFragment extends BaseFragment {
         params.put(SALE_ID, SPUtil.getString(context,SALE_ID));
         params.put("rows", "10");
         params.put(PAGE,String.valueOf(nowPage));
-        MyOkhttp.Okhttp(context, Url.EXPERIENCELIST, "加载中...", params, new MyOkhttp.CallBack() {
-            @Override
-            public void onRequestComplete(String response, String result, String resultNote) {
-                Gson gson = new Gson();
+        MyOkhttp.Okhttp(context, Url.EXPERIENCELIST, "加载中...", params, (response, result, resultNote) -> {
+            Gson gson = new Gson();
 
-                MineBean mineBean = gson.fromJson(response,MineBean.class);
-                if (result.equals("1")){
-                    ToastUtils.makeText(context,resultNote);
-                    return;
-                }
-                List<MineBean.DataBean.ContentListBean> experienceLists = mineBean.getData().getContentList();
-                if (experienceLists != null && !experienceLists.isEmpty() && experienceLists.size() > 0){
-                    mList.addAll(experienceLists);
-                    mAdapter.notifyDataSetChanged();
-                    xRecyclerView.refreshComplete();
-                }
-                SPUtil.putString(context,IMAGE,mineBean.getData().getSale().getImage());
-                SPUtil.putString(context,AGE,mineBean.getData().getSale().getAge()+"");
-                SPUtil.putString(context,NAME,mineBean.getData().getSale().getName());
-                SPUtil.putString(context,WORK,mineBean.getData().getSale().getWork());
-                SPUtil.putString(context,PHONE_NUMBER,mineBean.getData().getSale().getPhone());
-                GlideUtils.imageLoader(context,mineBean.getData().getSale().getImage(),myIconImgview);
-                mName.setText(mineBean.getData().getSale().getName());
-                myDoubelNo.setText(mineBean.getData().getSale().getSaleIndex());
-                myDoubelNos.setText(mineBean.getData().getSale().getSuccessIndex());
+            MineBean mineBean = gson.fromJson(response,MineBean.class);
+            if (result.equals("1")){
+                ToastUtils.makeText(context,resultNote);
+                return;
             }
+            List<MineBean.DataBean.ContentListBean> experienceLists = mineBean.getData().getContentList();
+            if (experienceLists != null && !experienceLists.isEmpty() && experienceLists.size() > 0){
+                mList.addAll(experienceLists);
+                mAdapter.notifyDataSetChanged();
+                xRecyclerView.refreshComplete();
+            }
+            SPUtil.putString(context,IMAGE,mineBean.getData().getSale().getImage());
+            SPUtil.putString(context,AGE,mineBean.getData().getSale().getAge()+"");
+            SPUtil.putString(context,NAME,mineBean.getData().getSale().getName());
+            SPUtil.putString(context,WORK,mineBean.getData().getSale().getWork());
+            SPUtil.putString(context,PHONE_NUMBER,mineBean.getData().getSale().getPhone());
+            GlideUtils.imageLoader(context,mineBean.getData().getSale().getImage(),myIconImgview);
+            mName.setText(mineBean.getData().getSale().getName());
+            myDoubelNo.setText(mineBean.getData().getSale().getSaleIndex());
+            myDoubelNos.setText(mineBean.getData().getSale().getSuccessIndex());
         });
     }
 

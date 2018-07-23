@@ -61,20 +61,17 @@ public class FieldRecordInfoActivity extends BaseActivity {
         params.put("storeId", SPUtil.getString(context,STORE_ID));
         params.put("cId",id);
         params.put("page",String.valueOf(nowPage));
-        MyOkhttp.Okhttp(context, Url.RECORD_DETAIL, "加载中...", params, new MyOkhttp.CallBack() {
-            @Override
-            public void onRequestComplete(String response, String result, String resultNote) {
-                Gson gson = new Gson();
-                FieldRecordInfoBean fieldRecordInfoBean = gson.fromJson(response,FieldRecordInfoBean.class);
-                if (result.equals("1")){
-                    ToastUtils.makeText(context,resultNote);
-                    return;
-                }
-                List<FieldRecordInfoBean.DataBean.ConList> conLists = fieldRecordInfoBean.getData().getConList();
-                if (conLists != null && !conLists.isEmpty() && conLists.size() > 0){
-                    mList.addAll(conLists);
-                    mAdapter.notifyDataSetChanged();
-                }
+        MyOkhttp.Okhttp(context, Url.RECORD_DETAIL, "加载中...", params, (response, result, resultNote) -> {
+            Gson gson = new Gson();
+            FieldRecordInfoBean fieldRecordInfoBean = gson.fromJson(response,FieldRecordInfoBean.class);
+            if (result.equals("1")){
+                ToastUtils.makeText(context,resultNote);
+                return;
+            }
+            List<FieldRecordInfoBean.DataBean.ConList> conLists = fieldRecordInfoBean.getData().getConList();
+            if (conLists != null && !conLists.isEmpty() && conLists.size() > 0){
+                mList.addAll(conLists);
+                mAdapter.notifyDataSetChanged();
             }
         });
     }

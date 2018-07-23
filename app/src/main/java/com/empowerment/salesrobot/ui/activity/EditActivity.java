@@ -86,11 +86,12 @@ public class EditActivity extends BaseActivity {
         return R.layout.activity_edit;
     }
 
+    @SuppressWarnings("RedundantStringToString")
     @Override
     protected void loadData() {
         switch (getIntent().getStringExtra("title")) {
             case "今日客户":
-                String info = getIntent().getExtras().getString("info").toString();
+                String info = getIntent().getExtras().getString("info");
                 listBean = new Gson().fromJson(info, InfromationEntity.DataBean.CustomerListBean.class);
                 editName.setText(listBean.getName());
                 editNames.setText(listBean.getName() + "");
@@ -233,17 +234,14 @@ public class EditActivity extends BaseActivity {
                         map.put(M_WORK, editWork.getText().toString());
                         map.put(M_ADDRESS, editAddses.getText().toString());
                         map.put(M_CONTENT, editContent.getText().toString());
-                        MyOkhttp.Okhttp(context, Url.EDIT_CUSTOMER, "保存中...", map, new MyOkhttp.CallBack() {
-                            @Override
-                            public void onRequestComplete(String response, String result, String resultNote) {
-                                switch (result) {
-                                    case "0":
-                                        ToastUtils.makeText(context, resultNote);
-                                        break;
-                                    case "1":
-                                        ToastUtils.makeText(context, resultNote);
-                                        break;
-                                }
+                        MyOkhttp.Okhttp(context, Url.EDIT_CUSTOMER, "保存中...", map, (response, result, resultNote) -> {
+                            switch (result) {
+                                case "0":
+                                    ToastUtils.makeText(context, resultNote);
+                                    break;
+                                case "1":
+                                    ToastUtils.makeText(context, resultNote);
+                                    break;
                             }
                         });
                         titleOK.setText("编辑");

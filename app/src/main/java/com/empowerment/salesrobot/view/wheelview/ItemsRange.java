@@ -1,9 +1,9 @@
 package com.empowerment.salesrobot.view.wheelview;
 
-/**
- * Created by 小火
- * Create time on  2017/5/27
- * My mailbox is 1403241630@qq.com
+/*
+  Created by 小火
+  Create time on  2017/5/27
+  My mailbox is 1403241630@qq.com
  */
 
 /**

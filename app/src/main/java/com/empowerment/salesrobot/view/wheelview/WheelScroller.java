@@ -1,11 +1,10 @@
 package com.empowerment.salesrobot.view.wheelview;
 
-/**
- * Created by 小火
- * Create time on  2017/5/27
- * My mailbox is 1403241630@qq.com
+/*
+
  */
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.Handler;
 import android.os.Message;
@@ -15,6 +14,9 @@ import android.view.animation.Interpolator;
 import android.widget.Scroller;
 
 /**
+ * Created by 小火
+ * Create time on  2017/5/27
+ * My mailbox is 1403241630@qq.com
  * Scroller class handles scrolling events and updates the
  */
 public class WheelScroller {
@@ -182,6 +184,7 @@ public class WheelScroller {
     }
 
     // animation handler
+    @SuppressLint("HandlerLeak")
     private Handler animationHandler = new Handler() {
         public void handleMessage(Message msg) {
             scroller.computeScrollOffset();

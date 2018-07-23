@@ -68,29 +68,26 @@ public class ProductSalesActivity extends BaseActivity {
         Map<String,String> params = new HashMap<>();
         params.put(STORE_ID, SPUtil.getString(context,STORE_ID));
         params.put(SALE_ID,SPUtil.getString(context,SALE_ID));
-        MyOkhttp.Okhttp(context, Url.PRODUCTSALE, "加载中...", params, new MyOkhttp.CallBack() {
-            @Override
-            public void onRequestComplete(String response, String result, String resultNote) {
-                Gson gson = new Gson();
-                ProductSalesBean productSalesBean = gson.fromJson(response,ProductSalesBean.class);
-                if (result.equals("1")){
-                    ToastUtils.makeText(context,resultNote);
-                    return;
-                }
-                List<ProductSalesBean.DataBean.BList> brandLists = productSalesBean.getData().getBrandList();
-                if (brandLists != null && !brandLists.isEmpty() && brandLists.size() > 0){
-                    mList.addAll(brandLists);
-                    mAdapter.notifyDataSetChanged();
-                }
+        MyOkhttp.Okhttp(context, Url.PRODUCTSALE, "加载中...", params, (response, result, resultNote) -> {
+            Gson gson = new Gson();
+            ProductSalesBean productSalesBean = gson.fromJson(response,ProductSalesBean.class);
+            if (result.equals("1")){
+                ToastUtils.makeText(context,resultNote);
+                return;
+            }
+            List<ProductSalesBean.DataBean.BList> brandLists = productSalesBean.getData().getBrandList();
+            if (brandLists != null && !brandLists.isEmpty() && brandLists.size() > 0){
+                mList.addAll(brandLists);
+                mAdapter.notifyDataSetChanged();
+            }
 
-                String imag = productSalesBean.getData().getImage().getAddress();
-                name = productSalesBean.getData().getImage().getName();
-                link = productSalesBean.getData().getImage().getLink();
-                if (TextUtils.isEmpty(imag)) {
-                    mAudi.setImageResource(R.drawable.image_fail_empty);
-                } else {
-                    ImageManagerUtils.imageLoader.displayImage(imag,mAudi,ImageManagerUtils.options3);
-                }
+            String imag = productSalesBean.getData().getImage().getAddress();
+            name = productSalesBean.getData().getImage().getName();
+            link = productSalesBean.getData().getImage().getLink();
+            if (TextUtils.isEmpty(imag)) {
+                mAudi.setImageResource(R.drawable.image_fail_empty);
+            } else {
+                ImageManagerUtils.imageLoader.displayImage(imag,mAudi,ImageManagerUtils.options3);
             }
         });
     }

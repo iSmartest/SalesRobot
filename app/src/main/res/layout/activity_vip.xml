@@ -20,7 +20,8 @@
             android:layout_height="40dp"
             android:layout_centerVertical="true"
             android:layout_centerHorizontal="true"
-            android:src="@drawable/icon_name"/>
+            android:src="@drawable/icon_name"
+            android:contentDescription="@string/user_head_portrait"/>
 
         <TextView
             android:layout_width="wrap_content"

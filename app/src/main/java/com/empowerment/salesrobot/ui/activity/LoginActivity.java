@@ -42,6 +42,7 @@ import static com.empowerment.salesrobot.config.BaseUrl.WORK;
 /**
  * 登录页面
  */
+@SuppressWarnings("JavaDoc")
 public class LoginActivity extends BaseActivity {
 
 

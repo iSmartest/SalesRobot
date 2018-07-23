@@ -61,9 +61,9 @@ public class WheelView extends View {
     private WheelRecycle recycle = new WheelRecycle(this);
 
     // Listeners
-    private List<OnWheelChangedListener> changingListeners = new LinkedList<OnWheelChangedListener>();
-    private List<OnWheelScrollListener> scrollingListeners = new LinkedList<OnWheelScrollListener>();
-    private List<OnWheelClickedListener> clickingListeners = new LinkedList<OnWheelClickedListener>();
+    private List<OnWheelChangedListener> changingListeners = new LinkedList<>();
+    private List<OnWheelScrollListener> scrollingListeners = new LinkedList<>();
+    private List<OnWheelClickedListener> clickingListeners = new LinkedList<>();
 
     String label="";
 

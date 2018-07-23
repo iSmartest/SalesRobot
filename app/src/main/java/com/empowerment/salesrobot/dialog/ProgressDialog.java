@@ -19,6 +19,7 @@ import com.empowerment.salesrobot.R;
  * Create time on  2017/3/22
  * My mailbox is 1403241630@qq.com
  */
+@SuppressWarnings("JavaDoc")
 public class ProgressDialog {
 
     public static void dismissDialog(Dialog dialog) {

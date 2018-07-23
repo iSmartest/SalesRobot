@@ -61,21 +61,18 @@ public class MyUnderstandActivity extends BaseActivity implements MyUnderstandAd
         Map<String, String> params = new HashMap<>();
         params.put(SALE_ID, SPUtil.getString(context,SALE_ID));
         params.put(PAGE, PAGE_SIZI + "");
-        MyOkhttp.Okhttp(context, Url.SALES_MANS, "加载中...", params, new MyOkhttp.CallBack() {
-            @Override
-            public void onRequestComplete(String response, String result, String resultNote) {
-                Gson gson = new Gson();
-                MyUnderstandBean myUnderstandBean = gson.fromJson(response,MyUnderstandBean.class);
+        MyOkhttp.Okhttp(context, Url.SALES_MANS, "加载中...", params, (response, result, resultNote) -> {
+            Gson gson = new Gson();
+            MyUnderstandBean myUnderstandBean = gson.fromJson(response,MyUnderstandBean.class);
 
-                if (result.equals("1")){
-                    ToastUtils.makeText(context,resultNote);
-                    return;
-                }
-                List<MyUnderstandBean.DataBean.ExperienceListBean> experienceListBeans = myUnderstandBean.getData().getExperienceList();
-                if (experienceListBeans != null && !experienceListBeans.isEmpty() && experienceListBeans.size() > 0){
-                    mList.addAll(experienceListBeans);
-                    mAdapter.notifyDataSetChanged();
-                }
+            if (result.equals("1")){
+                ToastUtils.makeText(context,resultNote);
+                return;
+            }
+            List<MyUnderstandBean.DataBean.ExperienceListBean> experienceListBeans = myUnderstandBean.getData().getExperienceList();
+            if (experienceListBeans != null && !experienceListBeans.isEmpty() && experienceListBeans.size() > 0){
+                mList.addAll(experienceListBeans);
+                mAdapter.notifyDataSetChanged();
             }
         });
     }
@@ -130,17 +127,14 @@ public class MyUnderstandActivity extends BaseActivity implements MyUnderstandAd
         params.put("eid",itemId);
         params.put(SALE_ID,SPUtil.getString(context,SALE_ID));
         params.put(STORE_ID,SPUtil.getString(context,STORE_ID));
-        MyOkhttp.Okhttp(context, Url.DELET_SALE_MANS, "", params, new MyOkhttp.CallBack() {
-            @Override
-            public void onRequestComplete(String response, String result, String resultNote) {
-                if (result.equals("1")){
-                    ToastUtils.makeText(context,resultNote);
-                    return;
-                }
-                mList.remove(position);
+        MyOkhttp.Okhttp(context, Url.DELET_SALE_MANS, "", params, (response, result, resultNote) -> {
+            if (result.equals("1")){
                 ToastUtils.makeText(context,resultNote);
-                mAdapter.notifyDataSetChanged();
+                return;
             }
+            mList.remove(position);
+            ToastUtils.makeText(context,resultNote);
+            mAdapter.notifyDataSetChanged();
         });
     }
 }
