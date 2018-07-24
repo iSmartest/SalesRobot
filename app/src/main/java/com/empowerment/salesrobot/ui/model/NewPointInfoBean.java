@@ -14,6 +14,22 @@ public class NewPointInfoBean {
     private String msg;
     private int resultCode;
 
+    public String getMsg() {
+        return msg;
+    }
+
+    public void setMsg(String msg) {
+        this.msg = msg;
+    }
+
+    public int getResultCode() {
+        return resultCode;
+    }
+
+    public void setResultCode(int resultCode) {
+        this.resultCode = resultCode;
+    }
+
     public DataBean getData() {
         return data;
     }
@@ -24,7 +40,7 @@ public class NewPointInfoBean {
 
     public static class DataBean{
         private String policy;
-        private BuyPointDetail buyPointDetail;
+        private List<BuyPointDetail> buyPointDetail;
 
         public String getPolicy() {
             return policy;
@@ -34,76 +50,72 @@ public class NewPointInfoBean {
             this.policy = policy;
         }
 
-        public BuyPointDetail getBuyPointDetail() {
+        public List<BuyPointDetail> getBuyPointDetail() {
             return buyPointDetail;
         }
 
-        public void setBuyPointDetail(BuyPointDetail buyPointDetail) {
+        public void setBuyPointDetail(List<BuyPointDetail> buyPointDetail) {
             this.buyPointDetail = buyPointDetail;
         }
 
         public static class BuyPointDetail{
-            /**
-             * "detailDesc": "这款车的细节做的非常到位。",
-             "bodyDesc": "这是一款三厢的车，高端大气上档次，你值得拥有。",
-             "innerPic": "/upload/imgae/777.jpg",
-             "innerDesc": "这款车的内饰非常棒！！！！",
-             "detailPic": "/upload/detail/555.jpg",
-             "bodyPic": "/upload/image/888.jpg"
-             */
-            private String detailDesc;
-            private String bodyDesc;
-            private String innerPic;
-            private String innerDesc;
-            private String detailPic;
-            private String bodyPic;
 
-            public String getDetailDesc() {
-                return detailDesc;
+            private String sellPoint;
+            private List<SellPointdsc> sellPointdsc;
+            private String sellPointvid;
+            private int type;
+
+            public String getSellPoint() {
+                return sellPoint;
             }
 
-            public void setDetailDesc(String detailDesc) {
-                this.detailDesc = detailDesc;
+            public void setSellPoint(String sellPoint) {
+                this.sellPoint = sellPoint;
             }
 
-            public String getBodyDesc() {
-                return bodyDesc;
+            public List<SellPointdsc> getSellPointdsc() {
+                return sellPointdsc;
             }
 
-            public void setBodyDesc(String bodyDesc) {
-                this.bodyDesc = bodyDesc;
+            public void setSellPointdsc(List<SellPointdsc> sellPointdsc) {
+                this.sellPointdsc = sellPointdsc;
             }
 
-            public String getInnerPic() {
-                return innerPic;
+            public String getSellPointvid() {
+                return sellPointvid;
             }
 
-            public void setInnerPic(String innerPic) {
-                this.innerPic = innerPic;
+            public void setSellPointvid(String sellPointvid) {
+                this.sellPointvid = sellPointvid;
             }
 
-            public String getInnerDesc() {
-                return innerDesc;
+            public int getType() {
+                return type;
             }
 
-            public void setInnerDesc(String innerDesc) {
-                this.innerDesc = innerDesc;
+            public void setType(int type) {
+                this.type = type;
             }
 
-            public String getDetailPic() {
-                return detailPic;
-            }
+            public static class SellPointdsc{
+                private String img;
+                private String dsc;
 
-            public void setDetailPic(String detailPic) {
-                this.detailPic = detailPic;
-            }
+                public String getImg() {
+                    return img;
+                }
 
-            public String getBodyPic() {
-                return bodyPic;
-            }
+                public void setImg(String img) {
+                    this.img = img;
+                }
 
-            public void setBodyPic(String bodyPic) {
-                this.bodyPic = bodyPic;
+                public String getDsc() {
+                    return dsc;
+                }
+
+                public void setDsc(String dsc) {
+                    this.dsc = dsc;
+                }
             }
         }
     }

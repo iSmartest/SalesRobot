@@ -116,5 +116,4 @@ public abstract class BaseActivity extends FragmentActivity{
         return lastFragment;
 
     }
-
 }

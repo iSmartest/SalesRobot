@@ -5,6 +5,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Build;
+import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.annotation.RequiresApi;
@@ -13,6 +14,7 @@ import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -20,10 +22,13 @@ import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.empowerment.salesrobot.R;
+import com.empowerment.salesrobot.app.MyApplication;
 import com.empowerment.salesrobot.config.Url;
 import com.empowerment.salesrobot.dialog.ImageAndTextDialog;
 import com.empowerment.salesrobot.dialog.StopTipsDialog;
+import com.empowerment.salesrobot.listener.ReplacePicListener;
 import com.empowerment.salesrobot.listener.SoftKeyBoardListener;
 import com.empowerment.salesrobot.okhttp.MyOkhttp;
 import com.empowerment.salesrobot.okhttp.OkHttpUtils;
@@ -32,12 +37,14 @@ import com.empowerment.salesrobot.ui.adapter.RoBotIMAdapter;
 import com.empowerment.salesrobot.ui.model.ImageBean;
 import com.empowerment.salesrobot.ui.model.RobotResultBean;
 import com.empowerment.salesrobot.ui.model.TrainRecordBean;
+import com.empowerment.salesrobot.uitls.GlideUtils;
 import com.empowerment.salesrobot.uitls.SPUtil;
 import com.empowerment.salesrobot.uitls.ToastUtils;
 import com.empowerment.salesrobot.uitls.UriUtils;
 import com.google.gson.Gson;
 
 import java.io.File;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -61,7 +68,7 @@ import static com.empowerment.salesrobot.config.BaseUrl.STORE_ID;
  * Created by 2018/7/4.
  * Description:
  */
-public class RoBotIMActivity extends BaseActivity {
+public class RoBotIMActivity extends BaseActivity implements ReplacePicListener {
     @BindView(R.id.title_Back)
     ImageView titleBack;
     @BindView(R.id.title)
@@ -88,12 +95,13 @@ public class RoBotIMActivity extends BaseActivity {
     private List<ImageBean> mBinnerList;
     private ImageAndTextDialog imageAndTextDialog;
     private List<TrainRecordBean.ContentRecord> mList = new ArrayList<>();
-    List<RobotResultBean.DataBean.Answers.Pics> picLists;
+    private List<RobotResultBean.DataBean.Answers.Pics> picLists;
     private RoBotIMAdapter mAdapter;
     public final static int CHECK_VIDEO_REQUEST = 24;
     private String path;
     private File tempFile;
     private String url;//视频播放地址
+    private int itemPosition;
     @Override
     protected int getLauoutId() {
         return R.layout.activity_robot_im;
@@ -111,7 +119,6 @@ public class RoBotIMActivity extends BaseActivity {
         SoftKeyBoardListener.setListener(RoBotIMActivity.this, new SoftKeyBoardListener.OnSoftKeyBoardChangeListener() {
             @Override
             public void keyBoardShow(int rootHight, int keyBroadheight) {
-                Log.i("TAG", "键盘显示 跟布局" + rootHight + "，高度" + keyBroadheight + "，ll高度" + linearLayout.getMeasuredHeight());
                 ViewGroup.LayoutParams params = relativeLayout.getLayoutParams();
                 params.height = rootHight - keyBroadheight - linearLayout.getMeasuredHeight() + 35;
                 relativeLayout.setLayoutParams(params);
@@ -120,7 +127,6 @@ public class RoBotIMActivity extends BaseActivity {
             @Override
 
             public void keyBoardHide(int rootHight, int keyBroadheight) {
-                Log.i("TAG", "键盘隐藏 跟布局" + rootHight + "，高度" + keyBroadheight + "，ll高度" + linearLayout.getMeasuredHeight());
                 ViewGroup.LayoutParams params = relativeLayout.getLayoutParams();
                 params.height = rootHight + keyBroadheight - linearLayout.getMeasuredHeight() + 35;
                 relativeLayout.setLayoutParams(params);
@@ -149,11 +155,69 @@ public class RoBotIMActivity extends BaseActivity {
                 }
             }
         });
+        SeePictureActivity.setReplacePicListener(this);
         mAdapter = new RoBotIMAdapter(context, mList);
         mChatList.setAdapter(mAdapter);
+        mChatList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                itemPosition = position;
+                if (mList.get(position).getLeftOrRight() == 0) {//机器人的回复
+                    switch (mList.get(position).getContentType()) {
+                        case 0: //图文
+                            if (mList.get(position).getPicLists() != null && !mList.get(position).getPicLists().isEmpty()) {
+                                Bundle bundle = new Bundle();
+                                bundle.putSerializable("mPicList", (Serializable) mList.get(position).getPicLists());
+                                bundle.putString("mVideoUrl", Url.HTTP + mList.get(position).getUrl());
+                                bundle.putString("mVideoPic", Url.HTTP + mList.get(position).getPic());
+                                bundle.putString("isPicOrVideo", "0");
+                                bundle.putString("isLiftOrRight", "1");
+                                bundle.putString("mQuestion", mList.get(position).getContent());
+                                bundle.putString("mQuestionId", mList.get(position).getQuestionId()+"");
+                                MyApplication.openActivity(context, SeePictureActivity.class, bundle);
+                            }
+                            break;
+                        case 1: //视频
+                            MyApplication.openActivity(context, PlayVideoActivity.class);
+                            break;
+                        case 3: //图文+视频
+                            if (mList.get(position).getPicLists() != null && !mList.get(position).getPicLists().isEmpty()) {
+                                Bundle bundle = new Bundle();
+                                bundle.putSerializable("mPicList", (Serializable) mList.get(position).getPicLists());
+                                bundle.putString("mVideoUrl", Url.HTTP + mList.get(position).getUrl());
+                                bundle.putString("mVideoPic", Url.HTTP + mList.get(position).getPic());
+                                bundle.putString("isPicOrVideo", "1");
+                                bundle.putString("isLiftOrRight", "1");
+                                bundle.putString("mQuestion", mList.get(position).getContent());
+                                bundle.putString("mQuestionId", mList.get(position).getQuestionId()+"");
+                                MyApplication.openActivity(context, SeePictureActivity.class, bundle);
+                            }
+                            break;
+                    }
+                } else {//我发出的消息
+                    switch (mList.get(position).getContentType()) {
+                        case 0: //图文
+                            Bundle bundle = new Bundle();
+                            bundle.putSerializable("mPicList", (Serializable) mList.get(position).getPicLists());
+                            bundle.putString("isPicOrVideo", "0");
+                            bundle.putString("isLiftOrRight", "0");
+                            bundle.putString("mQuestion", mList.get(position).getContent());
+                            bundle.putString("mQuestionId", mList.get(position).getQuestionId()+"");
+                            bundle.putInt("position", mList.get(position).getPosition());
+                            MyApplication.openActivity(context, SeePictureActivity.class, bundle);
+                            break;
+                        case 1: //视频
+                            Bundle bundle1 = new Bundle();
+                            bundle1.putString("uri", mList.get(position).getUri() + "");
+                            bundle1.putString("url", mList.get(position).getUrl());
+                            bundle1.putString("mQuestion", mList.get(position).getContent());
+                            MyApplication.openActivity(context, PlayVideoActivity.class, bundle1);
+                            break;
+                    }
+                }
+            }
+        });
     }
-
-
     @OnClick({R.id.title_Back,R.id.iv_keyboard, R.id.tv_album, R.id.tv_video, R.id.text_chat_reply})
     public void onViewClicked(View view) {
         switch (view.getId()) {
@@ -161,7 +225,7 @@ public class RoBotIMActivity extends BaseActivity {
                 finish();
                 break;
             case R.id.iv_keyboard:
-                ToastUtils.makeText(context,"你好666啊！");
+//                ToastUtils.makeText(context,"你好666啊！");
                 break;
             case R.id.tv_album:
                 mBinnerList = new ArrayList<>();
@@ -223,7 +287,6 @@ public class RoBotIMActivity extends BaseActivity {
                             public void sure() {
                                 finishTrain("1");
                             }
-
                             @Override
                             public void cancle() {
                                 finishTrain("0");
@@ -298,22 +361,29 @@ public class RoBotIMActivity extends BaseActivity {
                 dialog.dismiss();
                 RobotResultBean robotResultBean = gson.fromJson(response, RobotResultBean.class);
                 if (robotResultBean.getResultCode() == 1) {
+                    RobotResultBean.DataBean.Answers.Pics pics = new RobotResultBean.DataBean.Answers.Pics(mBinnerList.get(0).getImage(),content);
+                    picLists.add(pics);
+                    TrainRecordBean.ContentRecord comm = new TrainRecordBean.ContentRecord(1, 0, mBinnerList.get(0).getImage(), content,picLists,-1,-1);
+                    mList.add(comm);
                     TrainRecordBean.ContentRecord comm99 = new TrainRecordBean.ContentRecord(0, 2, robotResultBean.getMsg());
                     mList.add(comm99);
                     mAdapter.notifyDataSetChanged();
                 } else {
-                    RobotResultBean.DataBean.Answers.Pics pics = new RobotResultBean.DataBean.Answers.Pics(mBinnerList.get(0).getImage(),content);
-                    picLists.add(pics);
-                    TrainRecordBean.ContentRecord comm = new TrainRecordBean.ContentRecord(1, 0, mBinnerList.get(0).getImage(), content,picLists,robotResultBean.getData().getId(),robotResultBean.getData().getPosition());
-                    mList.add(comm);
-                    mAdapter.notifyDataSetChanged();
                     switch (robotResultBean.getData().getType()) {
                         case 6:// 您已上传过,请等待后台审核....
+                            RobotResultBean.DataBean.Answers.Pics pics = new RobotResultBean.DataBean.Answers.Pics(mBinnerList.get(0).getImage(),content);
+                            picLists.add(pics);
+                            TrainRecordBean.ContentRecord comm = new TrainRecordBean.ContentRecord(1, 0, mBinnerList.get(0).getImage(), content,picLists,-1,-1);
+                            mList.add(comm);
                             TrainRecordBean.ContentRecord comm6 = new TrainRecordBean.ContentRecord(0, 2, robotResultBean.getMsg());
                             mList.add(comm6);
                             mAdapter.notifyDataSetChanged();
                             break;
                         case 7://亲,您还要上传更多吗？
+                            RobotResultBean.DataBean.Answers.Pics pics70 = new RobotResultBean.DataBean.Answers.Pics(mBinnerList.get(0).getImage(),content);
+                            picLists.add(pics70);
+                            TrainRecordBean.ContentRecord comm70 = new TrainRecordBean.ContentRecord(1, 0, mBinnerList.get(0).getImage(), content,picLists,robotResultBean.getData().getId(),robotResultBean.getData().getPosition());
+                            mList.add(comm70);
                             TrainRecordBean.ContentRecord comm7 = new TrainRecordBean.ContentRecord(0, 2, robotResultBean.getMsg());
                             mList.add(comm7);
                             mAdapter.notifyDataSetChanged();
@@ -331,6 +401,10 @@ public class RoBotIMActivity extends BaseActivity {
                             dialog.show();
                             break;
                         case 99://
+                            RobotResultBean.DataBean.Answers.Pics pics990 = new RobotResultBean.DataBean.Answers.Pics(mBinnerList.get(0).getImage(),content);
+                            picLists.add(pics990);
+                            TrainRecordBean.ContentRecord comm990 = new TrainRecordBean.ContentRecord(1, 0, mBinnerList.get(0).getImage(), content,picLists,-1,-1);
+                            mList.add(comm990);
                             TrainRecordBean.ContentRecord comm99 = new TrainRecordBean.ContentRecord(0, 2, robotResultBean.getMsg());
                             mList.add(comm99);
                             mAdapter.notifyDataSetChanged();
@@ -340,7 +414,6 @@ public class RoBotIMActivity extends BaseActivity {
             }
         });
     }
-
 
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     @Override
@@ -480,4 +553,14 @@ public class RoBotIMActivity extends BaseActivity {
             }
         }
     };
+
+    @Override
+    public void onReplacePic(String content, String picUrl) {
+        List<RobotResultBean.DataBean.Answers.Pics> pics = new ArrayList<>();
+        RobotResultBean.DataBean.Answers.Pics pics70 = new RobotResultBean.DataBean.Answers.Pics(picUrl,content);
+        pics.add(pics70);
+        mList.get(itemPosition).setPic(picUrl);
+        mList.get(itemPosition).setPicLists(pics);
+        mAdapter.notifyDataSetChanged();
+    }
 }

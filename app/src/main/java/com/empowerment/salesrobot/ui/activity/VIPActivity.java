@@ -23,8 +23,10 @@ import com.empowerment.salesrobot.uitls.GlideUtils;
 import com.empowerment.salesrobot.uitls.ImageManagerUtils;
 import com.empowerment.salesrobot.uitls.SPUtil;
 import com.empowerment.salesrobot.uitls.ToastUtils;
+import com.empowerment.salesrobot.view.RoundedImageView;
 import com.google.gson.Gson;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -54,7 +56,7 @@ public class VIPActivity extends BaseActivity {
     @BindView(R.id.title_Layout)
     RelativeLayout titleLayout;
     @BindView(R.id.vip_icon)
-    ImageView vipIcon;
+    RoundedImageView vipIcon;
     @BindView(R.id.vip_Name)
     TextView vipName;
     @BindView(R.id.vip_Write)
@@ -91,7 +93,7 @@ public class VIPActivity extends BaseActivity {
     RecyclerView recyclerView;
     private List<VipOrYxEntity.DataBean.CustListBean> mList = new ArrayList<>();
     private GalleryAdapter mAdapter;
-    private int pos = 0;
+    private int position = 0;
     private String mStyle;
     @Override
     protected int getLauoutId() {
@@ -157,7 +159,7 @@ public class VIPActivity extends BaseActivity {
         recyclerView.addOnItemTouchListener(new RecyclerItemTouchListener(recyclerView) {
             @Override
             public void onItemClick(RecyclerView.ViewHolder vh) {
-                int position = vh.getAdapterPosition() - 1;
+                position = vh.getAdapterPosition() - 1;
                 if (position < 0 | position >= mList.size()) {
                     return;
                 }
@@ -197,19 +199,21 @@ public class VIPActivity extends BaseActivity {
                 break;
             case R.id.vip_Write:
                 //编辑页面
-                VipOrYxEntity.DataBean.CustListBean custListBean = new VipOrYxEntity.DataBean.CustListBean();
                 if (mList != null&& !mList.isEmpty()&&mList.size()>0){
-                    custListBean.setAddress(mList.get(pos).getAddress());
-                    custListBean.setAge(mList.get(pos).getAge());
-                    custListBean.setId(mList.get(pos).getId());
-                    custListBean.setIdCard(mList.get(pos).getIdCard());
-                    custListBean.setName(mList.get(pos).getName());
-                    custListBean.setPhone(mList.get(pos).getPhone());
-                    custListBean.setPic(mList.get(pos).getPic());
-                    custListBean.setSex(mList.get(pos).getSex());
-                    custListBean.setWork(mList.get(pos).getWork());
-                    bundle.putString("title", title.getText().toString());
-                    bundle.putString("json", new Gson().toJson(custListBean));
+                    bundle.putString("mAddress",mList.get(position).getAddress());
+                    bundle.putString("mAge",mList.get(position).getAge()+"");
+                    bundle.putString("mId",mList.get(position).getId()+"");
+                    bundle.putString("mIdCard",mList.get(position).getIdCard());
+                    bundle.putString("mName",mList.get(position).getName());
+                    bundle.putString("mPhone",mList.get(position).getPhone());
+                    bundle.putString("mPic",mList.get(position).getPic());
+                    bundle.putString("mSex",mList.get(position).getSex()+"");
+                    bundle.putString("mWork",mList.get(position).getWork());
+                    bundle.putString("mCount",mList.get(position).getDates().size()+"");
+                    bundle.putString("mContent",mList.get(position).getContent());
+                    bundle.putString("mData",mList.get(position).getDate());
+                    bundle.putSerializable("datas", (Serializable) mList.get(position).getDates());
+                    bundle.putString("type",mStyle);
                     MyApplication.openActivity(context,EditActivity.class,bundle);
                 }else {
                     ToastUtils.makeText(context,"当前数据为空");
@@ -223,7 +227,7 @@ public class VIPActivity extends BaseActivity {
             case R.id.tv_car_maintenance:
                 if (mList != null && !mList.isEmpty() && mList.size() > 0){
                     bundle.putString("title", "汽车保养");
-                    bundle.putString("cid", mList.get(pos).getId() + "");
+                    bundle.putString("cid", mList.get(position).getId() + "");
                     MyApplication.openActivity(context,MaintenanceRecordActivity.class,bundle);
                 }else {
                     ToastUtils.makeText(context,"暂无数据");
@@ -237,7 +241,7 @@ public class VIPActivity extends BaseActivity {
             case R.id.tv_car_recommendation:
                 if (mList != null && !mList.isEmpty() && mList.size() > 0){
                     bundle.putString("title", "汽车推荐");
-                    bundle.putString("cid", mList.get(pos).getId() + "");
+                    bundle.putString("cid", mList.get(position).getId() + "");
                     MyApplication.openActivity(context,MaintenanceRecordActivity.class,bundle);
                 }else {
                     ToastUtils.makeText(context,"暂无数据");
@@ -251,7 +255,7 @@ public class VIPActivity extends BaseActivity {
             case R.id.tv_car_purchase:
                 if (mList != null && !mList.isEmpty() && mList.size() > 0){
                     bundle.putString("title", "购车情况");
-                    bundle.putString("cid", mList.get(pos).getId() + "");
+                    bundle.putString("cid", mList.get(position).getId() + "");
                     MyApplication.openActivity(context,MaintenanceRecordActivity.class,bundle);
                 }else {
                     ToastUtils.makeText(context,"暂无数据");

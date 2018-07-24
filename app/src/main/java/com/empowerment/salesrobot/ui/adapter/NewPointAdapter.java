@@ -11,10 +11,9 @@ import android.widget.TextView;
 
 import com.empowerment.salesrobot.R;
 import com.empowerment.salesrobot.config.Url;
-import com.empowerment.salesrobot.ui.model.InfromationEntity;
 import com.empowerment.salesrobot.ui.model.NewPointBean;
+import com.empowerment.salesrobot.uitls.GlideUtils;
 import com.empowerment.salesrobot.uitls.ImageManagerUtils;
-import com.empowerment.salesrobot.uitls.TimeUtils;
 
 import java.util.List;
 
@@ -44,11 +43,7 @@ public class NewPointAdapter extends RecyclerView.Adapter<NewPointAdapter.NewPoi
     public void onBindViewHolder(NewPointViewHolder viewHolder, int position) {
         NewPointBean.DataBean.CList mCList = mList.get(position);
         String img = Url.HTTP + mCList.getPic();
-        if (TextUtils.isEmpty(img)) {
-            viewHolder.mPicture.setImageResource(R.drawable.image_fail_empty);
-        } else {
-            ImageManagerUtils.imageLoader.displayImage(img, viewHolder.mPicture, ImageManagerUtils.options3);
-        }
+        GlideUtils.imageLoader(context,img,viewHolder.mPicture);
         viewHolder.mIdea.setText(mCList.getIdea());
     }
 

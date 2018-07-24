@@ -47,6 +47,7 @@ public class FieldRecordActivity extends BaseActivity {
     @BindView(R.id.record_recycler)
     XRecyclerView xRecyclerView;
     private int nowPage = 1;
+    private int rows = 10;
     private List<FieldRecordBean.DataBean.ConsultList> mList = new ArrayList<>();
     FieldRecordAdapter mAdapter;
     @Override
@@ -60,7 +61,7 @@ public class FieldRecordActivity extends BaseActivity {
 
         Map<String,String> params = new HashMap<>();
         params.put("page",String.valueOf(nowPage));
-        params.put("rows","10");
+        params.put("rows",rows+"");
         params.put("storeId", SPUtil.getString(context,STORE_ID));
         MyOkhttp.Okhttp(context, Url.RECORD_LIST, "加载中...", params, (response, result, resultNote) -> {
             Gson gson = new Gson();
@@ -73,6 +74,10 @@ public class FieldRecordActivity extends BaseActivity {
             if (consultLists != null && !consultLists.isEmpty() && consultLists.size() > 0){
                 mList.addAll(consultLists);
                 mAdapter.notifyDataSetChanged();
+            }
+            if (consultLists.size() < rows){
+                ToastUtils.makeText(context,"没有更多了");
+                xRecyclerView.noMoreLoading();
             }
         });
     }

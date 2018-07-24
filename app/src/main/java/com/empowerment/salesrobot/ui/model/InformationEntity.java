@@ -6,7 +6,7 @@ import java.util.List;
 /**
  * 客户资料
  */
-public class InfromationEntity implements Serializable{
+public class InformationEntity implements Serializable{
     private int resultCode;
     private String msg;
     private DataBean data;

@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:background="@color/app_main_default"
     tools:context=".ui.activity.VIPActivity">
@@ -10,28 +11,31 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:background="@drawable/bg_icon_vip"
-        android:layout_height="184dp">
+        android:layout_height="190dp">
 
         <include layout="@layout/activity_base"/>
 
-        <ImageView
+        <com.empowerment.salesrobot.view.RoundedImageView
             android:id="@+id/vip_icon"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_centerVertical="true"
+            android:layout_width="62dp"
+            android:layout_height="62dp"
+            android:layout_marginBottom="35dp"
+            android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
-            android:src="@drawable/icon_name"
-            android:contentDescription="@string/user_head_portrait"/>
-
+            android:src="@drawable/my_head_portrait"
+            android:contentDescription="@string/user_head_portrait"
+            android:adjustViewBounds="true"
+            android:padding="1.5dp"
+            android:scaleType="centerCrop"
+            app:is_oval="true"
+            tools:ignore="ContentDescription" />
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="张先生"
+            android:text=""
             android:id="@+id/vip_Name"
-            android:layout_below="@id/vip_icon"
             android:layout_centerHorizontal="true"
-            android:layout_marginBottom="36dp"
-            android:gravity="bottom"
+            android:layout_marginBottom="15dp"
             android:layout_alignParentBottom="true"
             android:textSize="16sp"
             android:textColor="@color/white"/>

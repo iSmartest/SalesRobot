@@ -73,12 +73,12 @@ public class MineFragment extends BaseFragment {
     @BindView(R.id.my_doubel_nos)
     TextView myDoubelNos;
     @BindView(R.id.understand_recycler)
-    XRecyclerView
-            xRecyclerView;
+    XRecyclerView xRecyclerView;
     @BindView(R.id.mXd)
     TextView mXd;
     Unbinder unbinder;
     private int nowPage = 1;
+    private int rows = 10;
     private UnderStandAdapter mAdapter;
     private List<MineBean.DataBean.ContentListBean> mList = new ArrayList<>();
     private View view;
@@ -139,11 +139,11 @@ public class MineFragment extends BaseFragment {
     protected void loadData() {
         Map<String, String> params = new HashMap<>();
         params.put(SALE_ID, SPUtil.getString(context,SALE_ID));
-        params.put("rows", "10");
+        params.put(STORE_ID, SPUtil.getString(context,STORE_ID));
+        params.put("rows", rows+"");
         params.put(PAGE,String.valueOf(nowPage));
         MyOkhttp.Okhttp(context, Url.EXPERIENCELIST, "加载中...", params, (response, result, resultNote) -> {
             Gson gson = new Gson();
-
             MineBean mineBean = gson.fromJson(response,MineBean.class);
             if (result.equals("1")){
                 ToastUtils.makeText(context,resultNote);
@@ -164,6 +164,10 @@ public class MineFragment extends BaseFragment {
             mName.setText(mineBean.getData().getSale().getName());
             myDoubelNo.setText(mineBean.getData().getSale().getSaleIndex());
             myDoubelNos.setText(mineBean.getData().getSale().getSuccessIndex());
+            if (experienceLists.size() < rows){
+                ToastUtils.makeText(context,"没有更多了");
+                xRecyclerView.noMoreLoading();
+            }
         });
     }
 

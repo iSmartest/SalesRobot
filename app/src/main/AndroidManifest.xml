@@ -111,6 +111,10 @@
             android:windowSoftInputMode="adjustPan|stateHidden"
             android:configChanges="orientation"
             android:screenOrientation="portrait"/>
+        <!--客户来店时间记录-->
+        <activity android:name=".ui.activity.CustomerToStoreTimesActivity"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait"/>
         <!--添加VIP客户-->
         <activity android:name=".ui.activity.AddVIPActivity"
             android:windowSoftInputMode="adjustPan|stateHidden"

@@ -45,7 +45,16 @@ public class RobotResultBean {
         private String name;
         private int id;
         private int position;
+        private int isCheck;
         private List<Answers> answers;
+
+        public int getIsCheck() {
+            return isCheck;
+        }
+
+        public void setIsCheck(int isCheck) {
+            this.isCheck = isCheck;
+        }
 
         public String getImage() {
             return image;

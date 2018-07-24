@@ -1,7 +1,7 @@
 package com.empowerment.salesrobot.ui.activity;
 
 import android.os.Bundle;
-import android.text.TextUtils;
+import android.os.Parcelable;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -10,14 +10,14 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.empowerment.salesrobot.R;
+import com.empowerment.salesrobot.app.MyApplication;
 import com.empowerment.salesrobot.config.Url;
-import com.empowerment.salesrobot.dialog.LogOutDialog;
 import com.empowerment.salesrobot.okhttp.MyOkhttp;
-import com.empowerment.salesrobot.ui.model.InfromationEntity;
-import com.empowerment.salesrobot.ui.model.VipOrYxEntity;
+import com.empowerment.salesrobot.uitls.GlideUtils;
 import com.empowerment.salesrobot.uitls.ToastUtils;
-import com.google.gson.Gson;
+import com.empowerment.salesrobot.view.RoundedImageView;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -26,7 +26,6 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 import static com.empowerment.salesrobot.config.BaseUrl.M_ADDRESS;
-import static com.empowerment.salesrobot.config.BaseUrl.M_AGE;
 import static com.empowerment.salesrobot.config.BaseUrl.M_CONTENT;
 import static com.empowerment.salesrobot.config.BaseUrl.M_ID;
 import static com.empowerment.salesrobot.config.BaseUrl.M_IDCARD;
@@ -41,8 +40,6 @@ import static com.empowerment.salesrobot.config.BaseUrl.M_WORK;
  */
 public class EditActivity extends BaseActivity {
 
-
-    private static final String TAG = "EditActivity";
     public Map<String, String> map = new HashMap<>();
     @BindView(R.id.title_Back)
     ImageView titleBack;
@@ -53,11 +50,15 @@ public class EditActivity extends BaseActivity {
     @BindView(R.id.title_Layout)
     RelativeLayout titleLayout;
     @BindView(R.id.editPic)
-    ImageView editPic;
+    RoundedImageView editPic;
     @BindView(R.id.edit_Name)
     TextView editName;
+    @BindView(R.id.rl_data_list)
+    RelativeLayout rlDatas;
     @BindView(R.id.edit_Time)
     TextView editTime;
+    @BindView(R.id.tv_customer_coming_times)
+    TextView tvTimes;
     @BindView(R.id.editNames)
     EditText editNames;
     @BindView(R.id.editAge)
@@ -78,93 +79,13 @@ public class EditActivity extends BaseActivity {
     LinearLayout mReason;
     @BindView(R.id.edit_vip_reason)
     EditText editReason;
-    private InfromationEntity.DataBean.CustomerListBean listBean;
-    private VipOrYxEntity.DataBean.CustListBean custListBean;
-
+    private String type;//1、VIP客户2、其他
+    private String reason ="";
+    private String mAddress,mAge,mContent,mData,mId,mIdCard,mName,mPhone,mPic,mSex,mWork,mCount;
+    private ArrayList<Parcelable> datas;
     @Override
     protected int getLauoutId() {
         return R.layout.activity_edit;
-    }
-
-    @SuppressWarnings("RedundantStringToString")
-    @Override
-    protected void loadData() {
-        switch (getIntent().getStringExtra("title")) {
-            case "今日客户":
-                String info = getIntent().getExtras().getString("info");
-                listBean = new Gson().fromJson(info, InfromationEntity.DataBean.CustomerListBean.class);
-                editName.setText(listBean.getName());
-                editNames.setText(listBean.getName() + "");
-                editAge.setText(listBean.getAge() + "");
-                editWork.setText(listBean.getWork() + "");
-                editAddses.setText(listBean.getAddress() + "");
-                editIdCred.setText(listBean.getIdCard() + "");
-                editPhone.setText(listBean.getPhone() + "");
-                editContent.setText(listBean.getContent() + "");
-                if (listBean.getSex() == 1) {
-                    editSex.setText("男");
-
-                } else {
-                    editSex.setText("女");
-                }
-                mReason.setVisibility(View.GONE);
-                break;
-            case "往期客户":
-                String info1 = getIntent().getExtras().getString("info").toString();
-                listBean = new Gson().fromJson(info1, InfromationEntity.DataBean.CustomerListBean.class);
-                editName.setText(listBean.getName());
-                editNames.setText(listBean.getName() + "");
-                editAge.setText(listBean.getAge() + "");
-                editWork.setText(listBean.getWork() + "");
-                editAddses.setText(listBean.getAddress() + "");
-                editIdCred.setText(listBean.getIdCard() + "");
-                editPhone.setText(listBean.getPhone() + "");
-                editContent.setText(listBean.getContent() + "");
-                if (listBean.getSex() == 1) {
-                    editSex.setText("男");
-
-                } else {
-                    editSex.setText("女");
-                }
-                mReason.setVisibility(View.GONE);
-                break;
-            case "VIP客户":
-                String info2 = getIntent().getExtras().getString("info").toString();
-                custListBean = new Gson().fromJson(info2, VipOrYxEntity.DataBean.CustListBean.class);
-                editName.setText(custListBean.getName());
-                editNames.setText(custListBean.getName() + "");
-                editAge.setText(custListBean.getAge() + "");
-                editWork.setText(custListBean.getWork() + "");
-                editAddses.setText(custListBean.getAddress() + "");
-                editIdCred.setText(custListBean.getIdCard() + "");
-                editPhone.setText(custListBean.getPhone() + "");
-                if (listBean.getSex() == 1) {
-                    editSex.setText("男");
-
-                } else {
-                    editSex.setText("女");
-                }
-                mReason.setVisibility(View.VISIBLE);
-                break;
-            case "预成交客户":
-                String info3 = getIntent().getExtras().getString("info").toString();
-                custListBean = new Gson().fromJson(info3, VipOrYxEntity.DataBean.CustListBean.class);
-                editName.setText(custListBean.getName());
-                editNames.setText(custListBean.getName() + "");
-                editAge.setText(custListBean.getAge() + "");
-                editWork.setText(custListBean.getWork() + "");
-                editAddses.setText(custListBean.getAddress() + "");
-                editIdCred.setText(custListBean.getIdCard() + "");
-                editPhone.setText(custListBean.getPhone() + "");
-                if (custListBean.getSex() == 1) {
-                    editSex.setText("男");
-
-                } else {
-                    editSex.setText("女");
-                }
-                mReason.setVisibility(View.GONE);
-                break;
-        }
     }
 
     @Override
@@ -172,9 +93,60 @@ public class EditActivity extends BaseActivity {
         titleBack.setVisibility(View.VISIBLE);
         titleOK.setVisibility(View.VISIBLE);
         titleOK.setText("编辑");
+        type = getIntent().getStringExtra("type");
+        mAddress = getIntent().getStringExtra("mAddress");
+        mAge = getIntent().getStringExtra("mAge");
+        mContent = getIntent().getStringExtra("mContent");
+        mData = getIntent().getStringExtra("mData");
+        mId = getIntent().getStringExtra("mId");
+        mIdCard = getIntent().getStringExtra("mIdCard");
+        mName = getIntent().getStringExtra("mName");
+        mPhone = getIntent().getStringExtra("mPhone");
+        mPic = getIntent().getStringExtra("mPic");
+        mSex = getIntent().getStringExtra("mSex");
+        mWork = getIntent().getStringExtra("mWork");
+        mCount = getIntent().getStringExtra("mCount");
+        datas = getIntent().getParcelableArrayListExtra("datas");
+        if (type.equals("1")){
+            title.setText("VIP客户");
+            mReason.setVisibility(View.VISIBLE);
+        }else if (type.equals("2")){
+            title.setText("预成交客户");
+            mReason.setVisibility(View.GONE);
+        }else if (type.equals("3")){
+            title.setText("普通客户");
+            mReason.setVisibility(View.GONE);
+        }
+        setEditText(editNames, false);
+        setEditText(editAge, false);
+        setEditText(editSex, false);
+        setEditText(editAddses, false);
+        setEditText(editContent, false);
+        setEditText(editIdCred, false);
+        setEditText(editPhone, false);
+        setEditText(editWork, false);
         titleLayout.setBackgroundColor(getResources().getColor(R.color.colorTransParent));
     }
 
+    @Override
+    protected void loadData() {
+        editName.setText(mName);
+        editNames.setText(mName);
+        editAge.setText(mAge);
+        editWork.setText(mWork);
+        editAddses.setText(mAddress);
+        editIdCred.setText(mIdCard);
+        editPhone.setText(mPhone);
+        editContent.setText(mContent);
+        editTime.setText(mData);
+        tvTimes.setText(mCount);
+        GlideUtils.imageLoader(context,mPic,editPic);
+        if (mSex.equals("0")) {
+            editSex.setText("男");
+        } else {
+            editSex.setText("女");
+        }
+    }
 
     //是否可编辑
     private void setEditText(EditText editText, boolean b) {
@@ -188,7 +160,7 @@ public class EditActivity extends BaseActivity {
         ButterKnife.bind(this);
     }
 
-    @OnClick({R.id.title_Back, R.id.title_OK})
+    @OnClick({R.id.title_Back, R.id.title_OK,R.id.rl_data_list})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.title_Back:
@@ -199,7 +171,6 @@ public class EditActivity extends BaseActivity {
                 switch (titleOK.getText().toString()) {
                     case "编辑":
                         titleOK.setText("保存");
-                        //设置可编辑
                         setEditText(editNames, true);
                         setEditText(editAge, true);
                         setEditText(editSex, true);
@@ -208,57 +179,94 @@ public class EditActivity extends BaseActivity {
                         setEditText(editIdCred, true);
                         setEditText(editPhone, true);
                         setEditText(editWork, true);
-                        ToastUtils.makeText(context, "现在可以修改资料啦");
                         break;
                     case "保存":
-                        if (editSex.getText().toString().equals("男")) {
-                            map.put(M_SEX, "1");
-                        } else {
-                            map.put(M_SEX, "2");
+                        mName = editNames.getText().toString().trim();
+                        mPhone = editPhone.getText().toString().trim();
+                        mIdCard = editIdCred.getText().toString().trim();
+                        mWork = editWork.getText().toString().trim();
+                        mAddress = editAddses.getText().toString().trim();
+                        mContent = editContent.getText().toString().trim();
+                        if (mName.isEmpty()){
+                            ToastUtils.makeText(context,"客户姓名不能为空");
+                            return;
                         }
-                        switch (title.getText().toString()) {
-                            case "今日客户":
-                            case "往期客户":
-                                map.put(M_ID, listBean.getId() + "");
-                                break;
-                            case "VIP客户":
-                            case "预成交客户":
-                                map.put(M_ID, custListBean.getId() + "");
-                                break;
+                        if (editSex.getText().toString().trim().isEmpty()){
+                            ToastUtils.makeText(context,"客户性别不能为空");
+                            return;
                         }
+                        if (mWork.isEmpty()){
+                            ToastUtils.makeText(context,"客户工作不能为空");
+                            return;
+                        }
+                        if (mAddress.isEmpty()){
+                            ToastUtils.makeText(context,"客户地址不能为空");
+                            return;
+                        }
+                        if (mIdCard.isEmpty()){
+                            ToastUtils.makeText(context,"客户身份证不能为空");
+                            return;
+                        }
+                        if (mPhone.isEmpty()){
+                            ToastUtils.makeText(context,"客户手机号不能为空");
+                            return;
+                        }
+                        if (type.equals("1")){
+                            if (editReason.getText().toString().trim().isEmpty()){
+                                ToastUtils.makeText(context,"修改vip客户的理由不能为空");
 
-                        map.put(M_NAME, editNames.getText().toString());
-                        map.put(M_AGE, editAge.getText().toString());
-                        map.put(M_PHONE, editPhone.getText().toString());
-                        map.put(M_IDCARD, editIdCred.getText().toString());
-                        map.put(M_WORK, editWork.getText().toString());
-                        map.put(M_ADDRESS, editAddses.getText().toString());
-                        map.put(M_CONTENT, editContent.getText().toString());
-                        MyOkhttp.Okhttp(context, Url.EDIT_CUSTOMER, "保存中...", map, (response, result, resultNote) -> {
-                            switch (result) {
-                                case "0":
-                                    ToastUtils.makeText(context, resultNote);
-                                    break;
-                                case "1":
-                                    ToastUtils.makeText(context, resultNote);
-                                    break;
+                            }else {
+                                reason = editReason.getText().toString().trim();
                             }
-                        });
-                        titleOK.setText("编辑");
-                        setEditText(editNames, false);
-                        setEditText(editAge, false);
-                        setEditText(editSex, false);
-
-                        setEditText(editAddses, false);
-                        setEditText(editContent, false);
-                        setEditText(editIdCred, false);
-                        setEditText(editPhone, false);
-                        setEditText(editWork, false);
-
-                        //资料已保存
+                        }else {
+                            reason = "";
+                        }
+                        submitModify();
                         break;
                 }
                 break;
+            case R.id.rl_data_list:
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("datas",datas);
+                bundle.putString("mName",mName);
+                MyApplication.openActivity(context,CustomerToStoreTimesActivity.class,bundle);
+                break;
         }
+    }
+
+    private void submitModify() {
+        if (editSex.getText().toString().equals("男")) {
+            mSex = "0";
+        } else {
+            mSex = "1";
+        }
+        map.put(M_SEX, mSex);
+        map.put(M_ID, mId);
+        map.put(M_NAME, mName);
+        map.put(M_PHONE, mPhone);
+        map.put(M_IDCARD, mIdCard);
+        map.put(M_WORK, mWork);
+        map.put(M_ADDRESS, mAddress);
+        map.put(M_CONTENT, mContent);
+        map.put("reason", reason);
+        MyOkhttp.Okhttp(context, Url.EDIT_CUSTOMER, "保存中...", map, (response, result, resultNote) -> {
+            switch (result) {
+                case "0":
+                    ToastUtils.makeText(context, resultNote);
+                    titleOK.setText("编辑");
+                    setEditText(editNames, false);
+                    setEditText(editAge, false);
+                    setEditText(editSex, false);
+                    setEditText(editAddses, false);
+                    setEditText(editContent, false);
+                    setEditText(editIdCred, false);
+                    setEditText(editPhone, false);
+                    setEditText(editWork, false);
+                    break;
+                case "1":
+                    ToastUtils.makeText(context, resultNote);
+                    break;
+            }
+        });
     }
 }

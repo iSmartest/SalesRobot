@@ -35,9 +35,11 @@ public class Url {
     //训练—提交图文
     public static final String ADD_TRAIN_RECORD_ABOUT_PIC = HTTP + "/app/sale/addTrainRecordAboutPic?";
 
-    //训练—提交图文
+    //训练—提交视频
     public static final String ADD_TRAIN_RECORD_ABOUT_VIDEO = HTTP + "/app/sale/addTrainRecordAboutVideo?";
 
+    //
+    public static final String MODIFY_PIC = HTTP + "/app/sale/modifyPic?";
     //维修保养室
     public static final String ROBOT_MAINTAIN = "http://192.168.1.6:8081/app/train/robotMaintain?";
 

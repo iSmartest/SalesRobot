@@ -28,6 +28,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 import static com.empowerment.salesrobot.config.BaseUrl.SALE_ID;
+import static com.empowerment.salesrobot.config.BaseUrl.STORE_ID;
 
 /**
  * 新品买点
@@ -50,8 +51,11 @@ public class NewPointActivity extends BaseActivity {
 
     @Override
     protected void loadData() {
+        mList.clear();
+        mAdapter.notifyDataSetChanged();
         Map<String,String> params = new HashMap<>();
         params.put("groupid", SPUtil.getString(context,SALE_ID));
+        params.put(STORE_ID, SPUtil.getString(context,STORE_ID));
         MyOkhttp.Okhttp(context, Url.BUYPOINT, "加载中...", params, (response, result, resultNote) -> {
             Gson gson = new Gson();
             NewPointBean newPointBean = gson.fromJson(response,NewPointBean.class);

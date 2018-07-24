@@ -1,30 +1,25 @@
 package com.empowerment.salesrobot.ui.activity;
 
-import android.app.TimePickerDialog;
 import android.content.res.ColorStateList;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
-import android.view.KeyEvent;
+import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
-import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.TimePicker;
-
 import com.empowerment.salesrobot.R;
 import com.empowerment.salesrobot.app.MyApplication;
 import com.empowerment.salesrobot.config.Url;
 import com.empowerment.salesrobot.listener.RecyclerItemTouchListener;
 import com.empowerment.salesrobot.okhttp.MyOkhttp;
 import com.empowerment.salesrobot.ui.adapter.InformationAdapter;
-import com.empowerment.salesrobot.ui.model.InfromationEntity;
+import com.empowerment.salesrobot.ui.model.InformationEntity;
 import com.empowerment.salesrobot.uitls.SPUtil;
 import com.empowerment.salesrobot.uitls.ToastUtils;
 import com.example.liangmutian.mypicker.DatePickerDialog;
@@ -32,17 +27,14 @@ import com.example.liangmutian.mypicker.DateUtil;
 import com.example.xrecyclerview.XRecyclerView;
 import com.google.gson.Gson;
 
-
+import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-
 import static com.empowerment.salesrobot.config.BaseUrl.C_TYPE;
 import static com.empowerment.salesrobot.config.BaseUrl.KEY_WORD;
 import static com.empowerment.salesrobot.config.BaseUrl.PAGE;
@@ -56,8 +48,6 @@ import static com.empowerment.salesrobot.config.BaseUrl.TYPE;
  * 客户资料***详情
  */
 public class InformationActivity extends BaseActivity {
-
-    private static final String TAG = "InformationActivity";
     @BindView(R.id.title_Back)
     ImageView titleBack;
     @BindView(R.id.title)
@@ -87,8 +77,9 @@ public class InformationActivity extends BaseActivity {
     private TextView[] mTextView;
     private Map<String, String> cusMap;
     private InformationAdapter infromationAdapter;
-    private List<InfromationEntity.DataBean.CustomerListBean> infoList;
+    private List<InformationEntity.DataBean.CustomerListBean> infoList;
     private int PAGR_SIZE = 1;
+    private int rows = 10;
     private String type = "2";
     private String cType;
     private String keyWord = "";
@@ -101,48 +92,7 @@ public class InformationActivity extends BaseActivity {
     @Override
     protected void loadData() {
 
-        mEditKey.setOnEditorActionListener((v, actionId, event) -> {
-            if (actionId == EditorInfo.IME_ACTION_SEARCH) {
-                if (TextUtils.isEmpty(mEditKey.getText().toString().trim())) {
-                    ToastUtils.makeText(context, "请输入关键词");
-                } else {
-                    keyWord = mEditKey.getText().toString().trim();
-                    infoList.clear();
-                    infromationAdapter.notifyDataSetChanged();
-                    getdata();
-                }
-                return true;
-            }
-            return false;
-        });
 
-        xRecyclerView.addOnItemTouchListener(new RecyclerItemTouchListener(xRecyclerView) {
-            @Override
-            public void onItemClick(RecyclerView.ViewHolder vh) {
-                int position = vh.getAdapterPosition() - 1;
-                if (position < 0 | position >= infoList.size()) {
-                    return;
-                }
-                Bundle bundle = new Bundle();
-                InfromationEntity.DataBean.CustomerListBean listBean = new InfromationEntity.DataBean.CustomerListBean();
-                listBean.setAddress(infoList.get(position).getAddress());
-                listBean.setAge(infoList.get(position).getAge());
-                listBean.setContent(infoList.get(position).getContent());
-                listBean.setDate(infoList.get(position).getDate());
-                listBean.setHobby(infoList.get(position).getHobby());
-                listBean.setId(infoList.get(position).getId());
-                listBean.setIdCard(infoList.get(position).getIdCard());
-                listBean.setName(infoList.get(position).getName());
-                listBean.setPhone(infoList.get(position).getPhone());
-                listBean.setPic(infoList.get(position).getPic());
-                listBean.setSex(infoList.get(position).getSex());
-                listBean.setWork(infoList.get(position).getWork());
-                bundle.putString("info", new Gson().toJson(listBean));
-                bundle.putString("title", title.getText().toString());
-                MyApplication.openActivity(context, EditActivity.class, bundle);
-
-            }
-        });
     }
 
     private void showDateDialog(List<Integer> date) {
@@ -215,6 +165,48 @@ public class InformationActivity extends BaseActivity {
             public void onLoadMore() {
                 PAGR_SIZE++;
                 getdata();
+            }
+        });
+
+        mEditKey.setOnEditorActionListener((v, actionId, event) -> {
+            if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+                if (TextUtils.isEmpty(mEditKey.getText().toString().trim())) {
+                    ToastUtils.makeText(context, "请输入关键词");
+                } else {
+                    keyWord = mEditKey.getText().toString().trim();
+                    infoList.clear();
+                    infromationAdapter.notifyDataSetChanged();
+                    getdata();
+                }
+                return true;
+            }
+            return false;
+        });
+
+        xRecyclerView.addOnItemTouchListener(new RecyclerItemTouchListener(xRecyclerView) {
+            @Override
+            public void onItemClick(RecyclerView.ViewHolder vh) {
+                int position = vh.getAdapterPosition() - 1;
+                if (position < 0 | position >= infoList.size()) {
+                    return;
+                }
+                Bundle bundle = new Bundle();
+                bundle.putString("mAddress",infoList.get(position).getAddress());
+                bundle.putString("mAge",infoList.get(position).getAge()+"");
+                bundle.putString("mContent",infoList.get(position).getContent());
+                bundle.putString("mData",infoList.get(position).getDate());
+                bundle.putString("mId",infoList.get(position).getId()+"");
+                bundle.putString("mIdCard",infoList.get(position).getIdCard());
+                bundle.putString("mName",infoList.get(position).getName());
+                bundle.putString("mPhone",infoList.get(position).getPhone());
+                bundle.putString("mPic",infoList.get(position).getPic());
+                bundle.putString("mSex",infoList.get(position).getSex()+"");
+                bundle.putString("mWork",infoList.get(position).getWork());
+                bundle.putString("mCount",infoList.get(position).getCount()+"");
+                bundle.putSerializable("datas", (Serializable) infoList.get(position).getDates());
+                bundle.putString("type",infoList.get(position).getType()+"");
+
+                MyApplication.openActivity(context, EditActivity.class, bundle);
             }
         });
     }
@@ -296,20 +288,21 @@ public class InformationActivity extends BaseActivity {
         cusMap.put(TYPE, type);
         cusMap.put(KEY_WORD, keyWord);
         cusMap.put(C_TYPE, cType);
-        cusMap.put(ROWS, "10");
+        cusMap.put(ROWS, rows+"");
         cusMap.put(PAGE, String.valueOf(PAGR_SIZE));
         cusMap.put(SALE_ID, SPUtil.getString(context,SALE_ID));
         cusMap.put(STORE_ID, SPUtil.getString(context,STORE_ID));
         MyOkhttp.Okhttp(context, Url.CUSTOMER, "加载中...", cusMap, (response, result, resultNote) -> {
+            Log.i("", "getdata: "+response);
             Gson gson = new Gson();
-            InfromationEntity infromationEntity = gson.fromJson(response, InfromationEntity.class);
+            InformationEntity informationEntity = gson.fromJson(response, InformationEntity.class);
             if (result.equals("1")){
                 ToastUtils.makeText(context,resultNote);
                 xRecyclerView.setVisibility(View.GONE);
                 infoLayouts.setVisibility(View.VISIBLE);
                 return;
             }
-            List<InfromationEntity.DataBean.CustomerListBean> customerListBeans = infromationEntity.getData().getCustomerList();
+            List<InformationEntity.DataBean.CustomerListBean> customerListBeans = informationEntity.getData().getCustomerList();
             if (customerListBeans != null && !customerListBeans.isEmpty() && customerListBeans.size() > 0){
                 xRecyclerView.setVisibility(View.VISIBLE);
                 infoLayouts.setVisibility(View.GONE);
@@ -319,6 +312,10 @@ public class InformationActivity extends BaseActivity {
                 ToastUtils.makeText(context, resultNote);
                 xRecyclerView.setVisibility(View.GONE);
                 infoLayouts.setVisibility(View.VISIBLE);
+            }
+            if (customerListBeans.size() < rows){
+                ToastUtils.makeText(context,"没有更多了");
+                xRecyclerView.noMoreLoading();
             }
             xRecyclerView.refreshComplete();
         });

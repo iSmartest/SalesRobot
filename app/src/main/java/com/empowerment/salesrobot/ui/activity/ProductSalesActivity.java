@@ -20,6 +20,7 @@ import com.empowerment.salesrobot.listener.RecyclerItemTouchListener;
 import com.empowerment.salesrobot.okhttp.MyOkhttp;
 import com.empowerment.salesrobot.ui.adapter.BrandAdapter;
 import com.empowerment.salesrobot.ui.model.ProductSalesBean;
+import com.empowerment.salesrobot.uitls.GlideUtils;
 import com.empowerment.salesrobot.uitls.ImageManagerUtils;
 import com.empowerment.salesrobot.uitls.SPUtil;
 import com.empowerment.salesrobot.uitls.ToastUtils;
@@ -84,11 +85,7 @@ public class ProductSalesActivity extends BaseActivity {
             String imag = productSalesBean.getData().getImage().getAddress();
             name = productSalesBean.getData().getImage().getName();
             link = productSalesBean.getData().getImage().getLink();
-            if (TextUtils.isEmpty(imag)) {
-                mAudi.setImageResource(R.drawable.image_fail_empty);
-            } else {
-                ImageManagerUtils.imageLoader.displayImage(imag,mAudi,ImageManagerUtils.options3);
-            }
+            GlideUtils.imageLoader(context,imag,mAudi);
         });
     }
 

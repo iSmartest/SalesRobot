@@ -11,9 +11,8 @@ import android.widget.TextView;
 
 
 import com.empowerment.salesrobot.R;
-import com.empowerment.salesrobot.ui.model.InfromationEntity;
+import com.empowerment.salesrobot.ui.model.InformationEntity;
 import com.empowerment.salesrobot.uitls.GlideUtils;
-import com.empowerment.salesrobot.uitls.TimeUtils;
 import com.empowerment.salesrobot.view.RoundedImageView;
 
 import java.util.List;
@@ -25,9 +24,9 @@ public class InformationAdapter extends RecyclerView.Adapter<InformationAdapter.
 
     private static final String TAG = "InfromationAdapter";
     private Context context;
-    private List<InfromationEntity.DataBean.CustomerListBean> infoList;
+    private List<InformationEntity.DataBean.CustomerListBean> infoList;
 
-    public InformationAdapter(Context context, List<InfromationEntity.DataBean.CustomerListBean> infoList) {
+    public InformationAdapter(Context context, List<InformationEntity.DataBean.CustomerListBean> infoList) {
         this.context = context;
         this.infoList = infoList;
     }
@@ -42,7 +41,7 @@ public class InformationAdapter extends RecyclerView.Adapter<InformationAdapter.
 
     @Override
     public void onBindViewHolder(@NonNull InformationViewHolder holder, int position) {
-        InfromationEntity.DataBean.CustomerListBean customerListBean = infoList.get(position);
+        InformationEntity.DataBean.CustomerListBean customerListBean = infoList.get(position);
         holder.mName.setText(customerListBean.getName());
         holder.mTime.setText(customerListBean.getDate());
         holder.mContext.setText(customerListBean.getContent());

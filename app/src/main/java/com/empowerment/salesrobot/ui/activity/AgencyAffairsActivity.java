@@ -57,6 +57,7 @@ public class AgencyAffairsActivity extends BaseActivity {
     XRecyclerView xRecyclerView;
     private ColorStateList csl1,csl2;
     private int nowPage = 1;
+    private int rows = 10;
     private String type = "1";
     private List<AgencyAffairsBean.DataBean.AgentList> mList = new ArrayList<>();
     private AgencyAffairsAdapter mAdapter;
@@ -73,7 +74,7 @@ public class AgencyAffairsActivity extends BaseActivity {
         Map<String,String> params = new HashMap<>();
         params.put("storeId",SPUtil.getString(context, "storeId"));
         params.put("page",String.valueOf(nowPage));
-        params.put("rows","10");
+        params.put("rows",rows+"");
         params.put("saleId",SPUtil.getString(context, SALE_ID));
         params.put("type",type);
         MyOkhttp.Okhttp(context, Url.AFFAIRS, "加载中...", params, (response, result, resultNote) -> {
@@ -88,6 +89,10 @@ public class AgencyAffairsActivity extends BaseActivity {
             if (agentLists != null && !agentLists.isEmpty() && agentLists.size() > 0){
                 mList.addAll(agentLists);
                 mAdapter.notifyDataSetChanged();
+            }
+            if (agentLists.size() < rows){
+                ToastUtils.makeText(context,"没有更多了");
+                xRecyclerView.noMoreLoading();
             }
         });
     }

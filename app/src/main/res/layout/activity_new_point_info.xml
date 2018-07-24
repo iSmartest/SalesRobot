@@ -9,11 +9,10 @@
 
     <include layout="@layout/activity_base"/>
 
-    <ScrollView
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/new_point_list"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:scrollbars="none">
-        <include layout="@layout/include_new_point_info"/>
-    </ScrollView>
+        android:layout_height="wrap_content">
 
+    </android.support.v7.widget.RecyclerView>
 </LinearLayout>

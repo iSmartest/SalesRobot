@@ -53,6 +53,7 @@ public class TrainingDocumentsActivity extends BaseActivity {
     @BindView(R.id.recycler_doc)
     XRecyclerView xRecyclerView;
     private int nowPage = 1;
+    private int rows = 10;
     private ProgressDialog mProgressDialog;
     //下载成功
     private static final int DOWNLAND_SUCCESS = 1;
@@ -84,10 +85,10 @@ public class TrainingDocumentsActivity extends BaseActivity {
                 mList.addAll(tdoctLists);
                 mAdapter.notifyDataSetChanged();
                 xRecyclerView.refreshComplete();
-                if (3 < nowPage) {
-                    ToastUtils.makeText(context, "没有更多了");
-                    xRecyclerView.noMoreLoading();
-                }
+            }
+            if (tdoctLists.size() < rows) {
+                ToastUtils.makeText(context, "没有更多了");
+                xRecyclerView.noMoreLoading();
             }
         });
     }

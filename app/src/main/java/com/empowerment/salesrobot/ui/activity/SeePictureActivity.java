@@ -34,6 +34,7 @@ import com.empowerment.salesrobot.app.MyApplication;
 import com.empowerment.salesrobot.config.Url;
 import com.empowerment.salesrobot.dialog.ImageAndTextDialog;
 import com.empowerment.salesrobot.dialog.StopTipsDialog;
+import com.empowerment.salesrobot.listener.ReplacePicListener;
 import com.empowerment.salesrobot.okhttp.OkHttpUtils;
 import com.empowerment.salesrobot.okhttp.budiler.StringCallback;
 import com.empowerment.salesrobot.ui.activity.PlayVideoActivity;
@@ -93,12 +94,16 @@ public class SeePictureActivity extends BaseActivity {
     private String mVideoPic;
     private String isPicOrVideo;
     private String isLiftOrRight = "1";
-    private int mQuestionId;
+    private String mQuestionId;
     private int mPosition;
     private ImageAndTextDialog imageAndTextDialog;
     private List<ImageBean> mBinnerList;
     private ArrayList<? extends RobotResultBean.DataBean.Answers.Pics> mPicList;
-    public SeePictureActivity() {
+    private static ReplacePicListener replacePicListener;
+
+
+    public static void setReplacePicListener(ReplacePicListener listener) {
+        replacePicListener = listener;
     }
 
     @Override
@@ -117,7 +122,7 @@ public class SeePictureActivity extends BaseActivity {
         mVideoPic = getIntent().getStringExtra("mVideoPic");
         isPicOrVideo = getIntent().getStringExtra("isPicOrVideo");
         isLiftOrRight = getIntent().getStringExtra("isLiftOrRight");
-        mQuestionId = getIntent().getIntExtra("mQuestionId",0);
+        mQuestionId = getIntent().getStringExtra("mQuestionId");
         if (isLiftOrRight.equals("0")) {
             mPosition = getIntent().getIntExtra("position",0);
         }else {
@@ -127,6 +132,11 @@ public class SeePictureActivity extends BaseActivity {
             mPlay.setVisibility(View.GONE);
         }else {
             mPlay.setVisibility(View.VISIBLE);
+        }
+        if (mQuestionId.equals("-1")){
+            titleOk.setVisibility(View.GONE);
+        }else {
+            titleOk.setVisibility(View.VISIBLE);
         }
         mTotalItem.setText(1 + "/" + mPicList.size());
         mPicInfo.setText(mPicList.get(0).getDes());
@@ -162,7 +172,8 @@ public class SeePictureActivity extends BaseActivity {
                 break;
             case R.id.title_OK:
                 mBinnerList = new ArrayList<>();
-                imageAndTextDialog = new ImageAndTextDialog(context, this::submit);
+                imageAndTextDialog = new ImageAndTextDialog(context, content -> submit(content));
+                imageAndTextDialog.show();
                 break;
         }
     }
@@ -264,9 +275,12 @@ public class SeePictureActivity extends BaseActivity {
         Map<String, String> params = new HashMap<>();
         params.put(STORE_ID, SPUtil.getString(context,STORE_ID));
         params.put("sId",SPUtil.getString(context,SALE_ID));
+        params.put("answerId",mQuestionId+"");
+        params.put("position", mPosition+"");
+        params.put("describel",content);
         File fileDec = new File(mBinnerList.get(0).getImage());
         dialog.show();
-        OkHttpUtils.post().url(Url.ADD_TRAIN_RECORD_ABOUT_PIC).params(params)
+        OkHttpUtils.post().url(Url.MODIFY_PIC).params(params)
                 .addFile("uploadFile", fileDec.getName(), fileDec)
                 .build().execute(new StringCallback() {
             @Override
@@ -281,7 +295,16 @@ public class SeePictureActivity extends BaseActivity {
                 Gson gson = new Gson();
                 dialog.dismiss();
                 RobotResultBean robotResultBean = gson.fromJson(response, RobotResultBean.class);
-
+                if (robotResultBean.getResultCode() == 1){
+                    ToastUtils.makeText(context,robotResultBean.getMsg());
+                    return;
+                }
+                if (robotResultBean.getData().getIsCheck() == 0){
+                    replacePicListener.onReplacePic(content,mBinnerList.get(0).getImage());
+                    ToastUtils.makeText(context,robotResultBean.getMsg());
+                }else {
+                    ToastUtils.makeText(context,robotResultBean.getMsg());
+                }
             }
         });
     }

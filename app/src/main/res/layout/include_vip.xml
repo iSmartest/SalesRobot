@@ -48,7 +48,7 @@
                 android:id="@+id/vipNames"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="姓名：涨涨涨"
+                android:text="姓名："
                 android:textColor="@color/homeTextColor"
                 android:textSize="14sp" />
 
@@ -58,7 +58,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/vipNames"
                 android:layout_marginTop="8dp"
-                android:text="性别：男"
+                android:text="性别："
                 android:textColor="@color/homeTextColor"
                 android:textSize="14sp" />
 
@@ -68,7 +68,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/vipSex"
                 android:layout_marginTop="8dp"
-                android:text="年龄：36"
+                android:text="年龄："
                 android:textColor="@color/homeTextColor"
                 android:textSize="14sp" />
 
@@ -86,7 +86,7 @@
                 android:id="@+id/vipPhone"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="电话：15830777777"
+                android:text="电话："
                 android:textColor="@color/homeTextColor"
                 android:textSize="14sp" />
 
@@ -96,7 +96,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/vipPhone"
                 android:layout_marginTop="8dp"
-                android:text="工作：CEO"
+                android:text="工作："
                 android:textColor="@color/homeTextColor"
                 android:textSize="14sp" />
 
@@ -106,7 +106,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/vipWork"
                 android:layout_marginTop="8dp"
-                android:text="地址：北京朝阳"
+                android:text="地址："
                 android:textColor="@color/homeTextColor"
                 android:textSize="14sp" />
 
@@ -121,7 +121,7 @@
         android:layout_marginBottom="20dp"
         android:layout_marginLeft="40dp"
         android:layout_marginTop="8dp"
-        android:text="身份证：1825151551551515151"
+        android:text="身份证："
         android:textColor="@color/homeTextColor"
         android:textSize="14sp"
         android:layout_marginStart="40dp" />

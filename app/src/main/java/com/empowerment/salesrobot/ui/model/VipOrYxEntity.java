@@ -72,6 +72,10 @@ public class VipOrYxEntity {
             private String pic;
             private int sex;
             private String work;
+            private int count;
+            private List<String> dates;
+            private String content;
+            private String date;
 
             public String getAddress() {
                 return address;
@@ -143,6 +147,38 @@ public class VipOrYxEntity {
 
             public void setWork(String work) {
                 this.work = work;
+            }
+
+            public int getCount() {
+                return count;
+            }
+
+            public void setCount(int count) {
+                this.count = count;
+            }
+
+            public List<String> getDates() {
+                return dates;
+            }
+
+            public void setDates(List<String> dates) {
+                this.dates = dates;
+            }
+
+            public String getContent() {
+                return content;
+            }
+
+            public void setContent(String content) {
+                this.content = content;
+            }
+
+            public String getDate() {
+                return date;
+            }
+
+            public void setDate(String date) {
+                this.date = date;
             }
         }
     }

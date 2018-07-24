@@ -82,44 +82,17 @@ public class RoBotIMAdapter extends BaseAdapter {
                     viewHolder.mRCLeftImage.setVisibility(View.VISIBLE);
                     viewHolder.mLeftContent.setVisibility(View.GONE);
                     viewHolder.mLeftIamge.setImageResource(R.drawable.mine_backround);
-                    viewHolder.mLeftIamge.setOnClickListener(v -> {
-                        if (contentRecord.getPicLists() != null && !contentRecord.getPicLists().isEmpty()) {
-                            Bundle bundle = new Bundle();
-                            bundle.putSerializable("mPicList", (Serializable) contentRecord.getPicLists());
-                            bundle.putString("mVideoUrl", Url.HTTP + contentRecord.getUrl());
-                            bundle.putString("mVideoPic", Url.HTTP + contentRecord.getPic());
-                            bundle.putString("isPicOrVideo", "0");
-                            bundle.putString("isLiftOrRight", "1");
-                            bundle.putString("mQuestion", contentRecord.getContent());
-                            bundle.putInt("mQuestionId", contentRecord.getQuestionId());
-                            MyApplication.openActivity(context, SeePictureActivity.class, bundle);
-                        }
-                    });
                     break;
                 case 1: //视频
                     viewHolder.mRCLeftImage.setVisibility(View.VISIBLE);
                     viewHolder.mLeftContent.setVisibility(View.GONE);
                     viewHolder.mLeftIamge.setImageResource(R.drawable.sale_icon_img);
-                    viewHolder.mLeftIamge.setOnClickListener(v -> MyApplication.openActivity(context, PlayVideoActivity.class));
                     break;
                 case 3: //图文+视频
                     viewHolder.mRCLeftImage.setVisibility(View.VISIBLE);
                     viewHolder.mLeftContent.setVisibility(View.GONE);
                     viewHolder.mLeftIamge.setImageResource(R.drawable.sale_icon_img);
                     GlideUtils.imageLoader(context, Url.HTTP + contentRecord.getPic(), viewHolder.mLeftIamge);
-                    viewHolder.mLeftIamge.setOnClickListener(v -> {
-                        if (contentRecord.getPicLists() != null && !contentRecord.getPicLists().isEmpty()) {
-                            Bundle bundle = new Bundle();
-                            bundle.putSerializable("mPicList", (Serializable) contentRecord.getPicLists());
-                            bundle.putString("mVideoUrl", Url.HTTP + contentRecord.getUrl());
-                            bundle.putString("mVideoPic", Url.HTTP + contentRecord.getPic());
-                            bundle.putString("isPicOrVideo", "1");
-                            bundle.putString("isLiftOrRight", "1");
-                            bundle.putString("mQuestion", contentRecord.getContent());
-                            bundle.putInt("mQuestionId", contentRecord.getQuestionId());
-                            MyApplication.openActivity(context, SeePictureActivity.class, bundle);
-                        }
-                    });
                     break;
                 default: //文本
                     viewHolder.mRCLeftImage.setVisibility(View.GONE);
@@ -134,30 +107,12 @@ public class RoBotIMAdapter extends BaseAdapter {
                 case 0: //图文
                     viewHolder.mRCRightImage.setVisibility(View.VISIBLE);
                     viewHolder.mRightContent.setVisibility(View.GONE);
-//                viewHolder.mRightIamge.setImageResource(R.drawable.mine_backround);
                     Glide.with(context).load(contentRecord.getPic()).into(viewHolder.mRightIamge);
-                    viewHolder.mRightIamge.setOnClickListener(v -> {
-                        Bundle bundle = new Bundle();
-                        bundle.putSerializable("mPicList", (Serializable) contentRecord.getPicLists());
-                        bundle.putString("isPicOrVideo", "0");
-                        bundle.putString("isLiftOrRight", "0");
-                        bundle.putString("mQuestion", contentRecord.getContent());
-                        bundle.putInt("mQuestionId", contentRecord.getQuestionId());
-                        bundle.putInt("position", contentRecord.getPosition());
-                        MyApplication.openActivity(context, SeePictureActivity.class, bundle);
-                    });
                     break;
                 case 1: //视频
                     viewHolder.mRCRightImage.setVisibility(View.VISIBLE);
                     viewHolder.mRightContent.setVisibility(View.GONE);
                     Glide.with(convertView).load(contentRecord.getUri()).into(viewHolder.mRightIamge);
-                    viewHolder.mRightIamge.setOnClickListener(v -> {
-                        Bundle bundle = new Bundle();
-                        bundle.putString("uri", contentRecord.getUri() + "");
-                        bundle.putString("url", contentRecord.getUrl());
-                        bundle.putString("mQuestion", contentRecord.getContent());
-                        MyApplication.openActivity(context, PlayVideoActivity.class, bundle);
-                    });
                     break;
                 default: //文本
                     viewHolder.mRCRightImage.setVisibility(View.GONE);

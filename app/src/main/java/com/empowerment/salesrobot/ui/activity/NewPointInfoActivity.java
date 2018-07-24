@@ -1,6 +1,7 @@
 package com.empowerment.salesrobot.ui.activity;
 
 import android.os.Bundle;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -35,18 +36,9 @@ public class NewPointInfoActivity extends BaseActivity {
     TextView title;
     @BindView(R.id.title_OK)
     TextView title_OK;
-    @BindView(R.id.iv_point_detail_pic)
-    ImageView mDetailPic;
-    @BindView(R.id.iv_point_body_pic)
-    ImageView mBobylPic;
-    @BindView(R.id.iv_point_inner_pic)
-    ImageView mInnerPic;
-    @BindView(R.id.tv_point_detail_des)
-    TextView mDetailDes;
-    @BindView(R.id.tv_point_body_des)
-    TextView mBobyDes;
-    @BindView(R.id.tv_point_inner_des)
-    TextView mInnerDes;
+    @BindView(R.id.new_point_list)
+    RecyclerView recyclerView;
+
     private String policy;
 
     @Override
@@ -65,16 +57,9 @@ public class NewPointInfoActivity extends BaseActivity {
                 ToastUtils.makeText(context, resultNote);
                 return;
             }
-            Glide.with(context).load(newPointInfoBean.getData().getBuyPointDetail().getDetailPic()).into(mDetailPic);
-            Glide.with(context).load(newPointInfoBean.getData().getBuyPointDetail().getBodyPic()).into(mBobylPic);
-            Glide.with(context).load(newPointInfoBean.getData().getBuyPointDetail().getInnerPic()).into(mInnerPic);
-            mDetailDes.setText(newPointInfoBean.getData().getBuyPointDetail().getDetailDesc());
-            mBobyDes.setText(newPointInfoBean.getData().getBuyPointDetail().getBodyDesc());
-            mInnerDes.setText(newPointInfoBean.getData().getBuyPointDetail().getInnerDesc());
+
             policy = newPointInfoBean.getData().getPolicy();
         });
-
-
     }
 
     @Override
@@ -84,6 +69,7 @@ public class NewPointInfoActivity extends BaseActivity {
         title_OK.setVisibility(View.VISIBLE);
         title_OK.setText("政策");
         id = getIntent().getStringExtra("carId");
+
     }
 
     @Override

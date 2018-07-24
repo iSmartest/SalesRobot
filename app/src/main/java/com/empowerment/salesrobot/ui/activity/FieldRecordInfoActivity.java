@@ -48,6 +48,7 @@ public class FieldRecordInfoActivity extends BaseActivity {
     private View headView;
     private String type,id;
     private int nowPage = 1;
+    private int rows = 10;
     private List<FieldRecordInfoBean.DataBean.ConList> mList = new ArrayList<>();
     private FieldRecordInfoAdapter mAdapter;
     @Override
@@ -72,6 +73,10 @@ public class FieldRecordInfoActivity extends BaseActivity {
             if (conLists != null && !conLists.isEmpty() && conLists.size() > 0){
                 mList.addAll(conLists);
                 mAdapter.notifyDataSetChanged();
+            }
+            if (conLists.size() < rows){
+                ToastUtils.makeText(context,"没有更多了");
+                xRecyclerView.noMoreLoading();
             }
         });
     }
