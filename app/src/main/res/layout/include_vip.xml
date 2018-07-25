@@ -151,7 +151,7 @@
             android:layout_height="30dp"
             android:background="@drawable/shape_car_service"
             android:gravity="center"
-            android:text="汽车保养"
+            android:text="保养记录"
             android:textColor="@color/homeTextColor"
             android:textSize="14sp" />
 
@@ -163,7 +163,7 @@
             android:layout_marginTop="8dp"
             android:background="@drawable/shape_car_service"
             android:gravity="center"
-            android:text="汽车服务"
+            android:text="维修记录"
             android:textColor="@color/homeTextColor"
             android:textSize="14sp" />
 

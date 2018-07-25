@@ -9,8 +9,8 @@ import android.widget.TextView;
 import com.empowerment.salesrobot.R;
 import com.empowerment.salesrobot.config.Url;
 import com.empowerment.salesrobot.okhttp.MyOkhttp;
-import com.empowerment.salesrobot.ui.adapter.MaintenanceAdapter;
-import com.empowerment.salesrobot.ui.model.MpbListEntity;
+import com.empowerment.salesrobot.ui.adapter.BuyCarAdapter;
+import com.empowerment.salesrobot.ui.model.BuyCarRecordBean;
 import com.empowerment.salesrobot.uitls.SPUtil;
 import com.empowerment.salesrobot.uitls.ToastUtils;
 import com.example.xrecyclerview.XRecyclerView;
@@ -29,7 +29,8 @@ import static com.empowerment.salesrobot.config.BaseUrl.PAGE;
 import static com.empowerment.salesrobot.config.BaseUrl.STORE_ID;
 import static com.empowerment.salesrobot.config.BaseUrl.TYPE;
 
-public class MaintenanceRecordActivity extends BaseActivity{
+public class BuyCarRecordActivity extends BaseActivity{
+    private static final String TAG = "MaintenanceRecordActivi";
     @BindView(R.id.title_Back)
     ImageView titleBack;
     @BindView(R.id.title)
@@ -40,8 +41,8 @@ public class MaintenanceRecordActivity extends BaseActivity{
     LinearLayout mErr;
     private String cid;
     private int nowPage = 1;
-    private List<MpbListEntity.DataBean.MaintianListBean> mList = new ArrayList<>();
-    private MaintenanceAdapter mAdapter;
+    private List<BuyCarRecordBean.DataBean.CarBuyList> mList = new ArrayList<>();
+    private BuyCarAdapter mAdapter;
 
     @Override
     protected int getLauoutId() {
@@ -53,43 +54,45 @@ public class MaintenanceRecordActivity extends BaseActivity{
         mList.clear();
         mAdapter.notifyDataSetChanged();
         Map<String, String> params = new HashMap<>();
-        params.put(C_ID, cid);
         params.put(STORE_ID, SPUtil.getString(context,STORE_ID));
+        params.put(C_ID, cid);
         params.put(PAGE, nowPage + "");
-        params.put(TYPE, "1");
+        params.put(TYPE, "3");
         MyOkhttp.Okhttp(context, Url.MPBLIST, "加载中...", params, (response, result, resultNote) -> {
             Gson gson = new Gson();
-            MpbListEntity entity = gson.fromJson(response,MpbListEntity.class);
+            BuyCarRecordBean buyCarRecordBean = gson.fromJson(response,BuyCarRecordBean.class);
             if (result.equals("1")){
+                ToastUtils.makeText(context,resultNote);
                 mErr.setVisibility(View.VISIBLE);
                 xRecyclerView.setVisibility(View.GONE);
-                ToastUtils.makeText(context,resultNote);
                 return;
             }
-            List<MpbListEntity.DataBean.MaintianListBean> maintianListBeans = entity.getData().getMaintianList();
-            if (maintianListBeans != null && !maintianListBeans.isEmpty() && maintianListBeans.size() > 0){
+            List<BuyCarRecordBean.DataBean.CarBuyList> carBuyLists = buyCarRecordBean.getData().getCarBuyList();
+            if (carBuyLists != null && !carBuyLists.isEmpty() && carBuyLists.size() > 0){
                 mErr.setVisibility(View.GONE);
                 xRecyclerView.setVisibility(View.VISIBLE);
-                mList.addAll(maintianListBeans);
+                mList.addAll(carBuyLists);
                 mAdapter.notifyDataSetChanged();
-                if (maintianListBeans.size() < 10){
+                if (carBuyLists.size() < 10){
                     xRecyclerView.noMoreLoading();
                 }
             }else {
                 mErr.setVisibility(View.VISIBLE);
                 xRecyclerView.setVisibility(View.GONE);
             }
+
         });
     }
 
     @Override
     protected void initView() {
         titleBack.setVisibility(View.VISIBLE);
-        title.setText("保养记录");
+        title.setText("购车情况");
         cid = getIntent().getStringExtra("cid");
         xRecyclerView.setLayoutManager(new LinearLayoutManager(context));
-        mAdapter = new MaintenanceAdapter(context,mList);
+        mAdapter = new BuyCarAdapter(context,mList);
         xRecyclerView.setAdapter(mAdapter);
+
         xRecyclerView.setLoadingListener(new XRecyclerView.LoadingListener() {
             @Override
             public void onRefresh() {

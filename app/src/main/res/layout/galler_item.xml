@@ -7,8 +7,8 @@
 
     <com.empowerment.salesrobot.view.RoundedImageView
         android:id="@+id/id_index_gallery_item_image"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
         android:adjustViewBounds="true"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
@@ -30,6 +30,6 @@
         android:layout_marginTop="5dp"
         android:textColor="#ff0000"
         android:text="some info"
-        android:textSize="12sp" />
+        android:textSize="14sp" />
 
 </RelativeLayout>

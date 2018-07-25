@@ -11,7 +11,6 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
 import com.empowerment.salesrobot.R;
 import com.empowerment.salesrobot.app.MyApplication;
 import com.empowerment.salesrobot.config.Url;
@@ -20,7 +19,6 @@ import com.empowerment.salesrobot.okhttp.MyOkhttp;
 import com.empowerment.salesrobot.ui.adapter.GalleryAdapter;
 import com.empowerment.salesrobot.ui.model.VipOrYxEntity;
 import com.empowerment.salesrobot.uitls.GlideUtils;
-import com.empowerment.salesrobot.uitls.ImageManagerUtils;
 import com.empowerment.salesrobot.uitls.SPUtil;
 import com.empowerment.salesrobot.uitls.ToastUtils;
 import com.empowerment.salesrobot.view.RoundedImageView;
@@ -41,8 +39,6 @@ import static com.empowerment.salesrobot.config.BaseUrl.PAGE_SIZI;
 import static com.empowerment.salesrobot.config.BaseUrl.SALE_ID;
 import static com.empowerment.salesrobot.config.BaseUrl.STORE_ID;
 import static com.empowerment.salesrobot.config.BaseUrl.TYPE;
-import static com.empowerment.salesrobot.config.BaseUrl.TYPE_VALUE_ONE;
-import static com.empowerment.salesrobot.config.BaseUrl.TYPE_VALUE_TWO;
 
 /**
  * Vip // 预成交 页面
@@ -102,8 +98,54 @@ public class VIPActivity extends BaseActivity {
 
     @Override
     protected void loadData() {
-        mList.clear();
-        mAdapter.notifyDataSetChanged();
+
+    }
+
+    @Override
+    protected void initView() {
+        mStyle = getIntent().getStringExtra("mStyle");
+        if (mStyle.equals("1")){
+            title.setText("VIP客户");
+        }else {
+            title.setText("预成交客户");
+        }
+        titleBack.setVisibility(View.VISIBLE);
+        titleLayout.setBackgroundColor(getResources().getColor(R.color.colorTransParent));
+        recyclerView.setLayoutManager(new LinearLayoutManager(context, OrientationHelper.HORIZONTAL,false));
+        mAdapter = new GalleryAdapter(context, mList);
+        recyclerView.setAdapter(mAdapter);
+        recyclerView.setAdapter(mAdapter);
+
+        recyclerView.addOnItemTouchListener(new RecyclerItemTouchListener(recyclerView) {
+            @Override
+            public void onItemClick(RecyclerView.ViewHolder vh) {
+                position = vh.getAdapterPosition();
+                if (position < 0 | position >= mList.size()) {
+                    return;
+                }
+                vipName.setText(mList.get(position).getName());
+                vipNames.setText("姓名：" + mList.get(position).getName());
+                vipAddsees.setText("地址：" + mList.get(position).getAddress());
+                vipAge.setText("年龄：" + mList.get(position).getAge());
+                vipPhone.setText("手机：" + mList.get(position).getPhone());
+                vipWork.setText("职业：" + mList.get(position).getWork());
+                vipId.setText("身份证：" + mList.get(position).getIdCard());
+                GlideUtils.imageLoader(context,mList.get(position).getPic(),vipIcon);
+                switch (mList.get(position).getSex()) {
+                    case 0:
+                        vipSex.setText("性别：男");
+                        break;
+                    case 1:
+                        vipSex.setText("性别：女");
+                        break;
+                }
+            }
+        });
+
+        getdata();
+    }
+
+    private void getdata() {
         Map<String, String> params = new HashMap<>();
         params.put(SALE_ID, SPUtil.getString(context,SALE_ID));
         params.put(STORE_ID, SPUtil.getString(context,STORE_ID));
@@ -130,48 +172,6 @@ public class VIPActivity extends BaseActivity {
                 vipId.setText("身份证：" + mList.get(0).getIdCard());
                 GlideUtils.imageLoader(context,mList.get(0).getPic(),vipIcon);
                 switch (mList.get(0).getSex()) {
-                    case 1:
-                        vipSex.setText("性别：男");
-                        break;
-                    case 2:
-                        vipSex.setText("性别：女");
-                        break;
-                }
-            }
-        });
-    }
-
-    @Override
-    protected void initView() {
-        mStyle = getIntent().getStringExtra("mStyle");
-        if (mStyle.equals("1")){
-            title.setText("VIP客户");
-        }else {
-            title.setText("预成交客户");
-        }
-        titleBack.setVisibility(View.VISIBLE);
-        titleLayout.setBackgroundColor(getResources().getColor(R.color.colorTransParent));
-        recyclerView.setLayoutManager(new LinearLayoutManager(context, OrientationHelper.HORIZONTAL,false));
-        mAdapter = new GalleryAdapter(context, mList);
-        recyclerView.setAdapter(mAdapter);
-        recyclerView.setAdapter(mAdapter);
-
-        recyclerView.addOnItemTouchListener(new RecyclerItemTouchListener(recyclerView) {
-            @Override
-            public void onItemClick(RecyclerView.ViewHolder vh) {
-                position = vh.getAdapterPosition() - 1;
-                if (position < 0 | position >= mList.size()) {
-                    return;
-                }
-                vipName.setText(mList.get(position).getName());
-                vipNames.setText("姓名：" + mList.get(position).getName());
-                vipAddsees.setText("地址：" + mList.get(position).getAddress());
-                vipAge.setText("年龄：" + mList.get(position).getAge());
-                vipPhone.setText("手机：" + mList.get(position).getPhone());
-                vipWork.setText("职业：" + mList.get(position).getWork());
-                vipId.setText("身份证：" + mList.get(position).getIdCard());
-                ImageManagerUtils.imageLoader.displayImage(mList.get(position).getPic(),vipIcon,ImageManagerUtils.options3);
-                switch (mList.get(position).getSex()) {
                     case 1:
                         vipSex.setText("性别：男");
                         break;
@@ -223,47 +223,44 @@ public class VIPActivity extends BaseActivity {
                 bundle.putString("mStyle",mStyle);
                 MyApplication.openActivity(context,AddCustomerActivity.class,bundle);
                 break;
-            //汽车保养
+            //保养记录
             case R.id.tv_car_maintenance:
                 if (mList != null && !mList.isEmpty() && mList.size() > 0){
-                    bundle.putString("title", "汽车保养");
-                    bundle.putString("cid", mList.get(position).getId() + "");
+                    bundle.putString("cid",mList.get(position).getId() + "");
                     MyApplication.openActivity(context,MaintenanceRecordActivity.class,bundle);
                 }else {
                     ToastUtils.makeText(context,"暂无数据");
                 }
                 break;
-            //汽车服务
+            //维修记录
             case R.id.tv_car_service:
-                ToastUtils.makeText(context,"暂无权限");
+                if (mList != null && !mList.isEmpty() && mList.size() > 0){
+                    bundle.putString("cid",mList.get(position).getId() + "");
+                    MyApplication.openActivity(context,RepairRecordActivity.class,bundle);
+                }else {
+                    ToastUtils.makeText(context,"暂无数据");
+                }
                 break;
             //汽车推荐
             case R.id.tv_car_recommendation:
-                if (mList != null && !mList.isEmpty() && mList.size() > 0){
-                    bundle.putString("title", "汽车推荐");
-                    bundle.putString("cid", mList.get(position).getId() + "");
-                    MyApplication.openActivity(context,MaintenanceRecordActivity.class,bundle);
-                }else {
-                    ToastUtils.makeText(context,"暂无数据");
-                }
+                ToastUtils.makeText(context,"暂未开通，敬请期待...");
                 break;
             //生日提醒
             case R.id.tv_birthday_reminding:
-                ToastUtils.makeText(context,"暂无权限");
+                ToastUtils.makeText(context,"暂未开通，敬请期待...");
                 break;
             //购车情况
             case R.id.tv_car_purchase:
                 if (mList != null && !mList.isEmpty() && mList.size() > 0){
-                    bundle.putString("title", "购车情况");
                     bundle.putString("cid", mList.get(position).getId() + "");
-                    MyApplication.openActivity(context,MaintenanceRecordActivity.class,bundle);
+                    MyApplication.openActivity(context,BuyCarRecordActivity.class,bundle);
                 }else {
                     ToastUtils.makeText(context,"暂无数据");
                 }
                 break;
             //汽车保险
             case R.id.tv_car_insurance:
-                ToastUtils.makeText(context,"暂无权限");
+                ToastUtils.makeText(context,"暂未开通，敬请期待...");
                 break;
         }
     }

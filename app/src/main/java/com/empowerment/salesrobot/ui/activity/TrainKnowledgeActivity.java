@@ -5,9 +5,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.empowerment.salesrobot.R;
-import com.empowerment.salesrobot.config.Url;
 import com.empowerment.salesrobot.okhttp.MyOkhttp;
 import com.empowerment.salesrobot.ui.model.TrainKnowledgeBean;
+import com.empowerment.salesrobot.uitls.SPUtil;
 import com.empowerment.salesrobot.uitls.ToastUtils;
 import com.google.gson.Gson;
 
@@ -17,6 +17,8 @@ import java.util.Map;
 import butterknife.BindView;
 import butterknife.OnClick;
 
+import static com.empowerment.salesrobot.config.BaseUrl.SALE_ID;
+import static com.empowerment.salesrobot.config.BaseUrl.STORE_ID;
 import static com.empowerment.salesrobot.config.Url.ROBOT_INSURANCE;
 import static com.empowerment.salesrobot.config.Url.ROBOT_MAINTAIN;
 
@@ -43,6 +45,8 @@ public class TrainKnowledgeActivity extends BaseActivity {
     @Override
     protected void loadData() {
         Map<String,String> params = new HashMap<>();
+        params.put(SALE_ID, SPUtil.getString(context,STORE_ID));
+        params.put(STORE_ID, SPUtil.getString(context,STORE_ID));
         MyOkhttp.Okhttp(context, url, "加载中...", params, (response, result, resultNote) -> {
             Gson gson = new Gson();
             TrainKnowledgeBean trainKnowledgeBean = gson.fromJson(response,TrainKnowledgeBean.class);

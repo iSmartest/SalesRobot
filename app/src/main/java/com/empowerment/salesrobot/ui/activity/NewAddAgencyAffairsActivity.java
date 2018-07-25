@@ -120,7 +120,7 @@ public class NewAddAgencyAffairsActivity extends BaseActivity {
         params.put("endDate",time);
         params.put("content",content);
         params.put("sId", SPUtil.getString(context,SALE_ID));
-        params.put("storeId", SPUtil.getString(context,STORE_ID));
+        params.put(STORE_ID, SPUtil.getString(context,STORE_ID));
         MyOkhttp.Okhttp(context, Url.ADD_PERSONAL_AGENCY, "提交中...", params, new MyOkhttp.CallBack() {
             @Override
             public void onRequestComplete(String response, String result, String resultNote) {

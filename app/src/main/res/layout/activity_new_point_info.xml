@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:orientation="vertical"
     android:layout_height="match_parent"
-    android:background="@color/background"
+    android:background="@color/app_main_background"
     tools:context=".ui.activity.NewPointInfoActivity">
 
     <include layout="@layout/activity_base"/>

@@ -12,6 +12,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+
 import com.empowerment.salesrobot.R;
 import com.empowerment.salesrobot.config.Url;
 import com.empowerment.salesrobot.listener.RecyclerItemTouchListener;
@@ -27,7 +28,6 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -122,8 +122,7 @@ public class TrainingDocumentsActivity extends BaseActivity {
                 if (position < 0 | position >= mList.size()) {
                     return;
                 }
-//                final String mUrl = Url.HTTP + mList.get(position).getAddress();
-                final String mUrl = "";
+                final String mUrl = Url.HTTP + mList.get(position).getAddress();
                 mProgressDialog = new ProgressDialog(context);
                 mProgressDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
                 mProgressDialog.setCancelable(false);

@@ -7,7 +7,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.empowerment.salesrobot.R;
-import com.empowerment.salesrobot.app.MyApplication;
 import com.empowerment.salesrobot.config.Url;
 import com.empowerment.salesrobot.okhttp.MyOkhttp;
 import com.empowerment.salesrobot.uitls.SPUtil;
@@ -27,6 +26,7 @@ import butterknife.OnClick;
 
 import static com.empowerment.salesrobot.config.BaseUrl.EXPERIENCE;
 import static com.empowerment.salesrobot.config.BaseUrl.SALE_ID;
+import static com.empowerment.salesrobot.config.BaseUrl.STORE_ID;
 
 /**
  * Author: 小火
@@ -97,10 +97,9 @@ public class EditUnderstandActivity extends BaseActivity {
 
     private void save(String content) {
         Map<String,String> params = new HashMap<>();
-        params.put(SALE_ID, "1");
-//        params.put(SALE_ID, SPUtil.getString(context,SALE_ID));
+        params.put(STORE_ID, SPUtil.getString(context,STORE_ID));
+        params.put(SALE_ID, SPUtil.getString(context,SALE_ID));
         params.put(EXPERIENCE, content);
-
         MyOkhttp.Okhttp(context, Url.ADD_EXPERLIST, "保存中...", params, (response, result, resultNote) -> {
             if (result.equals("1")){
                 ToastUtils.makeText(context,resultNote);

@@ -55,7 +55,7 @@ public class LoginActivity extends BaseActivity {
     Button butLoginSMS;
     @BindView(R.id.login_Post)
     Button loginPost;
-    private String sessionId;
+    private String sessionId = "";
     @Override
     protected void loadData() {
         getWindows(this);
@@ -115,32 +115,29 @@ public class LoginActivity extends BaseActivity {
     }
 
     private void login(String passPin,String userphone) {
-        Map<String, String> loginMap = new HashMap<>();
-        loginMap.put(PHONE_NUMBER, userphone);
-        loginMap.put(CODE, passPin);
-        loginMap.put("sessionId", sessionId);
-        MyOkhttp.Okhttp(context, Url.LOGIN_, "加载中...", loginMap, new MyOkhttp.CallBack() {
-            @Override
-            public void onRequestComplete(String response, String result, String resultNote) {
-                Gson gson = new Gson();
-                UserInfo info = gson.fromJson(response, UserInfo.class);
-                Log.i("TAG", "onRequestComplete: " + response);
-                if (result.equals("1")) {
-                    ToastUtils.makeText(context, resultNote);
-                    return;
-                }
-                SPUtil.putString(context,SALE_ID,info.getData().getUserid());
-                SPUtil.putString(context,STORE_ID,info.getData().getStoreId());
-                SPUtil.putString(context,AGE,info.getData().getAge());
-                SPUtil.putString(context,SEX,info.getData().getSex()+"");
-                SPUtil.putString(context,NAME,info.getData().getName());
-                SPUtil.putString(context,WORK,info.getData().getWork()+"");
-                SPUtil.putString(context,NUMBER,info.getData().getNumber());
-                SPUtil.putString(context,IMAGE,info.getData().getImage());
-                SPUtil.putString(context,PHONE_NUMBER,info.getData().getPhone());
-                JPushInterface.setAlias(LoginActivity.this,1,info.getData().getUserid());
-                MyApplication.openActivity(context, MainActivity.class);
+        Map<String, String> params = new HashMap<>();
+        params.put(PHONE_NUMBER, userphone);
+        params.put(CODE, passPin);
+        params.put("sessionId", sessionId);
+        MyOkhttp.Okhttp(context, Url.LOGIN, "登录中...", params, (response, result, resultNote) -> {
+            Gson gson = new Gson();
+            UserInfo info = gson.fromJson(response, UserInfo.class);
+            Log.i("TAG", "onRequestComplete: " + response);
+            if (result.equals("1")) {
+                ToastUtils.makeText(context, resultNote);
+                return;
             }
+            SPUtil.putString(context,SALE_ID,info.getData().getUserid());
+            SPUtil.putString(context,STORE_ID,info.getData().getStoreId());
+            SPUtil.putString(context,AGE,info.getData().getAge());
+            SPUtil.putString(context,SEX,info.getData().getSex()+"");
+            SPUtil.putString(context,NAME,info.getData().getName());
+            SPUtil.putString(context,WORK,info.getData().getWork()+"");
+            SPUtil.putString(context,NUMBER,info.getData().getNumber());
+            SPUtil.putString(context,IMAGE,info.getData().getImage());
+            SPUtil.putString(context,PHONE_NUMBER,info.getData().getPhone());
+            JPushInterface.setAlias(LoginActivity.this,1,info.getData().getUserid());
+            MyApplication.openActivity(context, MainActivity.class);
         });
     }
     /**

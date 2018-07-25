@@ -88,7 +88,7 @@ public class AgencyAffairsInfoActivity extends BaseActivity {
         params.put("aId",id+"");
         params.put("sId", SPUtil.getString(context,SALE_ID));
         params.put("aType",String.valueOf(type));//待办类型
-        params.put("storeId",SPUtil.getString(context,STORE_ID));
+        params.put(STORE_ID,SPUtil.getString(context,STORE_ID));
         params.put("type", "2");//1为阅读，2为完结
         MyOkhttp.Okhttp(context, Url.READ_OR_FINISH, "加载中...", params, (response, result, resultNote) -> {
             if (result.equals("1")){

@@ -15,7 +15,6 @@ import android.widget.TextView;
 import com.empowerment.salesrobot.R;
 import com.empowerment.salesrobot.app.MyApplication;
 import com.empowerment.salesrobot.config.Url;
-import com.empowerment.salesrobot.dialog.ProgressDialog;
 import com.empowerment.salesrobot.listener.RecyclerItemTouchListener;
 import com.empowerment.salesrobot.okhttp.MyOkhttp;
 import com.empowerment.salesrobot.ui.adapter.AgencyAffairsAdapter;
@@ -72,10 +71,10 @@ public class AgencyAffairsActivity extends BaseActivity {
         mList.clear();
         mAdapter.notifyDataSetChanged();
         Map<String,String> params = new HashMap<>();
-        params.put("storeId",SPUtil.getString(context, "storeId"));
+        params.put(STORE_ID,SPUtil.getString(context, STORE_ID));
         params.put("page",String.valueOf(nowPage));
         params.put("rows",rows+"");
-        params.put("saleId",SPUtil.getString(context, SALE_ID));
+        params.put(SALE_ID,SPUtil.getString(context, SALE_ID));
         params.put("type",type);
         MyOkhttp.Okhttp(context, Url.AFFAIRS, "加载中...", params, (response, result, resultNote) -> {
             xRecyclerView.refreshComplete();
@@ -151,7 +150,7 @@ public class AgencyAffairsActivity extends BaseActivity {
         params.put("aId",id+"");
         params.put("sId", SPUtil.getString(context,SALE_ID));
         params.put("aType",String.valueOf(type));//待办类型
-        params.put("storeId",SPUtil.getString(context,STORE_ID));
+        params.put(STORE_ID,SPUtil.getString(context,STORE_ID));
         params.put("type", "1");//1为阅读，2为完结
         MyOkhttp.Okhttp(context, Url.READ_OR_FINISH, "", params, (response, result, resultNote) -> {
             Log.i(TAG, "onRequestComplete: " + response);

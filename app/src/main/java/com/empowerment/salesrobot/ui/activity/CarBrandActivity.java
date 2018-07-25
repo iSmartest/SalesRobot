@@ -12,6 +12,7 @@ import com.empowerment.salesrobot.config.Url;
 import com.empowerment.salesrobot.okhttp.MyOkhttp;
 import com.empowerment.salesrobot.ui.adapter.CarBrandAdapter;
 import com.empowerment.salesrobot.ui.model.CarBrandBean;
+import com.empowerment.salesrobot.uitls.SPUtil;
 import com.empowerment.salesrobot.uitls.ToastUtils;
 import com.google.gson.Gson;
 
@@ -23,6 +24,9 @@ import java.util.Map;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+
+import static com.empowerment.salesrobot.config.BaseUrl.SALE_ID;
+import static com.empowerment.salesrobot.config.BaseUrl.STORE_ID;
 
 /**
  * Author: 小火
@@ -47,8 +51,12 @@ public class CarBrandActivity extends BaseActivity {
 
     @Override
     protected void loadData() {
+        mList.clear();
+        mAdapter.notifyDataSetChanged();
         Map<String,String> params = new HashMap<>();
         params.put("brandId",brandId);
+        params.put(STORE_ID, SPUtil.getString(context,STORE_ID));
+        params.put(SALE_ID, SPUtil.getString(context,SALE_ID));
         MyOkhttp.Okhttp(context, Url.CARLIST, "加载中...", params, (response, result, resultNote) -> {
             Gson gson = new Gson();
             CarBrandBean carBrandBean = gson.fromJson(response,CarBrandBean.class);
@@ -56,7 +64,6 @@ public class CarBrandActivity extends BaseActivity {
                 ToastUtils.makeText(context,resultNote);
                 return;
             }
-
             List<CarBrandBean.DataBean.CarList> carLists = carBrandBean.getData().getCarList();
             if (carLists != null && !carLists.isEmpty() && carLists.size() > 0){
                 mList.addAll(carLists);

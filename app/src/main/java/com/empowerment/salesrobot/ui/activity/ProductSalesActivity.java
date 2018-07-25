@@ -1,14 +1,10 @@
 package com.empowerment.salesrobot.ui.activity;
 
 import android.os.Bundle;
-import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.OrientationHelper;
 import android.support.v7.widget.RecyclerView;
-import android.text.TextUtils;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -21,7 +17,6 @@ import com.empowerment.salesrobot.okhttp.MyOkhttp;
 import com.empowerment.salesrobot.ui.adapter.BrandAdapter;
 import com.empowerment.salesrobot.ui.model.ProductSalesBean;
 import com.empowerment.salesrobot.uitls.GlideUtils;
-import com.empowerment.salesrobot.uitls.ImageManagerUtils;
 import com.empowerment.salesrobot.uitls.SPUtil;
 import com.empowerment.salesrobot.uitls.ToastUtils;
 import com.google.gson.Gson;
@@ -99,7 +94,7 @@ public class ProductSalesActivity extends BaseActivity {
         recyclerView.addOnItemTouchListener(new RecyclerItemTouchListener(recyclerView) {
             @Override
             public void onItemClick(RecyclerView.ViewHolder vh) {
-                int position = vh.getAdapterPosition() - 1;
+                int position = vh.getLayoutPosition();
                 if (position < 0 | position >= mList.size()) {
                     return;
                 }

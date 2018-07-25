@@ -3,12 +3,44 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/app_main_background"
+    android:orientation="vertical"
     tools:context=".ui.activity.MaintenanceRecordActivity">
 
-    <include layout="@layout/activity_base"/>
-    <include layout="@layout/layout_list_ptr"/>
+    <include layout="@layout/activity_base" />
 
 
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <com.example.xrecyclerview.XRecyclerView
+            android:id="@+id/mListView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:divider="@color/divider_gray"
+            android:dividerHeight="1px"></com.example.xrecyclerview.XRecyclerView>
+
+        <LinearLayout
+            android:id="@+id/ll_record_err"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:visibility="gone">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:contentDescription="@string/data_empty"
+                android:src="@drawable/loding_err" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="暂时没有数据哦" />
+        </LinearLayout>
+    </RelativeLayout>
 
 
 </LinearLayout>

@@ -3,7 +3,6 @@ package com.empowerment.salesrobot.ui.activity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -62,7 +61,7 @@ public class FieldRecordActivity extends BaseActivity {
         Map<String,String> params = new HashMap<>();
         params.put("page",String.valueOf(nowPage));
         params.put("rows",rows+"");
-        params.put("storeId", SPUtil.getString(context,STORE_ID));
+        params.put(STORE_ID, SPUtil.getString(context,STORE_ID));
         MyOkhttp.Okhttp(context, Url.RECORD_LIST, "加载中...", params, (response, result, resultNote) -> {
             Gson gson = new Gson();
             FieldRecordBean fieldRecordBean = gson.fromJson(response,FieldRecordBean.class);

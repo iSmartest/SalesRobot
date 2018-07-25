@@ -10,15 +10,9 @@ import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.GridView;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-
-import com.bumptech.glide.Glide;
 
 import com.empowerment.salesrobot.R;
 import com.empowerment.salesrobot.app.MyApplication;
@@ -51,6 +45,7 @@ import butterknife.OnClick;
 import butterknife.Unbinder;
 
 import static com.empowerment.salesrobot.config.BaseUrl.SALE_ID;
+import static com.empowerment.salesrobot.config.BaseUrl.STORE_ID;
 import static com.empowerment.salesrobot.config.Url.HTTP;
 
 
@@ -89,7 +84,6 @@ public class HomeFragment extends BaseFragment implements OnBannerClickListener 
     private String notice;
     private int companyNoticeCount;
     private Map<String, String> homeMap = new HashMap<>();
-    private List<String> titleList = new ArrayList<>();
     private List<String> imgList = new ArrayList<>();
     private List<HomeEntity.DataBean.ImageList> homeList = new ArrayList<>();
     private CallBackListener callBackListener;
@@ -143,7 +137,7 @@ public class HomeFragment extends BaseFragment implements OnBannerClickListener 
 
     protected void loadData() {
         homeMap.put(SALE_ID,SPUtil.getString(context, SALE_ID));
-        homeMap.put("storeId",SPUtil.getString(context, "storeId"));
+        homeMap.put(STORE_ID,SPUtil.getString(context, STORE_ID));
         MyOkhttp.Okhttp(context, Url.INDEX, "加载中...", homeMap, (response, result, resultNote) -> {
             Gson gson = new Gson();
             final HomeEntity bean = gson.fromJson(response, HomeEntity.class);

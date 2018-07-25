@@ -59,7 +59,7 @@ public class FieldRecordInfoActivity extends BaseActivity {
     @Override
     protected void loadData() {
         Map<String,String> params = new HashMap<>();
-        params.put("storeId", SPUtil.getString(context,STORE_ID));
+        params.put(STORE_ID, SPUtil.getString(context,STORE_ID));
         params.put("cId",id);
         params.put("page",String.valueOf(nowPage));
         MyOkhttp.Okhttp(context, Url.RECORD_DETAIL, "加载中...", params, (response, result, resultNote) -> {

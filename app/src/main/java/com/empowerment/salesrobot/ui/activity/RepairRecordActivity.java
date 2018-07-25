@@ -9,8 +9,8 @@ import android.widget.TextView;
 import com.empowerment.salesrobot.R;
 import com.empowerment.salesrobot.config.Url;
 import com.empowerment.salesrobot.okhttp.MyOkhttp;
-import com.empowerment.salesrobot.ui.adapter.MaintenanceAdapter;
-import com.empowerment.salesrobot.ui.model.MpbListEntity;
+import com.empowerment.salesrobot.ui.adapter.RepairAdapter;
+import com.empowerment.salesrobot.ui.model.RepairBean;
 import com.empowerment.salesrobot.uitls.SPUtil;
 import com.empowerment.salesrobot.uitls.ToastUtils;
 import com.example.xrecyclerview.XRecyclerView;
@@ -29,7 +29,7 @@ import static com.empowerment.salesrobot.config.BaseUrl.PAGE;
 import static com.empowerment.salesrobot.config.BaseUrl.STORE_ID;
 import static com.empowerment.salesrobot.config.BaseUrl.TYPE;
 
-public class MaintenanceRecordActivity extends BaseActivity{
+public class RepairRecordActivity extends BaseActivity{
     @BindView(R.id.title_Back)
     ImageView titleBack;
     @BindView(R.id.title)
@@ -40,8 +40,8 @@ public class MaintenanceRecordActivity extends BaseActivity{
     LinearLayout mErr;
     private String cid;
     private int nowPage = 1;
-    private List<MpbListEntity.DataBean.MaintianListBean> mList = new ArrayList<>();
-    private MaintenanceAdapter mAdapter;
+    private List<RepairBean.DataBean.RepairList> mList = new ArrayList<>();
+    private RepairAdapter mAdapter;
 
     @Override
     protected int getLauoutId() {
@@ -56,23 +56,23 @@ public class MaintenanceRecordActivity extends BaseActivity{
         params.put(C_ID, cid);
         params.put(STORE_ID, SPUtil.getString(context,STORE_ID));
         params.put(PAGE, nowPage + "");
-        params.put(TYPE, "1");
+        params.put(TYPE, "2");
         MyOkhttp.Okhttp(context, Url.MPBLIST, "加载中...", params, (response, result, resultNote) -> {
             Gson gson = new Gson();
-            MpbListEntity entity = gson.fromJson(response,MpbListEntity.class);
+            RepairBean repairBean = gson.fromJson(response,RepairBean.class);
             if (result.equals("1")){
                 mErr.setVisibility(View.VISIBLE);
                 xRecyclerView.setVisibility(View.GONE);
                 ToastUtils.makeText(context,resultNote);
                 return;
             }
-            List<MpbListEntity.DataBean.MaintianListBean> maintianListBeans = entity.getData().getMaintianList();
-            if (maintianListBeans != null && !maintianListBeans.isEmpty() && maintianListBeans.size() > 0){
+            List<RepairBean.DataBean.RepairList> repairLists = repairBean.getData().getRepairList();
+            if (repairLists != null && !repairLists.isEmpty() && repairLists.size() > 0){
                 mErr.setVisibility(View.GONE);
                 xRecyclerView.setVisibility(View.VISIBLE);
-                mList.addAll(maintianListBeans);
+                mList.addAll(repairLists);
                 mAdapter.notifyDataSetChanged();
-                if (maintianListBeans.size() < 10){
+                if (repairLists.size() < 10){
                     xRecyclerView.noMoreLoading();
                 }
             }else {
@@ -85,10 +85,10 @@ public class MaintenanceRecordActivity extends BaseActivity{
     @Override
     protected void initView() {
         titleBack.setVisibility(View.VISIBLE);
-        title.setText("保养记录");
+        title.setText("维修记录");
         cid = getIntent().getStringExtra("cid");
         xRecyclerView.setLayoutManager(new LinearLayoutManager(context));
-        mAdapter = new MaintenanceAdapter(context,mList);
+        mAdapter = new RepairAdapter(context,mList);
         xRecyclerView.setAdapter(mAdapter);
         xRecyclerView.setLoadingListener(new XRecyclerView.LoadingListener() {
             @Override

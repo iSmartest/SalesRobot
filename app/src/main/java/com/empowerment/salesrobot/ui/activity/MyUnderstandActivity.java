@@ -5,7 +5,6 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.AbsListView;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -19,7 +18,6 @@ import com.empowerment.salesrobot.uitls.SPUtil;
 import com.empowerment.salesrobot.uitls.ToastUtils;
 import com.empowerment.salesrobot.view.swipeLayout.SwipeLayoutManager;
 import com.google.gson.Gson;
-
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -60,11 +58,11 @@ public class MyUnderstandActivity extends BaseActivity implements MyUnderstandAd
         mAdapter.notifyDataSetChanged();
         Map<String, String> params = new HashMap<>();
         params.put(SALE_ID, SPUtil.getString(context,SALE_ID));
+        params.put(STORE_ID, SPUtil.getString(context,STORE_ID));
         params.put(PAGE, PAGE_SIZI + "");
         MyOkhttp.Okhttp(context, Url.SALES_MANS, "加载中...", params, (response, result, resultNote) -> {
             Gson gson = new Gson();
             MyUnderstandBean myUnderstandBean = gson.fromJson(response,MyUnderstandBean.class);
-
             if (result.equals("1")){
                 ToastUtils.makeText(context,resultNote);
                 return;

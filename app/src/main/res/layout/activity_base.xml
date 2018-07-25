@@ -10,9 +10,9 @@
         android:id="@+id/title_Back"
         android:layout_width="45dp"
         android:layout_height="match_parent"
-        android:src="@drawable/back_icon"
+        android:src="@drawable/back_write"
         android:visibility="gone"
-        android:paddingLeft="15dp"
+        android:paddingLeft="10dp"
         android:paddingRight="15dp"
         android:contentDescription="@string/back"/>
 

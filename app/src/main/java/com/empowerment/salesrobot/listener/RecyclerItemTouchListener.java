@@ -13,7 +13,7 @@ import android.view.View;
 
 public abstract class RecyclerItemTouchListener implements RecyclerView.OnItemTouchListener {
 
-    private GestureDetectorCompat mGestureDetector;
+    private GestureDetectorCompat mGestureDetector;//手势识别
     private RecyclerView recyclerView;
 
     public RecyclerItemTouchListener(RecyclerView recyclerView) {
@@ -42,7 +42,7 @@ public abstract class RecyclerItemTouchListener implements RecyclerView.OnItemTo
     private class ItemTouchHelperGestureListener extends GestureDetector.SimpleOnGestureListener {
 
         @Override
-        public boolean onSingleTapUp(MotionEvent e) {
+        public boolean onSingleTapUp(MotionEvent e) {//手指离开触摸屏的那一刹那。
             View child = recyclerView.findChildViewUnder(e.getX(), e.getY());
             if (child != null) {
                 RecyclerView.ViewHolder vh = recyclerView.getChildViewHolder(child);
@@ -52,7 +52,7 @@ public abstract class RecyclerItemTouchListener implements RecyclerView.OnItemTo
         }
 
         @Override
-        public void onLongPress(MotionEvent e) {
+        public void onLongPress(MotionEvent e) {//手指按在触摸屏上，它的时间范围在按下起效，在长按之前。
             View child = recyclerView.findChildViewUnder(e.getX(), e.getY());
             if (child != null) {
                 RecyclerView.ViewHolder vh = recyclerView.getChildViewHolder(child);

@@ -125,6 +125,17 @@
             android:windowSoftInputMode="adjustPan|stateHidden"
             android:configChanges="orientation"
             android:screenOrientation="portrait"/>
+        <!--维修记录-->
+        <activity android:name=".ui.activity.RepairRecordActivity"
+            android:windowSoftInputMode="adjustPan|stateHidden"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait"/>
+        <!--购车记录-->
+        <activity android:name=".ui.activity.BuyCarRecordActivity"
+            android:windowSoftInputMode="adjustPan|stateHidden"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait"/>
+
         <!--新品买点-->
         <activity android:name=".ui.activity.NewPointActivity"
             android:windowSoftInputMode="adjustPan|stateHidden"

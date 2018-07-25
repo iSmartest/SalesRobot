@@ -59,10 +59,13 @@ public class ToastUtils {
     }
 
 
-    private Toast mToast;
+    private static Toast mToast;
     private TextView textView;
 
     private ToastUtils(Context context, CharSequence text) {
+        if (mToast != null){
+            mToast.cancel();
+        }
         mToast = new Toast(context);
         View view = LayoutInflater.from(context).inflate(R.layout.eplay_toast, null);
         textView = view.findViewById(R.id.textView1);

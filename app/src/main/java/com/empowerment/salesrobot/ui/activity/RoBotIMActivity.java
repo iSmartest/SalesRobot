@@ -22,7 +22,6 @@ import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
 import com.empowerment.salesrobot.R;
 import com.empowerment.salesrobot.app.MyApplication;
 import com.empowerment.salesrobot.config.Url;
@@ -37,7 +36,6 @@ import com.empowerment.salesrobot.ui.adapter.RoBotIMAdapter;
 import com.empowerment.salesrobot.ui.model.ImageBean;
 import com.empowerment.salesrobot.ui.model.RobotResultBean;
 import com.empowerment.salesrobot.ui.model.TrainRecordBean;
-import com.empowerment.salesrobot.uitls.GlideUtils;
 import com.empowerment.salesrobot.uitls.SPUtil;
 import com.empowerment.salesrobot.uitls.ToastUtils;
 import com.empowerment.salesrobot.uitls.UriUtils;
@@ -448,8 +446,8 @@ public class RoBotIMActivity extends BaseActivity implements ReplacePicListener 
 
     private void submitVideo(File tempFile, Uri uri) {
         Map<String, String> params = new HashMap<>();
-        params.put("storeId","1");
-        params.put("sId","1");
+        params.put(STORE_ID,SPUtil.getString(context,STORE_ID));
+        params.put("sId",SPUtil.getString(context,SALE_ID));
         params.put("keyWord",mContent);
 
         dialog.show();
