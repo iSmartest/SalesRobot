@@ -1,55 +1,27 @@
 package com.empowerment.salesrobot.ui.activity;
 
-import android.Manifest;
 import android.annotation.SuppressLint;
-import android.app.AlertDialog;
-import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.graphics.Bitmap;
-import android.graphics.Point;
-import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
-import android.os.Environment;
 import android.os.Handler;
-import android.support.annotation.NonNull;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.ContextCompat;
-import android.support.v4.content.FileProvider;
-import android.util.Log;
-import android.view.Display;
-import android.view.Gravity;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.Window;
-import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.empowerment.salesrobot.R;
 import com.empowerment.salesrobot.app.MyApplication;
-import com.empowerment.salesrobot.config.Url;
 import com.empowerment.salesrobot.dialog.LogOutDialog;
-import com.empowerment.salesrobot.okhttp.OkHttpUtils;
-import com.empowerment.salesrobot.okhttp.budiler.StringCallback;
+import com.empowerment.salesrobot.ui.base.BaseActivity;
 import com.empowerment.salesrobot.uitls.AppManager;
 import com.empowerment.salesrobot.uitls.DataCleanManager;
 import com.empowerment.salesrobot.uitls.GlideUtils;
-import com.empowerment.salesrobot.uitls.ImageUtil;
-import com.empowerment.salesrobot.uitls.PhotoUtil;
 import com.empowerment.salesrobot.uitls.SPUtil;
 import com.empowerment.salesrobot.uitls.ToastUtils;
 import com.empowerment.salesrobot.view.RoundedImageView;
 
-import java.io.File;
-import java.util.HashMap;
-import java.util.Map;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import okhttp3.Call;
 
 import static com.empowerment.salesrobot.config.BaseUrl.IMAGE;
 import static com.empowerment.salesrobot.config.BaseUrl.NAME;
@@ -63,7 +35,7 @@ import static com.empowerment.salesrobot.config.BaseUrl.SALE_ID;
  * Created by 2018/7/5.
  * Description:
  */
-public class PersonalMainActivity extends BaseActivity{
+public class PersonalMainActivity extends BaseActivity {
     @BindView(R.id.title_Back)
     ImageView titleBack;
     @BindView(R.id.my_iconImgview)

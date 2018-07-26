@@ -10,6 +10,7 @@ import com.empowerment.salesrobot.R;
 import com.empowerment.salesrobot.config.Url;
 import com.empowerment.salesrobot.okhttp.MyOkhttp;
 import com.empowerment.salesrobot.ui.adapter.BuyCarAdapter;
+import com.empowerment.salesrobot.ui.base.BaseActivity;
 import com.empowerment.salesrobot.ui.model.BuyCarRecordBean;
 import com.empowerment.salesrobot.uitls.SPUtil;
 import com.empowerment.salesrobot.uitls.ToastUtils;
@@ -29,7 +30,7 @@ import static com.empowerment.salesrobot.config.BaseUrl.PAGE;
 import static com.empowerment.salesrobot.config.BaseUrl.STORE_ID;
 import static com.empowerment.salesrobot.config.BaseUrl.TYPE;
 
-public class BuyCarRecordActivity extends BaseActivity{
+public class BuyCarRecordActivity extends BaseActivity {
     private static final String TAG = "MaintenanceRecordActivi";
     @BindView(R.id.title_Back)
     ImageView titleBack;

@@ -115,11 +115,6 @@
         <activity android:name=".ui.activity.CustomerToStoreTimesActivity"
             android:configChanges="orientation"
             android:screenOrientation="portrait"/>
-        <!--添加VIP客户-->
-        <activity android:name=".ui.activity.AddVIPActivity"
-            android:windowSoftInputMode="adjustPan|stateHidden"
-            android:configChanges="orientation"
-            android:screenOrientation="portrait"/>
         <!--保养记录-->
         <activity android:name=".ui.activity.MaintenanceRecordActivity"
             android:windowSoftInputMode="adjustPan|stateHidden"

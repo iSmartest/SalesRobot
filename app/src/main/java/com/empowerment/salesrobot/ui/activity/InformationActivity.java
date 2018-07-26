@@ -19,6 +19,7 @@ import com.empowerment.salesrobot.config.Url;
 import com.empowerment.salesrobot.listener.RecyclerItemTouchListener;
 import com.empowerment.salesrobot.okhttp.MyOkhttp;
 import com.empowerment.salesrobot.ui.adapter.InformationAdapter;
+import com.empowerment.salesrobot.ui.base.BaseActivity;
 import com.empowerment.salesrobot.ui.model.InformationEntity;
 import com.empowerment.salesrobot.uitls.SPUtil;
 import com.empowerment.salesrobot.uitls.ToastUtils;

@@ -9,6 +9,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.empowerment.salesrobot.dialog.ErrorDialog;
+import com.empowerment.salesrobot.ui.base.BaseActivity;
 import com.empowerment.salesrobot.uitls.GlobalMethod;
 import com.empowerment.salesrobot.uitls.ToastUtils;
 import com.empowerment.salesrobot.uitls.UpdateManager;
@@ -27,7 +28,7 @@ import butterknife.OnClick;
  * My mailbox is 1403241630@qq.com
  */
 
-public class UpdateActivity extends BaseActivity{
+public class UpdateActivity extends BaseActivity {
     @BindView(R.id.title_Back)
     ImageView titleBack;
     @BindView(R.id.title)

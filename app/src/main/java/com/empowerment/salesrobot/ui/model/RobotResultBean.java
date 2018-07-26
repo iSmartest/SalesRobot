@@ -1,5 +1,7 @@
 package com.empowerment.salesrobot.ui.model;
 
+import com.empowerment.salesrobot.ui.base.BaseBean;
+
 import java.io.Serializable;
 import java.util.List;
 
@@ -9,26 +11,9 @@ import java.util.List;
  * Created by 2018/7/16.
  * Description:
  */
-public class RobotResultBean {
-    private String msg;
-    private int resultCode;
+public class RobotResultBean extends BaseBean {
+
     private DataBean data;
-
-    public String getMsg() {
-        return msg;
-    }
-
-    public void setMsg(String msg) {
-        this.msg = msg;
-    }
-
-    public int getResultCode() {
-        return resultCode;
-    }
-
-    public void setResultCode(int resultCode) {
-        this.resultCode = resultCode;
-    }
 
     public DataBean getData() {
         return data;

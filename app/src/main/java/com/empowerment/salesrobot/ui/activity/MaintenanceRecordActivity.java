@@ -10,7 +10,8 @@ import com.empowerment.salesrobot.R;
 import com.empowerment.salesrobot.config.Url;
 import com.empowerment.salesrobot.okhttp.MyOkhttp;
 import com.empowerment.salesrobot.ui.adapter.MaintenanceAdapter;
-import com.empowerment.salesrobot.ui.model.MpbListEntity;
+import com.empowerment.salesrobot.ui.base.BaseActivity;
+import com.empowerment.salesrobot.ui.model.MpbListModel;
 import com.empowerment.salesrobot.uitls.SPUtil;
 import com.empowerment.salesrobot.uitls.ToastUtils;
 import com.example.xrecyclerview.XRecyclerView;
@@ -29,7 +30,7 @@ import static com.empowerment.salesrobot.config.BaseUrl.PAGE;
 import static com.empowerment.salesrobot.config.BaseUrl.STORE_ID;
 import static com.empowerment.salesrobot.config.BaseUrl.TYPE;
 
-public class MaintenanceRecordActivity extends BaseActivity{
+public class MaintenanceRecordActivity extends BaseActivity {
     @BindView(R.id.title_Back)
     ImageView titleBack;
     @BindView(R.id.title)
@@ -40,7 +41,7 @@ public class MaintenanceRecordActivity extends BaseActivity{
     LinearLayout mErr;
     private String cid;
     private int nowPage = 1;
-    private List<MpbListEntity.DataBean.MaintianListBean> mList = new ArrayList<>();
+    private List<MpbListModel.DataBean.MaintianListBean> mList = new ArrayList<>();
     private MaintenanceAdapter mAdapter;
 
     @Override
@@ -59,14 +60,14 @@ public class MaintenanceRecordActivity extends BaseActivity{
         params.put(TYPE, "1");
         MyOkhttp.Okhttp(context, Url.MPBLIST, "加载中...", params, (response, result, resultNote) -> {
             Gson gson = new Gson();
-            MpbListEntity entity = gson.fromJson(response,MpbListEntity.class);
+            MpbListModel entity = gson.fromJson(response,MpbListModel.class);
             if (result.equals("1")){
                 mErr.setVisibility(View.VISIBLE);
                 xRecyclerView.setVisibility(View.GONE);
                 ToastUtils.makeText(context,resultNote);
                 return;
             }
-            List<MpbListEntity.DataBean.MaintianListBean> maintianListBeans = entity.getData().getMaintianList();
+            List<MpbListModel.DataBean.MaintianListBean> maintianListBeans = entity.getData().getMaintianList();
             if (maintianListBeans != null && !maintianListBeans.isEmpty() && maintianListBeans.size() > 0){
                 mErr.setVisibility(View.GONE);
                 xRecyclerView.setVisibility(View.VISIBLE);

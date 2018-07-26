@@ -1,30 +1,14 @@
-package com.empowerment.salesrobot.ui.model;
+package com.empowerment.salesrobot.ui.base;
 
 /**
  * Author: 小火
  * Email:1403241630@qq.com
- * Created by 2018/7/2.
+ * Created by 2018/7/26.
  * Description:
  */
-public class AddBean {
-    /**
-     * data : {}
-     * resultCode : 0
-     * msg : 添加成功
-     */
-
-    private DataBean data;
+public class BaseBean {
     private int resultCode;
     private String msg;
-
-    public DataBean getData() {
-        return data;
-    }
-
-    public void setData(DataBean data) {
-        this.data = data;
-    }
-
     public int getResultCode() {
         return resultCode;
     }
@@ -41,6 +25,4 @@ public class AddBean {
         this.msg = msg;
     }
 
-    public class DataBean {
-    }
 }

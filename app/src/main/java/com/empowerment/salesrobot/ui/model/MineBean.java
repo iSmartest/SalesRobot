@@ -1,4 +1,7 @@
 package com.empowerment.salesrobot.ui.model;
+
+import com.empowerment.salesrobot.ui.base.BaseBean;
+
 import java.util.List;
 
 /**
@@ -9,7 +12,7 @@ import java.util.List;
  */
 
 
-public class MineBean {
+public class MineBean extends BaseBean {
 
     /**
      * data : {"contentList":[{"content":"测试文本测试文本测试文本测试文本测试文本测试文本测试文本","data":1527068704,"id":12,"image":"15270670244761315.png","name":"郭老","phone":"12589633555"},{"content":"测试文本测试文本测试文本测试文本测试文本测试文本测试文本","data":1527068697,"id":11,"image":"15270670244761315.png","name":"郭老","phone":"12589633555"},{"content":"测试文本测试文本测试文本测试文本测试文本测试文本测试文本","data":1527068688,"id":10,"image":"15270670371412774.png","name":"郭","phone":"18332212561"},{"content":"测试文本测试文本测试文本测试文本测试文本测试文本测试文本","data":1527068672,"id":9,"image":"15270670244761315.png","name":"郭老","phone":"12589633555"},{"content":"测试文本测试文本测试文本测试文本测试文本测试文本测试文本","data":1527068663,"id":8,"image":"15270670371412774.png","name":"郭","phone":"18332212561"},{"content":"测试文本测试文本测试文本测试文本测试文本测试文本测试文本","data":1527068659,"id":7},{"content":"卖卖买画完为止","data":1527060579,"id":6,"image":"15270670371412774.png","name":"郭","phone":"18332212561"},{"content":"要买就买奔驰","data":1525743499,"id":1,"image":"15270670371412774.png","name":"郭","phone":"18332212561"},{"content":"要买就买宝马","data":1525657103,"id":2},{"content":"要买就买挖掘机","data":1525484309,"id":4,"image":"15270670371412774.png","name":"郭","phone":"18332212561"}],"sale":{"age":28,"image":"15270670371412774.png","name":"郭","phone":"18332212561","saleIndex":1000,"successIndex":2000,"work":"iOS"}}
@@ -18,8 +21,6 @@ public class MineBean {
      */
 
     private DataBean data;
-    private String msg;
-    private int resultCode;
 
     public DataBean getData() {
         return data;
@@ -27,22 +28,6 @@ public class MineBean {
 
     public void setData(DataBean data) {
         this.data = data;
-    }
-
-    public String getMsg() {
-        return msg;
-    }
-
-    public void setMsg(String msg) {
-        this.msg = msg;
-    }
-
-    public int getResultCode() {
-        return resultCode;
-    }
-
-    public void setResultCode(int resultCode) {
-        this.resultCode = resultCode;
     }
 
     public static class DataBean {

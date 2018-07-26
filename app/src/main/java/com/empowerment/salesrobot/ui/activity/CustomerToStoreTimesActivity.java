@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 import com.empowerment.salesrobot.R;
 import com.empowerment.salesrobot.ui.adapter.CustomerToStoreTimesAdapter;
+import com.empowerment.salesrobot.ui.base.BaseActivity;
 
 import java.util.ArrayList;
 

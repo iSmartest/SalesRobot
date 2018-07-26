@@ -1,17 +1,16 @@
 package com.empowerment.salesrobot.ui.model;
 
+import com.empowerment.salesrobot.ui.base.BaseBean;
+
 /**
  * Author: 小火
  * Email:1403241630@qq.com
  * Created by 2018/7/2.
  * Description:
  */
-public class UserInfo {
-    private String resultCode;
-    private String msg;
+public class UserInfo extends BaseBean {
     private DataBean data;
     private Boolean success;
-
     public static class DataBean{
         private String sessionId;
         private String number;

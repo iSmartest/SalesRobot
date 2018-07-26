@@ -6,10 +6,9 @@ import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
-import android.widget.RadioGroup;
 import android.widget.TextView;
 import com.empowerment.salesrobot.R;
-import com.empowerment.salesrobot.app.MyApplication;
+import com.empowerment.salesrobot.ui.base.BaseActivity;
 import com.empowerment.salesrobot.uitls.ToastUtils;
 
 import butterknife.BindView;

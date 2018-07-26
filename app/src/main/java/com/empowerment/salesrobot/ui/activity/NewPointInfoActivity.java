@@ -7,7 +7,6 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
 import com.empowerment.salesrobot.R;
 import com.empowerment.salesrobot.app.MyApplication;
 import com.empowerment.salesrobot.config.Url;
@@ -15,6 +14,7 @@ import com.empowerment.salesrobot.dialog.SeePictureDialog;
 import com.empowerment.salesrobot.listener.RecyclerItemTouchListener;
 import com.empowerment.salesrobot.okhttp.MyOkhttp;
 import com.empowerment.salesrobot.ui.adapter.NewPointInfoAdapter;
+import com.empowerment.salesrobot.ui.base.BaseActivity;
 import com.empowerment.salesrobot.ui.model.NewPointInfoBean;
 import com.empowerment.salesrobot.uitls.ToastUtils;
 import com.google.gson.Gson;

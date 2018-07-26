@@ -1,5 +1,7 @@
 package com.empowerment.salesrobot.ui.model;
 
+import com.empowerment.salesrobot.ui.base.BaseBean;
+
 import java.util.List;
 
 /**
@@ -8,7 +10,7 @@ import java.util.List;
  * Created by 2018/7/5.
  * Description:
  */
-public class MyUnderstandBean {
+public class MyUnderstandBean extends BaseBean {
 
     /**
      * data : {"experienceList":[{"image":"/upload/image/touxiang.jpg","name":"李广","time":1525743499000,"content":"要买就买奔驰"},{"image":"/upload/image/touxiang.jpg","name":"武则天","time":1525657103000,"content":"要买就买宝马"},{"image":"/upload/image/touxiang.jpg","name":"李广","time":1525484309000,"content":"要买就买挖掘机"},{"image":"/upload/image/touxiang.jpg","name":"武则天","time":1525397905000,"content":"要买就买奥托"}]}
@@ -17,8 +19,6 @@ public class MyUnderstandBean {
      */
 
     private DataBean data;
-    private int resultCode;
-    private String msg;
 
     public DataBean getData() {
         return data;
@@ -26,22 +26,6 @@ public class MyUnderstandBean {
 
     public void setData(DataBean data) {
         this.data = data;
-    }
-
-    public int getResultCode() {
-        return resultCode;
-    }
-
-    public void setResultCode(int resultCode) {
-        this.resultCode = resultCode;
-    }
-
-    public String getMsg() {
-        return msg;
-    }
-
-    public void setMsg(String msg) {
-        this.msg = msg;
     }
 
     public static class DataBean {

@@ -1,5 +1,7 @@
 package com.empowerment.salesrobot.ui.model;
 
+import com.empowerment.salesrobot.ui.base.BaseBean;
+
 import java.util.List;
 
 /**
@@ -8,27 +10,9 @@ import java.util.List;
  * Created by 2018/7/3.
  * Description:
  */
-public class TrainingDocBean {
-    //{"data":{"tdoctList":[{"address":"/upload/2018/6/doc20180620135831190.pdf","name":"岗前培训","id":12,"content":"岗前培训"}]},"resultCode":0,"msg":"查询成功"}
-    private String resultCode;
-    private String msg;
+public class TrainingDocBean extends BaseBean {
+
     private DataBean data;
-
-    public String getResultCode() {
-        return resultCode;
-    }
-
-    public void setResultCode(String resultCode) {
-        this.resultCode = resultCode;
-    }
-
-    public String getMsg() {
-        return msg;
-    }
-
-    public void setMsg(String msg) {
-        this.msg = msg;
-    }
 
     public DataBean getData() {
         return data;

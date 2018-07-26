@@ -12,6 +12,7 @@ import com.empowerment.salesrobot.R;
 import com.empowerment.salesrobot.config.Url;
 import com.empowerment.salesrobot.okhttp.MyOkhttp;
 import com.empowerment.salesrobot.ui.adapter.FieldRecordInfoAdapter;
+import com.empowerment.salesrobot.ui.base.BaseActivity;
 import com.empowerment.salesrobot.ui.model.FieldRecordInfoBean;
 import com.empowerment.salesrobot.uitls.SPUtil;
 import com.empowerment.salesrobot.uitls.ToastUtils;
@@ -27,6 +28,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
+import static com.empowerment.salesrobot.config.BaseUrl.SALE_ID;
 import static com.empowerment.salesrobot.config.BaseUrl.STORE_ID;
 
 /**
@@ -58,8 +60,11 @@ public class FieldRecordInfoActivity extends BaseActivity {
 
     @Override
     protected void loadData() {
+        mList.clear();
+        mAdapter.notifyDataSetChanged();
         Map<String,String> params = new HashMap<>();
         params.put(STORE_ID, SPUtil.getString(context,STORE_ID));
+        params.put(SALE_ID, SPUtil.getString(context,SALE_ID));
         params.put("cId",id);
         params.put("page",String.valueOf(nowPage));
         MyOkhttp.Okhttp(context, Url.RECORD_DETAIL, "加载中...", params, (response, result, resultNote) -> {

@@ -1,28 +1,12 @@
 package com.empowerment.salesrobot.ui.model;
 
+import com.empowerment.salesrobot.ui.base.BaseBean;
+
 import java.util.List;
 
-public class HomeEntity {
+public class HomeModel extends BaseBean {
 
-    private int resultCode;
-    private String msg;
     private DataBean data;
-
-    public int getResultCode() {
-        return resultCode;
-    }
-
-    public void setResultCode(int resultCode) {
-        this.resultCode = resultCode;
-    }
-
-    public String getMsg() {
-        return msg;
-    }
-
-    public void setMsg(String msg) {
-        this.msg = msg;
-    }
 
     public DataBean getData() {
         return data;

@@ -20,6 +20,7 @@ import com.empowerment.salesrobot.ui.activity.MyUnderstandActivity;
 import com.empowerment.salesrobot.ui.activity.PersonalMainActivity;
 import com.empowerment.salesrobot.ui.activity.UnderstandInfoActivity;
 import com.empowerment.salesrobot.ui.adapter.UnderStandAdapter;
+import com.empowerment.salesrobot.ui.base.BaseFragment;
 import com.empowerment.salesrobot.ui.model.MineBean;
 import com.empowerment.salesrobot.uitls.GlideUtils;
 import com.empowerment.salesrobot.uitls.SPUtil;

@@ -1,5 +1,7 @@
 package com.empowerment.salesrobot.ui.model;
 
+import com.empowerment.salesrobot.ui.base.BaseBean;
+
 import java.util.List;
 
 /**
@@ -8,10 +10,8 @@ import java.util.List;
  * Created by 2018/7/3.
  * Description:
  */
-public class NewPointBean {
+public class NewPointBean extends BaseBean {
     private DataBean data;
-    private String msg;
-    private int resultCode;
 
     public DataBean getData() {
         return data;
@@ -19,22 +19,6 @@ public class NewPointBean {
 
     public void setData(DataBean data) {
         this.data = data;
-    }
-
-    public String getMsg() {
-        return msg;
-    }
-
-    public void setMsg(String msg) {
-        this.msg = msg;
-    }
-
-    public int getResultCode() {
-        return resultCode;
-    }
-
-    public void setResultCode(int resultCode) {
-        this.resultCode = resultCode;
     }
 
     public static class DataBean{

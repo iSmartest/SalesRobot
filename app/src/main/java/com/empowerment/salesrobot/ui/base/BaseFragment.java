@@ -1,4 +1,4 @@
-package com.empowerment.salesrobot.ui.fragment;
+package com.empowerment.salesrobot.ui.base;
 
 import android.app.Dialog;
 import android.content.Context;

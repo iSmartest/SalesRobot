@@ -3,42 +3,24 @@ package com.empowerment.salesrobot.ui.activity;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.empowerment.salesrobot.R;
-import com.empowerment.salesrobot.config.Url;
-import com.empowerment.salesrobot.okhttp.MyOkhttp;
-import com.empowerment.salesrobot.ui.model.SalePerfectinBean;
+import com.empowerment.salesrobot.ui.base.BaseActivity;
 import com.empowerment.salesrobot.uitls.SPUtil;
 import com.empowerment.salesrobot.uitls.ToastUtils;
-import com.google.gson.Gson;
 
-
-import java.util.HashMap;
-import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 import static com.empowerment.salesrobot.config.BaseUrl.AGE;
-import static com.empowerment.salesrobot.config.BaseUrl.IMAGE;
-import static com.empowerment.salesrobot.config.BaseUrl.IS_ORPERFECT;
 import static com.empowerment.salesrobot.config.BaseUrl.NAME;
 import static com.empowerment.salesrobot.config.BaseUrl.NUMBER;
-import static com.empowerment.salesrobot.config.BaseUrl.PHONE_NUMBER;
-import static com.empowerment.salesrobot.config.BaseUrl.SALEINDEX;
-import static com.empowerment.salesrobot.config.BaseUrl.SALE_ID;
 import static com.empowerment.salesrobot.config.BaseUrl.SEX;
-import static com.empowerment.salesrobot.config.BaseUrl.SUCCESSINDEX;
-import static com.empowerment.salesrobot.config.BaseUrl.TYPE;
-import static com.empowerment.salesrobot.config.BaseUrl.TYPE_VALUE_O;
-import static com.empowerment.salesrobot.config.BaseUrl.TYPE_VALUE_ONE;
-import static com.empowerment.salesrobot.config.BaseUrl.TYPE_VALUE_TWO;
 import static com.empowerment.salesrobot.config.BaseUrl.WORK;
-import static com.empowerment.salesrobot.config.Url.SALE;
 
 
 /**

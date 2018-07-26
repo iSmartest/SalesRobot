@@ -9,10 +9,9 @@ import android.widget.TextView;
 import com.empowerment.salesrobot.R;
 import com.empowerment.salesrobot.config.DataCenter;
 import com.empowerment.salesrobot.config.Url;
-import com.empowerment.salesrobot.dialog.ProgressDialog;
 import com.empowerment.salesrobot.dialog.SelectedDialog;
-import com.empowerment.salesrobot.dialog.SelectedTimeDialog;
 import com.empowerment.salesrobot.okhttp.MyOkhttp;
+import com.empowerment.salesrobot.ui.base.BaseActivity;
 import com.empowerment.salesrobot.uitls.SPUtil;
 import com.empowerment.salesrobot.uitls.ToastUtils;
 
@@ -22,8 +21,6 @@ import java.util.Map;
 import butterknife.BindView;
 import butterknife.OnClick;
 
-import static com.empowerment.salesrobot.config.BaseUrl.PAGE;
-import static com.empowerment.salesrobot.config.BaseUrl.PAGE_SIZI;
 import static com.empowerment.salesrobot.config.BaseUrl.SALE_ID;
 import static com.empowerment.salesrobot.config.BaseUrl.STORE_ID;
 
@@ -204,7 +201,7 @@ public class AddCustomerActivity extends BaseActivity {
             if (result.equals("1")) {
                 ToastUtils.makeText(context, resultNote);
                 return;
-            }
+                }
             ToastUtils.makeText(context, resultNote);
         });
     }

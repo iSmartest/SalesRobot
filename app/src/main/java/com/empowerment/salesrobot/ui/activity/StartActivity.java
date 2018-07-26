@@ -2,13 +2,11 @@ package com.empowerment.salesrobot.ui.activity;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
-import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
-import android.provider.Settings;
 import android.support.v4.content.ContextCompat;
 import android.text.TextUtils;
 import android.view.animation.AlphaAnimation;
@@ -18,6 +16,7 @@ import android.widget.TextView;
 import com.empowerment.salesrobot.R;
 import com.empowerment.salesrobot.app.Constant;
 import com.empowerment.salesrobot.app.MyApplication;
+import com.empowerment.salesrobot.ui.base.BaseActivity;
 import com.empowerment.salesrobot.uitls.SPUtil;
 
 

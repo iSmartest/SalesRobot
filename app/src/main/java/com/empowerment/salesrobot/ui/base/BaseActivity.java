@@ -1,4 +1,4 @@
-package com.empowerment.salesrobot.ui.activity;
+package com.empowerment.salesrobot.ui.base;
 
 import android.app.Dialog;
 import android.content.Context;
@@ -6,14 +6,8 @@ import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.widget.EditText;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.TextView;
 
-import com.empowerment.salesrobot.R;
 import com.empowerment.salesrobot.dialog.ProgressDialog;
-import com.empowerment.salesrobot.ui.fragment.BaseFragment;
 import com.empowerment.salesrobot.uitls.AppManager;
 import com.empowerment.salesrobot.uitls.StatusBarUtil;
 

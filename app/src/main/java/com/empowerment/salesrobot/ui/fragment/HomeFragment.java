@@ -23,7 +23,8 @@ import com.empowerment.salesrobot.ui.activity.CustomerInfoActivity;
 import com.empowerment.salesrobot.ui.activity.NewPointActivity;
 import com.empowerment.salesrobot.ui.activity.ProductSalesActivity;
 import com.empowerment.salesrobot.ui.adapter.HomeBannerAdapter;
-import com.empowerment.salesrobot.ui.model.HomeEntity;
+import com.empowerment.salesrobot.ui.base.BaseFragment;
+import com.empowerment.salesrobot.ui.model.HomeModel;
 import com.empowerment.salesrobot.uitls.SPUtil;
 import com.empowerment.salesrobot.uitls.ToastUtils;
 import com.empowerment.salesrobot.uitls.Utils;
@@ -85,7 +86,7 @@ public class HomeFragment extends BaseFragment implements OnBannerClickListener 
     private int companyNoticeCount;
     private Map<String, String> homeMap = new HashMap<>();
     private List<String> imgList = new ArrayList<>();
-    private List<HomeEntity.DataBean.ImageList> homeList = new ArrayList<>();
+    private List<HomeModel.DataBean.ImageList> homeList = new ArrayList<>();
     private CallBackListener callBackListener;
 
     public void onAttach(Activity activity) {
@@ -140,7 +141,7 @@ public class HomeFragment extends BaseFragment implements OnBannerClickListener 
         homeMap.put(STORE_ID,SPUtil.getString(context, STORE_ID));
         MyOkhttp.Okhttp(context, Url.INDEX, "加载中...", homeMap, (response, result, resultNote) -> {
             Gson gson = new Gson();
-            final HomeEntity bean = gson.fromJson(response, HomeEntity.class);
+            final HomeModel bean = gson.fromJson(response, HomeModel.class);
             switch (result) {
                 case "0":
                     if (bean.getData().getImageList() != null && !bean.getData().getImageList().isEmpty() && bean.getData().getImageList().size() > 0) {

@@ -9,15 +9,21 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.widget.RadioButton;
 import android.widget.Toast;
+
 import com.empowerment.salesrobot.R;
+import com.empowerment.salesrobot.ui.base.BaseActivity;
 import com.empowerment.salesrobot.ui.fragment.HomeFragment;
 import com.empowerment.salesrobot.ui.fragment.MineFragment;
 import com.empowerment.salesrobot.ui.fragment.ReceptionFragment;
 import com.empowerment.salesrobot.ui.fragment.TrainFragment;
 import com.empowerment.salesrobot.uitls.AppManager;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import me.leolin.shortcutbadger.ShortcutBadger;
+
+import static com.empowerment.salesrobot.app.Constant.badgeCount;
 
 public class MainActivity extends BaseActivity implements HomeFragment.CallBackListener{
 
@@ -80,6 +86,8 @@ public class MainActivity extends BaseActivity implements HomeFragment.CallBackL
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         ButterKnife.bind(this);
+        badgeCount = 0;
+        ShortcutBadger.removeCount(context);
     }
 
     @OnClick({R.id.iv_main_home, R.id.iv_main_train, R.id.iv_main_reception, R.id.iv_main_mine})

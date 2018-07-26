@@ -15,6 +15,7 @@ import com.empowerment.salesrobot.ui.activity.FieldRecordActivity;
 import com.empowerment.salesrobot.ui.activity.RoBotIMActivity;
 import com.empowerment.salesrobot.ui.activity.SeetingsActivity;
 import com.empowerment.salesrobot.ui.activity.TrainKnowledgeActivity;
+import com.empowerment.salesrobot.ui.base.BaseFragment;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -27,7 +28,7 @@ import butterknife.Unbinder;
  * Created by 2018/7/4.
  * Description:
  */
-public class TrainFragment extends BaseFragment{
+public class TrainFragment extends BaseFragment {
     private static final String TAG = "TrainFragment";
     @BindView(R.id.title)
     TextView title;

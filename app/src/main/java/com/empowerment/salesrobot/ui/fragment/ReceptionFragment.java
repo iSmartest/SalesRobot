@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import com.empowerment.salesrobot.R;
 import com.empowerment.salesrobot.ui.adapter.ReceptionAdapter;
+import com.empowerment.salesrobot.ui.base.BaseFragment;
 import com.empowerment.salesrobot.uitls.ToastUtils;
 
 import java.util.ArrayList;
@@ -26,7 +27,7 @@ import butterknife.Unbinder;
  * Created by 2018/7/10.
  * Description:
  */
-public class ReceptionFragment extends BaseFragment{
+public class ReceptionFragment extends BaseFragment {
     @BindView(R.id.title)
     TextView title;
     @BindView(R.id.gv_reception)

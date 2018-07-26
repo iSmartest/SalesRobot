@@ -33,6 +33,7 @@ import com.empowerment.salesrobot.okhttp.MyOkhttp;
 import com.empowerment.salesrobot.okhttp.OkHttpUtils;
 import com.empowerment.salesrobot.okhttp.budiler.StringCallback;
 import com.empowerment.salesrobot.ui.adapter.RoBotIMAdapter;
+import com.empowerment.salesrobot.ui.base.BaseActivity;
 import com.empowerment.salesrobot.ui.model.ImageBean;
 import com.empowerment.salesrobot.ui.model.RobotResultBean;
 import com.empowerment.salesrobot.ui.model.TrainRecordBean;

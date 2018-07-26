@@ -7,14 +7,9 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
 
-import com.empowerment.salesrobot.app.Constant;
-import com.empowerment.salesrobot.app.MyApplication;
-import com.empowerment.salesrobot.dialog.LogOutDialog;
 import com.empowerment.salesrobot.ui.activity.AgencyAffairsInfoActivity;
 import com.empowerment.salesrobot.ui.activity.MainActivity;
-import com.empowerment.salesrobot.ui.model.Receiver;
 import com.empowerment.salesrobot.uitls.SPUtil;
-import com.google.gson.JsonObject;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -22,7 +17,9 @@ import org.json.JSONObject;
 import java.util.Iterator;
 
 import cn.jpush.android.api.JPushInterface;
+import me.leolin.shortcutbadger.ShortcutBadger;
 
+import static com.empowerment.salesrobot.app.Constant.badgeCount;
 import static com.empowerment.salesrobot.config.BaseUrl.SALE_ID;
 
 
@@ -42,7 +39,7 @@ public class MyReceiver extends BroadcastReceiver {
     // 应用程序可以把此 RegistrationID 保存以自己的应用服务器上，
     // 然后就可以根据 RegistrationID 来向设备推送消息或者通知。
     public static String regId;
-
+    private int mCount;
     @Override
     public void onReceive(Context context, Intent intent) {
         try {
@@ -61,6 +58,8 @@ public class MyReceiver extends BroadcastReceiver {
                     Log.d(TAG, "[MyReceiver] 接收到推送下来的通知");
                     int notifactionId = bundle.getInt(JPushInterface.EXTRA_NOTIFICATION_ID);
                     Log.d(TAG, "[MyReceiver] 接收到推送下来的通知的ID: " + notifactionId);
+                    badgeCount ++;
+                    ShortcutBadger.applyCount(context,badgeCount);
                     break;
                 case JPushInterface.ACTION_NOTIFICATION_OPENED:
                     Log.d(TAG, "[MyReceiver] 用户点击打开了通知");
@@ -83,8 +82,9 @@ public class MyReceiver extends BroadcastReceiver {
     }
 
     private void openAppOrActivity(Context context, Bundle  extra) {
+        badgeCount = 0;
+        ShortcutBadger.removeCount(context);
         //判断app进程是否处于前台 此时用户处于登陆状态userId!=0
-        Log.i("sdfdf", "openAppOrActivity: " + extra);
         if (isLogin(context)) {
             Intent detailIntent = parseJpushBundle(context, extra);
             if (detailIntent == null)
@@ -133,7 +133,7 @@ public class MyReceiver extends BroadcastReceiver {
                     detailIntent = new Intent(context, MainActivity.class);
                     detailIntent.putExtra("content", content);
                     break;
-                case "99": //系统消息
+                case "99": //审核
 
                     break;
             }

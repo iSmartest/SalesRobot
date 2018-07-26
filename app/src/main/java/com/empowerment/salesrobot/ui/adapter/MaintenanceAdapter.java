@@ -8,15 +8,15 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 import com.empowerment.salesrobot.R;
-import com.empowerment.salesrobot.ui.model.MpbListEntity;
+import com.empowerment.salesrobot.ui.model.MpbListModel;
 import com.empowerment.salesrobot.uitls.TimeUtils;
 import java.util.List;
 
 public class MaintenanceAdapter extends RecyclerView.Adapter<MaintenanceAdapter.MaintenanceViewHolder> {
     private Context context;
-    private List<MpbListEntity.DataBean.MaintianListBean> mpList;
+    private List<MpbListModel.DataBean.MaintianListBean> mpList;
 
-    public MaintenanceAdapter(Context context, List<MpbListEntity.DataBean.MaintianListBean> mpList) {
+    public MaintenanceAdapter(Context context, List<MpbListModel.DataBean.MaintianListBean> mpList) {
         this.context = context;
         this.mpList = mpList;
     }
@@ -31,7 +31,7 @@ public class MaintenanceAdapter extends RecyclerView.Adapter<MaintenanceAdapter.
 
     @Override
     public void onBindViewHolder(@NonNull MaintenanceViewHolder holder, int position) {
-        MpbListEntity.DataBean.MaintianListBean maintianListBean = mpList.get(position);
+        MpbListModel.DataBean.MaintianListBean maintianListBean = mpList.get(position);
         holder.mTime.setText("保养日期：\t\t" + TimeUtils.transferLongToDate(Long.parseLong(maintianListBean.getDate()+"")));
         holder.mProject.setText("保养项目：\t\t" + maintianListBean.getItem());
         holder.mPrice.setText("保养价格：\t\t" + maintianListBean.getPrice()+ "￥");

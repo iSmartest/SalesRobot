@@ -1,31 +1,16 @@
 package com.empowerment.salesrobot.ui.model;
 
+import com.empowerment.salesrobot.ui.base.BaseBean;
+
 /**
  * Author: 小火
  * Email:1403241630@qq.com
  * Created by 2018/7/20.
  * Description:
  */
-public class TrainKnowledgeBean {
-    private String resultCode;
-    private String msg;
+public class TrainKnowledgeBean extends BaseBean {
+
     private DataBean data;
-
-    public String getResultCode() {
-        return resultCode;
-    }
-
-    public void setResultCode(String resultCode) {
-        this.resultCode = resultCode;
-    }
-
-    public String getMsg() {
-        return msg;
-    }
-
-    public void setMsg(String msg) {
-        this.msg = msg;
-    }
 
     public DataBean getData() {
         return data;

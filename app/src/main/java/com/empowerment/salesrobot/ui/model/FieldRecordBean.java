@@ -1,5 +1,7 @@
 package com.empowerment.salesrobot.ui.model;
 
+import com.empowerment.salesrobot.ui.base.BaseBean;
+
 import java.util.List;
 
 /**
@@ -8,26 +10,8 @@ import java.util.List;
  * Created by 2018/7/10.
  * Description:
  */
-public class FieldRecordBean {
-    private String resultCode;
-    private String msg;
+public class FieldRecordBean extends BaseBean {
     private DataBean data;
-
-    public String getResultCode() {
-        return resultCode;
-    }
-
-    public void setResultCode(String resultCode) {
-        this.resultCode = resultCode;
-    }
-
-    public String getMsg() {
-        return msg;
-    }
-
-    public void setMsg(String msg) {
-        this.msg = msg;
-    }
 
     public DataBean getData() {
         return data;

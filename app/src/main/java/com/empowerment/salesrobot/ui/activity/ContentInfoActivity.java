@@ -16,8 +16,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.empowerment.salesrobot.R;
-
-import java.util.Calendar;
+import com.empowerment.salesrobot.ui.base.BaseActivity;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -28,7 +27,7 @@ import butterknife.OnClick;
  * Created by 2018/7/3.
  * Description:
  */
-public class ContentInfoActivity extends BaseActivity{
+public class ContentInfoActivity extends BaseActivity {
     private String mTitle;
     private String mLink;
     @BindView(R.id.title_Back)

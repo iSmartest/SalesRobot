@@ -17,7 +17,8 @@ import com.empowerment.salesrobot.config.Url;
 import com.empowerment.salesrobot.listener.RecyclerItemTouchListener;
 import com.empowerment.salesrobot.okhttp.MyOkhttp;
 import com.empowerment.salesrobot.ui.adapter.GalleryAdapter;
-import com.empowerment.salesrobot.ui.model.VipOrYxEntity;
+import com.empowerment.salesrobot.ui.base.BaseActivity;
+import com.empowerment.salesrobot.ui.model.VipOrYxBean;
 import com.empowerment.salesrobot.uitls.GlideUtils;
 import com.empowerment.salesrobot.uitls.SPUtil;
 import com.empowerment.salesrobot.uitls.ToastUtils;
@@ -87,7 +88,7 @@ public class VIPActivity extends BaseActivity {
     TextView mInsurance;
     @BindView(R.id.mCopyRecyclerView)
     RecyclerView recyclerView;
-    private List<VipOrYxEntity.DataBean.CustListBean> mList = new ArrayList<>();
+    private List<VipOrYxBean.DataBean.CustListBean> mList = new ArrayList<>();
     private GalleryAdapter mAdapter;
     private int position = 0;
     private String mStyle;
@@ -154,12 +155,12 @@ public class VIPActivity extends BaseActivity {
         MyOkhttp.Okhttp(context, Url.VIP_YCJ, "加载中...", params, (response, result, resultNote) -> {
             Log.i("TAG", "loadData: " + response);
             Gson gson = new Gson();
-            VipOrYxEntity vipOrYxEntity = gson.fromJson(response,VipOrYxEntity.class);
+            VipOrYxBean vipOrYxBean = gson.fromJson(response,VipOrYxBean.class);
             if (result.equals("1")){
                 ToastUtils.makeText(context,resultNote);
                 return;
             }
-            List<VipOrYxEntity.DataBean.CustListBean> listBeans = vipOrYxEntity.getData().getCustList();
+            List<VipOrYxBean.DataBean.CustListBean> listBeans = vipOrYxBean.getData().getCustList();
             if (listBeans != null && !listBeans.isEmpty() && listBeans.size() > 0){
                 mList.addAll(listBeans);
                 mAdapter.notifyDataSetChanged();

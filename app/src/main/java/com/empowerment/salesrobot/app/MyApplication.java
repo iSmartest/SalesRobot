@@ -7,11 +7,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Debug;
 import android.view.View;
 
-
-import com.empowerment.salesrobot.service.InitializeService;
 import com.empowerment.salesrobot.uitls.CrashHandler;
 import com.empowerment.salesrobot.uitls.ImageManagerUtils;
 import com.nostra13.universalimageloader.cache.disc.naming.Md5FileNameGenerator;
@@ -39,7 +36,12 @@ public class MyApplication extends Application {
         super.onCreate();
         CONTEXT = getApplicationContext();
         myApplication = this;
-        InitializeService.start(this);
+        initImageLoader(this.getApplicationContext());
+        JPushInterface.setDebugMode(true);//如果时正式版就改成false
+        JPushInterface.init(this.getApplicationContext());
+        //崩溃错误日志写入本地文档
+        CrashHandler catchExcep = new CrashHandler(this.getApplication());
+        Thread.setDefaultUncaughtExceptionHandler(catchExcep);
     }
 
     public static Context getContext(){

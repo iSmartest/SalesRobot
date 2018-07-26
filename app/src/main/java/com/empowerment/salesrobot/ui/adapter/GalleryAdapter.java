@@ -5,12 +5,10 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
 import com.empowerment.salesrobot.R;
-import com.empowerment.salesrobot.ui.model.VipOrYxEntity;
+import com.empowerment.salesrobot.ui.model.VipOrYxBean;
 import com.empowerment.salesrobot.uitls.GlideUtils;
 import com.empowerment.salesrobot.view.RoundedImageView;
 
@@ -19,10 +17,10 @@ import java.util.List;
 
 public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.GalleryViewHolder> {
     private LayoutInflater mInflater;
-    private List<VipOrYxEntity.DataBean.CustListBean> mList;
+    private List<VipOrYxBean.DataBean.CustListBean> mList;
     private Context context;
 
-    public GalleryAdapter(Context context, List<VipOrYxEntity.DataBean.CustListBean> mList) {
+    public GalleryAdapter(Context context, List<VipOrYxBean.DataBean.CustListBean> mList) {
         mInflater = LayoutInflater.from(context);
         this.mList = mList;
         this.context = context;
@@ -42,7 +40,7 @@ public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.GalleryV
 
     @Override
     public void onBindViewHolder(final GalleryViewHolder viewHolder, final int position) {
-        VipOrYxEntity.DataBean.CustListBean custListBean = mList.get(position);
+        VipOrYxBean.DataBean.CustListBean custListBean = mList.get(position);
         GlideUtils.imageLoader(context,custListBean.getPic(),viewHolder.mImg);
         viewHolder.mTxt.setText(custListBean.getName());
     }
