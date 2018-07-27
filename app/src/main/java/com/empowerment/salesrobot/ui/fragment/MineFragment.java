@@ -1,5 +1,10 @@
 package com.empowerment.salesrobot.ui.fragment;
 
+import android.app.Activity;
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
@@ -34,6 +39,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -82,6 +88,12 @@ public class MineFragment extends BaseFragment {
     private List<MineBean.DataBean.ContentListBean> mList = new ArrayList<>();
     private View view;
 
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+        IntentFilter intentFilter = new IntentFilter();
+        intentFilter.addAction("com.empowerment.salesrobot.mine");
+        Objects.requireNonNull(getActivity()).registerReceiver(mAllBroad, intentFilter);
+    }
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -129,6 +141,7 @@ public class MineFragment extends BaseFragment {
                 bundle.putString("mPhone",mList.get(position).getPhone());
                 bundle.putString("mContent",mList.get(position).getContent());
                 bundle.putString("mTime",String.valueOf(TimeUtils.transferLongToDate(mList.get(position).getData())));
+                bundle.putString("type","0");
                 MyApplication.openActivity(context,UnderstandInfoActivity.class,bundle);
             }
         });
@@ -194,4 +207,14 @@ public class MineFragment extends BaseFragment {
         super.onResume();
         Glide.with(this).load(HTTP + SPUtil.getString(context,IMAGE)).into(myIconImgview);
     }
+    private BroadcastReceiver mAllBroad = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, final Intent intent) {
+            //接到广播通知后刷新数据源
+            nowPage = 1;
+            mList.clear();
+            mAdapter.notifyDataSetChanged();
+            loadData();
+        }
+    };
 }

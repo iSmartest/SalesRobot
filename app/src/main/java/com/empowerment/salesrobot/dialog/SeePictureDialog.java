@@ -6,6 +6,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.text.method.ScrollingMovementMethod;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,9 +15,7 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
-
 
 import com.empowerment.salesrobot.R;
 import com.empowerment.salesrobot.app.MyApplication;
@@ -38,11 +37,13 @@ public class SeePictureDialog extends Dialog {
     private Context mContext;
     private List<NewPointInfoBean.DataBean.BuyPointDetail.SellPointdsc> mList;
     private ViewPager mPager;
+    private LinearLayout mLlPicture;
     private TextView mTotalItem,mPicInfo;
     private ImageView mPlay;
     private ImageAdapter mImageAdapter;
     private String videoUrl = "";
     private String name = "";
+    private boolean isVISIBLE = true;
     public SeePictureDialog(Context context, List<NewPointInfoBean.DataBean.BuyPointDetail.SellPointdsc> mList) {
         super(context);
         this.mContext = context;
@@ -81,6 +82,7 @@ public class SeePictureDialog extends Dialog {
     private void initView() {
         findViewById(R.id.title_Layout).setVisibility(View.GONE);
         mPager = findViewById(R.id.see_pager);
+        mLlPicture = findViewById(R.id.ll_see_picture);
         mTotalItem = findViewById(R.id.text_total_item);
         mPicInfo = findViewById(R.id.text_pic_info);
         mPlay = findViewById(R.id.iv_play_video);
@@ -91,6 +93,8 @@ public class SeePictureDialog extends Dialog {
         }
         mTotalItem.setText(1 + "/" + mList.size());
         mPicInfo.setText(mList.get(0).getDsc());
+        mPicInfo.setMaxHeight(600);
+        mPicInfo.setMovementMethod(ScrollingMovementMethod.getInstance());
         mPager.setPageMargin((int) (mContext.getResources().getDisplayMetrics().density * 15));
         mImageAdapter = new ImageAdapter(mContext,mList);
         mPager.setAdapter(mImageAdapter);
@@ -141,6 +145,19 @@ public class SeePictureDialog extends Dialog {
                 @Override
                 public void onClick(View v) {
                     dismiss();
+                }
+            });
+            photo_view.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (isVISIBLE){
+                        mLlPicture.setVisibility(View.GONE);
+                        isVISIBLE = false;
+                    }else {
+                        mLlPicture.setVisibility(View.VISIBLE);
+                        isVISIBLE = true;
+                    }
+
                 }
             });
             GlideUtils.imageLoader(mContext,sellPointdscs.get(position).getImg(),photo_view);

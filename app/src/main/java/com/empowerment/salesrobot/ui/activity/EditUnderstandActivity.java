@@ -1,5 +1,6 @@
 package com.empowerment.salesrobot.ui.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
@@ -106,6 +107,10 @@ public class EditUnderstandActivity extends BaseActivity {
                 ToastUtils.makeText(context,resultNote);
                 return;
             }
+
+            Intent intent = new Intent();
+            intent.setAction("com.empowerment.salesrobot.mine");
+            getApplicationContext().sendBroadcast(intent);
             ToastUtils.makeText(context,resultNote);
             finish();
         });

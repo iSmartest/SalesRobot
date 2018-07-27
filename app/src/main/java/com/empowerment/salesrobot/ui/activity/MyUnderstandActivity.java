@@ -1,5 +1,6 @@
 package com.empowerment.salesrobot.ui.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -18,6 +19,7 @@ import com.empowerment.salesrobot.ui.model.MyUnderstandBean;
 import com.empowerment.salesrobot.uitls.SPUtil;
 import com.empowerment.salesrobot.uitls.ToastUtils;
 import com.empowerment.salesrobot.view.swipeLayout.SwipeLayoutManager;
+import com.example.xrecyclerview.XRecyclerView;
 import com.google.gson.Gson;
 
 import java.util.ArrayList;
@@ -30,7 +32,6 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 import static com.empowerment.salesrobot.config.BaseUrl.PAGE;
-import static com.empowerment.salesrobot.config.BaseUrl.PAGE_SIZI;
 import static com.empowerment.salesrobot.config.BaseUrl.SALE_ID;
 import static com.empowerment.salesrobot.config.BaseUrl.STORE_ID;
 
@@ -44,7 +45,8 @@ public class MyUnderstandActivity extends BaseActivity implements MyUnderstandAd
     @BindView(R.id.title_OK)
     TextView titleOK;
     @BindView(R.id.swipeListView)
-    RecyclerView swipeListView;
+    XRecyclerView swipeListView;
+    private int nowPage = 1;
     private List<MyUnderstandBean.DataBean.ExperienceListBean> mList = new ArrayList<>();
     private MyUnderstandAdapter mAdapter;
 
@@ -55,12 +57,10 @@ public class MyUnderstandActivity extends BaseActivity implements MyUnderstandAd
 
     @Override
     protected void loadData() {
-        mList.clear();
-        mAdapter.notifyDataSetChanged();
         Map<String, String> params = new HashMap<>();
         params.put(SALE_ID, SPUtil.getString(context,SALE_ID));
         params.put(STORE_ID, SPUtil.getString(context,STORE_ID));
-        params.put(PAGE, PAGE_SIZI + "");
+        params.put(PAGE, nowPage + "");
         MyOkhttp.Okhttp(context, Url.SALES_MANS, "加载中...", params, (response, result, resultNote) -> {
             Gson gson = new Gson();
             MyUnderstandBean myUnderstandBean = gson.fromJson(response,MyUnderstandBean.class);
@@ -72,6 +72,9 @@ public class MyUnderstandActivity extends BaseActivity implements MyUnderstandAd
             if (experienceListBeans != null && !experienceListBeans.isEmpty() && experienceListBeans.size() > 0){
                 mList.addAll(experienceListBeans);
                 mAdapter.notifyDataSetChanged();
+                if (experienceListBeans.size() < 10){
+                    swipeListView.noMoreLoading();
+                }
             }
         });
     }
@@ -97,6 +100,24 @@ public class MyUnderstandActivity extends BaseActivity implements MyUnderstandAd
             @Override
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
                 super.onScrolled(recyclerView, dx, dy);
+            }
+        });
+
+        swipeListView.setLoadingListener(new XRecyclerView.LoadingListener() {
+            @Override
+            public void onRefresh() {
+                nowPage = 1;
+                mList.clear();
+                loadData();
+                mAdapter.notifyDataSetChanged();
+                swipeListView.refreshComplete();
+            }
+            @Override
+            public void onLoadMore() {
+                nowPage++;
+                loadData();
+                mAdapter.notifyDataSetChanged();
+                swipeListView.refreshComplete();
             }
         });
     }
@@ -131,9 +152,20 @@ public class MyUnderstandActivity extends BaseActivity implements MyUnderstandAd
                 ToastUtils.makeText(context,resultNote);
                 return;
             }
-            mList.remove(position);
+            mList.remove(position-1);
             ToastUtils.makeText(context,resultNote);
             mAdapter.notifyDataSetChanged();
+            Intent intent = new Intent();
+            intent.setAction("com.empowerment.salesrobot.mine");
+            getApplicationContext().sendBroadcast(intent);
         });
+    }
+    @Override
+    protected void onResume() {
+        super.onResume();
+        nowPage = 1;
+        mList.clear();
+        mAdapter.notifyDataSetChanged();
+        loadData();
     }
 }

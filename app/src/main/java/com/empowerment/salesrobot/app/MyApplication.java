@@ -42,6 +42,7 @@ public class MyApplication extends Application {
         //崩溃错误日志写入本地文档
         CrashHandler catchExcep = new CrashHandler(this.getApplication());
         Thread.setDefaultUncaughtExceptionHandler(catchExcep);
+
     }
 
     public static Context getContext(){

@@ -51,8 +51,6 @@ public class MaintenanceRecordActivity extends BaseActivity {
 
     @Override
     protected void loadData() {
-        mList.clear();
-        mAdapter.notifyDataSetChanged();
         Map<String, String> params = new HashMap<>();
         params.put(C_ID, cid);
         params.put(STORE_ID, SPUtil.getString(context,STORE_ID));
@@ -113,5 +111,14 @@ public class MaintenanceRecordActivity extends BaseActivity {
     @OnClick(R.id.title_Back)
     public void onViewClicked() {
         finish();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        nowPage = 1;
+        mList.clear();
+        mAdapter.notifyDataSetChanged();
+        loadData();
     }
 }

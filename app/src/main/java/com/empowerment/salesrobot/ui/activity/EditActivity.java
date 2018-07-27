@@ -196,18 +196,18 @@ public class EditActivity extends BaseActivity {
                             ToastUtils.makeText(context,"客户性别不能为空");
                             return;
                         }
-                        if (mWork.isEmpty()){
-                            ToastUtils.makeText(context,"客户工作不能为空");
-                            return;
-                        }
-                        if (mAddress.isEmpty()){
-                            ToastUtils.makeText(context,"客户地址不能为空");
-                            return;
-                        }
-                        if (mIdCard.isEmpty()){
-                            ToastUtils.makeText(context,"客户身份证不能为空");
-                            return;
-                        }
+//                        if (mWork.isEmpty()){
+//                            ToastUtils.makeText(context,"客户工作不能为空");
+//                            return;
+//                        }
+//                        if (mAddress.isEmpty()){
+//                            ToastUtils.makeText(context,"客户地址不能为空");
+//                            return;
+//                        }
+//                        if (mIdCard.isEmpty()){
+//                            ToastUtils.makeText(context,"客户身份证不能为空");
+//                            return;
+//                        }
                         if (mPhone.isEmpty()){
                             ToastUtils.makeText(context,"客户手机号不能为空");
                             return;

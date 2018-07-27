@@ -4,29 +4,21 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.empowerment.salesrobot.R;
 import com.empowerment.salesrobot.app.MyApplication;
-import com.empowerment.salesrobot.config.Url;
-import com.empowerment.salesrobot.okhttp.MyOkhttp;
 import com.empowerment.salesrobot.ui.activity.UnderstandInfoActivity;
 import com.empowerment.salesrobot.ui.model.MyUnderstandBean;
 import com.empowerment.salesrobot.uitls.TimeUtils;
-import com.empowerment.salesrobot.uitls.ToastUtils;
 import com.empowerment.salesrobot.view.swipeLayout.SwipeLayout;
 import com.empowerment.salesrobot.view.swipeLayout.SwipeLayoutManager;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  * Author: 小火
@@ -69,6 +61,7 @@ public class MyUnderstandAdapter extends RecyclerView.Adapter<MyUnderstandAdapte
             bundle.putString("mName",mList.get(position).getName());
             bundle.putString("mContent",mList.get(position).getContent());
             bundle.putString("mTime",String.valueOf(TimeUtils.transferLongToDate(mList.get(position).getTime())));
+            bundle.putString("type","1");
             MyApplication.openActivity(context,UnderstandInfoActivity.class,bundle);
         });
     }

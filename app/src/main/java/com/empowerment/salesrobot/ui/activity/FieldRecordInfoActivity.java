@@ -60,8 +60,6 @@ public class FieldRecordInfoActivity extends BaseActivity {
 
     @Override
     protected void loadData() {
-        mList.clear();
-        mAdapter.notifyDataSetChanged();
         Map<String,String> params = new HashMap<>();
         params.put(STORE_ID, SPUtil.getString(context,STORE_ID));
         params.put(SALE_ID, SPUtil.getString(context,SALE_ID));
@@ -80,7 +78,6 @@ public class FieldRecordInfoActivity extends BaseActivity {
                 mAdapter.notifyDataSetChanged();
             }
             if (conLists.size() < rows){
-                ToastUtils.makeText(context,"没有更多了");
                 xRecyclerView.noMoreLoading();
             }
         });
@@ -151,5 +148,13 @@ public class FieldRecordInfoActivity extends BaseActivity {
                 finish();
                 break;
         }
+    }
+    @Override
+    protected void onResume() {
+        super.onResume();
+        nowPage = 1;
+        mList.clear();
+        mAdapter.notifyDataSetChanged();
+        loadData();
     }
 }

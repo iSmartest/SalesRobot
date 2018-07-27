@@ -68,7 +68,7 @@ public class AddCustomerActivity extends BaseActivity {
     @BindView(R.id.edit_add_address)
     EditText ediAddress;
     private SelectedDialog selectedDialog;
-    private String mStyle, mName, mAge, mSex, mPhone, mIdCard, mWork, mIndustry, mIncome, mAddress, mIntention;
+    private String mStyle, mName, mAge, mSex ="", mPhone, mIdCard, mWork, mIndustry, mIncome, mAddress, mIntention;
 
     @Override
     protected int getLauoutId() {
@@ -118,10 +118,10 @@ public class AddCustomerActivity extends BaseActivity {
                     ToastUtils.makeText(context, "请输入要添加的客户姓名");
                     return;
                 }
-                if (mAge.isEmpty()) {
-                    ToastUtils.makeText(context, "请输入要添加的客户年龄");
-                    return;
-                }
+//                if (mAge.isEmpty()) {
+//                    ToastUtils.makeText(context, "请输入要添加的客户年龄");
+//                    return;
+//                }
                 if (mSex.isEmpty()) {
                     ToastUtils.makeText(context, "请选择要添加的客户性别");
                     return;

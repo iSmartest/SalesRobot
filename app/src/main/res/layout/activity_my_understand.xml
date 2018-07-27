@@ -9,10 +9,10 @@
 
     <include layout="@layout/activity_base"/>
 
-    <android.support.v7.widget.RecyclerView
+    <com.example.xrecyclerview.XRecyclerView
         android:layout_width="match_parent"
         android:id="@+id/swipeListView"
         android:layout_height="match_parent">
-    </android.support.v7.widget.RecyclerView>
+    </com.example.xrecyclerview.XRecyclerView>
 
 </LinearLayout>

@@ -182,6 +182,7 @@ public class HomeFragment extends BaseFragment implements OnBannerClickListener 
 
     @Override
     public void OnBannerClick(int position) {
+        if (homeList != null && !homeList.isEmpty() && homeList.size() > 0)
         ToastUtils.makeText(context, "这是" + homeList.get(position - 1).getName());
     }
 

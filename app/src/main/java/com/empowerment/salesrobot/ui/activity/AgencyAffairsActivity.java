@@ -69,8 +69,6 @@ public class AgencyAffairsActivity extends BaseActivity {
 
     @Override
     protected void loadData() {
-        mList.clear();
-        mAdapter.notifyDataSetChanged();
         Map<String,String> params = new HashMap<>();
         params.put(STORE_ID,SPUtil.getString(context, STORE_ID));
         params.put("page",String.valueOf(nowPage));
@@ -91,7 +89,6 @@ public class AgencyAffairsActivity extends BaseActivity {
                 mAdapter.notifyDataSetChanged();
             }
             if (agentLists.size() < rows){
-                ToastUtils.makeText(context,"没有更多了");
                 xRecyclerView.noMoreLoading();
             }
         });
@@ -120,7 +117,7 @@ public class AgencyAffairsActivity extends BaseActivity {
             @Override
             public void onLoadMore() {
                 nowPage++;
-//                loadData();
+                loadData();
                 xRecyclerView.noMoreLoading();
             }
         });
@@ -210,5 +207,14 @@ public class AgencyAffairsActivity extends BaseActivity {
                 MyApplication.openActivity(context,NewAddAgencyAffairsActivity.class);
                 break;
         }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        nowPage = 1;
+        mList.clear();
+        mAdapter.notifyDataSetChanged();
+        loadData();
     }
 }

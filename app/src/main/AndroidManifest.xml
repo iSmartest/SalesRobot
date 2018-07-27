@@ -46,6 +46,7 @@
     <uses-permission android:name="android.permission.ACCESS_LOCATION_EXTRA_COMMANDS" />
     <uses-permission android:name="android.permission.CALL_PHONE"/>
     <uses-permission android:name="android.permission.KILL_BACKGROUND_PROCESSES" />
+
     <application
         android:name=".app.MyApplication"
         android:allowBackup="true"
@@ -64,177 +65,144 @@
         <!--登录-->
         <activity android:name=".ui.activity.LoginActivity"
             android:configChanges="orientation"
-            android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize|stateAlwaysHidden"/>
         <!--主页面-->
         <activity android:name=".ui.activity.MainActivity"
             android:windowSoftInputMode="adjustPan|stateHidden"
-            android:configChanges="orientation"
-            android:screenOrientation="portrait"/>
+            android:configChanges="orientation"/>
         <!--待办事宜-->
         <activity android:name=".ui.activity.AgencyAffairsActivity"
             android:windowSoftInputMode="adjustPan|stateHidden"
-            android:configChanges="orientation"
-            android:screenOrientation="portrait"/>
+            android:configChanges="orientation"/>
         <!--查看待办事宜-->
         <activity android:name=".ui.activity.AgencyAffairsInfoActivity"
             android:windowSoftInputMode="adjustPan|stateHidden"
-            android:configChanges="orientation"
-            android:screenOrientation="portrait"/>
+            android:configChanges="orientation"/>
         <!--添加个人待办事宜-->
         <activity android:name=".ui.activity.NewAddAgencyAffairsActivity"
             android:windowSoftInputMode="adjustPan|stateHidden"
-            android:configChanges="orientation"
-            android:screenOrientation="portrait"/>
+            android:configChanges="orientation"/>
         <!--客户资料详情-->
         <activity android:name=".ui.activity.CustomerInfoActivity"
             android:windowSoftInputMode="adjustPan|stateHidden"
-            android:configChanges="orientation"
-            android:screenOrientation="portrait"/>
+            android:configChanges="orientation"/>
         <!--客户资料-->
         <activity android:name=".ui.activity.InformationActivity"
             android:windowSoftInputMode="adjustPan|stateHidden"
-            android:configChanges="orientation"
-            android:screenOrientation="portrait"/>
+            android:configChanges="orientation"/>
         <!--客户资料-->
         <activity android:name=".ui.activity.AddCustomerActivity"
             android:windowSoftInputMode="adjustPan|stateHidden"
-            android:configChanges="orientation"
-            android:screenOrientation="portrait"/>
+            android:configChanges="orientation"/>
         <!--ViP客户-->
         <activity android:name=".ui.activity.VIPActivity"
             android:windowSoftInputMode="adjustPan|stateHidden"
-            android:configChanges="orientation"
-            android:screenOrientation="portrait"/>
+            android:configChanges="orientation"/>
         <!--编辑资料-->
         <activity android:name=".ui.activity.EditActivity"
             android:windowSoftInputMode="adjustPan|stateHidden"
-            android:configChanges="orientation"
-            android:screenOrientation="portrait"/>
+            android:configChanges="orientation"/>
         <!--客户来店时间记录-->
         <activity android:name=".ui.activity.CustomerToStoreTimesActivity"
-            android:configChanges="orientation"
-            android:screenOrientation="portrait"/>
+            android:configChanges="orientation"/>
         <!--保养记录-->
         <activity android:name=".ui.activity.MaintenanceRecordActivity"
             android:windowSoftInputMode="adjustPan|stateHidden"
-            android:configChanges="orientation"
-            android:screenOrientation="portrait"/>
+            android:configChanges="orientation"/>
         <!--维修记录-->
         <activity android:name=".ui.activity.RepairRecordActivity"
             android:windowSoftInputMode="adjustPan|stateHidden"
-            android:configChanges="orientation"
-            android:screenOrientation="portrait"/>
+            android:configChanges="orientation"/>
         <!--购车记录-->
         <activity android:name=".ui.activity.BuyCarRecordActivity"
             android:windowSoftInputMode="adjustPan|stateHidden"
-            android:configChanges="orientation"
-            android:screenOrientation="portrait"/>
-
+            android:configChanges="orientation"/>
         <!--新品买点-->
         <activity android:name=".ui.activity.NewPointActivity"
             android:windowSoftInputMode="adjustPan|stateHidden"
-            android:configChanges="orientation"
-            android:screenOrientation="portrait"/>
+            android:configChanges="orientation"/>
         <!--新品详情-->
         <activity android:name=".ui.activity.NewPointInfoActivity"
             android:windowSoftInputMode="adjustPan|stateHidden"
-            android:configChanges="orientation"
-            android:screenOrientation="portrait"/>
+            android:configChanges="orientation"/>
         <!--产品销售-->
         <activity android:name=".ui.activity.ProductSalesActivity"
             android:windowSoftInputMode="adjustPan|stateHidden"
-            android:configChanges="orientation"
-            android:screenOrientation="portrait"/>
+            android:configChanges="orientation"/>
         <!--产品列表-->
         <activity android:name=".ui.activity.CarBrandActivity"
             android:windowSoftInputMode="adjustPan|stateHidden"
-            android:configChanges="orientation"
-            android:screenOrientation="portrait"/>
+            android:configChanges="orientation"/>
         <!--加载web-->
         <activity android:name=".ui.activity.ContentInfoActivity"
             android:windowSoftInputMode="adjustPan|stateHidden"
-            android:configChanges="orientation"
-            android:screenOrientation="portrait"/>
+            android:configChanges="orientation"/>
         <!--培训文档-->
         <activity android:name=".ui.activity.TrainingDocumentsActivity"
             android:windowSoftInputMode="adjustPan|stateHidden"
-            android:configChanges="orientation"
-            android:screenOrientation="portrait"/>
+            android:configChanges="orientation"/>
         <!--培训视频-->
         <activity android:name=".ui.activity.TrainingVideoActivity"
             android:windowSoftInputMode="adjustPan|stateHidden"
-            android:configChanges="orientation"
-            android:screenOrientation="portrait"/>
+            android:configChanges="orientation"/>
         <!--播放视频-->
         <activity android:name=".ui.activity.PlayVideoActivity"
             android:windowSoftInputMode="adjustPan|stateHidden"
-            android:configChanges="orientation"
-            android:screenOrientation="portrait"/>
+            android:configChanges="orientation"/>
         <!--训练-->
         <!--设置-->
         <activity android:name=".ui.activity.SeetingsActivity"
             android:windowSoftInputMode="adjustPan|stateHidden"
-            android:configChanges="orientation"
-            android:screenOrientation="portrait"/>
+            android:configChanges="orientation"/>
         <!--现场记录-->
         <activity android:name=".ui.activity.FieldRecordActivity"
             android:windowSoftInputMode="adjustPan|stateHidden"
-            android:configChanges="orientation"
-            android:screenOrientation="portrait"/>
+            android:configChanges="orientation"/>
         <!--现场记录详情-->
         <activity android:name=".ui.activity.FieldRecordInfoActivity"
             android:windowSoftInputMode="adjustPan|stateHidden"
-            android:configChanges="orientation"
-            android:screenOrientation="portrait"/>
+            android:configChanges="orientation"/>
         <!--聊天室-->
         <activity android:name=".ui.activity.RoBotIMActivity"
             android:windowSoftInputMode="adjustResize|stateHidden"
-            android:launchMode="singleTask"
-            android:screenOrientation="portrait"/>
+            android:launchMode="singleTask"/>
         <!--查看图片-->
         <activity android:name=".ui.activity.SeePictureActivity"
             android:windowSoftInputMode="adjustResize|stateHidden"
-            android:launchMode="singleTask"
-            android:screenOrientation="portrait"/>
+            android:launchMode="singleTask"/>
         <!--维修保养室/保险理赔室-->
         <activity android:name=".ui.activity.TrainKnowledgeActivity"
             android:windowSoftInputMode="adjustResize|stateHidden"
-            android:launchMode="singleTask"
-            android:screenOrientation="portrait"/>
+            android:launchMode="singleTask"/>
 
         <!--个人资料-->
         <activity android:name=".ui.activity.PersonalMainActivity"
             android:windowSoftInputMode="adjustResize|stateHidden"
-            android:launchMode="singleTask"
-            android:screenOrientation="portrait"/>
+            android:launchMode="singleTask"/>
         <!--资料设置-->
         <activity android:name=".ui.activity.ModificationActivity"
             android:windowSoftInputMode="adjustResize|stateHidden"
-            android:launchMode="singleTask"
-            android:screenOrientation="portrait"/>
+            android:launchMode="singleTask"/>
         <!--版本更新-->
         <activity android:name=".ui.activity.UpdateActivity"
             android:windowSoftInputMode="adjustResize|stateHidden"
-            android:launchMode="singleTask"
-            android:screenOrientation="portrait"/>
+            android:launchMode="singleTask"/>
         <!--我的心得-->
         <activity android:name=".ui.activity.MyUnderstandActivity"
             android:windowSoftInputMode="adjustResize|stateHidden"
-            android:launchMode="singleTask"
-            android:screenOrientation="portrait"/>
+            android:launchMode="singleTask"/>
         <!--心得详情-->
         <activity android:name=".ui.activity.UnderstandInfoActivity"
             android:windowSoftInputMode="adjustResize|stateHidden"
-            android:launchMode="singleTask"
-            android:screenOrientation="portrait"/>
+            android:launchMode="singleTask"/>
 
         <!--编辑心得-->
         <activity android:name=".ui.activity.EditUnderstandActivity"
             android:windowSoftInputMode="adjustResize|stateHidden"
-            android:launchMode="singleTask"
-            android:screenOrientation="portrait"/>
-
+            android:launchMode="singleTask" />
+        <!--提示框-->
+        <activity android:name=".ui.activity.NoticeTipsActivity"
+            android:theme="@style/Theme.Transparent"/>
         <activity
             android:name="me.iwf.photopicker.PhotoPickerActivity"
             android:theme="@style/AppTheme"/>

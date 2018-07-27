@@ -4,6 +4,7 @@ package com.empowerment.salesrobot.ui.activity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.empowerment.salesrobot.R;
@@ -27,6 +28,8 @@ public class UnderstandInfoActivity extends BaseActivity {
     ImageView titleBack;
     @BindView(R.id.title)
     TextView title;
+    @BindView(R.id.rl_user)
+    RelativeLayout rl_user;
     @BindView(R.id.tv_content)
     TextView tvContent;
     @BindView(R.id.tv_data)
@@ -40,6 +43,7 @@ public class UnderstandInfoActivity extends BaseActivity {
     private String mName,mImage,mPhone;
     private String mContent;
     private String mTime;
+    private String mType;
     @Override
     protected int getLauoutId() {
         return R.layout.activity_understand_info;
@@ -47,6 +51,8 @@ public class UnderstandInfoActivity extends BaseActivity {
 
     @Override
     protected void loadData() {
+        if (mType.equals("1"))rl_user.setVisibility(View.GONE);
+        else rl_user.setVisibility(View.VISIBLE);
         tvContent.setText(mContent);
         tvData.setText(mTime);
         GlideUtils.imageLoader(context, Url.HTTP + mImage,mIcon);
@@ -61,6 +67,7 @@ public class UnderstandInfoActivity extends BaseActivity {
         mPhone = getIntent().getStringExtra("mPhone");
         mContent = getIntent().getStringExtra("mContent");
         mTime = getIntent().getStringExtra("mTime");
+        mType = getIntent().getStringExtra("type");
         title.setText("销售心得");
         titleBack.setVisibility(View.VISIBLE);
     }

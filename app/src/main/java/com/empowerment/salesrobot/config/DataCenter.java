@@ -45,7 +45,6 @@ public class DataCenter {
         customerStyleList.add("普通客户");
         customerStyleList.add("VIP客户");
         customerStyleList.add("预成交客户");
-        customerStyleList.add("其他");
         return customerStyleList;
     }
     public static ArrayList<String> getSexList() {

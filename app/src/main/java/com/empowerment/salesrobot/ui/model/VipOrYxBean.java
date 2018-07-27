@@ -44,20 +44,19 @@ public class VipOrYxBean extends BaseBean {
              * sex : 0
              * work : 销售员
              */
-
-            private String address;
-            private int age;
-            private int id;
-            private String idCard;
-            private String name;
-            private String phone;
-            private String pic;
-            private int sex;
-            private String work;
-            private int count;
-            private List<String> dates;
-            private String content;
             private String date;
+            private String address;
+            private String phone;
+            private String work;
+            private String idCard;
+            private int sex;
+            private String name;
+            private List<String> dates;
+            private int id;
+            private String pic;
+            private String age;
+            private int count;
+            private String content;
 
             public String getAddress() {
                 return address;
@@ -67,11 +66,11 @@ public class VipOrYxBean extends BaseBean {
                 this.address = address;
             }
 
-            public int getAge() {
+            public String getAge() {
                 return age;
             }
 
-            public void setAge(int age) {
+            public void setAge(String age) {
                 this.age = age;
             }
 

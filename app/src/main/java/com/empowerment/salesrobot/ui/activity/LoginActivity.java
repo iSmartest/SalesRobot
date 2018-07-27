@@ -2,7 +2,9 @@ package com.empowerment.salesrobot.ui.activity;
 
 
 import android.os.Bundle;
+import android.text.Editable;
 import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -11,7 +13,6 @@ import android.widget.EditText;
 import com.empowerment.salesrobot.R;
 import com.empowerment.salesrobot.app.MyApplication;
 import com.empowerment.salesrobot.config.Url;
-import com.empowerment.salesrobot.listener.Input_monitoring;
 import com.empowerment.salesrobot.okhttp.MyOkhttp;
 import com.empowerment.salesrobot.ui.base.BaseActivity;
 import com.empowerment.salesrobot.ui.model.UserInfo;
@@ -20,6 +21,7 @@ import com.empowerment.salesrobot.uitls.StringUtils;
 import com.empowerment.salesrobot.uitls.TimerUtil;
 import com.empowerment.salesrobot.uitls.ToastUtils;
 import com.google.gson.Gson;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -59,14 +61,59 @@ public class LoginActivity extends BaseActivity {
     private String sessionId = "";
     @Override
     protected void loadData() {
-        getWindows(this);
-        loginPhone.addTextChangedListener(new Input_monitoring(loginPhone, 11, butLoginSMS));
-        loginSMS.addTextChangedListener(new Input_monitoring(loginPhone, 6, loginPost));
 
     }
 
     @Override
     protected void initView() {
+        getWindows(this);
+        loginPhone.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                if (s.length() > 0){
+                    butLoginSMS.setClickable(true);
+                    butLoginSMS.setBackgroundResource(R.drawable.bg_login_menu_1);
+                }else {
+                    butLoginSMS.setClickable(false);
+                    butLoginSMS.setBackgroundResource(R.drawable.bg_login_sms);
+                    loginPost.setClickable(false);
+                    loginPost.setBackgroundResource(R.drawable.bg_login_sms);
+                }
+            }
+        });
+
+        loginSMS.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                if (s.length() > 0){
+                    loginPost.setClickable(true);
+                    loginPost.setBackgroundResource(R.drawable.bg_login_menu_1);
+                }else {
+                    loginPost.setClickable(false);
+                    loginPost.setBackgroundResource(R.drawable.bg_login_sms);
+                }
+            }
+        });
 
     }
 

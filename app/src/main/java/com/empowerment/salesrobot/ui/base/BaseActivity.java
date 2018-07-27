@@ -14,6 +14,9 @@ import com.empowerment.salesrobot.uitls.StatusBarUtil;
 import java.util.Objects;
 
 import butterknife.ButterKnife;
+import me.leolin.shortcutbadger.ShortcutBadger;
+
+import static com.empowerment.salesrobot.app.Constant.badgeCount;
 
 /**
  * Author: 小火
@@ -26,6 +29,7 @@ public abstract class BaseActivity extends FragmentActivity{
     protected Context context;
     private BaseFragment lastFragment;
     protected Dialog dialog;
+    public static boolean anInt = true;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,13 +40,34 @@ public abstract class BaseActivity extends FragmentActivity{
         StatusBarUtil.fullScreen(BaseActivity.this);
         AppManager.addActivity(this);
         initView();//实例化
-
+        loadData();//加载数据
     }
 
     @Override
+    protected void onPause() {
+        super.onPause();
+        anInt = false;
+    }
+    @Override
+    protected void onStart() {
+        super.onStart();
+        anInt = true;
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        anInt = false;
+
+    }
+    @Override
     protected void onResume() {
         super.onResume();
-        loadData();//加载数据
+        if (badgeCount != 0){//去除角标
+            badgeCount = 0;
+            ShortcutBadger.removeCount(context);
+        }
+        anInt = true;
     }
 
     protected abstract int getLauoutId();

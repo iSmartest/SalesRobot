@@ -1,20 +1,25 @@
 package com.empowerment.salesrobot.receiver;
 
+import android.app.ActivityManager;
 import android.content.BroadcastReceiver;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
 
+import com.empowerment.salesrobot.app.MyApplication;
 import com.empowerment.salesrobot.ui.activity.AgencyAffairsInfoActivity;
 import com.empowerment.salesrobot.ui.activity.MainActivity;
+import com.empowerment.salesrobot.ui.activity.NoticeTipsActivity;
 import com.empowerment.salesrobot.uitls.SPUtil;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.Iterator;
+import java.util.List;
 
 import cn.jpush.android.api.JPushInterface;
 import me.leolin.shortcutbadger.ShortcutBadger;
@@ -40,11 +45,24 @@ public class MyReceiver extends BroadcastReceiver {
     // 然后就可以根据 RegistrationID 来向设备推送消息或者通知。
     public static String regId;
     private int mCount;
+    public static boolean isApplicationBroughtToBackground(final Context context) {
+        ActivityManager am = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
+        List<ActivityManager.RunningTaskInfo> tasks = am.getRunningTasks(1);
+        if (!tasks.isEmpty()) {
+            ComponentName topActivity = tasks.get(0).topActivity;
+            if (!topActivity.getPackageName().equals(context.getPackageName())) {
+                return true;
+            }
+        }
+        return false;
+
+    }
     @Override
     public void onReceive(Context context, Intent intent) {
         try {
             Bundle bundle = intent.getExtras();
             Log.d(TAG, "[MyReceiver] onReceive - " + intent.getAction() + ", extras: " + printBundle(bundle));
+
             switch (intent.getAction()) {
                 case JPushInterface.ACTION_REGISTRATION_ID:
                     regId = bundle.getString(JPushInterface.EXTRA_REGISTRATION_ID);
@@ -55,11 +73,18 @@ public class MyReceiver extends BroadcastReceiver {
                     // 对应极光后台的 - 自定义消息  默认不会出现在notification上 所以一般都选用发送通知
                     break;
                 case JPushInterface.ACTION_NOTIFICATION_RECEIVED:
-                    Log.d(TAG, "[MyReceiver] 接收到推送下来的通知");
-                    int notifactionId = bundle.getInt(JPushInterface.EXTRA_NOTIFICATION_ID);
-                    Log.d(TAG, "[MyReceiver] 接收到推送下来的通知的ID: " + notifactionId);
-                    badgeCount ++;
-                    ShortcutBadger.applyCount(context,badgeCount);
+                    Log.d(TAG, "[MyReceiver] 接收到推送下来的通知的ID: " + bundle.getInt(JPushInterface.EXTRA_NOTIFICATION_ID));
+                    if (isApplicationBroughtToBackground(context)){
+                        badgeCount ++;
+                        ShortcutBadger.applyCount(context,badgeCount);
+                    }else {
+                        JPushInterface.clearAllNotifications(context);
+                        Bundle bundle1 = new Bundle();
+                        bundle1.putString("extra",bundle.getString(JPushInterface.EXTRA_EXTRA));
+                        bundle1.putString("content",bundle.getString(JPushInterface.EXTRA_ALERT));
+                        bundle1.putString("title",bundle.getString(JPushInterface.EXTRA_NOTIFICATION_TITLE));
+                        MyApplication.openActivity(context, NoticeTipsActivity.class,bundle1);
+                    }
                     break;
                 case JPushInterface.ACTION_NOTIFICATION_OPENED:
                     Log.d(TAG, "[MyReceiver] 用户点击打开了通知");
@@ -132,9 +157,6 @@ public class MyReceiver extends BroadcastReceiver {
                 case "4": //系统消息
                     detailIntent = new Intent(context, MainActivity.class);
                     detailIntent.putExtra("content", content);
-                    break;
-                case "99": //审核
-
                     break;
             }
         } catch (JSONException e) {

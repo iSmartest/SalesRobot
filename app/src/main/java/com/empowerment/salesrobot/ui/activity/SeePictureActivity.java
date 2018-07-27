@@ -11,6 +11,7 @@ import android.os.Message;
 import android.support.annotation.RequiresApi;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -71,6 +72,8 @@ public class SeePictureActivity extends BaseActivity {
     RelativeLayout titleLayout;
     @BindView(R.id.see_pager)
     ViewPager mPager;
+    @BindView(R.id.ll_see_picture)
+    LinearLayout mLlPicture;
     @BindView(R.id.text_total_item)
     TextView mTotalItem;
     @BindView(R.id.text_pic_info)
@@ -87,6 +90,7 @@ public class SeePictureActivity extends BaseActivity {
     private int mPosition;
     private ImageAndTextDialog imageAndTextDialog;
     private List<ImageBean> mBinnerList;
+    private boolean isVISIBLE = true;
     private ArrayList<? extends RobotResultBean.DataBean.Answers.Pics> mPicList;
     private static ReplacePicListener replacePicListener;
 
@@ -129,6 +133,8 @@ public class SeePictureActivity extends BaseActivity {
         }
         mTotalItem.setText(1 + "/" + mPicList.size());
         mPicInfo.setText(mPicList.get(0).getDes());
+        mPicInfo.setMaxHeight(600);
+        mPicInfo.setMovementMethod(ScrollingMovementMethod.getInstance());
         mPager.setPageMargin((int) (context.getResources().getDisplayMetrics().density * 15));
         mImagAdapter = new ImagAdapter(context,mPicList);
         mPager.setAdapter(mImagAdapter);
@@ -140,6 +146,7 @@ public class SeePictureActivity extends BaseActivity {
                 mPosition = position;
             }
         });
+
         mPlay.setOnClickListener(v -> {
             Bundle bundle = new Bundle();
             bundle.putString("uri",mVideoPic);
@@ -199,6 +206,19 @@ public class SeePictureActivity extends BaseActivity {
                 Glide.with(mContext).load(Url.HTTP + mShopImgList.get(position).getPics()).into(photo_view);
 
             }
+            photo_view.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (isVISIBLE){
+                        mLlPicture.setVisibility(View.GONE);
+                        isVISIBLE = false;
+                    }else {
+                        mLlPicture.setVisibility(View.VISIBLE);
+                        isVISIBLE = true;
+                    }
+
+                }
+            });
             container.addView(view);
             return view;
         }

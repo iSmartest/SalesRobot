@@ -2,53 +2,58 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/app_main_default">
-    <RelativeLayout
+    android:background="@color/app_main_default"
+    android:orientation="vertical">
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
         android:paddingLeft="15dp"
         android:paddingRight="15dp"
-        android:paddingBottom="4dp">
+        android:paddingTop="8dp">
+
         <com.empowerment.salesrobot.view.RoundedImageView
             android:id="@+id/iv_sale_icon"
             android:layout_width="56dp"
             android:layout_height="56dp"
-            android:src="@drawable/my_head_portrait"
-            android:adjustViewBounds="true"
-            android:layout_centerInParent="true"
             android:layout_alignParentLeft="true"
+            android:layout_centerInParent="true"
+            android:adjustViewBounds="true"
             android:scaleType="centerCrop"
+            android:src="@drawable/my_head_portrait"
             app:is_oval="true"
-            tools:ignore="ContentDescription"/>
+            tools:ignore="ContentDescription" />
+
         <TextView
             android:id="@+id/tv_sale_understand"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_toRightOf="@+id/iv_sale_icon"
-            android:layout_centerInParent="true"
-            android:maxLines="2"
-            android:textSize="14sp"
-            android:lineSpacingExtra="2dp"
             android:layout_marginLeft="17dp"
-            android:textColor="@color/default_color"
-            android:ellipsize="end"/>
-        <TextView
-            android:id="@+id/tv_sale_time"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/iv_sale_icon"
-            android:maxLines="2"
-            android:gravity="right"
-            android:textSize="12sp"
-            android:textColor="@color/time_color"
             android:ellipsize="end"
-            android:layout_marginBottom="4dp"/>
+            android:lineSpacingExtra="2dp"
+            android:maxLines="2"
+            android:textColor="@color/default_color"
+            android:textSize="14sp" />
 
-    </RelativeLayout>
+    </LinearLayout>
 
-    <include layout="@layout/v_horizontal_line"/>
+    <TextView
+        android:id="@+id/tv_sale_time"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:ellipsize="end"
+        android:gravity="center|right"
+        android:maxLines="2"
+        android:textColor="@color/time_color"
+        android:textSize="12sp"
+        android:paddingRight="15dp"
+        android:layout_marginBottom="8dp"/>
+
+    <include layout="@layout/v_horizontal_line" />
 
 </LinearLayout>

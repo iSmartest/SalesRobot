@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center"
+    android:background="@drawable/shape_white_corners_bg"
+    android:orientation="vertical">
+    <TextView
+        android:id="@+id/d_tips_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textSize="16sp"
+        android:textColor="@color/vipTextColor"
+        android:layout_marginTop="16dp"/>
+    <TextView
+        android:id="@+id/d_content_tv"
+        style="@style/DefaultTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:layout_marginTop="8dp"
+        android:gravity="center"
+        android:lineSpacingExtra="2dp"
+        android:padding="10dp"
+        android:text="@string/tip_rate_err" />
+
+    <include layout="@layout/v_horizontal_line" />
+
+    <Button
+        android:id="@+id/d_error_btn"
+        style="@style/DefaultTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@null"
+        android:padding="16dp"
+        android:text="@string/make_sure"
+        android:textColor="@color/text_color_main" />
+</LinearLayout>

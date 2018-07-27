@@ -2,6 +2,7 @@ package com.empowerment.salesrobot.ui.activity;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.app.Dialog;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Build;
@@ -26,6 +27,7 @@ import com.empowerment.salesrobot.R;
 import com.empowerment.salesrobot.app.MyApplication;
 import com.empowerment.salesrobot.config.Url;
 import com.empowerment.salesrobot.dialog.ImageAndTextDialog;
+import com.empowerment.salesrobot.dialog.ProgressDialog;
 import com.empowerment.salesrobot.dialog.StopTipsDialog;
 import com.empowerment.salesrobot.listener.ReplacePicListener;
 import com.empowerment.salesrobot.listener.SoftKeyBoardListener;
@@ -72,6 +74,8 @@ public class RoBotIMActivity extends BaseActivity implements ReplacePicListener 
     ImageView titleBack;
     @BindView(R.id.title)
     TextView title;
+    @BindView(R.id.title_OK)
+    TextView titleOK;
     @BindView(R.id.rl_item)
     RelativeLayout relativeLayout;
     @BindView(R.id.ll_item)
@@ -115,6 +119,8 @@ public class RoBotIMActivity extends BaseActivity implements ReplacePicListener 
     protected void initView() {
         title.setText("销售训练室");
         titleBack.setVisibility(View.VISIBLE);
+        titleOK.setVisibility(View.VISIBLE);
+        titleOK.setText("须知");
         SoftKeyBoardListener.setListener(RoBotIMActivity.this, new SoftKeyBoardListener.OnSoftKeyBoardChangeListener() {
             @Override
             public void keyBoardShow(int rootHight, int keyBroadheight) {
@@ -217,10 +223,13 @@ public class RoBotIMActivity extends BaseActivity implements ReplacePicListener 
             }
         });
     }
-    @OnClick({R.id.title_Back,R.id.iv_keyboard, R.id.tv_album, R.id.tv_video, R.id.text_chat_reply})
+    @OnClick({R.id.title_Back,R.id.title_OK,R.id.iv_keyboard, R.id.tv_album, R.id.tv_video, R.id.text_chat_reply})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.title_Back:
+                finish();
+                break;
+                case R.id.title_OK:
                 finish();
                 break;
             case R.id.iv_keyboard:
@@ -288,6 +297,7 @@ public class RoBotIMActivity extends BaseActivity implements ReplacePicListener 
                             }
                             @Override
                             public void cancle() {
+                                mContent = "";
                                 finishTrain("0");
                             }
                         });
@@ -337,27 +347,28 @@ public class RoBotIMActivity extends BaseActivity implements ReplacePicListener 
      * @param content
      */
     private void submit(String content) {
+        Dialog dialog1 = ProgressDialog.createLoadingDialog(context, "提交中.....");
         Map<String, String> params = new HashMap<>();
         params.put(STORE_ID, SPUtil.getString(context,STORE_ID));
         params.put("sId",SPUtil.getString(context,SALE_ID));
         params.put("keyWord", mContent);
         params.put("describe", content);
         File fileDec = new File(mBinnerList.get(0).getImage());
-        dialog.show();
+        dialog1.show();
         OkHttpUtils.post().url(Url.ADD_TRAIN_RECORD_ABOUT_PIC).params(params)
                 .addFile("uploadFile", fileDec.getName(), fileDec)
                 .build().execute(new StringCallback() {
             @Override
             public void onError(Call call, Exception e, int id) {
                 ToastUtils.makeText(context, e.getMessage());
-                dialog.dismiss();
+                dialog1.dismiss();
             }
 
             @Override
             public void onResponse(String response, int id) {
                 Log.i("TAG", "onResponse: " + response);
                 Gson gson = new Gson();
-                dialog.dismiss();
+                dialog1.dismiss();
                 RobotResultBean robotResultBean = gson.fromJson(response, RobotResultBean.class);
                 if (robotResultBean.getResultCode() == 1) {
                     RobotResultBean.DataBean.Answers.Pics pics = new RobotResultBean.DataBean.Answers.Pics(mBinnerList.get(0).getImage(),content);
@@ -393,6 +404,7 @@ public class RoBotIMActivity extends BaseActivity implements ReplacePicListener 
                                 }
                                 @Override
                                 public void cancle() {
+                                    mContent = "";
                                     finishTrain("0");
                                 }
                             });
@@ -446,12 +458,13 @@ public class RoBotIMActivity extends BaseActivity implements ReplacePicListener 
     }
 
     private void submitVideo(File tempFile, Uri uri) {
+        Dialog dialog1 = ProgressDialog.createLoadingDialog(context, "上传中.....");
         Map<String, String> params = new HashMap<>();
         params.put(STORE_ID,SPUtil.getString(context,STORE_ID));
         params.put("sId",SPUtil.getString(context,SALE_ID));
         params.put("keyWord",mContent);
 
-        dialog.show();
+        dialog1.show();
         OkHttpUtils.post().url(Url.ADD_TRAIN_RECORD_ABOUT_VIDEO).params(params)
                 .addFile("uploadFile", tempFile.getName(), tempFile)
                 .build().execute(new StringCallback() {
@@ -459,14 +472,14 @@ public class RoBotIMActivity extends BaseActivity implements ReplacePicListener 
             public void onError(Call call, Exception e, int id) {
                 ToastUtils.makeText(context, e.getMessage() + tempFile.getName() + tempFile);
                 Log.i("TAG", "onError: " + e.getMessage() + tempFile.getName() + tempFile);
-                dialog.dismiss();
+                dialog1.dismiss();
             }
 
             @Override
             public void onResponse(String response, int id) {
                 Log.i("TAG", "onResponse: " + response);
                 Gson gson = new Gson();
-                dialog.dismiss();
+                dialog1.dismiss();
                 RobotResultBean robotResultBean = gson.fromJson(response, RobotResultBean.class);
                 if (robotResultBean.getResultCode() == 1) {
                     TrainRecordBean.ContentRecord comm99 = new TrainRecordBean.ContentRecord(0, 2, robotResultBean.getMsg());
@@ -494,6 +507,7 @@ public class RoBotIMActivity extends BaseActivity implements ReplacePicListener 
 
                                 @Override
                                 public void cancle() {
+                                    mContent = "";
                                     finishTrain("0");
                                 }
                             });
@@ -512,6 +526,7 @@ public class RoBotIMActivity extends BaseActivity implements ReplacePicListener 
 
                                 @Override
                                 public void cancle() {
+                                    mContent = "";
                                     finishTrain("0");
                                 }
                             });

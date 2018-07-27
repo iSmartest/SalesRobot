@@ -40,6 +40,7 @@ public class FieldRecordBean extends BaseBean {
             private String age;
             private int id;
             private int type;
+            private int cType;
             private List<String> items;
 
             public String getImage() {
@@ -96,6 +97,14 @@ public class FieldRecordBean extends BaseBean {
 
             public void setType(int type) {
                 this.type = type;
+            }
+
+            public int getcType() {
+                return cType;
+            }
+
+            public void setcType(int cType) {
+                this.cType = cType;
             }
 
             public List<String> getItems() {

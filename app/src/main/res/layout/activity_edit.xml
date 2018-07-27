@@ -13,7 +13,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="190dp"
-        android:background="@drawable/edit_bg_title">
+        android:background="@drawable/bg_edit_customer">
 
         <include layout="@layout/activity_base" />
 
@@ -124,7 +124,7 @@
                 android:layout_marginLeft="15dp"
                 android:layout_marginRight="15dp"
                 android:gravity="center"
-                android:visibility="gone"
+                android:visibility="visible"
                 android:orientation="horizontal">
 
                 <TextView

@@ -106,6 +106,7 @@
                     android:background="@null"
                     android:gravity="center|left"
                     android:text=""
+                    android:inputType="number"
                     android:textColor="@color/text_color_subtitle"
                     android:textSize="16sp" />
             </LinearLayout>

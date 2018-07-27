@@ -58,8 +58,6 @@ public class FieldRecordActivity extends BaseActivity {
 
     @Override
     protected void loadData() {
-       //"http://img1.imgtn.bdimg.com/it/u=439656461,1404332120&fm=214&gp=0.jpg"
-
         Map<String,String> params = new HashMap<>();
         params.put("page",String.valueOf(nowPage));
         params.put("rows",rows+"");
@@ -78,7 +76,6 @@ public class FieldRecordActivity extends BaseActivity {
                 mAdapter.notifyDataSetChanged();
             }
             if (consultLists.size() < rows){
-                ToastUtils.makeText(context,"没有更多了");
                 xRecyclerView.noMoreLoading();
             }
         });
@@ -147,5 +144,13 @@ public class FieldRecordActivity extends BaseActivity {
                 finish();
                 break;
         }
+    }
+    @Override
+    protected void onResume() {
+        super.onResume();
+        nowPage = 1;
+        mList.clear();
+        mAdapter.notifyDataSetChanged();
+        loadData();
     }
 }

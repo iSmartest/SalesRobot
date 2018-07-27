@@ -6,14 +6,12 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.GridView;
+import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
 import com.empowerment.salesrobot.R;
 import com.empowerment.salesrobot.ui.model.FieldRecordBean;
 import com.empowerment.salesrobot.uitls.GlideUtils;
-import com.empowerment.salesrobot.uitls.ImageManagerUtils;
 import com.empowerment.salesrobot.view.MyGridView;
 import com.empowerment.salesrobot.view.RoundedImageView;
 
@@ -48,6 +46,17 @@ public class FieldRecordAdapter extends RecyclerView.Adapter<FieldRecordAdapter.
             holder.mName.setText("姓名：" + consultList.getName());
         }
         GlideUtils.imageLoader(context,consultList.getImage(),holder.mIcon);
+        switch (consultList.getcType()) {
+            case 1:
+                holder.mRecordType.setImageResource(R.drawable.vip_image);
+                break;
+            case 2:
+                holder.mRecordType.setImageResource(R.drawable.per_icon);
+                break;
+            case 3:
+                holder.mRecordType.setImageResource(R.drawable.common_icon);
+                break;
+        }
         LabelAdapter labelAdapter = new LabelAdapter(context,consultList.getItems());
         holder.mGVLabel.setAdapter(labelAdapter);
     }
@@ -61,12 +70,14 @@ public class FieldRecordAdapter extends RecyclerView.Adapter<FieldRecordAdapter.
         RoundedImageView mIcon;
         TextView mName,mTime;
         MyGridView mGVLabel;
+        ImageView mRecordType;
         public FieldRecordViewHolder(View itemView) {
             super(itemView);
             mIcon = itemView.findViewById(R.id.record_icon);
             mName = itemView.findViewById(R.id.tv_record_name);
             mTime = itemView.findViewById(R.id.tv_record_time);
             mGVLabel = itemView.findViewById(R.id.gv_record_label);
+            mRecordType = itemView.findViewById(R.id.iv_record_type);
         }
     }
 }

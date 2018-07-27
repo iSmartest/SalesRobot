@@ -88,7 +88,6 @@ public class TrainingDocumentsActivity extends BaseActivity {
                 xRecyclerView.refreshComplete();
             }
             if (tdoctLists.size() < rows) {
-                ToastUtils.makeText(context, "没有更多了");
                 xRecyclerView.noMoreLoading();
             }
         });
@@ -114,6 +113,8 @@ public class TrainingDocumentsActivity extends BaseActivity {
             public void onLoadMore() {
                 nowPage++;
                 loadData();
+                mAdapter.notifyDataSetChanged();
+                xRecyclerView.refreshComplete();
             }
         });
         xRecyclerView.addOnItemTouchListener(new RecyclerItemTouchListener(xRecyclerView) {
@@ -228,5 +229,14 @@ public class TrainingDocumentsActivity extends BaseActivity {
     @OnClick({R.id.title_Back})
     public void onViewClicked() {
         finish();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        nowPage = 1;
+        mList.clear();
+        mAdapter.notifyDataSetChanged();
+        loadData();
     }
 }
