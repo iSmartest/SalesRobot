@@ -14,6 +14,10 @@
         <cache-path
             name="cache"
             path="" />
+
+        <external-path path="Android/data/com.empowerment.salesrobot/" name="files_root" />
+        <external-path path="." name="external_storage_root" />
+
     </paths>
 
 

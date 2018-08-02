@@ -80,11 +80,12 @@ public class SeePictureActivity extends BaseActivity {
     TextView mPicInfo;
     @BindView(R.id.iv_play_video)
     ImageView mPlay;
-    private ImagAdapter mImagAdapter;
+    private ImageAdapter mImageAdapter;
     private String mVideoUrl;
     private String name;
     private String mVideoPic;
     private String isPicOrVideo;
+
     private String isLiftOrRight = "1";
     private String mQuestionId;
     private int mPosition;
@@ -116,6 +117,7 @@ public class SeePictureActivity extends BaseActivity {
         isPicOrVideo = getIntent().getStringExtra("isPicOrVideo");
         isLiftOrRight = getIntent().getStringExtra("isLiftOrRight");
         mQuestionId = getIntent().getStringExtra("mQuestionId");
+        name = getIntent().getStringExtra("mQuestion");
         if (isLiftOrRight.equals("0")) {
             mPosition = getIntent().getIntExtra("position",0);
         }else {
@@ -136,8 +138,8 @@ public class SeePictureActivity extends BaseActivity {
         mPicInfo.setMaxHeight(600);
         mPicInfo.setMovementMethod(ScrollingMovementMethod.getInstance());
         mPager.setPageMargin((int) (context.getResources().getDisplayMetrics().density * 15));
-        mImagAdapter = new ImagAdapter(context,mPicList);
-        mPager.setAdapter(mImagAdapter);
+        mImageAdapter = new ImageAdapter(context,mPicList);
+        mPager.setAdapter(mImageAdapter);
         mPager.addOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
             @Override
             public void onPageSelected(int position) {
@@ -174,12 +176,12 @@ public class SeePictureActivity extends BaseActivity {
         }
     }
 
-    public class ImagAdapter extends PagerAdapter {
+    public class ImageAdapter extends PagerAdapter {
         private PhotoView photo_view;
         private Context mContext;
         private ArrayList<? extends RobotResultBean.DataBean.Answers.Pics> mShopImgList;
 
-        public ImagAdapter(Context mContext, ArrayList<? extends RobotResultBean.DataBean.Answers.Pics> mShopImgList) {
+        public ImageAdapter(Context mContext, ArrayList<? extends RobotResultBean.DataBean.Answers.Pics> mShopImgList) {
             this.mContext = mContext;
             this.mShopImgList = mShopImgList;
         }
@@ -206,18 +208,17 @@ public class SeePictureActivity extends BaseActivity {
                 Glide.with(mContext).load(Url.HTTP + mShopImgList.get(position).getPics()).into(photo_view);
 
             }
-            photo_view.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if (isVISIBLE){
-                        mLlPicture.setVisibility(View.GONE);
-                        isVISIBLE = false;
-                    }else {
-                        mLlPicture.setVisibility(View.VISIBLE);
-                        isVISIBLE = true;
-                    }
-
+            photo_view.setOnClickListener(v -> {
+                if (isVISIBLE){
+                    mLlPicture.setVisibility(View.GONE);
+                    titleLayout.setVisibility(View.GONE);
+                    isVISIBLE = false;
+                }else {
+                    mLlPicture.setVisibility(View.VISIBLE);
+                    titleLayout.setVisibility(View.VISIBLE);
+                    isVISIBLE = true;
                 }
+
             });
             container.addView(view);
             return view;
@@ -317,7 +318,5 @@ public class SeePictureActivity extends BaseActivity {
             }
         });
     }
-
-
 }
 

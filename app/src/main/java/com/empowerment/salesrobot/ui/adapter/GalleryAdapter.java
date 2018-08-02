@@ -15,6 +15,8 @@ import com.empowerment.salesrobot.view.RoundedImageView;
 
 import java.util.List;
 
+import static com.empowerment.salesrobot.config.Url.HTTP;
+
 public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.GalleryViewHolder> {
     private LayoutInflater mInflater;
     private List<VipOrYxBean.DataBean.CustListBean> mList;
@@ -41,7 +43,7 @@ public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.GalleryV
     @Override
     public void onBindViewHolder(final GalleryViewHolder viewHolder, final int position) {
         VipOrYxBean.DataBean.CustListBean custListBean = mList.get(position);
-        GlideUtils.imageLoader(context,custListBean.getPic(),viewHolder.mImg);
+        GlideUtils.imageLoader(context,HTTP+custListBean.getPic(),viewHolder.mImg);
         viewHolder.mTxt.setText(custListBean.getName());
     }
 

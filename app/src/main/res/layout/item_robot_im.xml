@@ -67,24 +67,38 @@
         android:layout_marginLeft="60dp"
         android:layout_alignParentRight="true"
         android:orientation="horizontal">
-        <com.empowerment.salesrobot.view.RCRelativeLayout
-            android:id="@+id/rc_right_image"
+        <RelativeLayout
             android:layout_width="100dp"
             android:layout_height="100dp"
-            app:round_corner="6dp"
             android:layout_marginTop="8dp"
-            android:layout_marginRight="4dp"
-            app:stroke_color="@color/stroke_color"
-            android:visibility="gone"
-            app:stroke_width="1dp">
-        <ImageView
-            android:id="@+id/iv_right_iamge"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:src="@drawable/image_fail_empty"
-            android:scaleType="fitXY"
-            android:layout_gravity="center"/>
-        </com.empowerment.salesrobot.view.RCRelativeLayout>
+            android:layout_marginRight="4dp">
+            <com.empowerment.salesrobot.view.RCRelativeLayout
+                android:id="@+id/rc_right_image"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:round_corner="6dp"
+                app:stroke_color="@color/stroke_color"
+                android:visibility="visible"
+                app:stroke_width="1dp">
+                <ImageView
+                    android:id="@+id/iv_right_iamge"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/image_fail_empty"
+                    android:scaleType="fitXY"
+                    android:layout_gravity="center"/>
+            </com.empowerment.salesrobot.view.RCRelativeLayout>
+            <ImageView
+                android:id="@+id/iv_right_video_play"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:src="@drawable/play_video"
+                android:layout_centerInParent="true"
+                android:scaleType="centerCrop"
+                android:visibility="gone"
+                android:layout_gravity="center"/>
+        </RelativeLayout>
+
         <TextView
             android:id="@+id/text_right_content"
             android:layout_width="0dp"
@@ -94,7 +108,7 @@
             android:layout_weight="1"
             android:layout_marginTop="8dp"
             android:gravity="center|left"
-            android:visibility="visible"
+            android:visibility="gone"
             android:textSize="16sp"/>
         <com.empowerment.salesrobot.view.RoundedImageView
             android:id="@+id/iv_user_icon"

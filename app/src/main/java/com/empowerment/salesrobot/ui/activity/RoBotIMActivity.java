@@ -3,6 +3,7 @@ package com.empowerment.salesrobot.ui.activity;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.Dialog;
+import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Build;
@@ -15,7 +16,7 @@ import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -163,62 +164,63 @@ public class RoBotIMActivity extends BaseActivity implements ReplacePicListener 
         SeePictureActivity.setReplacePicListener(this);
         mAdapter = new RoBotIMAdapter(context, mList);
         mChatList.setAdapter(mAdapter);
-        mChatList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                itemPosition = position;
-                if (mList.get(position).getLeftOrRight() == 0) {//机器人的回复
-                    switch (mList.get(position).getContentType()) {
-                        case 0: //图文
-                            if (mList.get(position).getPicLists() != null && !mList.get(position).getPicLists().isEmpty()) {
-                                Bundle bundle = new Bundle();
-                                bundle.putSerializable("mPicList", (Serializable) mList.get(position).getPicLists());
-                                bundle.putString("mVideoUrl", Url.HTTP + mList.get(position).getUrl());
-                                bundle.putString("mVideoPic", Url.HTTP + mList.get(position).getPic());
-                                bundle.putString("isPicOrVideo", "0");
-                                bundle.putString("isLiftOrRight", "1");
-                                bundle.putString("mQuestion", mList.get(position).getContent());
-                                bundle.putString("mQuestionId", mList.get(position).getQuestionId()+"");
-                                MyApplication.openActivity(context, SeePictureActivity.class, bundle);
-                            }
-                            break;
-                        case 1: //视频
-                            MyApplication.openActivity(context, PlayVideoActivity.class);
-                            break;
-                        case 3: //图文+视频
-                            if (mList.get(position).getPicLists() != null && !mList.get(position).getPicLists().isEmpty()) {
-                                Bundle bundle = new Bundle();
-                                bundle.putSerializable("mPicList", (Serializable) mList.get(position).getPicLists());
-                                bundle.putString("mVideoUrl", Url.HTTP + mList.get(position).getUrl());
-                                bundle.putString("mVideoPic", Url.HTTP + mList.get(position).getPic());
-                                bundle.putString("isPicOrVideo", "1");
-                                bundle.putString("isLiftOrRight", "1");
-                                bundle.putString("mQuestion", mList.get(position).getContent());
-                                bundle.putString("mQuestionId", mList.get(position).getQuestionId()+"");
-                                MyApplication.openActivity(context, SeePictureActivity.class, bundle);
-                            }
-                            break;
-                    }
-                } else {//我发出的消息
-                    switch (mList.get(position).getContentType()) {
-                        case 0: //图文
+        mChatList.setOnItemClickListener((parent, view, position, id) -> {
+            itemPosition = position;
+            if (mList.get(position).getLeftOrRight() == 0) {//机器人的回复
+                switch (mList.get(position).getContentType()) {
+                    case 0: //图文
+                        if (mList.get(position).getPicLists() != null && !mList.get(position).getPicLists().isEmpty()) {
                             Bundle bundle = new Bundle();
                             bundle.putSerializable("mPicList", (Serializable) mList.get(position).getPicLists());
+                            bundle.putString("mVideoUrl", Url.HTTP + mList.get(position).getUrl());
+                            bundle.putString("mVideoPic", Url.HTTP + mList.get(position).getPic());
                             bundle.putString("isPicOrVideo", "0");
-                            bundle.putString("isLiftOrRight", "0");
+                            bundle.putString("isLiftOrRight", "1");
                             bundle.putString("mQuestion", mList.get(position).getContent());
                             bundle.putString("mQuestionId", mList.get(position).getQuestionId()+"");
-                            bundle.putInt("position", mList.get(position).getPosition());
                             MyApplication.openActivity(context, SeePictureActivity.class, bundle);
-                            break;
-                        case 1: //视频
-                            Bundle bundle1 = new Bundle();
-                            bundle1.putString("uri", mList.get(position).getUri() + "");
-                            bundle1.putString("url", mList.get(position).getUrl());
-                            bundle1.putString("mQuestion", mList.get(position).getContent());
-                            MyApplication.openActivity(context, PlayVideoActivity.class, bundle1);
-                            break;
-                    }
+                        }
+                        break;
+                    case 1: //视频
+                        Bundle videoBundle = new Bundle();
+                        videoBundle.putString("url", Url.HTTP + mList.get(position).getUrl());
+                        videoBundle.putString("uri", Url.HTTP + mList.get(position).getPic());
+                        videoBundle.putString("mName", Url.HTTP + mList.get(position).getPic());
+                        MyApplication.openActivity(context, PlayVideoActivity.class,videoBundle);
+                        break;
+                    case 3: //图文+视频
+                        if (mList.get(position).getPicLists() != null && !mList.get(position).getPicLists().isEmpty()) {
+                            Bundle bundle = new Bundle();
+                            bundle.putSerializable("mPicList", (Serializable) mList.get(position).getPicLists());
+                            bundle.putString("mVideoUrl", Url.HTTP + mList.get(position).getUrl());
+                            bundle.putString("mVideoPic", Url.HTTP + mList.get(position).getPic());
+                            bundle.putString("isPicOrVideo", "1");
+                            bundle.putString("isLiftOrRight", "1");
+                            bundle.putString("mQuestion", mList.get(position).getContent());
+                            bundle.putString("mQuestionId", mList.get(position).getQuestionId()+"");
+                            MyApplication.openActivity(context, SeePictureActivity.class, bundle);
+                        }
+                        break;
+                }
+            } else {//我发出的消息
+                switch (mList.get(position).getContentType()) {
+                    case 0: //图文
+                        Bundle bundle = new Bundle();
+                        bundle.putSerializable("mPicList", (Serializable) mList.get(position).getPicLists());
+                        bundle.putString("isPicOrVideo", "0");
+                        bundle.putString("isLiftOrRight", "0");
+                        bundle.putString("mQuestion", mList.get(position).getContent());
+                        bundle.putString("mQuestionId", mList.get(position).getQuestionId()+"");
+                        bundle.putInt("position", mList.get(position).getPosition());
+                        MyApplication.openActivity(context, SeePictureActivity.class, bundle);
+                        break;
+                    case 1: //视频
+                        Bundle bundle1 = new Bundle();
+                        bundle1.putString("uri", mList.get(position).getUri() + "");
+                        bundle1.putString("url", mList.get(position).getUrl());
+                        bundle1.putString("mName", mList.get(position).getContent());
+                        MyApplication.openActivity(context, PlayVideoActivity.class, bundle1);
+                        break;
                 }
             }
         });
@@ -228,9 +230,10 @@ public class RoBotIMActivity extends BaseActivity implements ReplacePicListener 
         switch (view.getId()) {
             case R.id.title_Back:
                 finish();
+                ((InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE)).hideSoftInputFromWindow(RoBotIMActivity.this.getCurrentFocus().getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
                 break;
                 case R.id.title_OK:
-                finish();
+                ToastUtils.makeText(context,"用户须知");
                 break;
             case R.id.iv_keyboard:
 //                ToastUtils.makeText(context,"你好666啊！");
@@ -458,19 +461,17 @@ public class RoBotIMActivity extends BaseActivity implements ReplacePicListener 
     }
 
     private void submitVideo(File tempFile, Uri uri) {
-        Dialog dialog1 = ProgressDialog.createLoadingDialog(context, "上传中.....");
+        Dialog dialog1 = ProgressDialog.createLoadingDialog(context, "上传中...");
         Map<String, String> params = new HashMap<>();
         params.put(STORE_ID,SPUtil.getString(context,STORE_ID));
         params.put("sId",SPUtil.getString(context,SALE_ID));
         params.put("keyWord",mContent);
-
         dialog1.show();
         OkHttpUtils.post().url(Url.ADD_TRAIN_RECORD_ABOUT_VIDEO).params(params)
                 .addFile("uploadFile", tempFile.getName(), tempFile)
                 .build().execute(new StringCallback() {
             @Override
             public void onError(Call call, Exception e, int id) {
-                ToastUtils.makeText(context, e.getMessage() + tempFile.getName() + tempFile);
                 Log.i("TAG", "onError: " + e.getMessage() + tempFile.getName() + tempFile);
                 dialog1.dismiss();
             }
@@ -482,6 +483,9 @@ public class RoBotIMActivity extends BaseActivity implements ReplacePicListener 
                 dialog1.dismiss();
                 RobotResultBean robotResultBean = gson.fromJson(response, RobotResultBean.class);
                 if (robotResultBean.getResultCode() == 1) {
+                    TrainRecordBean.ContentRecord comm = new TrainRecordBean.ContentRecord(1, 1, uri, url,mContent);
+                    mList.add(comm);
+                    mAdapter.notifyDataSetChanged();
                     TrainRecordBean.ContentRecord comm99 = new TrainRecordBean.ContentRecord(0, 2, robotResultBean.getMsg());
                     mList.add(comm99);
                     mAdapter.notifyDataSetChanged();

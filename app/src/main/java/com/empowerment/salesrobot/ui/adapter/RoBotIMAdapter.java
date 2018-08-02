@@ -1,7 +1,6 @@
 package com.empowerment.salesrobot.ui.adapter;
 
 import android.content.Context;
-import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,17 +9,12 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
 import com.empowerment.salesrobot.R;
-import com.empowerment.salesrobot.app.MyApplication;
 import com.empowerment.salesrobot.config.Url;
-import com.empowerment.salesrobot.ui.activity.SeePictureActivity;
-import com.empowerment.salesrobot.ui.activity.PlayVideoActivity;
 import com.empowerment.salesrobot.ui.model.TrainRecordBean;
 import com.empowerment.salesrobot.uitls.GlideUtils;
 import com.empowerment.salesrobot.view.RCRelativeLayout;
 
-import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -69,12 +63,14 @@ public class RoBotIMAdapter extends BaseAdapter {
             viewHolder.mRightContent = convertView.findViewById(R.id.text_right_content);
             viewHolder.mRCLeftImage = convertView.findViewById(R.id.rc_left_image);
             viewHolder.mRCRightImage = convertView.findViewById(R.id.rc_right_image);
+            viewHolder.mRightVideoPaly = convertView.findViewById(R.id.iv_right_video_play);
             convertView.setTag(viewHolder);
         } else {
             viewHolder = (RoBotIMHolder) convertView.getTag();
         }
         TrainRecordBean.ContentRecord contentRecord = mList.get(position);
         if (contentRecord.getLeftOrRight() == 0) {//左边
+            viewHolder.mRightVideoPaly.setVisibility(View.GONE);
             viewHolder.mLeft.setVisibility(View.VISIBLE);
             viewHolder.mRight.setVisibility(View.GONE);
             switch (contentRecord.getContentType()) {
@@ -107,16 +103,19 @@ public class RoBotIMAdapter extends BaseAdapter {
                 case 0: //图文
                     viewHolder.mRCRightImage.setVisibility(View.VISIBLE);
                     viewHolder.mRightContent.setVisibility(View.GONE);
-                    Glide.with(context).load(contentRecord.getPic()).into(viewHolder.mRightIamge);
+                    viewHolder.mRightVideoPaly.setVisibility(View.GONE);
+                    GlideUtils.imageLoader(context, contentRecord.getPic(), viewHolder.mRightIamge);
                     break;
                 case 1: //视频
                     viewHolder.mRCRightImage.setVisibility(View.VISIBLE);
                     viewHolder.mRightContent.setVisibility(View.GONE);
-                    Glide.with(convertView).load(contentRecord.getUri()).into(viewHolder.mRightIamge);
+                    viewHolder.mRightVideoPaly.setVisibility(View.VISIBLE);
+                    GlideUtils.imageLoader(context, contentRecord.getUri(), viewHolder.mRightIamge);
                     break;
                 default: //文本
                     viewHolder.mRCRightImage.setVisibility(View.GONE);
                     viewHolder.mRightContent.setVisibility(View.VISIBLE);
+                    viewHolder.mRightVideoPaly.setVisibility(View.GONE);
                     viewHolder.mRightContent.setText(contentRecord.getContent());
                     break;
             }
@@ -127,7 +126,7 @@ public class RoBotIMAdapter extends BaseAdapter {
 
     class RoBotIMHolder {
         LinearLayout mLeft, mRight;
-        ImageView mMachineIcon, mLeftIamge, mUserIcon, mRightIamge;
+        ImageView mMachineIcon, mLeftIamge, mUserIcon, mRightIamge,mRightVideoPaly;
         TextView mLeftContent, mRightContent;
         RCRelativeLayout mRCLeftImage, mRCRightImage;
     }

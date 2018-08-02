@@ -557,8 +557,7 @@ public class NiceVideoPlayer extends FrameLayout
 
         // 隐藏ActionBar、状态栏，并横屏
         NiceUtil.hideActionBar(mContext);
-        NiceUtil.scanForActivity(mContext)
-                .setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+        NiceUtil.scanForActivity(mContext).setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
 
         ViewGroup contentView = (ViewGroup) NiceUtil.scanForActivity(mContext)
                 .findViewById(android.R.id.content);

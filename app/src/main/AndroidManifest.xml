@@ -55,7 +55,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:fullBackupContent="@xml/backup_descriptor">
-        <activity android:name=".ui.activity.StartActivity">
+        <activity android:name=".ui.activity.StartActivity"
+            android:theme="@style/StartTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -147,8 +148,7 @@
             android:configChanges="orientation"/>
         <!--播放视频-->
         <activity android:name=".ui.activity.PlayVideoActivity"
-            android:windowSoftInputMode="adjustPan|stateHidden"
-            android:configChanges="orientation"/>
+            android:configChanges="orientation|keyboardHidden|screenSize"/>
         <!--训练-->
         <!--设置-->
         <activity android:name=".ui.activity.SeetingsActivity"

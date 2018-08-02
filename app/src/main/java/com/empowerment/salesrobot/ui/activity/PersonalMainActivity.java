@@ -27,6 +27,7 @@ import static com.empowerment.salesrobot.config.BaseUrl.IMAGE;
 import static com.empowerment.salesrobot.config.BaseUrl.NAME;
 import static com.empowerment.salesrobot.config.BaseUrl.PHONE_NUMBER;
 import static com.empowerment.salesrobot.config.BaseUrl.SALE_ID;
+import static com.empowerment.salesrobot.config.Url.HTTP;
 
 /**
  * Author: 小火
@@ -75,7 +76,7 @@ public class PersonalMainActivity extends BaseActivity {
 
     @Override
     protected void loadData() {
-        GlideUtils.imageLoader(context,SPUtil.getString(context,IMAGE),mUserIcon);
+        GlideUtils.imageLoader(context,HTTP+SPUtil.getString(context,IMAGE),mUserIcon);
         mName.setText("账号：" + SPUtil.getString(context,NAME));
         mPhone.setText(SPUtil.getString(context,PHONE_NUMBER));
     }

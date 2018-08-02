@@ -15,6 +15,8 @@ import com.empowerment.salesrobot.uitls.GlideUtils;
 
 import java.util.List;
 
+import static com.empowerment.salesrobot.config.Url.HTTP;
+
 /**
  * Author: 小火
  * Email:1403241630@qq.com
@@ -44,10 +46,10 @@ public class NewPointInfoAdapter extends RecyclerView.Adapter<NewPointInfoAdapte
         NewPointInfoBean.DataBean.BuyPointDetail pointDetail = mList.get(position);
         holder.mDec.setText(pointDetail.getSellPoint());
         if (pointDetail.getType() == 1){//图文+视频
-            String img = pointDetail.getSellPointdsc().get(0).getImg();
+            String img = HTTP + pointDetail.getSellPointdsc().get(0).getImg();
             GlideUtils.imageLoader(context,img,holder.mPic);
         }else if (pointDetail.getType() == 2){//图文
-            String img = pointDetail.getSellPointdsc().get(0).getImg();
+            String img = HTTP + pointDetail.getSellPointdsc().get(0).getImg();
             GlideUtils.imageLoader(context,img,holder.mPic);
         }else {//视频
             holder.mPic.setImageResource(R.drawable.video_cover_icon);

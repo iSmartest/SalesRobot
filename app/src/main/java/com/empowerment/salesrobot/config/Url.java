@@ -8,8 +8,7 @@ public class Url {
 
 
     //服务器地址
-    public static final String HTTP = "http://192.168.1.11:8081/robot";
-//    public static final String HTTP = "http://192.168.1.6:8080/robot-manager-web";
+    public static final String HTTP = "http://101.200.60.12:8080/robot-manager-web";
 
     //登录
     public static final String LOGIN = HTTP + "/app/sale/login?";

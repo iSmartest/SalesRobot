@@ -8,7 +8,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
 import com.empowerment.salesrobot.R;
 import com.empowerment.salesrobot.ui.model.MineBean;
 import com.empowerment.salesrobot.uitls.GlideUtils;
@@ -16,6 +15,8 @@ import com.empowerment.salesrobot.uitls.TimeUtils;
 import com.empowerment.salesrobot.view.RoundedImageView;
 
 import java.util.List;
+
+import static com.empowerment.salesrobot.config.Url.HTTP;
 
 /**
  * Author: 小火
@@ -44,7 +45,7 @@ public class UnderStandAdapter extends RecyclerView.Adapter<UnderStandAdapter.Un
         MineBean.DataBean.ContentListBean contentListBean = mList.get(position);
         holder.mUnderstand.setText(contentListBean.getContent());
         holder.mTime.setText(TimeUtils.transferLongToDate(contentListBean.getData()));
-        GlideUtils.imageLoader(context,contentListBean.getImage(),holder.mIcon);
+        GlideUtils.imageLoader(context,HTTP+contentListBean.getImage(),holder.mIcon);
     }
 
     @Override

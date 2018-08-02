@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.OrientationHelper;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -33,6 +34,7 @@ import butterknife.OnClick;
 
 import static com.empowerment.salesrobot.config.BaseUrl.SALE_ID;
 import static com.empowerment.salesrobot.config.BaseUrl.STORE_ID;
+import static com.empowerment.salesrobot.config.Url.HTTP;
 
 /**
  * 产品销售
@@ -67,6 +69,7 @@ public class ProductSalesActivity extends BaseActivity {
         params.put(SALE_ID,SPUtil.getString(context,SALE_ID));
         MyOkhttp.Okhttp(context, Url.PRODUCTSALE, "加载中...", params, (response, result, resultNote) -> {
             Gson gson = new Gson();
+            Log.i("TAG", "loadData: " + response);
             ProductSalesBean productSalesBean = gson.fromJson(response,ProductSalesBean.class);
             if (result.equals("1")){
                 ToastUtils.makeText(context,resultNote);
@@ -78,10 +81,10 @@ public class ProductSalesActivity extends BaseActivity {
                 mAdapter.notifyDataSetChanged();
             }
 
-            String imag = productSalesBean.getData().getImage().getAddress();
+            String image = HTTP + productSalesBean.getData().getImage().getAddress();
             name = productSalesBean.getData().getImage().getName();
             link = productSalesBean.getData().getImage().getLink();
-            GlideUtils.imageLoader(context,imag,mAudi);
+            GlideUtils.imageLoader(context,image,mAudi);
         });
     }
 
@@ -128,7 +131,7 @@ public class ProductSalesActivity extends BaseActivity {
             case R.id.mAudi:
                 Bundle bundle = new Bundle();
                 bundle.putString("mTitle",name);
-                bundle.putString("mLink",Url.HTTP+link);
+                bundle.putString("mLink", HTTP+link);
                 MyApplication.openActivity(context,ContentInfoActivity.class,bundle);
                 break;
         }

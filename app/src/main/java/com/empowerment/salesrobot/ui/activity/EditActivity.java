@@ -34,6 +34,7 @@ import static com.empowerment.salesrobot.config.BaseUrl.M_NAME;
 import static com.empowerment.salesrobot.config.BaseUrl.M_PHONE;
 import static com.empowerment.salesrobot.config.BaseUrl.M_SEX;
 import static com.empowerment.salesrobot.config.BaseUrl.M_WORK;
+import static com.empowerment.salesrobot.config.Url.HTTP;
 
 
 /**
@@ -141,7 +142,7 @@ public class EditActivity extends BaseActivity {
         editContent.setText(mContent);
         editTime.setText(mData);
         tvTimes.setText(mCount);
-        GlideUtils.imageLoader(context,mPic,editPic);
+        GlideUtils.imageLoader(context,HTTP+mPic,editPic);
         if (mSex.equals("0")) {
             editSex.setText("男");
         } else {

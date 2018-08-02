@@ -26,6 +26,8 @@ import com.empowerment.salesrobot.view.PhotoView;
 
 import java.util.List;
 
+import static com.empowerment.salesrobot.config.Url.HTTP;
+
 
 /**
  * Created by 小火
@@ -160,7 +162,7 @@ public class SeePictureDialog extends Dialog {
 
                 }
             });
-            GlideUtils.imageLoader(mContext,sellPointdscs.get(position).getImg(),photo_view);
+            GlideUtils.imageLoader(mContext,HTTP+sellPointdscs.get(position).getImg(),photo_view);
             container.addView(view);
             return view;
         }

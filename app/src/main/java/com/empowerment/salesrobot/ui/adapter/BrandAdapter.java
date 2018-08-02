@@ -9,13 +9,13 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.request.RequestOptions;
 import com.empowerment.salesrobot.R;
 import com.empowerment.salesrobot.ui.model.ProductSalesBean;
 import com.empowerment.salesrobot.uitls.GlideUtils;
 
 import java.util.List;
+
+import static com.empowerment.salesrobot.config.Url.HTTP;
 
 public class BrandAdapter extends RecyclerView.Adapter<BrandAdapter.BrandViewHolder>{
 
@@ -39,7 +39,7 @@ public class BrandAdapter extends RecyclerView.Adapter<BrandAdapter.BrandViewHol
     public void onBindViewHolder(@NonNull BrandViewHolder holder, int position) {
         ProductSalesBean.DataBean.BList bList = datas.get(position);
         holder.mName.setText(bList.getName());
-        GlideUtils.imageLoader(context,bList.getPic(),holder.mPic);
+        GlideUtils.imageLoader(context,HTTP+bList.getPic(),holder.mPic);
     }
 
     @Override

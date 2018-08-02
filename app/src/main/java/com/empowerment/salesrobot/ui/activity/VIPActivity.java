@@ -40,6 +40,7 @@ import static com.empowerment.salesrobot.config.BaseUrl.PAGE_SIZI;
 import static com.empowerment.salesrobot.config.BaseUrl.SALE_ID;
 import static com.empowerment.salesrobot.config.BaseUrl.STORE_ID;
 import static com.empowerment.salesrobot.config.BaseUrl.TYPE;
+import static com.empowerment.salesrobot.config.Url.HTTP;
 
 /**
  * Vip // 预成交 页面
@@ -131,7 +132,7 @@ public class VIPActivity extends BaseActivity {
                 vipPhone.setText("手机：" + mList.get(position).getPhone());
                 vipWork.setText("职业：" + mList.get(position).getWork());
                 vipId.setText("身份证：" + mList.get(position).getIdCard());
-                GlideUtils.imageLoader(context,mList.get(position).getPic(),vipIcon);
+                GlideUtils.imageLoader(context,HTTP+mList.get(position).getPic(),vipIcon);
                 switch (mList.get(position).getSex()) {
                     case 0:
                         vipSex.setText("性别：男");
@@ -171,7 +172,7 @@ public class VIPActivity extends BaseActivity {
                 vipPhone.setText("手机：" + mList.get(0).getPhone());
                 vipWork.setText("职业：" + mList.get(0).getWork());
                 vipId.setText("身份证：" + mList.get(0).getIdCard());
-                GlideUtils.imageLoader(context,mList.get(0).getPic(),vipIcon);
+                GlideUtils.imageLoader(context,HTTP+mList.get(0).getPic(),vipIcon);
                 switch (mList.get(0).getSex()) {
                     case 1:
                         vipSex.setText("性别：男");

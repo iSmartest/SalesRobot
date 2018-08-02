@@ -172,7 +172,7 @@ public class MineFragment extends BaseFragment {
             SPUtil.putString(context,NAME,mineBean.getData().getSale().getName());
             SPUtil.putString(context,WORK,mineBean.getData().getSale().getWork());
             SPUtil.putString(context,PHONE_NUMBER,mineBean.getData().getSale().getPhone());
-            GlideUtils.imageLoader(context,mineBean.getData().getSale().getImage(),myIconImgview);
+            GlideUtils.imageLoader(context,HTTP + mineBean.getData().getSale().getImage(),myIconImgview);
             mName.setText(mineBean.getData().getSale().getName());
             myDoubelNo.setText(mineBean.getData().getSale().getSaleIndex());
             myDoubelNos.setText(mineBean.getData().getSale().getSuccessIndex());

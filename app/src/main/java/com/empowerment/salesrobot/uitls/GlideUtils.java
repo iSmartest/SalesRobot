@@ -1,6 +1,7 @@
 package com.empowerment.salesrobot.uitls;
 
 import android.content.Context;
+import android.net.Uri;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
@@ -15,6 +16,12 @@ import com.empowerment.salesrobot.R;
  */
 public class GlideUtils {
     public static void imageLoader(Context context, String image, ImageView imageView){
+        RequestOptions requestOptions = new RequestOptions();
+        requestOptions.placeholder(R.mipmap.app_icon);
+        requestOptions.error(R.drawable.image_fail_empty);
+        Glide.with(context).load(image).apply(requestOptions).into(imageView);
+    }
+    public static void imageLoader(Context context, Uri image, ImageView imageView){
         RequestOptions requestOptions = new RequestOptions();
         requestOptions.placeholder(R.mipmap.app_icon);
         requestOptions.error(R.drawable.image_fail_empty);

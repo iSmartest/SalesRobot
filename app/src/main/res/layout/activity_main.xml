@@ -28,36 +28,39 @@
         <RadioButton
             android:id="@+id/iv_main_home"
             style="@style/main_bottom_tab_style"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:button="@null"
             android:checked="true"
             android:textSize="14sp"
             android:drawableTop="@drawable/app_main_home_selector"
+            android:padding="6dp"
             android:gravity="center"
             android:text="首页" />
 
         <RadioButton
             android:id="@+id/iv_main_train"
             style="@style/main_bottom_tab_style"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:button="@null"
             android:drawableTop="@drawable/app_main_train_selector"
             android:gravity="center"
             android:textSize="14sp"
+            android:padding="6dp"
             android:text="训练" />
 
         <RadioButton
             android:id="@+id/iv_main_reception"
             style="@style/main_bottom_tab_style"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:button="@null"
             android:textSize="14sp"
+            android:padding="6dp"
             android:drawableTop="@drawable/app_main_stop_selector"
             android:gravity="center"
             android:text="接待" />
@@ -65,11 +68,12 @@
         <RadioButton
             android:id="@+id/iv_main_mine"
             style="@style/main_bottom_tab_style"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:button="@null"
             android:textSize="14sp"
+            android:padding="6dp"
             android:drawableTop="@drawable/app_main_mine_selector"
             android:gravity="center"
             android:text="我的" />

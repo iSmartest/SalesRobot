@@ -29,6 +29,7 @@ import butterknife.BindView;
 import butterknife.OnClick;
 
 import static com.empowerment.salesrobot.config.BaseUrl.SALE_ID;
+import static com.empowerment.salesrobot.config.Url.HTTP;
 
 /**
  * Author: 小火
@@ -109,8 +110,8 @@ public class TrainingVideoActivity extends BaseActivity {
                     return;
                 }
                 Bundle bundle = new Bundle();
-                bundle.putString("url", mList.get(position).getAddress());
-                bundle.putString("uri", mList.get(position).getCoverAddress());
+                bundle.putString("url", HTTP+mList.get(position).getAddress());
+                bundle.putString("uri", HTTP+mList.get(position).getCoverAddress());
                 bundle.putString("mName", mList.get(position).getName());
                 MyApplication.openActivity(context, PlayVideoActivity.class, bundle);
             }

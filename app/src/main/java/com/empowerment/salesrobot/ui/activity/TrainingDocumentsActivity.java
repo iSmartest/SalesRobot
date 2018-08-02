@@ -4,9 +4,11 @@ import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
+import android.support.v4.content.FileProvider;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -25,6 +27,8 @@ import com.empowerment.salesrobot.uitls.ToastUtils;
 import com.example.xrecyclerview.XRecyclerView;
 import com.google.gson.Gson;
 
+import java.io.BufferedOutputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.InputStream;
@@ -61,6 +65,7 @@ public class TrainingDocumentsActivity extends BaseActivity {
     //下载失败
     private static final int DOWNLOAD_ERROR = 2;
     private File file;
+    private String mUrl;
     private TrainingDocumentsAdapter mAdapter;
     private List<TrainingDocBean.DataBean.TdoctList> mList = new ArrayList<>();
 
@@ -72,7 +77,7 @@ public class TrainingDocumentsActivity extends BaseActivity {
     @Override
     protected void loadData() {
         Map<String, String> params = new HashMap<>();
-        params.put(SALE_ID, SPUtil.getString(context,SALE_ID));
+        params.put(SALE_ID, SPUtil.getString(context, SALE_ID));
         params.put("page", nowPage + "");
         MyOkhttp.Okhttp(context, Url.TRAINDOCLIST, "加载中...", params, (response, result, resultNote) -> {
             Gson gson = new Gson();
@@ -124,22 +129,23 @@ public class TrainingDocumentsActivity extends BaseActivity {
                 if (position < 0 | position >= mList.size()) {
                     return;
                 }
-                final String mUrl = Url.HTTP + mList.get(position).getAddress();
+                mUrl = Url.HTTP + mList.get(position).getAddress();
                 mProgressDialog = new ProgressDialog(context);
                 mProgressDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
                 mProgressDialog.setCancelable(false);
                 mProgressDialog.show();
                 //截取文件最后14位作为文件名
-                final String fileName = mUrl.substring(mUrl.length() - 14);
-                //文件储存
-                file  = new File(Environment.getExternalStorageDirectory(),getFileName(fileName));
-                new Thread(){
+                String path = Environment.getExternalStorageDirectory() + "/download/";
+                String[] name = mUrl.split("/");
+                path = path + name[name.length - 1];
+                file = new File(path);
+                new Thread() {
                     @Override
                     public void run() {
                         //获取本地文件
                         File sdFile = new File(file.getAbsolutePath());
                         //判断文件是否存在
-                        if (sdFile.exists()){
+                        if (sdFile.exists()) {
                             //有缓存文件，拿到路径，直接打开
                             Message message = Message.obtain();
                             message.obj = sdFile;
@@ -149,12 +155,12 @@ public class TrainingDocumentsActivity extends BaseActivity {
                             return;
                         }
                         //本地没有此文件，则从网上先下载
-                        File downloadFile = download(fileName,file.getAbsolutePath(),mProgressDialog);
+                        File downloadFile = download(mUrl, mProgressDialog);
                         Message message = Message.obtain();
-                        if (downloadFile != null){
+                        if (downloadFile != null) {
                             message.obj = downloadFile;
                             message.what = DOWNLAND_SUCCESS;
-                        }else {
+                        } else {
                             message.what = DOWNLOAD_ERROR;
                         }
                         handler.sendMessage(message);
@@ -166,29 +172,41 @@ public class TrainingDocumentsActivity extends BaseActivity {
     }
 
     //传入文件URL地址和弹出dialog进行下载文档
-    private File download(String fileName, String absolutePath, ProgressDialog mProgressDialog) {
+    private File download(String mUrl, ProgressDialog mProgressDialog) {
         try {
-            URL url = new URL(fileName);
+            URL url = new URL(mUrl);
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
             connection.setConnectTimeout(5000);
-            if (connection.getResponseCode() == 200){
+            //实现连接
+            connection.connect();
+            if (connection.getResponseCode() == 200) {
                 int max = connection.getContentLength();
                 mProgressDialog.setMax(max);
-                InputStream inputStream = connection.getInputStream();
-                File file1 = new File(fileName);
-                FileOutputStream fileOutputStream = new FileOutputStream(file1);
-                int length = 0;
-                byte[] bytes = new byte[1024];
+                InputStream is = connection.getInputStream();
+                //以下为下载操作
+                byte[] arr = new byte[1024];
+                ByteArrayOutputStream baos = new ByteArrayOutputStream();
+                BufferedOutputStream bos = new BufferedOutputStream(baos);
+                int n = is.read(arr);
                 int total = 0;
-                while ((length = inputStream.read(bytes)) != -1){
-                    fileOutputStream.write(bytes,0,length);
+                while (n > 0) {
+                    bos.write(arr);
+                    n = is.read(arr);
+                    total = total + n;
                     mProgressDialog.setProgress(total);
                 }
-
-                fileOutputStream.flush();
-                fileOutputStream.close();
-                return file1;
-            }else {
+                bos.close();
+                String path = Environment.getExternalStorageDirectory() + "/download/";
+                String[] name = mUrl.split("/");
+                path = path + name[name.length - 1];
+                File file = new File(path);
+                FileOutputStream fos = new FileOutputStream(file);
+                fos.write(baos.toByteArray());
+                fos.close();
+                //关闭网络连接
+                connection.disconnect();
+                return file;
+            } else {
                 return null;
             }
         } catch (Exception e) {
@@ -200,43 +218,36 @@ public class TrainingDocumentsActivity extends BaseActivity {
     //下载完成，直接打开文件
 
     @SuppressLint("HandlerLeak")
-    Handler handler = new Handler(){
+    Handler handler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
-            switch (msg.what){
+            switch (msg.what) {
                 case DOWNLAND_SUCCESS:
                     File file = (File) msg.obj;
-                    Intent intent = new Intent("android.intent.action.VIEW");
-                    intent.addCategory("android.intent.category.DEFAULT");
-                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                    intent.setDataAndType(Uri.fromFile(file),"application/pdf");
-                    startActivity(Intent.createChooser(intent,"标题"));
-                    finish();
+                    if (file.exists()) {
+                        Intent intent = new Intent(Intent.ACTION_VIEW);
+                        //判断是否是AndroidN以及更高的版本
+                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                            intent.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                            Uri contentUri = FileProvider.getUriForFile(context, "com.empowerment.salesrobot.fileprovider", file);
+                            intent.setDataAndType(contentUri, "application/pdf");
+                        } else {
+                            intent.setDataAndType(Uri.fromFile(file), "application/pdf");
+                            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                        }
+                        startActivity(intent);
+                    }
                     break;
                 case DOWNLOAD_ERROR:
-                    ToastUtils.makeText(context,"文件加载失败");
+                    ToastUtils.makeText(context, "文件加载失败");
                     break;
             }
         }
     };
-
-
-
-    private String getFileName(String fileName) {
-        return fileName.substring(fileName.lastIndexOf("/") + 1);
-    }
 
     @OnClick({R.id.title_Back})
     public void onViewClicked() {
         finish();
     }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-        nowPage = 1;
-        mList.clear();
-        mAdapter.notifyDataSetChanged();
-        loadData();
-    }
 }

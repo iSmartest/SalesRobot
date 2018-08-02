@@ -17,6 +17,8 @@ import com.empowerment.salesrobot.view.RoundedImageView;
 
 import java.util.List;
 
+import static com.empowerment.salesrobot.config.Url.HTTP;
+
 /**
  * Author: 小火
  * Email:1403241630@qq.com
@@ -45,7 +47,7 @@ public class FieldRecordAdapter extends RecyclerView.Adapter<FieldRecordAdapter.
         if (consultList.getType() == 1){
             holder.mName.setText("姓名：" + consultList.getName());
         }
-        GlideUtils.imageLoader(context,consultList.getImage(),holder.mIcon);
+        GlideUtils.imageLoader(context,HTTP+consultList.getImage(),holder.mIcon);
         switch (consultList.getcType()) {
             case 1:
                 holder.mRecordType.setImageResource(R.drawable.vip_image);

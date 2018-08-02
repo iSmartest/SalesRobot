@@ -69,29 +69,7 @@ public class AgencyAffairsActivity extends BaseActivity {
 
     @Override
     protected void loadData() {
-        Map<String,String> params = new HashMap<>();
-        params.put(STORE_ID,SPUtil.getString(context, STORE_ID));
-        params.put("page",String.valueOf(nowPage));
-        params.put("rows",rows+"");
-        params.put(SALE_ID,SPUtil.getString(context, SALE_ID));
-        params.put("type",type);
-        MyOkhttp.Okhttp(context, Url.AFFAIRS, "加载中...", params, (response, result, resultNote) -> {
-            xRecyclerView.refreshComplete();
-            Gson gson = new Gson();
-            AgencyAffairsBean agencyAffairsBean = gson.fromJson(response,AgencyAffairsBean.class);
-            if (result.equals("1")){
-                ToastUtils.makeText(context,resultNote);
-                return;
-            }
-            List<AgencyAffairsBean.DataBean.AgentList> agentLists = agencyAffairsBean.getData().getAgentList();
-            if (agentLists != null && !agentLists.isEmpty() && agentLists.size() > 0){
-                mList.addAll(agentLists);
-                mAdapter.notifyDataSetChanged();
-            }
-            if (agentLists.size() < rows){
-                xRecyclerView.noMoreLoading();
-            }
-        });
+
     }
 
     @Override
@@ -111,13 +89,13 @@ public class AgencyAffairsActivity extends BaseActivity {
                 nowPage = 1;
                 mList.clear();
                 mAdapter.notifyDataSetChanged();
-                loadData();
+                getdata();
             }
 
             @Override
             public void onLoadMore() {
                 nowPage++;
-                loadData();
+                getdata();
                 xRecyclerView.noMoreLoading();
             }
         });
@@ -189,7 +167,7 @@ public class AgencyAffairsActivity extends BaseActivity {
                 type = "1";
                 mList.clear();
                 mAdapter.notifyDataSetChanged();
-                loadData();
+                getdata();
                 break;
             case R.id.tv_personal_agency:
                 company.setBackgroundResource(R.drawable.shape_company_agency_background);
@@ -201,7 +179,7 @@ public class AgencyAffairsActivity extends BaseActivity {
                 type = "0";
                 mList.clear();
                 mAdapter.notifyDataSetChanged();
-                loadData();
+                getdata();
                 break;
             case R.id.title_OK:
                 MyApplication.openActivity(context,NewAddAgencyAffairsActivity.class);
@@ -212,9 +190,32 @@ public class AgencyAffairsActivity extends BaseActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        nowPage = 1;
-        mList.clear();
-        mAdapter.notifyDataSetChanged();
-        loadData();
+        getdata();
+    }
+
+    private void getdata() {
+        Map<String,String> params = new HashMap<>();
+        params.put(STORE_ID,SPUtil.getString(context, STORE_ID));
+        params.put("page",String.valueOf(nowPage));
+        params.put("rows",rows+"");
+        params.put(SALE_ID,SPUtil.getString(context, SALE_ID));
+        params.put("type",type);
+        MyOkhttp.Okhttp(context, Url.AFFAIRS, "加载中...", params, (response, result, resultNote) -> {
+            xRecyclerView.refreshComplete();
+            Gson gson = new Gson();
+            AgencyAffairsBean agencyAffairsBean = gson.fromJson(response,AgencyAffairsBean.class);
+            if (result.equals("1")){
+                ToastUtils.makeText(context,resultNote);
+                return;
+            }
+            List<AgencyAffairsBean.DataBean.AgentList> agentLists = agencyAffairsBean.getData().getAgentList();
+            if (agentLists != null && !agentLists.isEmpty() && agentLists.size() > 0){
+                mList.addAll(agentLists);
+                mAdapter.notifyDataSetChanged();
+            }
+            if (agentLists.size() < rows){
+                xRecyclerView.noMoreLoading();
+            }
+        });
     }
 }

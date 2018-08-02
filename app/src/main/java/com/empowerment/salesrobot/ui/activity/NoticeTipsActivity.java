@@ -80,6 +80,9 @@ public class NoticeTipsActivity extends AppCompatActivity{
             case "99":
                 finish();
                 break;
+            default:
+                finish();
+                break;
         }
     }
 
