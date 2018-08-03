@@ -17,6 +17,7 @@ import com.empowerment.salesrobot.ui.base.BaseActivity;
 import com.empowerment.salesrobot.ui.model.NewPointBean;
 import com.empowerment.salesrobot.uitls.SPUtil;
 import com.empowerment.salesrobot.uitls.ToastUtils;
+import com.example.xrecyclerview.XRecyclerView;
 import com.google.gson.Gson;
 
 import java.util.ArrayList;
@@ -28,6 +29,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
+import static com.empowerment.salesrobot.config.BaseUrl.PAGE;
 import static com.empowerment.salesrobot.config.BaseUrl.SALE_ID;
 import static com.empowerment.salesrobot.config.BaseUrl.STORE_ID;
 
@@ -41,10 +43,10 @@ public class NewPointActivity extends BaseActivity {
     @BindView(R.id.title)
     TextView title;
     @BindView(R.id.rc_new_point)
-    RecyclerView mRecyclerView;
+    XRecyclerView mRecyclerView;
     private NewPointAdapter mAdapter;
     private List<NewPointBean.DataBean.CList> mList = new ArrayList<>();
-
+    private int nowPage = 1;
     @Override
     protected int getLauoutId() {
         return R.layout.activity_new_point;
@@ -57,6 +59,7 @@ public class NewPointActivity extends BaseActivity {
         Map<String,String> params = new HashMap<>();
         params.put("groupid", SPUtil.getString(context,SALE_ID));
         params.put(STORE_ID, SPUtil.getString(context,STORE_ID));
+        params.put(PAGE, nowPage +"");
         MyOkhttp.Okhttp(context, Url.BUYPOINT, "加载中...", params, (response, result, resultNote) -> {
             Gson gson = new Gson();
             NewPointBean newPointBean = gson.fromJson(response,NewPointBean.class);
@@ -68,10 +71,12 @@ public class NewPointActivity extends BaseActivity {
             if (cLists != null && !cLists.isEmpty() && cLists.size() > 0){
                 mList.addAll(cLists);
                 mAdapter.notifyDataSetChanged();
+                if (cLists.size() < 10){
+                    ToastUtils.makeText(context,"没有更多了");
+                    mRecyclerView.noMoreLoading();
+                }
             }
-
         });
-
     }
 
     @Override
@@ -82,10 +87,25 @@ public class NewPointActivity extends BaseActivity {
         mAdapter = new NewPointAdapter(context,mList);
         mRecyclerView.setAdapter(mAdapter);
 
+        mRecyclerView.setLoadingListener(new XRecyclerView.LoadingListener() {
+            @Override
+            public void onRefresh() {
+                nowPage = 1;
+                mList.clear();
+                mAdapter.notifyDataSetChanged();
+                loadData();
+            }
+
+            @Override
+            public void onLoadMore() {
+                nowPage ++;
+                loadData();
+            }
+        });
         mRecyclerView.addOnItemTouchListener(new RecyclerItemTouchListener(mRecyclerView) {
             @Override
             public void onItemClick(RecyclerView.ViewHolder vh) {
-                int position = vh.getAdapterPosition();
+                int position = vh.getAdapterPosition()-1;
                 if (position < 0 | position >= mList.size()){
                     return;
                 }

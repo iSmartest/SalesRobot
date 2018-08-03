@@ -57,8 +57,7 @@ public class ReceptionFragment extends BaseFragment {
     }
 
     protected void initView() {
-        title.setText("展屏编号");
-//        titleImg.setVisibility(View.VISIBLE);
+        title.setText("机器人编号");
         gv_reception.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {

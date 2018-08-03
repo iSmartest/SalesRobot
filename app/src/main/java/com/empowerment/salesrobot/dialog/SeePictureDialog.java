@@ -111,7 +111,7 @@ public class SeePictureDialog extends Dialog {
         mPlay.setOnClickListener(v -> {
             Bundle bundle = new Bundle();
             bundle.putString("uri","");
-            bundle.putString("url",videoUrl);
+            bundle.putString("url",HTTP+videoUrl);
             bundle.putString("mName",name);
             MyApplication.openActivity(mContext, PlayVideoActivity.class,bundle);
         });

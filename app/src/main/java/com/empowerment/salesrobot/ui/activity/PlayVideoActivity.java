@@ -8,9 +8,6 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.empowerment.salesrobot.R;
-import com.empowerment.salesrobot.dialog.ProgressDialog;
-import com.empowerment.salesrobot.uitls.AppManager;
-import com.empowerment.salesrobot.uitls.StatusBarUtil;
 import com.xiao.nicevideoplayer.NiceVideoPlayer;
 import com.xiao.nicevideoplayer.NiceVideoPlayerManager;
 import com.xiao.nicevideoplayer.TxVideoPlayerController;
@@ -33,7 +30,6 @@ public class PlayVideoActivity extends AppCompatActivity{
     @BindView(R.id.nice_video_player)
     NiceVideoPlayer mNiceVideoPlayer;
     private String name;
-//    private String videoUrl = "http://tanzi27niu.cdsb.mobi/wps/wp-content/uploads/2017/05/2017-05-17_17-33-30.mp4";
     private String videoUrl ;
     private String videoUri ;
 
@@ -62,7 +58,7 @@ public class PlayVideoActivity extends AppCompatActivity{
         name = getIntent().getStringExtra("mName");
         videoUrl = getIntent().getStringExtra("url");
         videoUri = getIntent().getStringExtra("uri");
-        title.setText(name);
+        title.setText("");
         titleBack.setVisibility(View.VISIBLE);
     }
 

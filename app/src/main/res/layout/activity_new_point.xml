@@ -9,11 +9,11 @@
 
     <include layout="@layout/activity_base"/>
 
-<android.support.v7.widget.RecyclerView
+<com.example.xrecyclerview.XRecyclerView
     android:id="@+id/rc_new_point"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-</android.support.v7.widget.RecyclerView>
+</com.example.xrecyclerview.XRecyclerView>
 
 </LinearLayout>

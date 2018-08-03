@@ -28,6 +28,8 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
+import static com.empowerment.salesrobot.config.Url.HTTP;
+
 /**
  * Author: 小火
  * Email:1403241630@qq.com
@@ -78,7 +80,7 @@ public class NewPointInfoActivity extends BaseActivity {
 
     @Override
     protected void initView() {
-        title.setText("新品买点");
+        title.setText("新品卖点");
         titleBack.setVisibility(View.VISIBLE);
         title_OK.setVisibility(View.VISIBLE);
         title_OK.setText("政策");
@@ -101,8 +103,8 @@ public class NewPointInfoActivity extends BaseActivity {
                     seePictureDialog = new SeePictureDialog(context,mList.get(position).getSellPointdsc());
                     seePictureDialog.show();
                 }else {//视频
-                    bundle.putString("mName",mList.get(position).getSellPoint());
-                    bundle.putString("url",mList.get(position).getSellPointvid());
+                    bundle.putString("mName","");
+                    bundle.putString("url",HTTP+mList.get(position).getSellPointvid());
                     bundle.putString("uri","");
                     MyApplication.openActivity(context,PlayVideoActivity.class,bundle);
                 }

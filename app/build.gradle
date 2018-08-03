@@ -73,5 +73,4 @@ dependencies {
     implementation files('libs/jcore-android-1.2.1.jar')
     //桌面角标
     implementation "me.leolin:ShortcutBadger:1.1.22@aar"
-
 }
