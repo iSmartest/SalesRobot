@@ -92,8 +92,7 @@ public class InformationActivity extends BaseActivity {
         return R.layout.activity_information;
     }
 
-    @Override
-    protected void loadData() {
+    protected void getdata() {
         Map<String, String> cusMap = new HashMap<>();
         cusMap.put(TYPE, type);
         cusMap.put(KEY_WORD, keyWord);
@@ -128,6 +127,10 @@ public class InformationActivity extends BaseActivity {
             }
             xRecyclerView.refreshComplete();
         });
+    }
+
+    @Override
+    protected void loadData() {
 
     }
 
@@ -185,21 +188,19 @@ public class InformationActivity extends BaseActivity {
             titleOK.setVisibility(View.GONE);
         }
         currentFocus(1);
-        loadData();//开启网络请求*往期或者今日客户
-
         xRecyclerView.setLoadingListener(new XRecyclerView.LoadingListener() {
             @Override
             public void onRefresh() {
                 nowPage = 1;
                 infoList.clear();
                 mAdapter.notifyDataSetChanged();
-                loadData();
+                getdata();
             }
 
             @Override
             public void onLoadMore() {
                 nowPage++;
-                loadData();
+                getdata();
             }
         });
 
@@ -211,7 +212,7 @@ public class InformationActivity extends BaseActivity {
                     keyWord = mEditKey.getText().toString().trim();
                     infoList.clear();
                     mAdapter.notifyDataSetChanged();
-                    loadData();
+                    getdata();
                 }
                 return true;
             }
@@ -275,7 +276,7 @@ public class InformationActivity extends BaseActivity {
                 currentFocus(1);
                 infoList.clear();
                 mAdapter.notifyDataSetChanged();
-                loadData();
+                getdata();
                 break;
             case R.id.tv_name:
                 type = "3";//拿到姓名标签索引
@@ -283,7 +284,7 @@ public class InformationActivity extends BaseActivity {
                 currentFocus(2);
                 infoList.clear();
                 mAdapter.notifyDataSetChanged();
-                loadData();
+                getdata();
                 break;
             case R.id.tv_car_style:
                 type = "4";//拿到车型标签索引
@@ -291,7 +292,7 @@ public class InformationActivity extends BaseActivity {
                 currentFocus(3);
                 infoList.clear();
                 mAdapter.notifyDataSetChanged();
-                loadData();
+                getdata();
                 break;
             case R.id.tv_address:
                 type = "5";//拿到区域标签索引
@@ -299,7 +300,7 @@ public class InformationActivity extends BaseActivity {
                 currentFocus(4);
                 infoList.clear();
                 mAdapter.notifyDataSetChanged();
-                loadData();
+                getdata();
                 break;
         }
     }
@@ -322,6 +323,6 @@ public class InformationActivity extends BaseActivity {
         nowPage = 1;
         infoList.clear();
         mAdapter.notifyDataSetChanged();
-        loadData();
+        getdata();
     }
 }

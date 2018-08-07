@@ -85,7 +85,6 @@ public class SeePictureActivity extends BaseActivity {
     private String name;
     private String mVideoPic;
     private String isPicOrVideo;
-
     private String isLiftOrRight = "1";
     private String mQuestionId;
     private int mPosition;

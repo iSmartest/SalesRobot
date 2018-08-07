@@ -57,25 +57,7 @@ public class CustomerInfoActivity extends BaseActivity {
 
     @Override
     protected void loadData() {
-        Map<String,String> params = new HashMap<>();
-        params.put(SALE_ID, SPUtil.getString(context,SALE_ID));
-        params.put(STORE_ID, SPUtil.getString(context,STORE_ID));
-        MyOkhttp.Okhttp(context, Url.CUSTOMER_COUNT, "加载中...", params, new MyOkhttp.CallBack() {
-            @Override
-            public void onRequestComplete(String response, String result, String resultNote) {
-                Gson gson = new Gson();
-                CustomerCountBean customerCountBean = gson.fromJson(response,CustomerCountBean.class);
-                if (result.equals("1")){
-                    ToastUtils.makeText(context,resultNote);
-                    return;
-                }
-                tvTodayCustomer.setText(customerCountBean.getData().getNowCustomer()+"");
-                tvPerCustomer.setText(customerCountBean.getData().getYiXiangCustomer()+"");
-                tvPastCustomer.setText(customerCountBean.getData().getPastCustomer()+"");
-                tvVIPCustomer.setText(customerCountBean.getData().getVipCustomer()+"");
 
-            }
-        });
     }
 
     @Override
@@ -119,5 +101,29 @@ public class CustomerInfoActivity extends BaseActivity {
                 MyApplication.openActivity(context,VIPActivity.class,bundle);
                 break;
         }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        Map<String,String> params = new HashMap<>();
+        params.put(SALE_ID, SPUtil.getString(context,SALE_ID));
+        params.put(STORE_ID, SPUtil.getString(context,STORE_ID));
+        MyOkhttp.Okhttp(context, Url.CUSTOMER_COUNT, "加载中...", params, new MyOkhttp.CallBack() {
+            @Override
+            public void onRequestComplete(String response, String result, String resultNote) {
+                Gson gson = new Gson();
+                CustomerCountBean customerCountBean = gson.fromJson(response,CustomerCountBean.class);
+                if (result.equals("1")){
+                    ToastUtils.makeText(context,resultNote);
+                    return;
+                }
+                tvTodayCustomer.setText(customerCountBean.getData().getNowCustomer()+"");
+                tvPerCustomer.setText(customerCountBean.getData().getYiXiangCustomer()+"");
+                tvPastCustomer.setText(customerCountBean.getData().getPastCustomer()+"");
+                tvVIPCustomer.setText(customerCountBean.getData().getVipCustomer()+"");
+
+            }
+        });
     }
 }

@@ -55,7 +55,6 @@ public class MyReceiver extends BroadcastReceiver {
             }
         }
         return false;
-
     }
     @Override
     public void onReceive(Context context, Intent intent) {
@@ -78,7 +77,6 @@ public class MyReceiver extends BroadcastReceiver {
                         badgeCount ++;
                         ShortcutBadger.applyCount(context,badgeCount);
                     }else {
-                        JPushInterface.clearAllNotifications(context);
                         Bundle bundle1 = new Bundle();
                         bundle1.putString("extra",bundle.getString(JPushInterface.EXTRA_EXTRA));
                         bundle1.putString("content",bundle.getString(JPushInterface.EXTRA_ALERT));

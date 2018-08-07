@@ -190,6 +190,9 @@ public class AgencyAffairsActivity extends BaseActivity {
     @Override
     protected void onResume() {
         super.onResume();
+        nowPage = 1;
+        mList.clear();
+        mAdapter.notifyDataSetChanged();
         getdata();
     }
 
@@ -201,11 +204,11 @@ public class AgencyAffairsActivity extends BaseActivity {
         params.put(SALE_ID,SPUtil.getString(context, SALE_ID));
         params.put("type",type);
         MyOkhttp.Okhttp(context, Url.AFFAIRS, "加载中...", params, (response, result, resultNote) -> {
-            xRecyclerView.refreshComplete();
             Gson gson = new Gson();
             AgencyAffairsBean agencyAffairsBean = gson.fromJson(response,AgencyAffairsBean.class);
             if (result.equals("1")){
                 ToastUtils.makeText(context,resultNote);
+                xRecyclerView.refreshComplete();
                 return;
             }
             List<AgencyAffairsBean.DataBean.AgentList> agentLists = agencyAffairsBean.getData().getAgentList();
@@ -216,6 +219,7 @@ public class AgencyAffairsActivity extends BaseActivity {
             if (agentLists.size() < rows){
                 xRecyclerView.noMoreLoading();
             }
+            xRecyclerView.refreshComplete();
         });
     }
 }

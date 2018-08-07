@@ -127,7 +127,9 @@ public class NewPointInfoActivity extends BaseActivity {
                 finish();
                 break;
             case R.id.title_OK:
-                ToastUtils.makeText(context, policy);
+                Bundle bundle = new Bundle();
+                bundle.putString("policy",policy);
+                MyApplication.openActivity(context,NoticeActivity.class,bundle);
                 break;
         }
 

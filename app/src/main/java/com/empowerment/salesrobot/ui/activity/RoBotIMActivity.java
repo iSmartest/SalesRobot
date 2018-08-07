@@ -300,8 +300,8 @@ public class RoBotIMActivity extends BaseActivity implements ReplacePicListener 
                             }
                             @Override
                             public void cancle() {
-                                mContent = "";
                                 finishTrain("0");
+                                mContent = "";
                             }
                         });
                         dialog.setCanceledOnTouchOutside(false);
@@ -407,8 +407,9 @@ public class RoBotIMActivity extends BaseActivity implements ReplacePicListener 
                                 }
                                 @Override
                                 public void cancle() {
-                                    mContent = "";
+
                                     finishTrain("0");
+                                    mContent = "";
                                 }
                             });
                             dialog.setCanceledOnTouchOutside(false);
@@ -511,8 +512,8 @@ public class RoBotIMActivity extends BaseActivity implements ReplacePicListener 
 
                                 @Override
                                 public void cancle() {
-                                    mContent = "";
                                     finishTrain("0");
+                                    mContent = "";
                                 }
                             });
                             dialog.setCanceledOnTouchOutside(false);
@@ -530,8 +531,8 @@ public class RoBotIMActivity extends BaseActivity implements ReplacePicListener 
 
                                 @Override
                                 public void cancle() {
-                                    mContent = "";
                                     finishTrain("0");
+                                    mContent = "";
                                 }
                             });
                             stopTipsDialog.setCanceledOnTouchOutside(false);

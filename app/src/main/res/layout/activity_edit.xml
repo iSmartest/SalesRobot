@@ -163,12 +163,12 @@
                     android:textColor="@color/vipTextColor"
                     android:textSize="16sp" />
 
-                <EditText
+                <Button
                     android:id="@+id/editSex"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:background="@null"
-                    android:focusable="false"
+                    android:enabled="false"
                     android:gravity="center_vertical"
                     android:text=""
                     android:textSize="16sp" />
@@ -308,12 +308,12 @@
                     android:textColor="@color/vipTextColor"
                     android:textSize="16sp" />
 
-                <EditText
+                <Button
                     android:id="@+id/edit_Content"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:background="@null"
-                    android:focusable="false"
+                    android:enabled="false"
                     android:gravity="center_vertical"
                     android:text=""
                     android:textSize="15sp" />

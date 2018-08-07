@@ -35,11 +35,11 @@ public class CarBrandBean extends BaseBean {
 
         public static class CarList{
             private String motor;
-            private String score;
+            private float score;
             private String level;
-            private String prePrice;
+            private double prePrice;
             private String name;
-            private String guidePrice;
+            private double guidePrice;
             private String gearBox;
             private String structure;
             private String pic;
@@ -51,11 +51,11 @@ public class CarBrandBean extends BaseBean {
                 this.motor = motor;
             }
 
-            public String getScore() {
+            public float getScore() {
                 return score;
             }
 
-            public void setScore(String score) {
+            public void setScore(float score) {
                 this.score = score;
             }
 
@@ -67,11 +67,11 @@ public class CarBrandBean extends BaseBean {
                 this.level = level;
             }
 
-            public String getPrePrice() {
+            public double getPrePrice() {
                 return prePrice;
             }
 
-            public void setPrePrice(String prePrice) {
+            public void setPrePrice(double prePrice) {
                 this.prePrice = prePrice;
             }
 
@@ -83,11 +83,11 @@ public class CarBrandBean extends BaseBean {
                 this.name = name;
             }
 
-            public String getGuidePrice() {
+            public double getGuidePrice() {
                 return guidePrice;
             }
 
-            public void setGuidePrice(String guidePrice) {
+            public void setGuidePrice(double guidePrice) {
                 this.guidePrice = guidePrice;
             }
 

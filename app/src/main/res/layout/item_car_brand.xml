@@ -2,7 +2,9 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/app_main_background">
+    android:background="@color/app_main_background"
+    android:layout_marginTop="4dp"
+    android:layout_marginLeft="4dp">
     <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
@@ -29,12 +31,13 @@
             android:isIndicator="true"/>
 
         <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="49dp"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
             android:id="@+id/a_List_item_Img"
             android:scaleType="centerCrop"
             android:paddingLeft="9dp"
             android:paddingRight="9dp"
+            android:layout_marginTop="8dp"
             android:layout_below="@id/a_list_item_Name"
             android:src="@drawable/audi_icon_icon"/>
 
@@ -43,8 +46,8 @@
             android:layout_height="wrap_content"
             android:text="级    别："
             android:layout_marginLeft="15dp"
-            android:textSize="9sp"
-            android:layout_marginTop="10dp"
+            android:textSize="12sp"
+            android:layout_marginTop="8dp"
             android:layout_below="@id/a_List_item_Img"
             android:id="@+id/a_list_item_level"
             android:textColor="@color/vipTextColor"/>
@@ -52,7 +55,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="车身结构："
-            android:textSize="9sp"
+            android:textSize="12sp"
             android:layout_marginLeft="15dp"
             android:layout_marginTop="4dp"
             android:layout_below="@id/a_list_item_level"
@@ -62,7 +65,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="发动机："
-            android:textSize="9sp"
+            android:textSize="12sp"
             android:layout_marginLeft="15dp"
             android:layout_marginTop="4dp"
             android:layout_below="@id/a_list_item_structure"
@@ -72,7 +75,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="变速箱："
-            android:textSize="9sp"
+            android:textSize="12sp"
             android:layout_marginLeft="15dp"
             android:layout_marginTop="4dp"
             android:layout_below="@id/a_list_item_motor"
@@ -82,7 +85,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="预售价："
-            android:textSize="9sp"
+            android:textSize="12sp"
             android:layout_marginLeft="15dp"
             android:layout_marginTop="4dp"
             android:layout_below="@id/a_list_item_gearBox"
@@ -91,10 +94,11 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="9sp"
+            android:textSize="12sp"
             android:layout_alignParentRight="true"
-            android:gravity="right"
+            android:gravity="center_vertical"
             android:layout_marginTop="4dp"
+            android:paddingRight="12dp"
             android:textColor="@color/red"
             android:text="暂无报价"
             android:id="@+id/a_list_item_prePrice"
@@ -104,7 +108,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="外观指导价："
-            android:textSize="9sp"
+            android:textSize="12sp"
             android:layout_marginLeft="15dp"
             android:layout_marginTop="4dp"
             android:layout_marginBottom="15dp"

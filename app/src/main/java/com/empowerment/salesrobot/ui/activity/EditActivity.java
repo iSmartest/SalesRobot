@@ -3,6 +3,7 @@ package com.empowerment.salesrobot.ui.activity;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -11,7 +12,9 @@ import android.widget.TextView;
 
 import com.empowerment.salesrobot.R;
 import com.empowerment.salesrobot.app.MyApplication;
+import com.empowerment.salesrobot.config.DataCenter;
 import com.empowerment.salesrobot.config.Url;
+import com.empowerment.salesrobot.dialog.SelectedDialog;
 import com.empowerment.salesrobot.okhttp.MyOkhttp;
 import com.empowerment.salesrobot.ui.base.BaseActivity;
 import com.empowerment.salesrobot.uitls.GlideUtils;
@@ -66,7 +69,7 @@ public class EditActivity extends BaseActivity {
     @BindView(R.id.editAge)
     EditText editAge;
     @BindView(R.id.editSex)
-    EditText editSex;
+    Button editSex;
     @BindView(R.id.editWork)
     EditText editWork;
     @BindView(R.id.editAddses)
@@ -76,7 +79,7 @@ public class EditActivity extends BaseActivity {
     @BindView(R.id.editPhone)
     EditText editPhone;
     @BindView(R.id.edit_Content)
-    EditText editContent;
+    Button editContent;
     @BindView(R.id.ll_vip_reason)
     LinearLayout mReason;
     @BindView(R.id.edit_vip_reason)
@@ -85,6 +88,7 @@ public class EditActivity extends BaseActivity {
     private String reason ="";
     private String mAddress,mAge,mContent,mData,mId,mIdCard,mName,mPhone,mPic,mSex,mWork,mCount;
     private ArrayList<Parcelable> datas;
+    private SelectedDialog selectedDialog;
     @Override
     protected int getLauoutId() {
         return R.layout.activity_edit;
@@ -121,9 +125,9 @@ public class EditActivity extends BaseActivity {
         }
         setEditText(editNames, false);
         setEditText(editAge, false);
-        setEditText(editSex, false);
+        editSex.setEnabled(true);
         setEditText(editAddses, false);
-        setEditText(editContent, false);
+        editContent.setEnabled(false);
         setEditText(editIdCred, false);
         setEditText(editPhone, false);
         setEditText(editWork, false);
@@ -162,7 +166,7 @@ public class EditActivity extends BaseActivity {
         ButterKnife.bind(this);
     }
 
-    @OnClick({R.id.title_Back, R.id.title_OK,R.id.rl_data_list})
+    @OnClick({R.id.title_Back, R.id.title_OK,R.id.rl_data_list,R.id.editSex,R.id.edit_Content})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.title_Back:
@@ -175,9 +179,9 @@ public class EditActivity extends BaseActivity {
                         titleOK.setText("保存");
                         setEditText(editNames, true);
                         setEditText(editAge, true);
-                        setEditText(editSex, true);
+                        editSex.setEnabled(true);
                         setEditText(editAddses, true);
-                        setEditText(editContent, true);
+                        editContent.setEnabled(true);
                         setEditText(editIdCred, true);
                         setEditText(editPhone, true);
                         setEditText(editWork, true);
@@ -216,7 +220,7 @@ public class EditActivity extends BaseActivity {
                         if (type.equals("1")){
                             if (editReason.getText().toString().trim().isEmpty()){
                                 ToastUtils.makeText(context,"修改vip客户的理由不能为空");
-
+                                return;
                             }else {
                                 reason = editReason.getText().toString().trim();
                             }
@@ -233,15 +237,30 @@ public class EditActivity extends BaseActivity {
                 bundle.putString("mName",mName);
                 MyApplication.openActivity(context,CustomerToStoreTimesActivity.class,bundle);
                 break;
+            case R.id.editSex:
+                selectedDialog = new SelectedDialog(context, R.string.sex, "男", DataCenter.getSexList(), sex -> {
+                    editSex.setText(sex);
+                    if (sex.equals("男")) {
+                        mSex = "0";
+                    } else {
+                        mSex = "1";
+                    }
+                    selectedDialog.dismiss();
+                });
+                selectedDialog.show();
+                break;
+            case R.id.edit_Content:
+                selectedDialog = new SelectedDialog(context, R.string.intention, "一个月以内购车", DataCenter.getIntentionList(), intention -> {
+                    editContent.setText(intention);
+                    mContent = intention;
+                    selectedDialog.dismiss();
+                });
+                selectedDialog.show();
+                break;
         }
     }
 
     private void submitModify() {
-        if (editSex.getText().toString().equals("男")) {
-            mSex = "0";
-        } else {
-            mSex = "1";
-        }
         map.put(M_SEX, mSex);
         map.put(M_ID, mId);
         map.put(M_NAME, mName);
@@ -258,9 +277,9 @@ public class EditActivity extends BaseActivity {
                     titleOK.setText("编辑");
                     setEditText(editNames, false);
                     setEditText(editAge, false);
-                    setEditText(editSex, false);
+                    editSex.setEnabled(false);
                     setEditText(editAddses, false);
-                    setEditText(editContent, false);
+                    editContent.setEnabled(false);
                     setEditText(editIdCred, false);
                     setEditText(editPhone, false);
                     setEditText(editWork, false);

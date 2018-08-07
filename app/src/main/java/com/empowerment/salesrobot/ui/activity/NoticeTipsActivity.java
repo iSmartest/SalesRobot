@@ -5,12 +5,25 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 
+import com.empowerment.salesrobot.config.Url;
 import com.empowerment.salesrobot.dialog.NoticeTipsDialog;
+import com.empowerment.salesrobot.okhttp.MyOkhttp;
+import com.empowerment.salesrobot.uitls.AppManager;
+import com.empowerment.salesrobot.uitls.SPUtil;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.util.HashMap;
+import java.util.Map;
+
+import cn.jpush.android.api.JPushInterface;
+
+import static com.empowerment.salesrobot.config.BaseUrl.SALE_ID;
+import static com.empowerment.salesrobot.config.BaseUrl.STORE_ID;
 
 /**
  * Author: 小火
@@ -41,6 +54,7 @@ public class NoticeTipsActivity extends AppCompatActivity{
             @Override
             public void onClick(View v) {
                 openActivity();
+                JPushInterface.clearAllNotifications(context);
             }
         }).show();
     }
@@ -49,6 +63,7 @@ public class NoticeTipsActivity extends AppCompatActivity{
         Intent detailIntent = null;
         switch (type) {
             case "1": //公司待办
+                submitFinish();
                 detailIntent = new Intent(context, AgencyAffairsInfoActivity.class);
                 detailIntent.putExtra("type", type);
                 detailIntent.putExtra("id", id);
@@ -60,6 +75,7 @@ public class NoticeTipsActivity extends AppCompatActivity{
                 finish();
                 break;
             case "3": //个人待办
+                submitFinish();
                 detailIntent = new Intent(context, AgencyAffairsInfoActivity.class);
                 detailIntent.putExtra("type", type);
                 detailIntent.putExtra("id", id);
@@ -78,12 +94,29 @@ public class NoticeTipsActivity extends AppCompatActivity{
                 finish();
                 break;
             case "99":
+                detailIntent = new Intent(context, AppManager.currentActivity().getClass());
+                detailIntent.putExtra("content", content);
+                detailIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                context.startActivity(detailIntent);
                 finish();
                 break;
             default:
-                finish();
                 break;
         }
     }
-
+    private void submitFinish() {
+        Map<String,String> params = new HashMap<>();
+        params.put("aId",id+"");
+        params.put("sId", SPUtil.getString(context,SALE_ID));
+        params.put("aType",String.valueOf(type));//待办类型
+        params.put(STORE_ID,SPUtil.getString(context,STORE_ID));
+        params.put("type", "1");//1为阅读，2为完结
+        MyOkhttp.Okhttp(context, Url.READ_OR_FINISH, "加载中...", params, (response, result, resultNote) -> {
+            if (result.equals("1")){
+                Log.i("", "submitFinish: " + resultNote );
+            }else {
+                Log.i("", "submitFinish: " + resultNote );
+            }
+        });
+    }
 }

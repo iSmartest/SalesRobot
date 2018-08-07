@@ -12,9 +12,12 @@ import android.widget.TextView;
 
 import com.empowerment.salesrobot.R;
 import com.empowerment.salesrobot.ui.model.CarBrandBean;
-import com.empowerment.salesrobot.uitls.ImageManagerUtils;
+import com.empowerment.salesrobot.uitls.GlideUtils;
+import com.empowerment.salesrobot.uitls.PriceUtils;
 
 import java.util.List;
+
+import static com.empowerment.salesrobot.config.Url.HTTP;
 
 /**
  * Author: 小火
@@ -43,20 +46,16 @@ public class CarBrandAdapter extends RecyclerView.Adapter<CarBrandAdapter.CarBra
     public void onBindViewHolder(@NonNull CarBrandViewHolder viewHolder, int position) {
         CarBrandBean.DataBean.CarList carList = mList.get(position);
         viewHolder.mName.setText(carList.getName());
-        float score = Float.valueOf(carList.getScore());
+        float score =carList.getScore();
         viewHolder.mRatingBar.setRating(score);
         viewHolder.mLevel.setText("级   别： "+carList.getLevel());
         viewHolder.mStructure.setText("车身结构："+carList.getStructure());
         viewHolder.mMotor.setText("发 动 机："+carList.getMotor());
         viewHolder.mGearBox.setText("变 速 箱：" + carList.getGearBox());
-        viewHolder.mPrePrice.setText(carList.getPrePrice());
-        viewHolder.mGuidePrice.setText("外观指导价："+carList.getGuidePrice());
+        viewHolder.mPrePrice.setText(PriceUtils.getprice(carList.getPrePrice()));
+        viewHolder.mGuidePrice.setText("外观指导价："+PriceUtils.getprice(carList.getGuidePrice()));
         String img = carList.getPic();
-        if (img.isEmpty()){
-            viewHolder.mPic.setImageResource(R.drawable.image_fail_empty);
-        }else {
-            ImageManagerUtils.imageLoader.displayImage(img,viewHolder.mPic,ImageManagerUtils.options3);
-        }
+        GlideUtils.imageLoader(context,HTTP+img,viewHolder.mPic);
     }
 
     @Override

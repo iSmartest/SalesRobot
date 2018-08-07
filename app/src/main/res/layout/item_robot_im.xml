@@ -68,14 +68,14 @@
         android:layout_alignParentRight="true"
         android:orientation="horizontal">
         <RelativeLayout
-            android:layout_width="100dp"
-            android:layout_height="100dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:layout_marginRight="4dp">
             <com.empowerment.salesrobot.view.RCRelativeLayout
                 android:id="@+id/rc_right_image"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
                 app:round_corner="6dp"
                 app:stroke_color="@color/stroke_color"
                 android:visibility="visible"

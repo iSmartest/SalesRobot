@@ -58,6 +58,9 @@ public class FieldRecordActivity extends BaseActivity {
 
     @Override
     protected void loadData() {
+
+    }
+    protected void getdata() {
         Map<String,String> params = new HashMap<>();
         params.put("page",String.valueOf(nowPage));
         params.put("rows",rows+"");
@@ -94,14 +97,14 @@ public class FieldRecordActivity extends BaseActivity {
             public void onRefresh() {
                 nowPage = 1;
                 mList.clear();
-                loadData();
+                getdata();
                 mAdapter.notifyDataSetChanged();
                 xRecyclerView.refreshComplete();
             }
             @Override
             public void onLoadMore() {
                 nowPage++;
-                loadData();
+                getdata();
                 mAdapter.notifyDataSetChanged();
                 xRecyclerView.refreshComplete();
             }
@@ -151,6 +154,6 @@ public class FieldRecordActivity extends BaseActivity {
         nowPage = 1;
         mList.clear();
         mAdapter.notifyDataSetChanged();
-        loadData();
+        getdata();
     }
 }

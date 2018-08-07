@@ -129,10 +129,11 @@ public class ProductSalesActivity extends BaseActivity {
                 MyApplication.openActivity(context,TrainingVideoActivity.class);
                 break;
             case R.id.mAudi:
-                Bundle bundle = new Bundle();
-                bundle.putString("mTitle",name);
-                bundle.putString("mLink", HTTP+link);
-                MyApplication.openActivity(context,ContentInfoActivity.class,bundle);
+//                Bundle bundle = new Bundle();
+//                bundle.putString("mTitle",name);
+
+//                bundle.putString("mLink", HTTP+link);
+//                MyApplication.openActivity(context,ContentInfoActivity.class,bundle);
                 break;
         }
     }

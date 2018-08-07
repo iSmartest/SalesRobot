@@ -57,6 +57,10 @@ public class MyUnderstandActivity extends BaseActivity implements MyUnderstandAd
 
     @Override
     protected void loadData() {
+
+    }
+
+    protected void getdata() {
         Map<String, String> params = new HashMap<>();
         params.put(SALE_ID, SPUtil.getString(context,SALE_ID));
         params.put(STORE_ID, SPUtil.getString(context,STORE_ID));
@@ -108,14 +112,14 @@ public class MyUnderstandActivity extends BaseActivity implements MyUnderstandAd
             public void onRefresh() {
                 nowPage = 1;
                 mList.clear();
-                loadData();
+                getdata();
                 mAdapter.notifyDataSetChanged();
                 swipeListView.refreshComplete();
             }
             @Override
             public void onLoadMore() {
                 nowPage++;
-                loadData();
+                getdata();
                 mAdapter.notifyDataSetChanged();
                 swipeListView.refreshComplete();
             }
@@ -166,6 +170,6 @@ public class MyUnderstandActivity extends BaseActivity implements MyUnderstandAd
         nowPage = 1;
         mList.clear();
         mAdapter.notifyDataSetChanged();
-        loadData();
+        getdata();
     }
 }

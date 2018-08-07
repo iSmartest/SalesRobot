@@ -203,6 +203,8 @@
         <!--提示框-->
         <activity android:name=".ui.activity.NoticeTipsActivity"
             android:theme="@style/Theme.Transparent"/>
+        <!--政策须知-->
+        <activity android:name=".ui.activity.NoticeActivity"/>
         <activity
             android:name="me.iwf.photopicker.PhotoPickerActivity"
             android:theme="@style/AppTheme"/>

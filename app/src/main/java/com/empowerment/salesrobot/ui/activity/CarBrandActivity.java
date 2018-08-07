@@ -79,7 +79,7 @@ public class CarBrandActivity extends BaseActivity {
         brandId = getIntent().getStringExtra("brandId");
         title.setText(mTitle);
         titleBack.setVisibility(View.VISIBLE);
-        mRecyclerView.setLayoutManager(new GridLayoutManager(context, 3));
+        mRecyclerView.setLayoutManager(new GridLayoutManager(context, 2));
         mAdapter = new CarBrandAdapter(context, mList);
         mRecyclerView.setAdapter(mAdapter);
     }

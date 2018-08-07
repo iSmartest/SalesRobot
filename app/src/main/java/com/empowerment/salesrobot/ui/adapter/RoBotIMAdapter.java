@@ -10,12 +10,14 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.empowerment.salesrobot.R;
-import com.empowerment.salesrobot.config.Url;
 import com.empowerment.salesrobot.ui.model.TrainRecordBean;
 import com.empowerment.salesrobot.uitls.GlideUtils;
+import com.empowerment.salesrobot.uitls.SPUtil;
 import com.empowerment.salesrobot.view.RCRelativeLayout;
 
 import java.util.List;
+
+import static com.empowerment.salesrobot.config.Url.HTTP;
 
 /**
  * Author: 小火
@@ -69,6 +71,7 @@ public class RoBotIMAdapter extends BaseAdapter {
             viewHolder = (RoBotIMHolder) convertView.getTag();
         }
         TrainRecordBean.ContentRecord contentRecord = mList.get(position);
+        GlideUtils.imageLoader(context, HTTP+SPUtil.getString(context,"image"),viewHolder.mUserIcon);
         if (contentRecord.getLeftOrRight() == 0) {//左边
             viewHolder.mRightVideoPaly.setVisibility(View.GONE);
             viewHolder.mLeft.setVisibility(View.VISIBLE);
@@ -88,7 +91,7 @@ public class RoBotIMAdapter extends BaseAdapter {
                     viewHolder.mRCLeftImage.setVisibility(View.VISIBLE);
                     viewHolder.mLeftContent.setVisibility(View.GONE);
                     viewHolder.mLeftIamge.setImageResource(R.drawable.sale_icon_img);
-                    GlideUtils.imageLoader(context, Url.HTTP + contentRecord.getPic(), viewHolder.mLeftIamge);
+                    GlideUtils.imageLoader(context, HTTP + contentRecord.getPic(), viewHolder.mLeftIamge);
                     break;
                 default: //文本
                     viewHolder.mRCLeftImage.setVisibility(View.GONE);
