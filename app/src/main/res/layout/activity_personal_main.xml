@@ -110,7 +110,8 @@
         android:text="常见问题"
         android:textColor="@color/black"
         android:textSize="18sp"
-        android:paddingStart="15dp" />
+        android:paddingStart="15dp"
+        android:visibility="gone"/>
 
     <include layout="@layout/v_horizontal_line" />
 

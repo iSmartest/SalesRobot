@@ -48,7 +48,7 @@ public class UpdateActivity extends BaseActivity {
     private String updataAddress,versionName,descc;
     private int versionCode;
     @Override
-    protected int getLauoutId() {
+    protected int getLayoutId() {
         return R.layout.activity_update;
     }
 

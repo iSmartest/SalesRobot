@@ -46,7 +46,7 @@ public class MainActivity extends BaseActivity implements HomeFragment.CallBackL
     };
 
     @Override
-    protected int getLauoutId() {
+    protected int getLayoutId() {
         return R.layout.activity_main;
     }
 

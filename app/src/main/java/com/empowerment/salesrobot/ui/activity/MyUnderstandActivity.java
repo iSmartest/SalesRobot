@@ -51,7 +51,7 @@ public class MyUnderstandActivity extends BaseActivity implements MyUnderstandAd
     private MyUnderstandAdapter mAdapter;
 
     @Override
-    protected int getLauoutId() {
+    protected int getLayoutId() {
         return R.layout.activity_my_understand;
     }
 

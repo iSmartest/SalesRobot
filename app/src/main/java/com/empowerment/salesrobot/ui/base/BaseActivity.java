@@ -34,7 +34,7 @@ public abstract class BaseActivity extends FragmentActivity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         context = this;
-        setContentView(getLauoutId());
+        setContentView(getLayoutId());
         ButterKnife.bind(this);
         dialog = ProgressDialog.createLoadingDialog(context, "加载中.....");
         StatusBarUtil.fullScreen(BaseActivity.this);
@@ -70,7 +70,7 @@ public abstract class BaseActivity extends FragmentActivity{
         anInt = true;
     }
 
-    protected abstract int getLauoutId();
+    protected abstract int getLayoutId();
 
     protected abstract void loadData();
 

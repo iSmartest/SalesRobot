@@ -71,7 +71,7 @@ public class AddCustomerActivity extends BaseActivity {
     private String mStyle, mName, mAge, mSex ="", mPhone, mIdCard, mWork, mIndustry, mIncome, mAddress, mIntention;
 
     @Override
-    protected int getLauoutId() {
+    protected int getLayoutId() {
         return R.layout.activity_add_costomer;
     }
 

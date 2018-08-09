@@ -3,18 +3,19 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/app_main_default">
+    android:background="@color/app_main_background">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_marginTop="16dp"
+        android:layout_marginBottom="8dp"
         android:layout_height="wrap_content"
+        android:background="@color/app_main_default"
         android:orientation="vertical">
         <ImageView
             android:id="@+id/iv_point_pic"
             android:layout_width="match_parent"
             android:scaleType="centerCrop"
-            android:layout_height="182dp"
+            android:layout_height="190dp"
             android:src="@drawable/image_fail_empty"/>
         <TextView
             android:id="@+id/tv_point_idea"

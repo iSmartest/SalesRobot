@@ -47,7 +47,7 @@ public class ModificationActivity extends BaseActivity {
     TextView modifNumber;
 
     @Override
-    protected int getLauoutId() {
+    protected int getLayoutId() {
         return R.layout.activity_modification;
     }
 

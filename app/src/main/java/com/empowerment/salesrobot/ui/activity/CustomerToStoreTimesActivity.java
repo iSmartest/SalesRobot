@@ -33,7 +33,7 @@ public class CustomerToStoreTimesActivity extends BaseActivity {
     private ArrayList<Parcelable> datas;
     private CustomerToStoreTimesAdapter mAdapter;
     @Override
-    protected int getLauoutId() {
+    protected int getLayoutId() {
         return R.layout.activity_customer_to_store_times;
     }
 

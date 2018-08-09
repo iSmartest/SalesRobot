@@ -52,7 +52,7 @@ public class NewPointInfoActivity extends BaseActivity {
     private String policy;
     private SeePictureDialog seePictureDialog;
     @Override
-    protected int getLauoutId() {
+    protected int getLayoutId() {
         return R.layout.activity_new_point_info;
     }
 

@@ -45,7 +45,7 @@ public class MaintenanceRecordActivity extends BaseActivity {
     private MaintenanceAdapter mAdapter;
 
     @Override
-    protected int getLauoutId() {
+    protected int getLayoutId() {
         return R.layout.activity_maintenance_record;
     }
 

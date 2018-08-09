@@ -45,7 +45,7 @@ public class UnderstandInfoActivity extends BaseActivity {
     private String mTime;
     private String mType;
     @Override
-    protected int getLauoutId() {
+    protected int getLayoutId() {
         return R.layout.activity_understand_info;
     }
 

@@ -52,7 +52,7 @@ public class FieldRecordActivity extends BaseActivity {
     private List<FieldRecordBean.DataBean.ConsultList> mList = new ArrayList<>();
     FieldRecordAdapter mAdapter;
     @Override
-    protected int getLauoutId() {
+    protected int getLayoutId() {
         return R.layout.activity_field_record;
     }
 

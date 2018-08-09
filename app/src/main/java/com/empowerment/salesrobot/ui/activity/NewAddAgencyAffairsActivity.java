@@ -54,7 +54,7 @@ public class NewAddAgencyAffairsActivity extends BaseActivity {
     private int mYear, mMonth, mDay;
     private SelectedTimeDialog selectedTimeDialog;
     @Override
-    protected int getLauoutId() {
+    protected int getLayoutId() {
         return R.layout.activity_new_add_agency_affairs;
     }
 

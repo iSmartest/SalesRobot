@@ -40,7 +40,7 @@ public class ContentInfoActivity extends BaseActivity {
     ProgressBar progressBar;
 
     @Override
-    protected int getLauoutId() {
+    protected int getLayoutId() {
         return R.layout.activity_content_info;
     }
 

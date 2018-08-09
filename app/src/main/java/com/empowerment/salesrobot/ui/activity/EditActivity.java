@@ -90,7 +90,7 @@ public class EditActivity extends BaseActivity {
     private ArrayList<Parcelable> datas;
     private SelectedDialog selectedDialog;
     @Override
-    protected int getLauoutId() {
+    protected int getLayoutId() {
         return R.layout.activity_edit;
     }
 

@@ -36,7 +36,7 @@ public class NoticeActivity extends BaseActivity {
     @BindView(R.id.progressBar)
     ProgressBar progressBar;
     @Override
-    protected int getLauoutId() {
+    protected int getLayoutId() {
         return R.layout.activity_notice;
     }
 

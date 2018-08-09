@@ -39,7 +39,7 @@ public class TrainKnowledgeActivity extends BaseActivity {
     private String type;
     private String url;
     @Override
-    protected int getLauoutId() {
+    protected int getLayoutId() {
         return R.layout.activity_train_knowledge;
     }
 

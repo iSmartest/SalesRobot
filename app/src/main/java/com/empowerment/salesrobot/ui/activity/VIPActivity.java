@@ -94,7 +94,7 @@ public class VIPActivity extends BaseActivity {
     private int position = 0;
     private String mStyle;
     @Override
-    protected int getLauoutId() {
+    protected int getLayoutId() {
         return R.layout.activity_vip;
     }
 

@@ -8,7 +8,10 @@ import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import com.empowerment.salesrobot.R;
 import com.empowerment.salesrobot.app.MyApplication;
@@ -22,6 +25,7 @@ import com.empowerment.salesrobot.uitls.TimerUtil;
 import com.empowerment.salesrobot.uitls.ToastUtils;
 import com.google.gson.Gson;
 
+import java.io.InputStream;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -50,6 +54,10 @@ public class LoginActivity extends BaseActivity {
 
 
     private static final String TAG = "LoginActivity";
+    @BindView(R.id.text_register_protocol)
+    TextView protocol;
+    @BindView(R.id.ck_register)
+    CheckBox mCheck;
     @BindView(R.id.login_Phone)
     EditText loginPhone;
     @BindView(R.id.login_SMS)
@@ -59,6 +67,8 @@ public class LoginActivity extends BaseActivity {
     @BindView(R.id.login_Post)
     Button loginPost;
     private String sessionId = "";
+    private boolean isChoose = true;
+
     @Override
     protected void loadData() {
 
@@ -114,7 +124,16 @@ public class LoginActivity extends BaseActivity {
                 }
             }
         });
-
+        mCheck.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    isChoose = true;
+                } else {
+                    isChoose = false;
+                }
+            }
+        });
     }
 
     @Override
@@ -124,11 +143,11 @@ public class LoginActivity extends BaseActivity {
     }
 
     @Override
-    protected int getLauoutId() {
+    protected int getLayoutId() {
         return R.layout.activity_login;
     }
 
-    @OnClick({R.id.but_Login_SMS, R.id.login_Post})
+    @OnClick({R.id.but_Login_SMS, R.id.login_Post,R.id.text_register_protocol})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.but_Login_SMS:
@@ -145,9 +164,15 @@ public class LoginActivity extends BaseActivity {
                 getPhone(userphone);
                 break;
             case R.id.login_Post:
+                if (!isChoose) {
+                    ToastUtils.makeText(context, "请阅读并同意《车小宝登录协议》");
+                    return;
+                }
                 submit();
                 break;
-
+            case R.id.text_register_protocol:
+                MyApplication.openActivity(context,LoginProtocolActivity.class);
+                break;
         }
     }
 
@@ -212,5 +237,21 @@ public class LoginActivity extends BaseActivity {
         });
 
 
+    }
+
+    private String readStream(InputStream is) {
+        // 资源流(GBK汉字码）变为串
+        String res;
+        try {
+            byte[] buf = new byte[is.available()];
+            is.read(buf);
+            res = new String(buf, "GBK");
+            //  必须将GBK码制转成Unicode
+            is.close();
+        } catch (Exception e) {
+            res = "";
+        }
+        return (res);
+        //  把资源文本文件送到String串中
     }
 }

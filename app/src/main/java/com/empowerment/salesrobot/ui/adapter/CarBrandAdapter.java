@@ -48,7 +48,7 @@ public class CarBrandAdapter extends RecyclerView.Adapter<CarBrandAdapter.CarBra
         viewHolder.mName.setText(carList.getName());
         float score =carList.getScore();
         viewHolder.mRatingBar.setRating(score);
-        viewHolder.mLevel.setText("级   别： "+carList.getLevel());
+        viewHolder.mLevel.setText("级   别： "+carList.getLevel() +"级");
         viewHolder.mStructure.setText("车身结构："+carList.getStructure());
         viewHolder.mMotor.setText("发 动 机："+carList.getMotor());
         viewHolder.mGearBox.setText("变 速 箱：" + carList.getGearBox());

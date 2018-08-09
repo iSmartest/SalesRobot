@@ -205,6 +205,10 @@
             android:theme="@style/Theme.Transparent"/>
         <!--政策须知-->
         <activity android:name=".ui.activity.NoticeActivity"/>
+        <!--用户须知-->
+        <activity android:name=".ui.activity.UserKnowledgeActivity"/>
+        <!--用户须知-->
+        <activity android:name=".ui.activity.LoginProtocolActivity"/>
         <activity
             android:name="me.iwf.photopicker.PhotoPickerActivity"
             android:theme="@style/AppTheme"/>
@@ -309,6 +313,7 @@
                 <category android:name="com.empowerment.salesrobot" />
             </intent-filter>
         </activity>
+        <activity android:name=".ui.activity.LoginProtocolActivity" />
 
         <!-- Required SDK核心功能-->
         <service

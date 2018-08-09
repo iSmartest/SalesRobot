@@ -107,7 +107,7 @@ public class RoBotIMActivity extends BaseActivity implements ReplacePicListener 
     private String url;//视频播放地址
     private int itemPosition;
     @Override
-    protected int getLauoutId() {
+    protected int getLayoutId() {
         return R.layout.activity_robot_im;
     }
 
@@ -233,7 +233,7 @@ public class RoBotIMActivity extends BaseActivity implements ReplacePicListener 
                 ((InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE)).hideSoftInputFromWindow(RoBotIMActivity.this.getCurrentFocus().getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
                 break;
                 case R.id.title_OK:
-                ToastUtils.makeText(context,"用户须知");
+                MyApplication.openActivity(context,UserKnowledgeActivity.class);
                 break;
             case R.id.iv_keyboard:
 //                ToastUtils.makeText(context,"你好666啊！");

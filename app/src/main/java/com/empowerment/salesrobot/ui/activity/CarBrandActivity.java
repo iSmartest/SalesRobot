@@ -46,7 +46,7 @@ public class CarBrandActivity extends BaseActivity {
     private CarBrandAdapter mAdapter;
     private List<CarBrandBean.DataBean.CarList> mList = new ArrayList<>();
     @Override
-    protected int getLauoutId() {
+    protected int getLayoutId() {
         return R.layout.activity_car_brand;
     }
 

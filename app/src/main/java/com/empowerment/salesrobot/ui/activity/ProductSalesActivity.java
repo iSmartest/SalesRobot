@@ -56,7 +56,7 @@ public class ProductSalesActivity extends BaseActivity {
     private BrandAdapter mAdapter;
     private List<ProductSalesBean.DataBean.BList> mList = new ArrayList<>();
     @Override
-    protected int getLauoutId() {
+    protected int getLayoutId() {
         return R.layout.activity_product_sales;
     }
 

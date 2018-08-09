@@ -88,7 +88,7 @@ public class InformationActivity extends BaseActivity {
     private String keyWord = "";
 
     @Override
-    protected int getLauoutId() {
+    protected int getLayoutId() {
         return R.layout.activity_information;
     }
 

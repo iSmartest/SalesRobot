@@ -100,7 +100,7 @@ public class SeePictureActivity extends BaseActivity {
     }
 
     @Override
-    protected int getLauoutId() {
+    protected int getLayoutId() {
         return R.layout.see_picture_tips;
     }
 

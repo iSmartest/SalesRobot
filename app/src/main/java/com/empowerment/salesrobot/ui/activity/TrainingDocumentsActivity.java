@@ -70,7 +70,7 @@ public class TrainingDocumentsActivity extends BaseActivity {
     private List<TrainingDocBean.DataBean.TdoctList> mList = new ArrayList<>();
 
     @Override
-    protected int getLauoutId() {
+    protected int getLayoutId() {
         return R.layout.activity_training_doc;
     }
 

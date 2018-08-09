@@ -46,7 +46,7 @@ public class BuyCarRecordActivity extends BaseActivity {
     private BuyCarAdapter mAdapter;
 
     @Override
-    protected int getLauoutId() {
+    protected int getLayoutId() {
         return R.layout.activity_maintenance_record;
     }
 

@@ -48,7 +48,7 @@ public class TrainingVideoActivity extends BaseActivity {
     private TrainingVideoAdapter mAdapter;
     private List<TrainingVideoBean.DataBean.VideoList> mList = new ArrayList<>();
     @Override
-    protected int getLauoutId() {
+    protected int getLayoutId() {
         return R.layout.activity_train_video;
     }
 

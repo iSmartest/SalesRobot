@@ -37,6 +37,11 @@ android {
     repositories {
         mavenCentral()
     }
+
+    lintOptions {
+        checkReleaseBuilds false
+        abortOnError false
+    }
 }
 
 dependencies {

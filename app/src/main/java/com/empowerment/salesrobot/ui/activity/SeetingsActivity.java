@@ -62,7 +62,7 @@ public class SeetingsActivity extends BaseActivity {
     TextView mVeesionUpdate;
 
     @Override
-    protected int getLauoutId() {
+    protected int getLayoutId() {
         return R.layout.activity_seetings;
     }
 

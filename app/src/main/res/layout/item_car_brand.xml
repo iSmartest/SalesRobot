@@ -80,6 +80,8 @@
             android:layout_marginTop="4dp"
             android:layout_below="@id/a_list_item_motor"
             android:id="@+id/a_list_item_gearBox"
+            android:singleLine="true"
+            android:ellipsize="end"
             android:textColor="@color/vipTextColor"/>
         <TextView
             android:layout_width="wrap_content"

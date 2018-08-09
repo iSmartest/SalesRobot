@@ -48,13 +48,12 @@ public class NewPointActivity extends BaseActivity {
     private List<NewPointBean.DataBean.CList> mList = new ArrayList<>();
     private int nowPage = 1;
     @Override
-    protected int getLauoutId() {
+    protected int getLayoutId() {
         return R.layout.activity_new_point;
     }
 
     @Override
     protected void loadData() {
-        mList.clear();
         mAdapter.notifyDataSetChanged();
         Map<String,String> params = new HashMap<>();
         params.put("groupid", SPUtil.getString(context,SALE_ID));
@@ -71,11 +70,12 @@ public class NewPointActivity extends BaseActivity {
             if (cLists != null && !cLists.isEmpty() && cLists.size() > 0){
                 mList.addAll(cLists);
                 mAdapter.notifyDataSetChanged();
-                if (cLists.size() < 10){
-                    ToastUtils.makeText(context,"没有更多了");
-                    mRecyclerView.noMoreLoading();
-                }
             }
+            if (cLists.size() < 10){
+                ToastUtils.makeText(context,"没有更多了");
+                mRecyclerView.noMoreLoading();
+            }
+            mRecyclerView.refreshComplete();
         });
     }
 
@@ -86,7 +86,6 @@ public class NewPointActivity extends BaseActivity {
         mRecyclerView.setLayoutManager(new LinearLayoutManager(context));
         mAdapter = new NewPointAdapter(context,mList);
         mRecyclerView.setAdapter(mAdapter);
-
         mRecyclerView.setLoadingListener(new XRecyclerView.LoadingListener() {
             @Override
             public void onRefresh() {

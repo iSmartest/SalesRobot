@@ -54,7 +54,7 @@ public class FieldRecordInfoActivity extends BaseActivity {
     private List<FieldRecordInfoBean.DataBean.ConList> mList = new ArrayList<>();
     private FieldRecordInfoAdapter mAdapter;
     @Override
-    protected int getLauoutId() {
+    protected int getLayoutId() {
         return R.layout.activity_field_record_info;
     }
 

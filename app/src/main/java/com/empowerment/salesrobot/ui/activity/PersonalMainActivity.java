@@ -70,7 +70,7 @@ public class PersonalMainActivity extends BaseActivity {
     };
 
     @Override
-    protected int getLauoutId() {
+    protected int getLayoutId() {
         return R.layout.activity_personal_main;
     }
 

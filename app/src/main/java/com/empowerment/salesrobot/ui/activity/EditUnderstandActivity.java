@@ -49,7 +49,7 @@ public class EditUnderstandActivity extends BaseActivity {
     @BindView(R.id.tv_edit_time)
     TextView mTime;
     @Override
-    protected int getLauoutId() {
+    protected int getLayoutId() {
         return R.layout.activity_edit_understand;
     }
 

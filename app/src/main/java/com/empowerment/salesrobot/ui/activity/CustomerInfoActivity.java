@@ -51,7 +51,7 @@ public class CustomerInfoActivity extends BaseActivity {
     @BindView(R.id.tv_vip_customer)
     TextView tvVIPCustomer;
     @Override
-    protected int getLauoutId() {
+    protected int getLayoutId() {
         return R.layout.activity_customer_info;
     }
 

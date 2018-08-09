@@ -42,7 +42,7 @@ public class AgencyAffairsInfoActivity extends BaseActivity {
     private String type, id;
 
     @Override
-    protected int getLauoutId() {
+    protected int getLayoutId() {
         return R.layout.activity_agency_affairs_info;
     }
 

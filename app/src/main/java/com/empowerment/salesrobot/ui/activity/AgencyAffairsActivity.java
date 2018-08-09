@@ -63,7 +63,7 @@ public class AgencyAffairsActivity extends BaseActivity {
     private AgencyAffairsAdapter mAdapter;
     //Model：定义的数据
     @Override
-    protected int getLauoutId() {
+    protected int getLayoutId() {
         return R.layout.activity_agency_affairs;
     }
 
