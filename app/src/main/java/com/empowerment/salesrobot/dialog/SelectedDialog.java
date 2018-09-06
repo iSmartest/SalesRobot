@@ -13,10 +13,8 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-
 import com.empowerment.salesrobot.R;
 import com.empowerment.salesrobot.view.wheelview.AbstractWheelTextAdapter1;
-import com.empowerment.salesrobot.view.wheelview.OnWheelChangedListener;
 import com.empowerment.salesrobot.view.wheelview.WheelView;
 
 import java.util.ArrayList;
@@ -80,8 +78,6 @@ public class SelectedDialog extends Dialog implements
             //上面的代码，是用来去除Holo主题的蓝色线条
             e.printStackTrace();
         }
-
-
     }
 
     @Override

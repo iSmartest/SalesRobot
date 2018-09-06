@@ -85,6 +85,8 @@ public class VIPActivity extends BaseActivity {
     TextView mBirthdayReminding;
     @BindView(R.id.tv_car_purchase)
     TextView mPurchase;
+    @BindView(R.id.tv_customer_style)
+    TextView mCustomerStyle;
     @BindView(R.id.tv_car_insurance)
     TextView mInsurance;
     @BindView(R.id.mCopyRecyclerView)
@@ -108,8 +110,10 @@ public class VIPActivity extends BaseActivity {
         mStyle = getIntent().getStringExtra("mStyle");
         if (mStyle.equals("1")){
             title.setText("VIP客户");
+            mCustomerStyle.setText("VIP客户");
         }else {
             title.setText("预成交客户");
+            mCustomerStyle.setText("预成交客户");
         }
         titleBack.setVisibility(View.VISIBLE);
         titleLayout.setBackgroundColor(getResources().getColor(R.color.colorTransParent));

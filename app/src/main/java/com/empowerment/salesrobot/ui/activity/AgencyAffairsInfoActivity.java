@@ -6,6 +6,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.empowerment.salesrobot.R;
+import com.empowerment.salesrobot.app.MyApplication;
 import com.empowerment.salesrobot.config.Url;
 import com.empowerment.salesrobot.okhttp.MyOkhttp;
 import com.empowerment.salesrobot.ui.base.BaseActivity;
@@ -40,7 +41,7 @@ public class AgencyAffairsInfoActivity extends BaseActivity {
     @BindView(R.id.tv_affairs_info_finish)
     TextView mFinish;
     private String type, id;
-
+    private int open;
     @Override
     protected int getLayoutId() {
         return R.layout.activity_agency_affairs_info;
@@ -57,6 +58,7 @@ public class AgencyAffairsInfoActivity extends BaseActivity {
         titleBack.setVisibility(View.VISIBLE);
         type = getIntent().getStringExtra("type");
         id = getIntent().getStringExtra("id");
+        open = getIntent().getIntExtra("open",1);
         if (getIntent().getStringExtra("isFinish").equals("1")){
             mFinish.setVisibility(View.GONE);
         }else {
@@ -76,6 +78,12 @@ public class AgencyAffairsInfoActivity extends BaseActivity {
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.title_Back:
+                if (open == 2){
+                    MyApplication.openActivity(context,MainActivity.class);
+                    finish();
+                }else {
+                    finish();
+                }
                 finish();
                 break;
             case R.id.tv_affairs_info_finish:

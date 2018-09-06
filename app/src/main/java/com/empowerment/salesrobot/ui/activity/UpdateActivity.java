@@ -3,24 +3,32 @@ package com.empowerment.salesrobot.ui.activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.empowerment.salesrobot.R;
+import com.empowerment.salesrobot.config.Url;
 import com.empowerment.salesrobot.dialog.ErrorDialog;
+import com.empowerment.salesrobot.okhttp.MyOkhttp;
 import com.empowerment.salesrobot.ui.base.BaseActivity;
+import com.empowerment.salesrobot.ui.model.UpdateBean;
 import com.empowerment.salesrobot.uitls.GlobalMethod;
 import com.empowerment.salesrobot.uitls.ToastUtils;
 import com.empowerment.salesrobot.uitls.UpdateManager;
-import com.empowerment.salesrobot.R;
+import com.google.gson.Gson;
 
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+
+import static com.empowerment.salesrobot.config.BaseUrl.STORE_ID;
 
 /**
  * Created by 小火
@@ -55,37 +63,31 @@ public class UpdateActivity extends BaseActivity {
     @Override
     protected void loadData() {
         Map<String,String> params = new HashMap<>();
-//        params.put("json",json);
-//        dialog1.show();
-//        OkHttpUtils.post().url(Constant.THE_SERVER_URL).params(params).build().execute(new StringCallback() {
-//            @Override
-//            public void onError(Call call, Exception e, int id) {
-//                dialog1.dismiss();
-//                ToastUtils.makeText(context,e.getMessage());
-//            }
-//
-//            @Override
-//            public void onResponse(String response, int id) {
-//                Log.i("response", "onResponse: " + response);
-//                Gson gson = new Gson();
-//                dialog1.dismiss();
-//                UpdateBean mUpdateBean = gson.fromJson(response,UpdateBean.class);
-//                if (mUpdateBean.getResult().equals("1")){
-//                    ToastUtils.makeText(context,mUpdateBean.getResultNote());
-//                    return;
-//                }
-//                versionCode = mUpdateBean.getVersionNumber();
-//                updataAddress = mUpdateBean.getUpdataAddress();
-//                versionName = mUpdateBean.getVersionName();
-//                descc = mUpdateBean.getDescc();
-//                mIntroduce.setText(descc);
-//                if (versionCode > GlobalMethod.getVersionCode(context)) {
-//                    tvVersionName.setText("最新版" + versionName);
-//                } else {
-//                    tvVersionName.setText("已是最新版");
-//                }
-//            }
-//        });
+        params.put("type","1");
+        params.put(STORE_ID,"1");
+        MyOkhttp.Okhttp(context, Url.THE_SERVER_URL, "查询中...", params, new MyOkhttp.CallBack() {
+            @Override
+            public void onRequestComplete(String response, String result, String resultNote) {
+                Log.i("TAG", "onRequestComplete: " + response);
+                Gson gson = new Gson();
+                UpdateBean mUpdateBean = gson.fromJson(response,UpdateBean.class);
+                if (result.equals("1")){
+                    ToastUtils.makeText(context,resultNote);
+                    return;
+                }
+                versionCode = Integer.parseInt(mUpdateBean.getData().getNumber());
+                updataAddress = mUpdateBean.getData().getAddress();
+                versionName = mUpdateBean.getData().getName();
+                descc = mUpdateBean.getData().getDesc();
+                mIntroduce.setText(descc);
+                if (versionCode > GlobalMethod.getVersionCode(context)) {
+                    tvVersionName.setText("最新版" + versionName);
+                } else {
+                    tvVersionName.setText("已是最新版");
+                }
+            }
+        });
+
     }
 
 

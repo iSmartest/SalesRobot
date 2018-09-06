@@ -119,7 +119,8 @@ public class PersonalMainActivity extends BaseActivity {
                 LogOutDialog dialog = new LogOutDialog(PersonalMainActivity.this, R.string.log_out, () -> {
                     SPUtil.putString(context, SALE_ID, "");//用户ID
                     SPUtil.putString(context, PHONE_NUMBER, "");//手机号码
-                    ToastUtils.makeText(context, "已安全退出账号");
+                    ToastUtils.makeText(
+                            context, "已安全退出账号");
                     AppManager.finishAllActivity();
                     MyApplication.openActivity(context, LoginActivity.class);
                 });
@@ -132,7 +133,6 @@ public class PersonalMainActivity extends BaseActivity {
         @Override
         public void run() {
             try {
-
                 DataCleanManager.clearAllCache(PersonalMainActivity.this);
                 Thread.sleep(3000);
                 if (DataCleanManager.getTotalCacheSize(PersonalMainActivity.this).startsWith("O")) {
@@ -143,5 +143,4 @@ public class PersonalMainActivity extends BaseActivity {
             }
         }
     }
-
 }

@@ -32,7 +32,6 @@ import com.google.gson.Gson;
 import com.youth.banner.Banner;
 import com.youth.banner.BannerConfig;
 import com.youth.banner.Transformer;
-import com.youth.banner.listener.OnBannerClickListener;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -57,7 +56,7 @@ import static com.empowerment.salesrobot.config.Url.HTTP;
  * home页面
  */
 
-public class HomeFragment extends BaseFragment implements OnBannerClickListener {
+public class HomeFragment extends BaseFragment {
 
     private static final String TAG = "HomeFragment";
     @BindView(R.id.title_Layout)
@@ -84,7 +83,6 @@ public class HomeFragment extends BaseFragment implements OnBannerClickListener 
     Unbinder unbinder;
     private String notice;
     private int companyNoticeCount;
-    private Map<String, String> homeMap = new HashMap<>();
     private List<String> imgList = new ArrayList<>();
     private List<HomeModel.DataBean.ImageList> homeList = new ArrayList<>();
     private CallBackListener callBackListener;
@@ -109,7 +107,6 @@ public class HomeFragment extends BaseFragment implements OnBannerClickListener 
 
     protected void initView() {
         titleLayout.setBackgroundColor(context.getResources().getColor(R.color.colorTransParent));
-        mBanner.setOnBannerClickListener(this);
     }
 
     @OnClick({R.id.ll_home_item0, R.id.ll_home_item1, R.id.ll_home_item2, R.id.ll_home_item3, R.id.ll_home_item4, R.id.ll_home_item5})
@@ -137,6 +134,7 @@ public class HomeFragment extends BaseFragment implements OnBannerClickListener 
     }
 
     protected void loadData() {
+        Map<String, String> homeMap = new HashMap<>();
         homeMap.put(SALE_ID,SPUtil.getString(context, SALE_ID));
         homeMap.put(STORE_ID,SPUtil.getString(context, STORE_ID));
         MyOkhttp.Okhttp(context, Url.INDEX, "加载中...", homeMap, (response, result, resultNote) -> {
@@ -180,11 +178,6 @@ public class HomeFragment extends BaseFragment implements OnBannerClickListener 
         unbinder.unbind();
     }
 
-    @Override
-    public void OnBannerClick(int position) {
-        if (homeList != null && !homeList.isEmpty() && homeList.size() > 0)
-        ToastUtils.makeText(context, "这是" + homeList.get(position - 1).getName());
-    }
 
     public interface CallBackListener {
         void onClickListener(int flag);
@@ -196,7 +189,7 @@ public class HomeFragment extends BaseFragment implements OnBannerClickListener 
             //接到广播通知后刷新数据源
             homeList.clear();
             imgList.clear();
-
+            loadData();
         }
     };
 

@@ -118,6 +118,5 @@ public class Url {
     public static final String BUYPOINTDETAIL = HTTP + "/app/brand/buyPointDetail?";
 
     //视频测试地址  非解析
-    public static final String VIDEO_URL="http://123.125.39.231/play.videocache.lecloud.com/187/28/92/letv-gug/14/ver_00_22-1051581402-avc-1507856-aac-96000-117151-23680505-2e0b3774490e51ac469db4313025b877-1466497857703.mp4?crypt=13aa7f2e25900&b=259&nlh=4096&nlt=60&bf=8000&p2p=1&video_type=mp4&termid=0&tss=no&platid=3&splatid=345&its=0&qos=3&fcheck=0&amltag=5&mltag=5&proxy=3086463625,467476870&uid=3722289275.rp&keyitem=GOw_33YJAAbXYE-cnQwpfLlv_b2zAkYctFVqe5bsXQpaGNn3T1-vhw..&ntm=1529559600&nkey=b16cff671373077cbe213a622c700f91&nkey2=4f312022b4e7da5b5a32ff2a5c220265&auth_key=1529559600-1-0-3-345-8f54840f90bffd363433c96565a50985&geo=CN-1-6-2&mmsid=65565355&tm=1499247143&key=f0eadb4f30c404d49ff8ebad673d3742&playid=0&vtype=21&cvid=2026135183914&payff=0&sign=mb&dname=mobile&tag=mobile&xformat=super&uidx=0&errc=424&gn=3334&ndtype=0&vrtmcd=102&buss=5&cips=221.221.160.123";
-
+    public static final String THE_SERVER_URL = HTTP +"/pai/car/version";
 }

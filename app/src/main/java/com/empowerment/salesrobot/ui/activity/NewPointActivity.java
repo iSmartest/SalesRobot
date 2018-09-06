@@ -72,7 +72,6 @@ public class NewPointActivity extends BaseActivity {
                 mAdapter.notifyDataSetChanged();
             }
             if (cLists.size() < 10){
-                ToastUtils.makeText(context,"没有更多了");
                 mRecyclerView.noMoreLoading();
             }
             mRecyclerView.refreshComplete();

@@ -30,9 +30,14 @@ import com.example.xrecyclerview.XRecyclerView;
 import com.google.gson.Gson;
 
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 import butterknife.BindView;
@@ -86,7 +91,7 @@ public class InformationActivity extends BaseActivity {
     private String type = "2";
     private String cType;
     private String keyWord = "";
-
+    private  String dateString;
     @Override
     protected int getLayoutId() {
         return R.layout.activity_information;
@@ -135,7 +140,6 @@ public class InformationActivity extends BaseActivity {
     }
 
     private void showDateDialog(List<Integer> date) {
-
         DatePickerDialog.Builder builder = new DatePickerDialog.Builder(this);
         builder.setOnDateSelectedListener(new DatePickerDialog.OnDateSelectedListener() {
             @Override
@@ -146,7 +150,7 @@ public class InformationActivity extends BaseActivity {
                 infoList.clear();
                 mAdapter.notifyDataSetChanged();
                 dialog.dismiss();
-                loadData();//往期根据时间查询
+                getdata();//往期根据时间查询
             }
 
             @Override
@@ -245,6 +249,14 @@ public class InformationActivity extends BaseActivity {
                 MyApplication.openActivity(context, EditActivity.class, bundle);
             }
         });
+
+        Date date = new Date();//取时间
+        Calendar calendar = new GregorianCalendar();
+        calendar.setTime(date);
+        date = calendar.getTime();
+        SimpleDateFormat formatter2 = new SimpleDateFormat("yyyy" + "-" + "MM" + "-" + "dd", Locale.CHINA);
+        dateString = formatter2.format(date);
+
     }
 
     @Override
@@ -268,7 +280,7 @@ public class InformationActivity extends BaseActivity {
             case R.id.tv_data:
                 type = "1";//拿到日期标签索引
                 currentFocus(0);
-                showDateDialog(DateUtil.getDateForString("1990-01-01"));//输入框赋值
+                showDateDialog(DateUtil.getDateForString(dateString));//输入框赋值
                 break;
             case R.id.tv_work:
                 type = "2";//拿到工作标签索引

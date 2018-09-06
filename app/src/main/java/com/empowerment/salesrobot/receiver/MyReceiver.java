@@ -143,6 +143,7 @@ public class MyReceiver extends BroadcastReceiver {
                     detailIntent.putExtra("isFinish", finish);
                     detailIntent.putExtra("content", content);
                     detailIntent.putExtra("time", endDate);
+                    detailIntent.putExtra("open", 2);
                     break;
                 case "3": //个人待办
                     detailIntent = new Intent(context, AgencyAffairsInfoActivity.class);
@@ -151,6 +152,7 @@ public class MyReceiver extends BroadcastReceiver {
                     detailIntent.putExtra("isFinish", finish);
                     detailIntent.putExtra("content", content);
                     detailIntent.putExtra("time", endDate);
+                    detailIntent.putExtra("open", 2);
                     break;
                 case "4": //系统消息
                     detailIntent = new Intent(context, MainActivity.class);

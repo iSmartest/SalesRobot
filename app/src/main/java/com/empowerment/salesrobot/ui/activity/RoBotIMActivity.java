@@ -24,6 +24,7 @@ import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.empowerment.salesrobot.R;
 import com.empowerment.salesrobot.app.MyApplication;
 import com.empowerment.salesrobot.config.Url;
@@ -122,6 +123,7 @@ public class RoBotIMActivity extends BaseActivity implements ReplacePicListener 
         titleBack.setVisibility(View.VISIBLE);
         titleOK.setVisibility(View.VISIBLE);
         titleOK.setText("须知");
+        Glide.with(context).load(R.drawable.chat).into(mKeyBoard);
         SoftKeyBoardListener.setListener(RoBotIMActivity.this, new SoftKeyBoardListener.OnSoftKeyBoardChangeListener() {
             @Override
             public void keyBoardShow(int rootHight, int keyBroadheight) {
@@ -184,7 +186,7 @@ public class RoBotIMActivity extends BaseActivity implements ReplacePicListener 
                     case 1: //视频
                         Bundle videoBundle = new Bundle();
                         videoBundle.putString("url", Url.HTTP + mList.get(position).getUrl());
-                        videoBundle.putString("uri", Url.HTTP + mList.get(position).getPic());
+                        videoBundle.putString("uri", mList.get(position).getContent());
                         videoBundle.putString("mName", Url.HTTP + mList.get(position).getPic());
                         MyApplication.openActivity(context, PlayVideoActivity.class,videoBundle);
                         break;
@@ -308,7 +310,7 @@ public class RoBotIMActivity extends BaseActivity implements ReplacePicListener 
                         dialog.show();
                         break;
                     case 3://只有视频
-                        TrainRecordBean.ContentRecord comm3 = new TrainRecordBean.ContentRecord(0, 1, robotResultBean.getData().getAnswers().get(0).getPics().get(0).getPics(), robotResultBean.getData().getAnswers().get(0).getVideoAddress(),robotResultBean.getData().getQuestion());
+                        TrainRecordBean.ContentRecord comm3 = new TrainRecordBean.ContentRecord(0, 1, "",robotResultBean.getData().getAnswers().get(0).getVideoAddress(),robotResultBean.getData().getQuestion());
                         mList.add(comm3);
                         mAdapter.notifyDataSetChanged();
                         break;

@@ -313,7 +313,7 @@
                 <category android:name="com.empowerment.salesrobot" />
             </intent-filter>
         </activity>
-        <activity android:name=".ui.activity.LoginProtocolActivity" />
+
 
         <!-- Required SDK核心功能-->
         <service

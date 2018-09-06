@@ -149,12 +149,4 @@ public class FieldRecordInfoActivity extends BaseActivity {
                 break;
         }
     }
-    @Override
-    protected void onResume() {
-        super.onResume();
-        nowPage = 1;
-        mList.clear();
-        mAdapter.notifyDataSetChanged();
-        loadData();
-    }
 }

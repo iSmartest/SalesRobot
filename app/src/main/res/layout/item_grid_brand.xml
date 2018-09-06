@@ -10,12 +10,15 @@
         android:layout_height="wrap_content"
         android:background="@color/app_main_default"
         android:orientation="vertical"
-        android:paddingTop="14dp">
+        android:paddingTop="10dp">
 
         <ImageView
             android:id="@+id/iv_brand_pic"
             android:layout_width="match_parent"
-            android:layout_height="52dp"
+            android:layout_height="56dp"
+            android:scaleType="centerCrop"
+            android:paddingLeft="2dp"
+            android:paddingRight="2dp"
             android:src="@drawable/audi_icon_img" />
 
         <TextView

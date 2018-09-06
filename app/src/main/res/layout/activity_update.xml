@@ -47,10 +47,11 @@
         <TextView
             android:id="@+id/a_about_lay_rate"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="50dp"
             android:gravity="center_vertical"
             android:padding="10dp"
             android:text="@string/want_good_praise"
+            android:textSize="16dp"
             android:textColor="@color/text_color_main" />
 
         <View
@@ -62,7 +63,7 @@
         <LinearLayout
             android:id="@+id/a_about_check_version"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="50dp"
             android:orientation="horizontal">
             <TextView
                 android:layout_width="match_parent"
@@ -71,6 +72,7 @@
                 android:padding="10dp"
                 android:text="@string/version_update"
                 android:layout_weight="1"
+                android:textSize="16dp"
                 android:textColor="@color/text_color_main" />
             <TextView
                 android:id="@+id/a_about_version_name"
@@ -78,6 +80,7 @@
                 android:layout_height="wrap_content"
                 android:gravity="end|center_vertical"
                 android:padding="10dp"
+                android:textSize="14dp"
                 android:layout_weight="1"
                 android:textColor="@color/red1" />
 
@@ -93,7 +96,7 @@
         <TextView
             android:id="@+id/a_about_lay_introduce"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="50dp"
             android:gravity="start|center_vertical"
             android:padding="10dp"
             android:text="@string/version_introduction"
@@ -105,7 +108,7 @@
                 android:layout_height="wrap_content"
                 android:gravity="start|center_vertical"
                 android:padding="10dp"
-                android:textSize="12sp"
+                android:textSize="14sp"
                 android:background="@color/app_main_background"
                 android:textColor="@color/text_color_main" />
 

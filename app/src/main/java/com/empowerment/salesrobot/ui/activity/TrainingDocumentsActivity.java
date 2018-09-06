@@ -138,6 +138,7 @@ public class TrainingDocumentsActivity extends BaseActivity {
                 String path = Environment.getExternalStorageDirectory() + "/download/";
                 String[] name = mUrl.split("/");
                 path = path + name[name.length - 1];
+
                 file = new File(path);
                 new Thread() {
                     @Override
