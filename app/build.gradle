@@ -21,7 +21,7 @@ android {
         debug {
             keyAlias 'key0'
             keyPassword '123456'
-            storeFile file('C:/Users/96147/Documents/SalesRobot/app/robot.jks')
+            storeFile file('D:/worksprce/SalesRobot/app/robot.jks')
             storePassword '123456'
         }
     }
